@@ -34,18 +34,39 @@ public:
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
-
-            if (!(alignment.CigarData.size() == 1 && alignment.CigarData[0].Type == 'M')) {
+            if (CheckConditions(alignment)) {
                 map_of_bad_reads_[bx].push_back(alignment.AlignedBases);
                 VERBOSE_POWER(++alignments_stored, " alignments stored");
             }
         }
+        INFO("Total " << alignment_count << " alignments processed");
+        INFO("Total " << alignments_stored << " alignments stored");
         reader.Close();
         INFO("Blackbird finished");
         return 0;
     }
 private:
     std::unordered_map<std::string, std::vector<std::string>> map_of_bad_reads_;
+
+
+    bool CheckConditions(BamTools::BamAlignment &alignment) {
+        if (alignment.MapQuality < OptionBase::mapping_quality) {
+            return true;
+        }
+        auto cigar = alignment.CigarData;
+        int num_soft_clip = 0;
+        for (auto c : cigar) {
+            if (c.Type == 'S') {
+                num_soft_clip += c.Length;
+            }
+        }
+        if (num_soft_clip/(double)alignment.Length > 0.2/*opt::max_soft_clipping*/) {
+            return true;
+        }
+
+    }
+
+
 };
 
 #endif //BLACKBIRD_PIPELINE_H

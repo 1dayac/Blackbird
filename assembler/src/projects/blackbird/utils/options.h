@@ -11,6 +11,7 @@ public:
     static std::string bam; // the bam to analyze
     static std::string reference; // file with list of tags to be extracted
     static std::string output_folder;
+    static int mapping_quality;
     static bool verbose;
 };
 
