@@ -29,14 +29,15 @@ public:
         reader.Open(OptionBase::bam.c_str());
         BamTools::BamAlignment alignment;
         size_t alignment_count = 0;
+        size_t alignments_stored = 0;
         while(reader.GetNextAlignment(alignment)) {
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
 
             if (!(alignment.CigarData.size() == 1 && alignment.CigarData[0].Type == 'M')) {
-                map_of_bad_reads_[bx].push_back(alignment);
-                VERBOSE_POWER(map_of_bad_reads_.size(), " alignments stored");
+                map_of_bad_reads_[bx].push_back(alignment.AlignedBases);
+                VERBOSE_POWER(++alignments_stored, " alignments stored");
             }
         }
         reader.Close();
@@ -44,7 +45,7 @@ public:
         return 0;
     }
 private:
-    std::unordered_map<std::string, std::vector<BamTools::BamAlignment>> map_of_bad_reads_;
+    std::unordered_map<std::string, std::vector<std::string>> map_of_bad_reads_;
 };
 
 #endif //BLACKBIRD_PIPELINE_H
