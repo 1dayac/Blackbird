@@ -1,0 +1,1671 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
+    <generated>
+      <config projectName="Project" targetName="spades-corrector-core" />
+      <config projectName="Project" targetName="jemalloc-test-stats" />
+      <config projectName="Project" targetName="NightlyStart" />
+      <config projectName="Project" targetName="jemalloc-test-sdallocx" />
+      <config projectName="Project" targetName="ContinuousTest" />
+      <config projectName="Project" targetName="NightlyBuild" />
+      <config projectName="Project" targetName="ContinuousMemCheck" />
+      <config projectName="Project" targetName="ContinuousSubmit" />
+      <config projectName="Project" targetName="jemalloc-test-decay" />
+      <config projectName="Project" targetName="sequence_threader" />
+      <config projectName="Project" targetName="jemalloc-test-junk_free" />
+      <config projectName="Project" targetName="graphio" />
+      <config projectName="Project" targetName="jemalloc-test-ticker" />
+      <config projectName="Project" targetName="stats" />
+      <config projectName="Project" targetName="jemalloc-test-ckh" />
+      <config projectName="Project" targetName="jemalloc-test-mq" />
+      <config projectName="Project" targetName="jemalloc-test-prof_tctx" />
+      <config projectName="Project" targetName="jemalloc-test-retained" />
+      <config projectName="Project" targetName="jemalloc-jet-syms" />
+      <config projectName="Project" targetName="utils" />
+      <config projectName="Project" targetName="jemalloc-test-hook" />
+      <config projectName="Project" targetName="jemalloc-test-size_classes" />
+      <config projectName="Project" targetName="spades-truseq-analysis" />
+      <config projectName="Project" targetName="paired_info" />
+      <config projectName="Project" targetName="spades-edge-profiles" />
+      <config projectName="Project" targetName="online_vis" />
+      <config projectName="Project" targetName="jemalloc-test-atomic" />
+      <config projectName="Project" targetName="all_clion" />
+      <config projectName="Project" targetName="sequence" />
+      <config projectName="Project" targetName="ExperimentalStart" />
+      <config projectName="Project" targetName="ExperimentalSubmit" />
+      <config projectName="Project" targetName="jemalloc-test-pack" />
+      <config projectName="Project" targetName="Experimental" />
+      <config projectName="Project" targetName="Nightly" />
+      <config projectName="Project" targetName="NightlySubmit" />
+      <config projectName="Project" targetName="jemalloc-test-junk_alloc" />
+      <config projectName="Project" targetName="spades-bwa" />
+      <config projectName="Project" targetName="ExperimentalConfigure" />
+      <config projectName="Project" targetName="jemalloc-test-extent" />
+      <config projectName="Project" targetName="jemalloc-test-arena_reset_prof" />
+      <config projectName="Project" targetName="ExperimentalBuild" />
+      <config projectName="Project" targetName="component_generator" />
+      <config projectName="Project" targetName="jemalloc-test-math" />
+      <config projectName="Project" targetName="jemalloc-test-slab_sizes" />
+      <config projectName="Project" targetName="jemalloc-test-aligned_alloc" />
+      <config projectName="Project" targetName="jemalloc-test-hash" />
+      <config projectName="Project" targetName="jemalloc-test-witness" />
+      <config projectName="Project" targetName="jemalloc-test-bitmap" />
+      <config projectName="Project" targetName="jemalloc-test-spin" />
+      <config projectName="Project" targetName="jemalloc-test-overflow" />
+      <config projectName="Project" targetName="prop_binning" />
+      <config projectName="Project" targetName="jemallocTestStress" />
+      <config projectName="Project" targetName="ContinuousCoverage" />
+      <config projectName="Project" targetName="jemalloc-test-slab" />
+      <config projectName="Project" targetName="spades-hammer" />
+      <config projectName="Project" targetName="NightlyTest" />
+      <config projectName="Project" targetName="jemalloc-test-sc" />
+      <config projectName="Project" targetName="jemalloc-test-prng" />
+      <config projectName="Project" targetName="kmer_multiplicity_counter" />
+      <config projectName="Project" targetName="jemalloc-test-arena_reset" />
+      <config projectName="Project" targetName="NightlyCoverage" />
+      <config projectName="Project" targetName="short_edge_contractor" />
+      <config projectName="Project" targetName="jemalloc-test-log" />
+      <config projectName="Project" targetName="jemalloc-test-prof_gdump" />
+      <config projectName="Project" targetName="jemalloc-test-stats_print" />
+      <config projectName="Project" targetName="mapping_printer" />
+      <config projectName="Project" targetName="jemalloc-test-malloc" />
+      <config projectName="Project" targetName="reference_fixer" />
+      <config projectName="Project" targetName="ExperimentalMemCheck" />
+      <config projectName="Project" targetName="assembly_graph" />
+      <config projectName="Project" targetName="jemalloc-test-allocated" />
+      <config projectName="Project" targetName="jemalloc-test-SFMT" />
+      <config projectName="Project" targetName="jemalloc-test-mallocx" />
+      <config projectName="Project" targetName="coverage_model" />
+      <config projectName="Project" targetName="jemalloc-test-prof_thread_name" />
+      <config projectName="Project" targetName="NightlyConfigure" />
+      <config projectName="Project" targetName="jemalloc-test-mallctl" />
+      <config projectName="Project" targetName="jemalloc-test-malloc_io" />
+      <config projectName="Project" targetName="jemalloc-test-extent_util" />
+      <config projectName="Project" targetName="jemalloc-test-test_hooks" />
+      <config projectName="Project" targetName="ssw" />
+      <config projectName="Project" targetName="jemalloc-test-rb" />
+      <config projectName="Project" targetName="cgce" />
+      <config projectName="Project" targetName="contig_abundance_counter" />
+      <config projectName="Project" targetName="ExperimentalCoverage" />
+      <config projectName="Project" targetName="jemalloc-syms" />
+      <config projectName="Project" targetName="jemalloc-test-smallocx" />
+      <config projectName="Project" targetName="jemalloc-test-prof_reset" />
+      <config projectName="Project" targetName="ExperimentalUpdate" />
+      <config projectName="Project" targetName="jemalloc-test-junk" />
+      <config projectName="Project" targetName="jemalloc-test-prof_log" />
+      <config projectName="Project" targetName="jemalloc-test-seq" />
+      <config projectName="Project" targetName="jemalloc-test-prof_idump" />
+      <config projectName="Project" targetName="form_truealignments" />
+      <config projectName="Project" targetName="stages" />
+      <config projectName="Project" targetName="jemalloc-test-posix_memalign" />
+      <config projectName="Project" targetName="jemalloc-test-rtree" />
+      <config projectName="Project" targetName="cityhash" />
+      <config projectName="Project" targetName="NightlyMemoryCheck" />
+      <config projectName="Project" targetName="bwa" />
+      <config projectName="Project" targetName="spaligner" />
+      <config projectName="Project" targetName="jemalloc-test-prof_accum" />
+      <config projectName="Project" targetName="ConsensusCore" />
+      <config projectName="Project" targetName="NightlyMemCheck" />
+      <config projectName="Project" targetName="jemalloc-test-rallocx" />
+      <config projectName="Project" targetName="spades-core" />
+      <config projectName="Project" targetName="jemalloc-private-symbols-awk-jet" />
+      <config projectName="Project" targetName="jemalloc-test-ql" />
+      <config projectName="Project" targetName="ContinuousUpdate" />
+      <config projectName="Project" targetName="jemalloc-jet-syms-internal" />
+      <config projectName="Project" targetName="jemalloc-test-prof_active" />
+      <config projectName="Project" targetName="jemalloc-test-qr" />
+      <config projectName="Project" targetName="blackbird" />
+      <config projectName="Project" targetName="jemalloc-syms-internal" />
+      <config projectName="Project" targetName="jemalloc-test-emitter" />
+      <config projectName="Project" targetName="jemalloc-test-a0" />
+      <config projectName="Project" targetName="spades-kmercount" />
+      <config projectName="Project" targetName="spades-read-filter" />
+      <config projectName="Project" targetName="ContinuousStart" />
+      <config projectName="Project" targetName="llvm-support" />
+      <config projectName="Project" targetName="hattrie" />
+      <config projectName="Project" targetName="jemalloc-test-nstime" />
+      <config projectName="Project" targetName="jemalloc-test-div" />
+      <config projectName="Project" targetName="jemalloc-test-xallocx" />
+      <config projectName="Project" targetName="format" />
+      <config projectName="Project" targetName="include_test" />
+      <config projectName="Project" targetName="spades-truseq-scfcorrection" />
+      <config projectName="Project" targetName="jemalloc-jet" />
+      <config projectName="Project" targetName="gfa1" />
+      <config projectName="Project" targetName="jemalloc-test-ph" />
+      <config projectName="Project" targetName="gqf" />
+      <config projectName="Project" targetName="jemalloc-test-thread_arena" />
+      <config projectName="Project" targetName="version" />
+      <config projectName="Project" targetName="spades-stages" />
+      <config projectName="Project" targetName="spades-ionhammer" />
+      <config projectName="Project" targetName="debruijn_test" />
+      <config projectName="Project" targetName="edlib" />
+      <config projectName="Project" targetName="input" />
+      <config projectName="Project" targetName="jemalloc-test-fork" />
+      <config projectName="Project" targetName="BamTools" />
+      <config projectName="Project" targetName="nlopt" />
+      <config projectName="Project" targetName="jemalloc-test-mtx" />
+      <config projectName="Project" targetName="samtools" />
+      <config projectName="Project" targetName="jemalloc-private-symbols-awk" />
+      <config projectName="Project" targetName="modules" />
+      <config projectName="Project" targetName="jemallocIntegrationTest" />
+      <config projectName="Project" targetName="jemalloc-test-hookbench" />
+      <config projectName="Project" targetName="jemalloc-test-tsd" />
+      <config projectName="Project" targetName="jemalloc-test-extent_quantize" />
+      <config projectName="Project" targetName="path_extend" />
+      <config projectName="Project" targetName="spades-gmapper" />
+      <config projectName="Project" targetName="jemalloc-test-background_thread" />
+      <config projectName="Project" targetName="getopt_pp" />
+      <config projectName="Project" targetName="jemalloc-test-huge" />
+      <config projectName="Project" targetName="jemalloc-test-pages" />
+      <config projectName="Project" targetName="jemalloc-check" />
+      <config projectName="Project" targetName="jemalloc-test-microbench" />
+      <config projectName="Project" targetName="jemalloc-test-bit_util" />
+      <config projectName="Project" targetName="jemalloc-test-zero" />
+      <config projectName="Project" targetName="jemallocUnitTest" />
+      <config projectName="Project" targetName="jemalloc-test-MALLOCX_ARENA" />
+      <config projectName="Project" targetName="jemalloc" />
+      <config projectName="Project" targetName="jemalloc-jet-static" />
+      <config projectName="Project" targetName="ContinuousConfigure" />
+      <config projectName="Project" targetName="jemalloc-test-binshard" />
+      <config projectName="Project" targetName="jemalloc-test-thread_tcache_enabled" />
+      <config projectName="Project" targetName="Continuous" />
+      <config projectName="Project" targetName="spades-gbuilder" />
+      <config projectName="Project" targetName="ContinuousBuild" />
+      <config projectName="Project" targetName="pipeline" />
+      <config projectName="Project" targetName="pack_demo" />
+      <config projectName="Project" targetName="jemalloc-test-smoothstep" />
+      <config projectName="Project" targetName="jemalloc-test-background_thread_enable" />
+      <config projectName="Project" targetName="ExperimentalTest" />
+      <config projectName="Project" targetName="jemalloc-static" />
+      <config projectName="Project" targetName="NightlyUpdate" />
+      <config projectName="Project" targetName="jemalloc-test-base" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d7bce2d0-c7ca-4c78-8f34-003519e17127" name="Default" comment="" />
+    <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="pipeline.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/pipeline.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="570">
+              <caret line="38" column="75" lean-forward="false" selection-start-line="38" selection-start-column="75" selection-end-line="38" selection-end-column="75" />
+              <folding>
+                <element signature="e#96#133#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BamAlignment.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../ext/include/bamtools/api/BamAlignment.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="127" column="26" lean-forward="false" selection-start-line="127" selection-start-column="26" selection-end-line="127" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BamAux.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../ext/include/bamtools/api/BamAux.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="42" column="13" lean-forward="false" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="logger.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/utils/logger/logger.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="652">
+              <caret line="148" column="47" lean-forward="true" selection-start-line="148" selection-start-column="47" selection-end-line="148" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BamReader.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../ext/include/bamtools/api/BamReader.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="287">
+              <caret line="43" column="15" lean-forward="false" selection-start-line="43" selection-start-column="14" selection-end-line="43" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BamReader.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../ext/src/bamtools/api/BamReader.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="627">
+              <caret line="163" column="23" lean-forward="true" selection-start-line="163" selection-start-column="23" selection-end-line="163" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projects/ionhammer/main.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="635">
+              <caret line="303" column="18" lean-forward="true" selection-start-line="303" selection-start-column="18" selection-end-line="303" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="memory_limit.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/utils/memory_limit.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="31" column="5" lean-forward="false" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projects/ionhammer/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="36" column="70" lean-forward="false" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="70" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bam_reader.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/io/sam/bam_reader.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="802">
+              <caret line="105" column="0" lean-forward="false" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>Change</find>
+      <find>Add</find>
+      <find>SplitComponentsOnSimplePaths</find>
+      <find>cut_fro</find>
+      <find>getLongReads</find>
+      <find>path_set.AddPath</find>
+      <find>Hidde</find>
+      <find>path_set</find>
+      <find>AddBa</find>
+      <find>addBa</find>
+      <find>addBarcodes</find>
+      <find>extractLongReads</find>
+      <find>size_</find>
+      <find>INFO(</find>
+      <find>INFO</find>
+      <find>.AddPath</find>
+      <find>max</find>
+      <find>blackb</find>
+      <find>black</find>
+      <find>seri</find>
+      <find>SeriesAna</find>
+      <find>ProfileCounter</find>
+      <find>cpp</find>
+      <find>libra</find>
+      <find>create</find>
+      <find>bam</find>
+      <find>BamReader</find>
+      <find>VERBOSE_POWER</find>
+      <find>bool IsPaired(void) const;            // returns true if alignment part of paired-end rea</find>
+      <find>Ciga</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/..</dir>
+    </dirStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/common/assembly_graph/index/edge_index_builders.hpp" />
+        <option value="$PROJECT_DIR$/projects/spades/molecule_extraction_stage.hpp" />
+        <option value="$PROJECT_DIR$/common/barcode_index/barcode_index_builder.hpp" />
+        <option value="$PROJECT_DIR$/common/utils/extension_index/kmer_extension_index.hpp" />
+        <option value="$PROJECT_DIR$/common/stages/construction.cpp" />
+        <option value="$PROJECT_DIR$/spades_pipeline/spades_logic.py" />
+        <option value="$PROJECT_DIR$/common/pipeline/library.cpp" />
+        <option value="$PROJECT_DIR$/common/utils/ph_map/perfect_hash_map_builder.hpp" />
+        <option value="$PROJECT_DIR$/common/modules/path_extend/pipeline/launch_support.cpp" />
+        <option value="$PROJECT_DIR$/projects/spades/repeat_resolving.cpp" />
+        <option value="$PROJECT_DIR$/projects/spades/distance_estimation.cpp" />
+        <option value="$PROJECT_DIR$/projects/mts/kmer_multiplicity_counter.cpp" />
+        <option value="$PROJECT_DIR$/common/utils/kmer_mph/kmer_index_builder.hpp" />
+        <option value="$PROJECT_DIR$/common/utils/ph_map/perfect_hash_map.hpp" />
+        <option value="$PROJECT_DIR$/projects/cap/repeat_masking.hpp" />
+        <option value="$PROJECT_DIR$/projects/mts/contig_abundance.cpp" />
+        <option value="$PROJECT_DIR$/common/assembly_graph/index/edge_multi_index.hpp" />
+        <option value="$PROJECT_DIR$/common/modules/alignment/edge_index.hpp" />
+        <option value="$PROJECT_DIR$/common/modules/alignment/pacbio/pac_index.hpp" />
+        <option value="$PROJECT_DIR$/common/assembly_graph/index/edge_position_index.hpp" />
+        <option value="$PROJECT_DIR$/projects/spades/hybrid_aligning.cpp" />
+        <option value="$PROJECT_DIR$/common/paired_info/paired_info.hpp" />
+        <option value="$PROJECT_DIR$/common/pipeline/graphio.hpp" />
+        <option value="$PROJECT_DIR$/projects/graph-hmm/main.cpp" />
+        <option value="$PROJECT_DIR$/common/assembly_graph/dijkstra/dijkstra_helper.hpp" />
+        <option value="$PROJECT_DIR$/projects/spades/domain_graph_construction.cpp" />
+        <option value="$PROJECT_DIR$/projects/graph-hmm/ErrorOr.hpp" />
+        <option value="$PROJECT_DIR$/common/pipeline/graph_pack.hpp" />
+        <option value="$PROJECT_DIR$/projects/spades/launch.hpp" />
+        <option value="$PROJECT_DIR$/common/modules/alignment/sequence_mapper_notifier.hpp" />
+        <option value="$PROJECT_DIR$/projects/spades/pair_info_count.cpp" />
+        <option value="$PROJECT_DIR$/common/assembly_graph/components/graph_component.hpp" />
+        <option value="$PROJECT_DIR$/common/io/reads/osequencestream.hpp" />
+        <option value="$PROJECT_DIR$/common/modules/path_extend/pipeline/launcher.cpp" />
+        <option value="$PROJECT_DIR$/common/modules/alignment/rna/ss_coverage_filler.hpp" />
+        <option value="$PROJECT_DIR$/common/assembly_graph/paths/bidirectional_path_io/bidirectional_path_output.hpp" />
+        <option value="$PROJECT_DIR$/common/assembly_graph/paths/bidirectional_path_io/bidirectional_path_output.cpp" />
+        <option value="$PROJECT_DIR$/common/assembly_graph/paths/bidirectional_path.hpp" />
+        <option value="$PROJECT_DIR$/common/assembly_graph/paths/bidirectional_path_io/io_support.cpp" />
+        <option value="$PROJECT_DIR$/common/assembly_graph/paths/bidirectional_path_io/io_support.hpp" />
+        <option value="$PROJECT_DIR$/common/modules/alignment/long_read_storage.hpp" />
+        <option value="$PROJECT_DIR$/common/modules/alignment/rna/ss_coverage.hpp" />
+        <option value="$PROJECT_DIR$/projects/spades/molecule_extraction_stage.cpp" />
+        <option value="$PROJECT_DIR$/projects/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/projects/blackbird/utils/options.h" />
+        <option value="$PROJECT_DIR$/projects/blackbird/utils/options.cpp" />
+        <option value="$PROJECT_DIR$/projects/mts/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/projects/spades/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/projects/blackbird/main.cpp" />
+        <option value="$PROJECT_DIR$/projects/blackbird/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/projects/blackbird/utils/pipeline.h" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>false</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>false</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="y" value="23" />
+    <option name="width" value="2147" />
+    <option name="height" value="1337" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="src" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="src" type="47feb1d3:ProjectViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.blackbird">
+    <configuration name="BamTools" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="BamTools" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
+      <envs />
+    </configuration>
+    <configuration name="ConsensusCore" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ConsensusCore" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="Continuous" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="Continuous" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousBuild" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ContinuousBuild" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ContinuousBuild">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousConfigure" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ContinuousConfigure" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ContinuousConfigure">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousCoverage" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ContinuousCoverage" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ContinuousCoverage">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousMemCheck" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ContinuousMemCheck" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ContinuousMemCheck">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousStart" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ContinuousStart" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ContinuousStart">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousSubmit" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ContinuousSubmit" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ContinuousSubmit">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousTest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ContinuousTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ContinuousTest">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousUpdate" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ContinuousUpdate" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ContinuousUpdate">
+      <envs />
+    </configuration>
+    <configuration name="Experimental" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="Experimental" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalBuild" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ExperimentalBuild" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ExperimentalBuild">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalConfigure" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ExperimentalConfigure" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ExperimentalConfigure">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalCoverage" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ExperimentalCoverage" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ExperimentalCoverage">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalMemCheck" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ExperimentalMemCheck" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ExperimentalMemCheck">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalStart" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ExperimentalStart" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ExperimentalStart">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalSubmit" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ExperimentalSubmit" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ExperimentalSubmit">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalTest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ExperimentalTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ExperimentalTest">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalUpdate" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ExperimentalUpdate" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="ExperimentalUpdate">
+      <envs />
+    </configuration>
+    <configuration name="Nightly" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="Nightly" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="NightlyBuild" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="NightlyBuild" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="NightlyBuild">
+      <envs />
+    </configuration>
+    <configuration name="NightlyConfigure" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="NightlyConfigure" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="NightlyConfigure">
+      <envs />
+    </configuration>
+    <configuration name="NightlyCoverage" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="NightlyCoverage" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="NightlyCoverage">
+      <envs />
+    </configuration>
+    <configuration name="NightlyMemCheck" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="NightlyMemCheck" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="NightlyMemCheck">
+      <envs />
+    </configuration>
+    <configuration name="NightlyMemoryCheck" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="NightlyMemoryCheck" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="NightlyMemoryCheck">
+      <envs />
+    </configuration>
+    <configuration name="NightlyStart" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="NightlyStart" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="NightlyStart">
+      <envs />
+    </configuration>
+    <configuration name="NightlySubmit" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="NightlySubmit" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="NightlySubmit">
+      <envs />
+    </configuration>
+    <configuration name="NightlyTest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="NightlyTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="NightlyTest">
+      <envs />
+    </configuration>
+    <configuration name="NightlyUpdate" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="NightlyUpdate" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="NightlyUpdate">
+      <envs />
+    </configuration>
+    <configuration name="all_clion" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="all_clion" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="assembly_graph" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="assembly_graph" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="blackbird" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-b bam -r ref -o out" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="blackbird" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="blackbird">
+      <envs />
+    </configuration>
+    <configuration name="bwa" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="bwa" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="cgce" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="cgce" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="cgce">
+      <envs />
+    </configuration>
+    <configuration name="cityhash" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="cityhash" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="component_generator" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="component_generator" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="component_generator">
+      <envs />
+    </configuration>
+    <configuration name="contig_abundance_counter" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="contig_abundance_counter" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="contig_abundance_counter">
+      <envs />
+    </configuration>
+    <configuration name="coverage_model" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="coverage_model" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="debruijn_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="debruijn_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="debruijn_test">
+      <envs />
+    </configuration>
+    <configuration name="edlib" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="edlib" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="form_truealignments" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="form_truealignments" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="form_truealignments">
+      <envs />
+    </configuration>
+    <configuration name="format" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="format" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="getopt_pp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="getopt_pp" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="gfa1" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="gfa1" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="gqf" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="gqf" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="graphio" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="graphio" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="hattrie" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="hattrie" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="include_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="include_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="include_test">
+      <envs />
+    </configuration>
+    <configuration name="input" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="input" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-check" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-check" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-jet-static" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-jet-static" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-jet-syms-internal" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-jet-syms-internal" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-jet-syms" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-jet-syms" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-jet" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-jet" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-private-symbols-awk-jet" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-private-symbols-awk-jet" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-private-symbols-awk" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-private-symbols-awk" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-static" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-static" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-syms-internal" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-syms-internal" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-syms" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-syms" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-MALLOCX_ARENA" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-MALLOCX_ARENA" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-MALLOCX_ARENA">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-SFMT" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-SFMT" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-SFMT">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-a0" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-a0" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-a0">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-aligned_alloc" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-aligned_alloc" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-aligned_alloc">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-allocated" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-allocated" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-allocated">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-arena_reset" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-arena_reset" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-arena_reset">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-arena_reset_prof" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-arena_reset_prof" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-arena_reset_prof">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-atomic" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-atomic" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-atomic">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-background_thread" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-background_thread" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-background_thread">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-background_thread_enable" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-background_thread_enable" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-background_thread_enable">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-base" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-base" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-base">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-binshard" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-binshard" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-binshard">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-bit_util" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-bit_util" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-bit_util">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-bitmap" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-bitmap" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-bitmap">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-ckh" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-ckh" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-ckh">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-decay" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-decay" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-decay">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-div" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-div" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-div">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-emitter" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-emitter" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-emitter">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-extent" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-extent" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-extent">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-extent_quantize" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-extent_quantize" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-extent_quantize">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-extent_util" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-extent_util" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-extent_util">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-fork" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-fork" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-fork">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-hash" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-hash" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-hash">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-hook" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-hook" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-hook">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-hookbench" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-hookbench" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-hookbench">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-huge" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-huge" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-huge">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-junk" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-junk" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-junk">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-junk_alloc" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-junk_alloc" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-junk_alloc">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-junk_free" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-junk_free" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-junk_free">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-log" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-log" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-log">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-mallctl" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-mallctl" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-mallctl">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-malloc" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-malloc" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-malloc">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-malloc_io" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-malloc_io" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-malloc_io">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-mallocx" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-mallocx" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-mallocx">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-math" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-math" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-math">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-microbench" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-microbench" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-microbench">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-mq" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-mq" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-mq">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-mtx" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-mtx" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-mtx">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-nstime" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-nstime" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-nstime">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-overflow" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-overflow" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-overflow">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-pack" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-pack" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-pack">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-pages" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-pages" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-pages">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-ph" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-ph" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-ph">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-posix_memalign" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-posix_memalign" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-posix_memalign">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-prng" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-prng" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-prng">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-prof_accum" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-prof_accum" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-prof_accum">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-prof_active" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-prof_active" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-prof_active">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-prof_gdump" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-prof_gdump" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-prof_gdump">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-prof_idump" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-prof_idump" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-prof_idump">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-prof_log" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-prof_log" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-prof_log">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-prof_reset" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-prof_reset" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-prof_reset">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-prof_tctx" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-prof_tctx" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-prof_tctx">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-prof_thread_name" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-prof_thread_name" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-prof_thread_name">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-ql" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-ql" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-ql">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-qr" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-qr" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-qr">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-rallocx" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-rallocx" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-rallocx">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-rb" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-rb" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-rb">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-retained" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-retained" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-retained">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-rtree" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-rtree" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-rtree">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-sc" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-sc" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-sc">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-sdallocx" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-sdallocx" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-sdallocx">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-seq" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-seq" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-seq">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-size_classes" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-size_classes" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-size_classes">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-slab" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-slab" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-slab">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-slab_sizes" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-slab_sizes" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-slab_sizes">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-smallocx" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-smallocx" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-smallocx">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-smoothstep" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-smoothstep" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-smoothstep">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-spin" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-spin" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-spin">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-stats" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-stats" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-stats">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-stats_print" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-stats_print" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-stats_print">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-test_hooks" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-test_hooks" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-test_hooks">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-thread_arena" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-thread_arena" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-thread_arena">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-thread_tcache_enabled" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-thread_tcache_enabled" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-thread_tcache_enabled">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-ticker" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-ticker" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-ticker">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-tsd" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-tsd" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-tsd">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-witness" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-witness" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-witness">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-xallocx" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-xallocx" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-xallocx">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc-test-zero" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc-test-zero" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="jemalloc-test-zero">
+      <envs />
+    </configuration>
+    <configuration name="jemalloc" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemalloc" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemallocIntegrationTest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemallocIntegrationTest" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemallocTestStress" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemallocTestStress" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="jemallocUnitTest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="jemallocUnitTest" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="kmer_multiplicity_counter" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="kmer_multiplicity_counter" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="kmer_multiplicity_counter">
+      <envs />
+    </configuration>
+    <configuration name="llvm-support" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="llvm-support" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="mapping_printer" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="mapping_printer" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="modules" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="modules" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="nlopt" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="nlopt" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="online_vis" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="online_vis" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="online_vis">
+      <envs />
+    </configuration>
+    <configuration name="pack_demo" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="pack_demo" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="pack_demo">
+      <envs />
+    </configuration>
+    <configuration name="paired_info" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="paired_info" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="path_extend" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="path_extend" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="pipeline" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="pipeline" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="prop_binning" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="prop_binning" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="prop_binning">
+      <envs />
+    </configuration>
+    <configuration name="reference_fixer" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="reference_fixer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="reference_fixer">
+      <envs />
+    </configuration>
+    <configuration name="samtools" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="samtools" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="sequence" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="sequence" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="sequence_threader" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="sequence_threader" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="sequence_threader">
+      <envs />
+    </configuration>
+    <configuration name="short_edge_contractor" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="short_edge_contractor" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="short_edge_contractor">
+      <envs />
+    </configuration>
+    <configuration name="spades-bwa" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="spades-bwa" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="spades-bwa">
+      <envs />
+    </configuration>
+    <configuration name="spades-core" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="spades-core" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="spades-core">
+      <envs />
+    </configuration>
+    <configuration name="spades-corrector-core" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="blackbird" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="blackbird">
+      <envs />
+    </configuration>
+    <configuration name="spades-edge-profiles" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="spades-edge-profiles" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="spades-edge-profiles">
+      <envs />
+    </configuration>
+    <configuration name="spades-gbuilder" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="spades-gbuilder" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="spades-gbuilder">
+      <envs />
+    </configuration>
+    <configuration name="spades-gmapper" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="spades-gmapper" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="spades-gmapper">
+      <envs />
+    </configuration>
+    <configuration name="spades-hammer" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="spades-hammer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="spades-hammer">
+      <envs />
+    </configuration>
+    <configuration name="spades-ionhammer" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="spades-ionhammer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="spades-ionhammer">
+      <envs />
+    </configuration>
+    <configuration name="spades-kmercount" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="spades-kmercount" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="spades-kmercount">
+      <envs />
+    </configuration>
+    <configuration name="spades-read-filter" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="spades-read-filter" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="spades-read-filter">
+      <envs />
+    </configuration>
+    <configuration name="spades-stages" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="spades-stages" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="spades-truseq-analysis" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="spades-truseq-analysis" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="spades-truseq-analysis">
+      <envs />
+    </configuration>
+    <configuration name="spades-truseq-scfcorrection" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="spades-truseq-scfcorrection" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="spades-truseq-scfcorrection">
+      <envs />
+    </configuration>
+    <configuration name="spaligner" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="spaligner" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="spaligner">
+      <envs />
+    </configuration>
+    <configuration name="ssw" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="ssw" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="stages" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="stages" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="stats" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="stats" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="stats">
+      <envs />
+    </configuration>
+    <configuration name="utils" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="utils" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="version" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="version" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <list size="178">
+      <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
+      <item index="1" class="java.lang.String" itemvalue="Application.all_clion" />
+      <item index="2" class="java.lang.String" itemvalue="Application.assembly_graph" />
+      <item index="3" class="java.lang.String" itemvalue="Application.input" />
+      <item index="4" class="java.lang.String" itemvalue="Application.graphio" />
+      <item index="5" class="java.lang.String" itemvalue="Application.modules" />
+      <item index="6" class="java.lang.String" itemvalue="Application.coverage_model" />
+      <item index="7" class="java.lang.String" itemvalue="Application.path_extend" />
+      <item index="8" class="java.lang.String" itemvalue="Application.paired_info" />
+      <item index="9" class="java.lang.String" itemvalue="Application.pipeline" />
+      <item index="10" class="java.lang.String" itemvalue="Application.sequence" />
+      <item index="11" class="java.lang.String" itemvalue="Application.stages" />
+      <item index="12" class="java.lang.String" itemvalue="Application.utils" />
+      <item index="13" class="java.lang.String" itemvalue="Application.version" />
+      <item index="14" class="java.lang.String" itemvalue="Application.blackbird" />
+      <item index="15" class="java.lang.String" itemvalue="Application.spades-corrector-core" />
+      <item index="16" class="java.lang.String" itemvalue="Application.spades-edge-profiles" />
+      <item index="17" class="java.lang.String" itemvalue="Application.spades-gbuilder" />
+      <item index="18" class="java.lang.String" itemvalue="Application.spades-gmapper" />
+      <item index="19" class="java.lang.String" itemvalue="Application.spades-hammer" />
+      <item index="20" class="java.lang.String" itemvalue="Application.spades-ionhammer" />
+      <item index="21" class="java.lang.String" itemvalue="Application.spades-kmercount" />
+      <item index="22" class="java.lang.String" itemvalue="Application.spades-read-filter" />
+      <item index="23" class="java.lang.String" itemvalue="Application.contig_abundance_counter" />
+      <item index="24" class="java.lang.String" itemvalue="Application.kmer_multiplicity_counter" />
+      <item index="25" class="java.lang.String" itemvalue="Application.prop_binning" />
+      <item index="26" class="java.lang.String" itemvalue="Application.stats" />
+      <item index="27" class="java.lang.String" itemvalue="Application.online_vis" />
+      <item index="28" class="java.lang.String" itemvalue="Application.spades-truseq-scfcorrection" />
+      <item index="29" class="java.lang.String" itemvalue="Application.spades-core" />
+      <item index="30" class="java.lang.String" itemvalue="Application.spades-stages" />
+      <item index="31" class="java.lang.String" itemvalue="Application.form_truealignments" />
+      <item index="32" class="java.lang.String" itemvalue="Application.mapping_printer" />
+      <item index="33" class="java.lang.String" itemvalue="Application.spaligner" />
+      <item index="34" class="java.lang.String" itemvalue="Application.spades-truseq-analysis" />
+      <item index="35" class="java.lang.String" itemvalue="Application.pack_demo" />
+      <item index="36" class="java.lang.String" itemvalue="Application.component_generator" />
+      <item index="37" class="java.lang.String" itemvalue="Application.debruijn_test" />
+      <item index="38" class="java.lang.String" itemvalue="Application.reference_fixer" />
+      <item index="39" class="java.lang.String" itemvalue="Application.sequence_threader" />
+      <item index="40" class="java.lang.String" itemvalue="Application.short_edge_contractor" />
+      <item index="41" class="java.lang.String" itemvalue="Application.include_test" />
+      <item index="42" class="java.lang.String" itemvalue="Application.cgce" />
+      <item index="43" class="java.lang.String" itemvalue="Application.BamTools" />
+      <item index="44" class="java.lang.String" itemvalue="Application.bwa" />
+      <item index="45" class="java.lang.String" itemvalue="Application.spades-bwa" />
+      <item index="46" class="java.lang.String" itemvalue="Application.cityhash" />
+      <item index="47" class="java.lang.String" itemvalue="Application.ConsensusCore" />
+      <item index="48" class="java.lang.String" itemvalue="Application.format" />
+      <item index="49" class="java.lang.String" itemvalue="Application.edlib" />
+      <item index="50" class="java.lang.String" itemvalue="Application.getopt_pp" />
+      <item index="51" class="java.lang.String" itemvalue="Application.gfa1" />
+      <item index="52" class="java.lang.String" itemvalue="Application.gqf" />
+      <item index="53" class="java.lang.String" itemvalue="Application.hattrie" />
+      <item index="54" class="java.lang.String" itemvalue="Application.Continuous" />
+      <item index="55" class="java.lang.String" itemvalue="Application.ContinuousBuild" />
+      <item index="56" class="java.lang.String" itemvalue="Application.ContinuousConfigure" />
+      <item index="57" class="java.lang.String" itemvalue="Application.ContinuousCoverage" />
+      <item index="58" class="java.lang.String" itemvalue="Application.ContinuousMemCheck" />
+      <item index="59" class="java.lang.String" itemvalue="Application.ContinuousStart" />
+      <item index="60" class="java.lang.String" itemvalue="Application.ContinuousSubmit" />
+      <item index="61" class="java.lang.String" itemvalue="Application.ContinuousTest" />
+      <item index="62" class="java.lang.String" itemvalue="Application.ContinuousUpdate" />
+      <item index="63" class="java.lang.String" itemvalue="Application.Experimental" />
+      <item index="64" class="java.lang.String" itemvalue="Application.ExperimentalBuild" />
+      <item index="65" class="java.lang.String" itemvalue="Application.ExperimentalConfigure" />
+      <item index="66" class="java.lang.String" itemvalue="Application.ExperimentalCoverage" />
+      <item index="67" class="java.lang.String" itemvalue="Application.ExperimentalMemCheck" />
+      <item index="68" class="java.lang.String" itemvalue="Application.ExperimentalStart" />
+      <item index="69" class="java.lang.String" itemvalue="Application.ExperimentalSubmit" />
+      <item index="70" class="java.lang.String" itemvalue="Application.ExperimentalTest" />
+      <item index="71" class="java.lang.String" itemvalue="Application.ExperimentalUpdate" />
+      <item index="72" class="java.lang.String" itemvalue="Application.jemalloc-check" />
+      <item index="73" class="java.lang.String" itemvalue="Application.jemalloc-private-symbols-awk" />
+      <item index="74" class="java.lang.String" itemvalue="Application.jemalloc-private-symbols-awk-jet" />
+      <item index="75" class="java.lang.String" itemvalue="Application.Nightly" />
+      <item index="76" class="java.lang.String" itemvalue="Application.NightlyBuild" />
+      <item index="77" class="java.lang.String" itemvalue="Application.NightlyConfigure" />
+      <item index="78" class="java.lang.String" itemvalue="Application.NightlyCoverage" />
+      <item index="79" class="java.lang.String" itemvalue="Application.NightlyMemCheck" />
+      <item index="80" class="java.lang.String" itemvalue="Application.NightlyMemoryCheck" />
+      <item index="81" class="java.lang.String" itemvalue="Application.NightlyStart" />
+      <item index="82" class="java.lang.String" itemvalue="Application.NightlySubmit" />
+      <item index="83" class="java.lang.String" itemvalue="Application.NightlyTest" />
+      <item index="84" class="java.lang.String" itemvalue="Application.NightlyUpdate" />
+      <item index="85" class="java.lang.String" itemvalue="Application.jemalloc" />
+      <item index="86" class="java.lang.String" itemvalue="Application.jemalloc-jet" />
+      <item index="87" class="java.lang.String" itemvalue="Application.jemalloc-jet-static" />
+      <item index="88" class="java.lang.String" itemvalue="Application.jemalloc-jet-syms" />
+      <item index="89" class="java.lang.String" itemvalue="Application.jemalloc-jet-syms-internal" />
+      <item index="90" class="java.lang.String" itemvalue="Application.jemalloc-static" />
+      <item index="91" class="java.lang.String" itemvalue="Application.jemalloc-syms" />
+      <item index="92" class="java.lang.String" itemvalue="Application.jemalloc-syms-internal" />
+      <item index="93" class="java.lang.String" itemvalue="Application.jemalloc-test-aligned_alloc" />
+      <item index="94" class="java.lang.String" itemvalue="Application.jemalloc-test-allocated" />
+      <item index="95" class="java.lang.String" itemvalue="Application.jemalloc-test-extent" />
+      <item index="96" class="java.lang.String" itemvalue="Application.jemalloc-test-malloc" />
+      <item index="97" class="java.lang.String" itemvalue="Application.jemalloc-test-mallocx" />
+      <item index="98" class="java.lang.String" itemvalue="Application.jemalloc-test-MALLOCX_ARENA" />
+      <item index="99" class="java.lang.String" itemvalue="Application.jemalloc-test-overflow" />
+      <item index="100" class="java.lang.String" itemvalue="Application.jemalloc-test-posix_memalign" />
+      <item index="101" class="java.lang.String" itemvalue="Application.jemalloc-test-rallocx" />
+      <item index="102" class="java.lang.String" itemvalue="Application.jemalloc-test-sdallocx" />
+      <item index="103" class="java.lang.String" itemvalue="Application.jemalloc-test-slab_sizes" />
+      <item index="104" class="java.lang.String" itemvalue="Application.jemalloc-test-smallocx" />
+      <item index="105" class="java.lang.String" itemvalue="Application.jemalloc-test-thread_arena" />
+      <item index="106" class="java.lang.String" itemvalue="Application.jemalloc-test-thread_tcache_enabled" />
+      <item index="107" class="java.lang.String" itemvalue="Application.jemalloc-test-xallocx" />
+      <item index="108" class="java.lang.String" itemvalue="Application.jemallocIntegrationTest" />
+      <item index="109" class="java.lang.String" itemvalue="Application.jemallocTestStress" />
+      <item index="110" class="java.lang.String" itemvalue="Application.jemallocUnitTest" />
+      <item index="111" class="java.lang.String" itemvalue="Application.jemalloc-test-hookbench" />
+      <item index="112" class="java.lang.String" itemvalue="Application.jemalloc-test-microbench" />
+      <item index="113" class="java.lang.String" itemvalue="Application.jemalloc-test-a0" />
+      <item index="114" class="java.lang.String" itemvalue="Application.jemalloc-test-arena_reset" />
+      <item index="115" class="java.lang.String" itemvalue="Application.jemalloc-test-arena_reset_prof" />
+      <item index="116" class="java.lang.String" itemvalue="Application.jemalloc-test-atomic" />
+      <item index="117" class="java.lang.String" itemvalue="Application.jemalloc-test-background_thread" />
+      <item index="118" class="java.lang.String" itemvalue="Application.jemalloc-test-background_thread_enable" />
+      <item index="119" class="java.lang.String" itemvalue="Application.jemalloc-test-base" />
+      <item index="120" class="java.lang.String" itemvalue="Application.jemalloc-test-binshard" />
+      <item index="121" class="java.lang.String" itemvalue="Application.jemalloc-test-bit_util" />
+      <item index="122" class="java.lang.String" itemvalue="Application.jemalloc-test-bitmap" />
+      <item index="123" class="java.lang.String" itemvalue="Application.jemalloc-test-ckh" />
+      <item index="124" class="java.lang.String" itemvalue="Application.jemalloc-test-decay" />
+      <item index="125" class="java.lang.String" itemvalue="Application.jemalloc-test-div" />
+      <item index="126" class="java.lang.String" itemvalue="Application.jemalloc-test-emitter" />
+      <item index="127" class="java.lang.String" itemvalue="Application.jemalloc-test-extent_quantize" />
+      <item index="128" class="java.lang.String" itemvalue="Application.jemalloc-test-extent_util" />
+      <item index="129" class="java.lang.String" itemvalue="Application.jemalloc-test-fork" />
+      <item index="130" class="java.lang.String" itemvalue="Application.jemalloc-test-hash" />
+      <item index="131" class="java.lang.String" itemvalue="Application.jemalloc-test-hook" />
+      <item index="132" class="java.lang.String" itemvalue="Application.jemalloc-test-huge" />
+      <item index="133" class="java.lang.String" itemvalue="Application.jemalloc-test-junk" />
+      <item index="134" class="java.lang.String" itemvalue="Application.jemalloc-test-junk_alloc" />
+      <item index="135" class="java.lang.String" itemvalue="Application.jemalloc-test-junk_free" />
+      <item index="136" class="java.lang.String" itemvalue="Application.jemalloc-test-log" />
+      <item index="137" class="java.lang.String" itemvalue="Application.jemalloc-test-mallctl" />
+      <item index="138" class="java.lang.String" itemvalue="Application.jemalloc-test-malloc_io" />
+      <item index="139" class="java.lang.String" itemvalue="Application.jemalloc-test-math" />
+      <item index="140" class="java.lang.String" itemvalue="Application.jemalloc-test-mq" />
+      <item index="141" class="java.lang.String" itemvalue="Application.jemalloc-test-mtx" />
+      <item index="142" class="java.lang.String" itemvalue="Application.jemalloc-test-nstime" />
+      <item index="143" class="java.lang.String" itemvalue="Application.jemalloc-test-pack" />
+      <item index="144" class="java.lang.String" itemvalue="Application.jemalloc-test-pages" />
+      <item index="145" class="java.lang.String" itemvalue="Application.jemalloc-test-ph" />
+      <item index="146" class="java.lang.String" itemvalue="Application.jemalloc-test-prng" />
+      <item index="147" class="java.lang.String" itemvalue="Application.jemalloc-test-prof_accum" />
+      <item index="148" class="java.lang.String" itemvalue="Application.jemalloc-test-prof_active" />
+      <item index="149" class="java.lang.String" itemvalue="Application.jemalloc-test-prof_gdump" />
+      <item index="150" class="java.lang.String" itemvalue="Application.jemalloc-test-prof_idump" />
+      <item index="151" class="java.lang.String" itemvalue="Application.jemalloc-test-prof_log" />
+      <item index="152" class="java.lang.String" itemvalue="Application.jemalloc-test-prof_reset" />
+      <item index="153" class="java.lang.String" itemvalue="Application.jemalloc-test-prof_tctx" />
+      <item index="154" class="java.lang.String" itemvalue="Application.jemalloc-test-prof_thread_name" />
+      <item index="155" class="java.lang.String" itemvalue="Application.jemalloc-test-ql" />
+      <item index="156" class="java.lang.String" itemvalue="Application.jemalloc-test-qr" />
+      <item index="157" class="java.lang.String" itemvalue="Application.jemalloc-test-rb" />
+      <item index="158" class="java.lang.String" itemvalue="Application.jemalloc-test-retained" />
+      <item index="159" class="java.lang.String" itemvalue="Application.jemalloc-test-rtree" />
+      <item index="160" class="java.lang.String" itemvalue="Application.jemalloc-test-sc" />
+      <item index="161" class="java.lang.String" itemvalue="Application.jemalloc-test-seq" />
+      <item index="162" class="java.lang.String" itemvalue="Application.jemalloc-test-SFMT" />
+      <item index="163" class="java.lang.String" itemvalue="Application.jemalloc-test-size_classes" />
+      <item index="164" class="java.lang.String" itemvalue="Application.jemalloc-test-slab" />
+      <item index="165" class="java.lang.String" itemvalue="Application.jemalloc-test-smoothstep" />
+      <item index="166" class="java.lang.String" itemvalue="Application.jemalloc-test-spin" />
+      <item index="167" class="java.lang.String" itemvalue="Application.jemalloc-test-stats" />
+      <item index="168" class="java.lang.String" itemvalue="Application.jemalloc-test-stats_print" />
+      <item index="169" class="java.lang.String" itemvalue="Application.jemalloc-test-test_hooks" />
+      <item index="170" class="java.lang.String" itemvalue="Application.jemalloc-test-ticker" />
+      <item index="171" class="java.lang.String" itemvalue="Application.jemalloc-test-tsd" />
+      <item index="172" class="java.lang.String" itemvalue="Application.jemalloc-test-witness" />
+      <item index="173" class="java.lang.String" itemvalue="Application.jemalloc-test-zero" />
+      <item index="174" class="java.lang.String" itemvalue="Application.llvm-support" />
+      <item index="175" class="java.lang.String" itemvalue="Application.nlopt" />
+      <item index="176" class="java.lang.String" itemvalue="Application.samtools" />
+      <item index="177" class="java.lang.String" itemvalue="Application.ssw" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d7bce2d0-c7ca-4c78-8f34-003519e17127" name="Default" comment="" />
+      <created>1507738006158</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1507738006158</updated>
+      <workItem from="1507738007321" duration="34027000" />
+      <workItem from="1509137534365" duration="18870000" />
+      <workItem from="1511369046270" duration="4427000" />
+      <workItem from="1512148124748" duration="855000" />
+      <workItem from="1512157231201" duration="20742000" />
+      <workItem from="1513790724159" duration="144000" />
+      <workItem from="1514251693402" duration="5890000" />
+      <workItem from="1514478652306" duration="160000" />
+      <workItem from="1514567095084" duration="556000" />
+      <workItem from="1514930094426" duration="65000" />
+      <workItem from="1515376288735" duration="49000" />
+      <workItem from="1515468846291" duration="228000" />
+      <workItem from="1518034160938" duration="70000" />
+      <workItem from="1518044883391" duration="24000" />
+      <workItem from="1519926141868" duration="3326000" />
+      <workItem from="1525195351302" duration="2236000" />
+      <workItem from="1526055450861" duration="582000" />
+      <workItem from="1526847457270" duration="554000" />
+      <workItem from="1533911020023" duration="15195000" />
+      <workItem from="1535064352645" duration="829000" />
+      <workItem from="1542132443679" duration="1281000" />
+      <workItem from="1543163779623" duration="23771000" />
+      <workItem from="1554846615011" duration="16247000" />
+      <workItem from="1555958963979" duration="4559000" />
+      <workItem from="1559078502115" duration="12134000" />
+      <workItem from="1564014726936" duration="8454000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="175275000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3269934" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36137527" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3269934" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27164418" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964426" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39941478" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/projects/blackbird/main.cpp</url>
+          <line>4</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="10" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/common/io/reads/single_read.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="223" column="0" lean-forward="true" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/sequence/sequence.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5655">
+          <caret line="377" column="19" lean-forward="false" selection-start-line="377" selection-start-column="19" selection-end-line="377" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/modules/alignment/rna/ss_coverage_filler.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1980">
+          <caret line="132" column="34" lean-forward="false" selection-start-line="132" selection-start-column="34" selection-end-line="132" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/assembly_graph/paths/bidirectional_path_io/bidirectional_path_output.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="929">
+          <caret line="289" column="18" lean-forward="false" selection-start-line="289" selection-start-column="18" selection-end-line="289" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/assembly_graph/components/graph_component.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Developer/CommandLineTools/usr/include/c++/v1/set">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="600" column="4" lean-forward="false" selection-start-line="600" selection-start-column="4" selection-end-line="600" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/spades/molecule_extraction_stage.hpp" />
+    <entry file="file://$PROJECT_DIR$/common/assembly_graph/paths/bidirectional_path_io/io_support.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="67" column="65" lean-forward="true" selection-start-line="67" selection-start-column="65" selection-end-line="67" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/assembly_graph/paths/bidirectional_path_container.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1920">
+          <caret line="128" column="9" lean-forward="false" selection-start-line="128" selection-start-column="9" selection-end-line="128" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/assembly_graph/paths/bidirectional_path.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1515">
+          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/assembly_graph/paths/bidirectional_path_io/io_support.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1305">
+          <caret line="87" column="2" lean-forward="false" selection-start-line="87" selection-start-column="2" selection-end-line="87" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/assembly_graph/paths/bidirectional_path_io/bidirectional_path_output.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="50" lean-forward="false" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/modules/alignment/long_read_storage.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3990">
+          <caret line="266" column="0" lean-forward="false" selection-start-line="266" selection-start-column="0" selection-end-line="266" selection-end-column="0" />
+          <folding>
+            <element signature="e#2365#2378#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/modules/alignment/rna/ss_coverage.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="60" column="1" lean-forward="false" selection-start-line="60" selection-start-column="1" selection-end-line="60" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/spades/molecule_extraction_stage.cpp" />
+    <entry file="file://$PROJECT_DIR$/projects/gmapper/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/corrector/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/gmapper/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="70" column="3" lean-forward="false" selection-start-line="70" selection-start-column="3" selection-end-line="70" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Blackbird/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="59" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="76" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#19#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Blackbird/src/pipeline.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="163" column="0" lean-forward="false" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/gbuilder/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#337#376#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Blackbird/src/options.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/gbuilder/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/options.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="33" lean-forward="false" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Blackbird/src/options.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/options.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Blackbird/src/pipeline.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/spades/series_analysis.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/mts/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="671">
+          <caret line="55" column="46" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/mts/contig_abundance.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2540">
+          <caret line="225" column="0" lean-forward="false" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/spades/launch.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="123" column="49" lean-forward="false" selection-start-line="123" selection-start-column="49" selection-end-line="123" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/spades/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="47" selection-end-column="1" />
+          <folding>
+            <element signature="e#362#401#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/blackbird/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="64" column="21" lean-forward="false" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
+          <folding>
+            <element signature="e#38#57#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ext/src/bamtools/api/internal/bam/BamReader_p.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ext/include/bamtools/shared/bamtools_global.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/bam/bam.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="54" column="20" lean-forward="false" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/pipeline.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/spades/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="70" lean-forward="false" selection-start-line="27" selection-start-column="70" selection-end-line="27" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/blackbird/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/ionhammer/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="36" column="70" lean-forward="false" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ext/src/bamtools/api/BamReader.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="163" column="23" lean-forward="true" selection-start-line="163" selection-start-column="23" selection-end-line="163" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/utils/memory_limit.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="31" column="5" lean-forward="false" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ext/include/bamtools/api/BamReader.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="43" column="15" lean-forward="false" selection-start-line="43" selection-start-column="14" selection-end-line="43" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/utils/logger/logger.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="652">
+          <caret line="148" column="47" lean-forward="true" selection-start-line="148" selection-start-column="47" selection-end-line="148" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/ionhammer/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="635">
+          <caret line="303" column="18" lean-forward="true" selection-start-line="303" selection-start-column="18" selection-end-line="303" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/io/sam/bam_reader.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="802">
+          <caret line="105" column="0" lean-forward="false" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ext/include/bamtools/api/BamAux.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="42" column="13" lean-forward="false" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ext/include/bamtools/api/BamAlignment.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="127" column="26" lean-forward="false" selection-start-line="127" selection-start-column="26" selection-end-line="127" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/pipeline.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="38" column="75" lean-forward="false" selection-start-line="38" selection-start-column="75" selection-end-line="38" selection-end-column="75" />
+          <folding>
+            <element signature="e#96#133#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
