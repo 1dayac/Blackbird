@@ -201,8 +201,8 @@
       <file leaf-file-name="pipeline.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/pipeline.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="787">
-              <caret line="65" column="15" lean-forward="true" selection-start-line="65" selection-start-column="15" selection-end-line="65" selection-end-column="15" />
+            <state relative-caret-position="367">
+              <caret line="37" column="70" lean-forward="false" selection-start-line="37" selection-start-column="70" selection-end-line="37" selection-end-column="70" />
               <folding>
                 <element signature="e#96#133#0" expanded="true" />
               </folding>
@@ -243,8 +243,8 @@
       <file leaf-file-name="BamAlignment.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ext/include/bamtools/api/BamAlignment.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="108" column="82" lean-forward="false" selection-start-line="108" selection-start-column="78" selection-end-line="108" selection-end-column="82" />
+            <state relative-caret-position="15">
+              <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -304,7 +304,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SplitComponentsOnSimplePaths</find>
       <find>cut_fro</find>
       <find>getLongReads</find>
       <find>path_set.AddPath</find>
@@ -334,6 +333,7 @@
       <find>Ciga</find>
       <find>soft</find>
       <find>clip</find>
+      <find>string</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -1240,12 +1240,12 @@
       <workItem from="1554846615011" duration="16247000" />
       <workItem from="1555958963979" duration="4559000" />
       <workItem from="1559078502115" duration="12134000" />
-      <workItem from="1564014726936" duration="10270000" />
+      <workItem from="1564014726936" duration="10677000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177091000" />
+    <option name="totallyTimeSpent" value="177498000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
@@ -1657,14 +1657,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ext/include/bamtools/api/BamAlignment.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="108" column="82" lean-forward="false" selection-start-line="108" selection-start-column="78" selection-end-line="108" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/options.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1681,10 +1673,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../ext/include/bamtools/api/BamAlignment.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/pipeline.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="787">
-          <caret line="65" column="15" lean-forward="true" selection-start-line="65" selection-start-column="15" selection-end-line="65" selection-end-column="15" />
+        <state relative-caret-position="367">
+          <caret line="37" column="70" lean-forward="false" selection-start-line="37" selection-start-column="70" selection-end-line="37" selection-end-column="70" />
           <folding>
             <element signature="e#96#133#0" expanded="true" />
           </folding>

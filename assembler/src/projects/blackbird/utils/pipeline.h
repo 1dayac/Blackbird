@@ -35,6 +35,7 @@ public:
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
             if (CheckConditions(alignment)) {
+                INFO(alignment.Name << " " << alignment.AlignedBases);
                 map_of_bad_reads_[bx].push_back(alignment.AlignedBases);
                 VERBOSE_POWER(++alignments_stored, " alignments stored");
             }
