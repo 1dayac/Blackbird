@@ -17,6 +17,26 @@ void create_console_logger(std::string log_prop_fn) {
     attach_logger(lg);
 }
 
+struct RefWindow {
+
+    std::string RefName;    //!< name of reference sequence
+    int32_t     WindowStart;  //!< length of reference sequence
+    int32_t     WindowEnd;  //!< length of reference sequence
+
+    //! constructor
+    RefWindow(const std::string& name,
+            const int32_t& windowStart, const int32_t& windowEnd)
+            : RefName(name), WindowStart(windowStart)
+            , WindowEnd(windowEnd)
+    { }
+
+    std::string ToString() {
+        std::string out = RefName + " " + std::to_string(WindowStart) + " " + std::to_string(WindowEnd);
+        return out;
+    }
+};
+
+
 class BlackBirdLauncher {
 public:
     int Launch() {
@@ -43,6 +63,18 @@ public:
         INFO("Total " << alignment_count << " alignments processed");
         INFO("Total " << alignments_stored << " alignments stored");
         reader.Close();
+
+
+        reader.Open(OptionBase::bam.c_str());
+        auto ref_data = reader.GetReferenceData();
+        for (auto reference : ref_data) {
+            int window_width = 50000;
+            int overlap = 50000;
+            for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
+                RefWindow r(reference.RefName, start_pos, start_pos + window_width);
+                INFO(r.ToString());
+            }
+        }
         INFO("Blackbird finished");
         return 0;
     }
