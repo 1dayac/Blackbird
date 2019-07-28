@@ -69,7 +69,7 @@ public:
         auto ref_data = reader.GetReferenceData();
         for (auto reference : ref_data) {
             int window_width = 50000;
-            int overlap = 50000;
+            int overlap = 10000;
             for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
                 RefWindow r(reference.RefName, start_pos, start_pos + window_width);
                 INFO(r.ToString());
