@@ -67,6 +67,8 @@ public:
 
 
         reader.Open(OptionBase::bam.c_str());
+        reader.OpenIndex((OptionBase::bam + ".bai").c_str());
+
         auto ref_data = reader.GetReferenceData();
         for (auto reference : ref_data) {
             int window_width = 50000;

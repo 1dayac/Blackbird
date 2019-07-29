@@ -201,8 +201,8 @@
       <file leaf-file-name="pipeline.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/pipeline.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="53" column="18" lean-forward="false" selection-start-line="53" selection-start-column="18" selection-end-line="53" selection-end-column="18" />
+            <state relative-caret-position="367">
+              <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
               <folding>
                 <element signature="e#96#133#0" expanded="true" />
               </folding>
@@ -283,8 +283,8 @@
       <file leaf-file-name="BamReader.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ext/src/bamtools/api/BamReader.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="347" column="53" lean-forward="false" selection-start-line="332" selection-start-column="4" selection-end-line="347" selection-end-column="53" />
+            <state relative-caret-position="637">
+              <caret line="333" column="64" lean-forward="true" selection-start-line="333" selection-start-column="64" selection-end-line="333" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -1240,12 +1240,12 @@
       <workItem from="1554846615011" duration="16247000" />
       <workItem from="1555958963979" duration="4559000" />
       <workItem from="1559078502115" duration="12134000" />
-      <workItem from="1564014726936" duration="16415000" />
+      <workItem from="1564014726936" duration="16840000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="183236000" />
+    <option name="totallyTimeSpent" value="183661000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
@@ -1630,14 +1630,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ext/src/bamtools/api/BamReader.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="347" column="53" lean-forward="false" selection-start-line="332" selection-start-column="4" selection-end-line="347" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ext/include/bamtools/api/BamReader.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="383">
@@ -1686,10 +1678,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../ext/src/bamtools/api/BamReader.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="637">
+          <caret line="333" column="64" lean-forward="true" selection-start-line="333" selection-start-column="64" selection-end-line="333" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/pipeline.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="53" column="18" lean-forward="false" selection-start-line="53" selection-start-column="18" selection-end-line="53" selection-end-column="18" />
+        <state relative-caret-position="367">
+          <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding>
             <element signature="e#96#133#0" expanded="true" />
           </folding>
