@@ -99,11 +99,7 @@ public:
 
                     }
                 }
-
-
-                if (barcodes_count.size()) {
-                    INFO("Number of barcodes in the region - " << barcodes_count.size());
-                }
+                INFO("Number of selected barcodes in the region - " << barcodes_count.size());
             }
         }
         INFO("Blackbird finished");
