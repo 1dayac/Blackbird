@@ -80,7 +80,12 @@ public:
             for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
                 RefWindow r(reference.RefName, start_pos, start_pos + window_width);
                 INFO(r.ToString());
-                reader.SetRegion(BamTools::BamRegion(start_pos, reader.GetReferenceID(reference.RefName), start_pos + window_width, reader.GetReferenceID(reference.RefName)));
+                BamTools::BamRegion region(reader.GetReferenceID(reference.RefName), start_pos, reader.GetReferenceID(reference.RefName), start_pos + window_width);
+                if (reader.SetRegion(region)) {
+                    INFO("Region is set");
+                } else {
+                    INFO("Region can't be set");
+                }
                 std::unordered_map<std::string, int> barcodes_count;
                 while(reader.GetNextAlignment(alignment)) {
                     std::string bx = "";
