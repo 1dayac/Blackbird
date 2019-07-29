@@ -55,7 +55,7 @@ public:
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
-            if (CheckConditions(alignment) && alignment.IsPrimaryAlignment()) {
+            if (IsBadAlignment(alignment) && alignment.IsPrimaryAlignment()) {
                 //INFO(alignment.Name << " " << alignment.QueryBases);
                 map_of_bad_reads_[bx].push_back(alignment.QueryBases);
                 VERBOSE_POWER(++alignments_stored, " alignments stored");
@@ -87,11 +87,20 @@ public:
                     INFO("Region can't be set");
                 }
                 std::unordered_map<std::string, int> barcodes_count;
+                std::set<std::string> barcodes_count_over_threshold;
+                const int threshold = 4;
                 while(reader.GetNextAlignment(alignment)) {
-                    std::string bx = "";
-                    alignment.GetTag("BX", bx);
-                    barcodes_count[bx]++;
+                    if (IsGoodAlignment(alignment)) {
+                        std::string bx = "";
+                        alignment.GetTag("BX", bx);
+                        if (++barcodes_count[bx] > threshold) {
+                            barcodes_count_over_threshold.insert(bx);
+                        }
+
+                    }
                 }
+
+
                 if (barcodes_count.size()) {
                     INFO("Number of barcodes in the region - " << barcodes_count.size());
                 }
@@ -104,7 +113,7 @@ private:
     std::unordered_map<std::string, std::vector<std::string>> map_of_bad_reads_;
 
 
-    bool CheckConditions(BamTools::BamAlignment &alignment) {
+    bool IsBadAlignment(BamTools::BamAlignment &alignment) {
         if (alignment.MapQuality < OptionBase::mapping_quality) {
             return true;
         }
@@ -116,6 +125,14 @@ private:
             }
         }
         if (num_soft_clip/(double)alignment.Length > 0.2/*opt::max_soft_clipping*/) {
+            return true;
+        }
+        return false;
+    }
+
+    bool IsGoodAlignment(BamTools::BamAlignment &alignment) {
+        auto cigar = alignment.CigarData;
+        if (cigar.size() == 1 && cigar[0].Type == 'M' && alignment.RefID == alignment.MateRefID) {
             return true;
         }
         return false;
