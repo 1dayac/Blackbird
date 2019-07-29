@@ -67,7 +67,11 @@ public:
 
 
         reader.Open(OptionBase::bam.c_str());
-        reader.OpenIndex((OptionBase::bam + ".bai").c_str());
+        if (reader.OpenIndex((OptionBase::bam + ".bai").c_str())) {
+            INFO("Index located at " << OptionBase::bam << ".bai");
+        } else {
+            FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
+        }
 
         auto ref_data = reader.GetReferenceData();
         for (auto reference : ref_data) {
