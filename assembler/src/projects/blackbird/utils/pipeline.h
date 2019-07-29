@@ -72,7 +72,17 @@ public:
             int overlap = 10000;
             for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
                 RefWindow r(reference.RefName, start_pos, start_pos + window_width);
-                INFO(r.ToString());
+                reader.SetRegion(BamTools::BamRegion(start_pos, reader.GetReferenceID(reference.RefName), start_pos + window_width, reader.GetReferenceID(reference.RefName)));
+                std::unordered_map<std::string, int> barcodes_count;
+                while(reader.GetNextAlignment(alignment)) {
+                    std::string bx = "";
+                    alignment.GetTag("BX", bx);
+                    barcodes_count[bx]++;
+                }
+                if (barcodes_count.size()) {
+                    INFO(r.ToString());
+                    INFO("Number of barcodes in the region - " << barcodes_count.size());
+                }
             }
         }
         INFO("Blackbird finished");
