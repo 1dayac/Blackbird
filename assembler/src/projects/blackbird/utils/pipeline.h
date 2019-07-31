@@ -148,7 +148,7 @@ public:
                         single_out_stream << read;
                     }
                 }
-                return;
+                return 0;
             }
         }
 
