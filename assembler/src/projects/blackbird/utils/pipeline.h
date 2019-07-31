@@ -44,6 +44,9 @@ public:
         utils::perf_counter pc;
         std::string log_filename = OptionBase::output_folder + "/blackdird.log";
 
+
+
+
         fs::make_dir(OptionBase::output_folder);
         create_console_logger(log_filename);
         INFO("Starting Blackbird");
@@ -77,10 +80,19 @@ public:
         }
 
         auto ref_data = reader.GetReferenceData();
+
+        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 30000000, reader.GetReferenceID("chr13"), 40000000);
+
         for (auto reference : ref_data) {
+            if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
+                continue;
+            }
             int window_width = 50000;
             int overlap = 10000;
             for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
+                if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition) {
+                    continue;
+                }
                 RefWindow r(reference.RefName, start_pos, start_pos + window_width);
                 INFO(r.ToString());
                 BamTools::BamRegion region(reader.GetReferenceID(reference.RefName), start_pos, reader.GetReferenceID(reference.RefName), start_pos + window_width);
@@ -95,7 +107,7 @@ public:
                 const int threshold = 4;
                 const int number_of_barcodes_to_assemble = 100;
                 while(reader.GetNextAlignment(alignment)) {
-                    if (IsGoodAlignment(alignment)) {
+                    if (alignment.IsPrimaryAlignment() && IsGoodAlignment(alignment)) {
                         std::string bx = "";
                         alignment.GetTag("BX", bx);
                         if (++barcodes_count[bx] > threshold) {
@@ -106,59 +118,30 @@ public:
                         }
                     }
                 }
-                INFO("Taking first" << number_of_barcodes_to_assemble << "barcodes");
+                INFO("Taking first " << number_of_barcodes_to_assemble << " barcodes");
                 reader.SetRegion(region);
 
                 std::string temp_dir = fs::make_temp_dir(OptionBase::output_folder + "/", "");
                 io::OPairedReadStream<std::ofstream, io::FastqWriter> out_stream(temp_dir + "/R1.fastq", temp_dir + "/R2.fastq");
+                io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
 
                 while (reader.GetNextAlignment(alignment)) {
                     if (alignment.Position > start_pos + window_width || alignment.RefID != reader.GetReferenceID(reference.RefName)) {
                         break;
                     }
+
                     std::string bx = "";
                     alignment.GetTag("BX", bx);
                     if (!barcodes_count_over_threshold.count(bx) || !alignment.IsPrimaryAlignment()) {
                         continue;
                     }
 
-                    io::SingleRead first;
-                    io::SingleRead second;
-                    if (alignment.IsFirstMate()) {
-                        std::string read_name = alignment.Name;
-                        first = io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::OffsetType::PhredOffset);
-                        reader.Jump(alignment.MateRefID, alignment.MatePosition);
-                        BamTools::BamAlignment mate_alignment;
-                        while(mate_alignment.Name != alignment.Name || mate_alignment.IsFirstMate()) {
-                            reader.GetNextAlignment(mate_alignment);
-                        }
-                        second = io::SingleRead(mate_alignment.Name, mate_alignment.QueryBases, mate_alignment.Qualities, io::OffsetType::PhredOffset);
-                        reader.Jump(alignment.RefID, alignment.Position);
-                        while (reader.GetNextAlignment(alignment)) {
-                            if (alignment.Name == read_name && alignment.IsFirstMate()) {
-                                break;
-                            }
-                        }
+
+                    if (alignment.MateRefID == -1) {
+                        OutputSingleRead(alignment, single_out_stream);
                     } else {
-                        second = io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::OffsetType::PhredOffset);
-                        std::string read_name = alignment.Name;
-                        reader.Jump(alignment.MateRefID, alignment.MatePosition);
-                        BamTools::BamAlignment mate_alignment;
-                        while(mate_alignment.Name != alignment.Name || mate_alignment.IsSecondMate()) {
-                            reader.GetNextAlignment(mate_alignment);
-                        }
-                        first = io::SingleRead(mate_alignment.Name, mate_alignment.QueryBases, mate_alignment.Qualities, io::OffsetType::PhredOffset);
-                        reader.Jump(alignment.RefID, alignment.Position);
-                        while (reader.GetNextAlignment(alignment)) {
-                            if (alignment.Name == read_name && alignment.IsSecondMate()) {
-                                break;
-                            }
-                        }
+                        OutputPairedRead(alignment, out_stream, reader);
                     }
-
-                    io::PairedRead pair(first, second, 0);
-                    out_stream << pair;
-
                 }
             }
         }
@@ -198,6 +181,70 @@ private:
         return false;
     }
 
+    void OutputPairedRead(BamTools::BamAlignment &alignment, io::OPairedReadStream<std::ofstream, io::FastqWriter> &out_stream, BamTools::BamReader &reader) {
+        io::SingleRead first;
+        io::SingleRead second;
+        if (alignment.IsFirstMate()) {
+            std::string read_name = alignment.Name;
+            first = io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::OffsetType::PhredOffset);
+            reader.Jump(alignment.MateRefID, alignment.MatePosition);
+            BamTools::BamAlignment mate_alignment;
+            while(mate_alignment.Name != alignment.Name || mate_alignment.IsFirstMate() || !mate_alignment.IsPrimaryAlignment()) {
+                reader.GetNextAlignment(mate_alignment);
+                if (mate_alignment.Position > alignment.MatePosition) {
+                    reader.Jump(alignment.RefID, alignment.Position);
+                    while (reader.GetNextAlignment(alignment)) {
+                        if (alignment.Name == read_name && alignment.IsFirstMate() && alignment.IsPrimaryAlignment()) {
+                            break;
+                        }
+                    }
+                    return;
+                }
+            }
+            second = io::SingleRead(mate_alignment.Name, mate_alignment.QueryBases, mate_alignment.Qualities, io::OffsetType::PhredOffset);
+            reader.Jump(alignment.RefID, alignment.Position);
+            while (reader.GetNextAlignment(alignment)) {
+                if (alignment.Name == read_name && alignment.IsFirstMate() && alignment.IsPrimaryAlignment()) {
+                    break;
+                }
+            }
+        } else {
+            second = io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::OffsetType::PhredOffset);
+            std::string read_name = alignment.Name;
+            reader.Jump(alignment.MateRefID, alignment.MatePosition);
+            BamTools::BamAlignment mate_alignment;
+            while(mate_alignment.Name != alignment.Name || mate_alignment.IsSecondMate() || !mate_alignment.IsPrimaryAlignment()) {
+                reader.GetNextAlignment(mate_alignment);
+                if (mate_alignment.Position > alignment.MatePosition) {
+                    reader.Jump(alignment.RefID, alignment.Position);
+
+                    while (reader.GetNextAlignment(alignment)) {
+                        if (alignment.Name == read_name && alignment.IsSecondMate() && alignment.IsPrimaryAlignment()) {
+                            break;
+                        }
+                    }
+                    return;
+
+                }
+            }
+            first = io::SingleRead(mate_alignment.Name, mate_alignment.QueryBases, mate_alignment.Qualities, io::OffsetType::PhredOffset);
+            reader.Jump(alignment.RefID, alignment.Position);
+            while (reader.GetNextAlignment(alignment)) {
+                if (alignment.Name == read_name && alignment.IsSecondMate() && alignment.IsPrimaryAlignment()) {
+                    break;
+                }
+            }
+        }
+
+        io::PairedRead pair(first, second, 0);
+        out_stream << pair;
+
+    }
+
+    void OutputSingleRead(BamTools::BamAlignment &alignment, io::OReadStream<std::ofstream, io::FastqWriter> &out_stream) {
+        io::SingleRead first = io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::OffsetType::PhredOffset);
+        out_stream << first;
+    }
 
 };
 
