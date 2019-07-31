@@ -57,13 +57,12 @@ public:
         size_t alignment_count = 0;
         size_t alignments_stored = 0;
         while(reader.GetNextAlignment(alignment)) {
-            break;
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
             if (IsBadAlignment(alignment) && alignment.IsPrimaryAlignment()) {
                 //INFO(alignment.Name << " " << alignment.QueryBases);
-                map_of_bad_reads_[bx].push_back(alignment.QueryBases);
+                map_of_bad_reads_[bx].push_back(io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::PhredOffset));
                 VERBOSE_POWER(++alignments_stored, " alignments stored");
             }
         }
@@ -143,6 +142,13 @@ public:
                         OutputPairedRead(alignment, out_stream, reader);
                     }
                 }
+
+                for (auto barcode : barcodes_count_over_threshold) {
+                    for (auto read : map_of_bad_reads_[barcode]) {
+                        single_out_stream << read;
+                    }
+                }
+                return;
             }
         }
 
@@ -153,7 +159,7 @@ public:
         return 0;
     }
 private:
-    std::unordered_map<std::string, std::vector<std::string>> map_of_bad_reads_;
+    std::unordered_map<std::string, std::vector<io::SingleRead>> map_of_bad_reads_;
 
 
     bool IsBadAlignment(BamTools::BamAlignment &alignment) {
