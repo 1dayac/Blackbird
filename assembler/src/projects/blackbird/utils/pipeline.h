@@ -4,6 +4,8 @@
 
 #ifndef BLACKBIRD_PIPELINE_H
 #define BLACKBIRD_PIPELINE_H
+#include<algorithm>
+
 #include "projects/spades/launch.hpp"
 #include "utils/logger/log_writers.hpp"
 #include "options.h"
@@ -43,10 +45,6 @@ public:
     int Launch() {
         utils::perf_counter pc;
         std::string log_filename = OptionBase::output_folder + "/blackdird.log";
-
-
-
-
         fs::make_dir(OptionBase::output_folder);
         create_console_logger(log_filename);
         INFO("Starting Blackbird");
@@ -104,7 +102,7 @@ public:
                 std::unordered_map<std::string, int> barcodes_count;
                 std::set<std::string> barcodes_count_over_threshold;
                 const int threshold = 4;
-                const int number_of_barcodes_to_assemble = 100;
+                const int number_of_barcodes_to_assemble = 200;
                 while(reader.GetNextAlignment(alignment)) {
                     if (alignment.IsPrimaryAlignment() && IsGoodAlignment(alignment)) {
                         std::string bx = "";
@@ -195,7 +193,8 @@ private:
         io::SingleRead second;
         if (alignment.IsFirstMate()) {
             std::string read_name = alignment.Name;
-            first = io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::OffsetType::PhredOffset);
+            first = CreateRead(alignment);
+            first = CreateRead(alignment);
             reader.Jump(alignment.MateRefID, alignment.MatePosition);
             BamTools::BamAlignment mate_alignment;
             while(mate_alignment.Name != alignment.Name || mate_alignment.IsFirstMate() || !mate_alignment.IsPrimaryAlignment()) {
@@ -210,7 +209,7 @@ private:
                     return;
                 }
             }
-            second = io::SingleRead(mate_alignment.Name, mate_alignment.QueryBases, mate_alignment.Qualities, io::OffsetType::PhredOffset);
+            second = CreateRead(mate_alignment);
             reader.Jump(alignment.RefID, alignment.Position);
             while (reader.GetNextAlignment(alignment)) {
                 if (alignment.Name == read_name && alignment.IsFirstMate() && alignment.IsPrimaryAlignment()) {
@@ -218,7 +217,7 @@ private:
                 }
             }
         } else {
-            second = io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::OffsetType::PhredOffset);
+            second = CreateRead(alignment);
             std::string read_name = alignment.Name;
             reader.Jump(alignment.MateRefID, alignment.MatePosition);
             BamTools::BamAlignment mate_alignment;
@@ -236,7 +235,7 @@ private:
 
                 }
             }
-            first = io::SingleRead(mate_alignment.Name, mate_alignment.QueryBases, mate_alignment.Qualities, io::OffsetType::PhredOffset);
+            first = CreateRead(mate_alignment);
             reader.Jump(alignment.RefID, alignment.Position);
             while (reader.GetNextAlignment(alignment)) {
                 if (alignment.Name == read_name && alignment.IsSecondMate() && alignment.IsPrimaryAlignment()) {
@@ -248,6 +247,16 @@ private:
         io::PairedRead pair(first, second, 0);
         out_stream << pair;
 
+    }
+
+    io::SingleRead CreateRead(BamTools::BamAlignment &alignment) {
+        std::string bases = alignment.IsReverseStrand() ?  ReverseComplement(alignment.QueryBases) : alignment.QueryBases;
+        std::string qualities = alignment.Qualities;
+
+        if (alignment.IsReverseStrand()) {
+            std::reverse(qualities.begin(), qualities.end());
+        }
+        return io::SingleRead(alignment.Name, bases, qualities, io::OffsetType::PhredOffset);
     }
 
     void OutputSingleRead(BamTools::BamAlignment &alignment, io::OReadStream<std::ofstream, io::FastqWriter> &out_stream) {
