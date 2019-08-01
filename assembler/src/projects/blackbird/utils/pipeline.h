@@ -146,7 +146,6 @@ public:
                         single_out_stream << read;
                     }
                 }
-                return 0;
             }
         }
 
