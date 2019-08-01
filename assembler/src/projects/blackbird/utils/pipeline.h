@@ -163,8 +163,11 @@ private:
 
 
     bool IsBadAlignment(BamTools::BamAlignment &alignment) {
-        if (alignment.MapQuality < OptionBase::mapping_quality) {
-            return true;
+        //very bad alignment
+        for (auto ch : alignment.Qualities) {
+            if (ch < '5') {
+                return false;
+            }
         }
         auto cigar = alignment.CigarData;
         int num_soft_clip = 0;
