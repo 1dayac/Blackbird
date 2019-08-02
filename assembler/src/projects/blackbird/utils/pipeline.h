@@ -11,6 +11,7 @@
 #include "options.h"
 #include "io/sam/bam_reader.hpp"
 #include "common/io/reads/osequencestream.hpp"
+#include <boost/circular_buffer.hpp>
 
 void create_console_logger(std::string log_prop_fn) {
     using namespace logging;
@@ -78,7 +79,8 @@ public:
 
         auto ref_data = reader.GetReferenceData();
 
-        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 30000000, reader.GetReferenceID("chr13"), 40000000);
+        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 30800000, reader.GetReferenceID("chr13"), 40000000);
+
 
         for (auto reference : ref_data) {
             if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
@@ -121,18 +123,23 @@ public:
                 std::string temp_dir = fs::make_temp_dir(OptionBase::output_folder + "/", "");
                 io::OPairedReadStream<std::ofstream, io::FastqWriter> out_stream(temp_dir + "/R1.fastq", temp_dir + "/R2.fastq");
                 io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
+                boost::circular_buffer<BamTools::BamAlignment> last_entries(100);
 
                 while (reader.GetNextAlignment(alignment)) {
                     if (alignment.Position > start_pos + window_width || alignment.RefID != reader.GetReferenceID(reference.RefName)) {
                         break;
                     }
-
                     std::string bx = "";
                     alignment.GetTag("BX", bx);
                     if (!barcodes_count_over_threshold.count(bx) || !alignment.IsPrimaryAlignment()) {
                         continue;
                     }
 
+                    last_entries.push_back(alignment);
+                    if (last_entries.full() && alignment.Position - last_entries.front().Position < 50) {
+                        reader.Jump(alignment.RefID, alignment.Position + 500);
+                        continue;
+                    }
 
                     if (alignment.MateRefID == -1) {
                         OutputSingleRead(alignment, single_out_stream);
@@ -181,6 +188,11 @@ private:
 
     bool IsGoodAlignment(BamTools::BamAlignment &alignment) {
         auto cigar = alignment.CigarData;
+        for (auto ch : alignment.Qualities) {
+            if (ch < '5') {
+                return false;
+            }
+        }
         if (cigar.size() == 1 && cigar[0].Type == 'M' && alignment.RefID == alignment.MateRefID) {
             return true;
         }
@@ -193,15 +205,22 @@ private:
         if (alignment.IsFirstMate()) {
             std::string read_name = alignment.Name;
             first = CreateRead(alignment);
-            first = CreateRead(alignment);
             reader.Jump(alignment.MateRefID, alignment.MatePosition);
             BamTools::BamAlignment mate_alignment;
+            while(mate_alignment.Position < alignment.MatePosition) {
+                reader.GetNextAlignmentCore(mate_alignment);
+            }
+            mate_alignment.BuildCharData();
             while(mate_alignment.Name != alignment.Name || mate_alignment.IsFirstMate() || !mate_alignment.IsPrimaryAlignment()) {
                 reader.GetNextAlignment(mate_alignment);
                 if (mate_alignment.Position > alignment.MatePosition) {
                     reader.Jump(alignment.RefID, alignment.Position);
-                    while (reader.GetNextAlignment(alignment)) {
-                        if (alignment.Name == read_name && alignment.IsFirstMate() && alignment.IsPrimaryAlignment()) {
+                    while (reader.GetNextAlignmentCore(alignment)) {
+                        if (!alignment.IsFirstMate() || !alignment.IsPrimaryAlignment()) {
+                            continue;
+                        }
+                        alignment.BuildCharData();
+                        if (alignment.Name == read_name) {
                             break;
                         }
                     }
@@ -220,6 +239,10 @@ private:
             std::string read_name = alignment.Name;
             reader.Jump(alignment.MateRefID, alignment.MatePosition);
             BamTools::BamAlignment mate_alignment;
+            while(mate_alignment.Position < alignment.MatePosition) {
+                reader.GetNextAlignmentCore(mate_alignment);
+            }
+            mate_alignment.BuildCharData();
             while(mate_alignment.Name != alignment.Name || mate_alignment.IsSecondMate() || !mate_alignment.IsPrimaryAlignment()) {
                 reader.GetNextAlignment(mate_alignment);
                 if (mate_alignment.Position > alignment.MatePosition) {
@@ -236,8 +259,12 @@ private:
             }
             first = CreateRead(mate_alignment);
             reader.Jump(alignment.RefID, alignment.Position);
-            while (reader.GetNextAlignment(alignment)) {
-                if (alignment.Name == read_name && alignment.IsSecondMate() && alignment.IsPrimaryAlignment()) {
+            while (reader.GetNextAlignmentCore(alignment)) {
+                if (!alignment.IsSecondMate() || !alignment.IsPrimaryAlignment()) {
+                    continue;
+                }
+                alignment.BuildCharData();
+                if (alignment.Name == read_name) {
                     break;
                 }
             }
