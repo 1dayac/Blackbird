@@ -201,11 +201,21 @@
       <file leaf-file-name="pipeline.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/pipeline.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="57" column="51" lean-forward="false" selection-start-line="57" selection-start-column="51" selection-end-line="57" selection-end-column="51" />
+            <state relative-caret-position="585">
+              <caret line="60" column="51" lean-forward="false" selection-start-line="60" selection-start-column="51" selection-end-line="60" selection-end-column="51" />
               <folding>
                 <element signature="e#96#115#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="R1.fastq" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmake-build-debug/bin/out/chr13_30800000_30850000/R1.fastq">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-157397">
+              <caret line="1884" column="39" lean-forward="true" selection-start-line="1884" selection-start-column="39" selection-end-line="1884" selection-end-column="39" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -223,8 +233,8 @@
       <file leaf-file-name="BamReader.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ext/src/bamtools/api/BamReader.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="582">
-              <caret line="181" column="28" lean-forward="false" selection-start-line="181" selection-start-column="28" selection-end-line="181" selection-end-column="28" />
+            <state relative-caret-position="264">
+              <caret line="28" column="11" lean-forward="false" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -290,21 +300,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="R1.fastq" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmake-build-debug/bin/out/_tMRMkZ/R1.fastq">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="682">
-              <caret line="124" column="39" lean-forward="false" selection-start-line="124" selection-start-column="39" selection-end-line="124" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ProfileCounter</find>
       <find>cpp</find>
       <find>libra</find>
       <find>create</find>
@@ -334,6 +333,7 @@
       <find>ReverseC</find>
       <find>Create</find>
       <find>HasCoreOnly</find>
+      <find>dir</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -345,7 +345,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/common/stages/construction.cpp" />
         <option value="$PROJECT_DIR$/spades_pipeline/spades_logic.py" />
         <option value="$PROJECT_DIR$/common/pipeline/library.cpp" />
         <option value="$PROJECT_DIR$/common/utils/ph_map/perfect_hash_map_builder.hpp" />
@@ -395,6 +394,7 @@
         <option value="$PROJECT_DIR$/cmake-build-debug/bin/out/_1L6pBp/single.fastq" />
         <option value="$PROJECT_DIR$/cmake-build-debug/bin/out/_1L6pBp/R2.fastq" />
         <option value="$PROJECT_DIR$/cmake-build-debug/bin/out/_1L6pBp/R1.fastq" />
+        <option value="$PROJECT_DIR$/cmake-build-debug/bin/out/chr13_30800000_30850000/R1.fastq" />
         <option value="$PROJECT_DIR$/projects/blackbird/utils/pipeline.h" />
       </list>
     </option>
@@ -470,6 +470,15 @@
               <item name="cmake-build-debug" type="462c0819:PsiDirectoryNode" />
               <item name="bin" type="462c0819:PsiDirectoryNode" />
               <item name="out" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="src" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="src" type="47feb1d3:ProjectViewModuleNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="cmake-build-debug" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="chr13_30800000_30850000" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -1246,12 +1255,12 @@
       <workItem from="1555958963979" duration="4559000" />
       <workItem from="1559078502115" duration="12134000" />
       <workItem from="1564014726936" duration="34780000" />
-      <workItem from="1564679617257" duration="10686000" />
+      <workItem from="1564679617257" duration="13225000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="212287000" />
+    <option name="totallyTimeSpent" value="214826000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
@@ -1314,12 +1323,11 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="177" />
+      <option name="time" value="193" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cmake-build-debug/bin/out/_vsFktR/R1.fastq" />
     <entry file="file://$PROJECT_DIR$/../ext/include/bamtools/api/BamAux.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -1357,6 +1365,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1476,14 +1485,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ext/src/bamtools/api/BamReader.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="582">
-          <caret line="181" column="28" lean-forward="false" selection-start-line="181" selection-start-column="28" selection-end-line="181" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ext/src/bamtools/api/internal/bam/BamReader_p.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="598">
@@ -1500,10 +1501,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../ext/src/bamtools/api/BamReader.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="28" column="11" lean-forward="false" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/bin/out/chr13_30800000_30850000/R1.fastq">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-157397">
+          <caret line="1884" column="39" lean-forward="true" selection-start-line="1884" selection-start-column="39" selection-end-line="1884" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/pipeline.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="57" column="51" lean-forward="false" selection-start-line="57" selection-start-column="51" selection-end-line="57" selection-end-column="51" />
+        <state relative-caret-position="585">
+          <caret line="60" column="51" lean-forward="false" selection-start-line="60" selection-start-column="51" selection-end-line="60" selection-end-column="51" />
           <folding>
             <element signature="e#96#115#0" expanded="true" />
           </folding>

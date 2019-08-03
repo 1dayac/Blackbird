@@ -51,7 +51,10 @@ public:
         INFO("Starting Blackbird");
         INFO("Hey, I'm Blackbird");
         BamTools::BamReader reader;
+        BamTools::BamReader mate_reader;
+
         reader.Open(OptionBase::bam.c_str());
+        mate_reader.Open(OptionBase::bam.c_str());
         BamTools::BamAlignment alignment;
         size_t alignment_count = 0;
         size_t alignments_stored = 0;
@@ -76,6 +79,7 @@ public:
         } else {
             FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
         }
+        mate_reader.OpenIndex((OptionBase::bam + ".bai").c_str());
 
         auto ref_data = reader.GetReferenceData();
 
@@ -119,8 +123,8 @@ public:
                 }
                 INFO("Taking first " << number_of_barcodes_to_assemble << " barcodes");
                 reader.SetRegion(region);
-
-                std::string temp_dir = fs::make_temp_dir(OptionBase::output_folder + "/", "");
+                std::string temp_dir = OptionBase::output_folder + "/" + reference.RefName + "_" + std::to_string(start_pos) + "_" + std::to_string(start_pos + window_width);
+                fs::make_dir(temp_dir);
                 io::OPairedReadStream<std::ofstream, io::FastqWriter> out_stream(temp_dir + "/R1.fastq", temp_dir + "/R2.fastq");
                 io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
                 boost::circular_buffer<BamTools::BamAlignment> last_entries(100);
@@ -144,7 +148,7 @@ public:
                     if (alignment.MateRefID == -1) {
                         OutputSingleRead(alignment, single_out_stream);
                     } else {
-                        OutputPairedRead(alignment, out_stream, reader);
+                        OutputPairedRead(alignment, out_stream, mate_reader);
                     }
                 }
 
@@ -214,26 +218,10 @@ private:
             while(mate_alignment.Name != alignment.Name || mate_alignment.IsFirstMate() || !mate_alignment.IsPrimaryAlignment()) {
                 reader.GetNextAlignment(mate_alignment);
                 if (mate_alignment.Position > alignment.MatePosition) {
-                    reader.Jump(alignment.RefID, alignment.Position);
-                    while (reader.GetNextAlignmentCore(alignment)) {
-                        if (!alignment.IsFirstMate() || !alignment.IsPrimaryAlignment()) {
-                            continue;
-                        }
-                        alignment.BuildCharData();
-                        if (alignment.Name == read_name) {
-                            break;
-                        }
-                    }
                     return;
                 }
             }
             second = CreateRead(mate_alignment);
-            reader.Jump(alignment.RefID, alignment.Position);
-            while (reader.GetNextAlignment(alignment)) {
-                if (alignment.Name == read_name && alignment.IsFirstMate() && alignment.IsPrimaryAlignment()) {
-                    break;
-                }
-            }
         } else {
             second = CreateRead(alignment);
             std::string read_name = alignment.Name;
@@ -246,28 +234,10 @@ private:
             while(mate_alignment.Name != alignment.Name || mate_alignment.IsSecondMate() || !mate_alignment.IsPrimaryAlignment()) {
                 reader.GetNextAlignment(mate_alignment);
                 if (mate_alignment.Position > alignment.MatePosition) {
-                    reader.Jump(alignment.RefID, alignment.Position);
-
-                    while (reader.GetNextAlignment(alignment)) {
-                        if (alignment.Name == read_name && alignment.IsSecondMate() && alignment.IsPrimaryAlignment()) {
-                            break;
-                        }
-                    }
                     return;
-
                 }
             }
             first = CreateRead(mate_alignment);
-            reader.Jump(alignment.RefID, alignment.Position);
-            while (reader.GetNextAlignmentCore(alignment)) {
-                if (!alignment.IsSecondMate() || !alignment.IsPrimaryAlignment()) {
-                    continue;
-                }
-                alignment.BuildCharData();
-                if (alignment.Name == read_name) {
-                    break;
-                }
-            }
         }
 
         io::PairedRead pair(first, second, 0);
