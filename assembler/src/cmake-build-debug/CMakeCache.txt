@@ -671,6 +671,9 @@ kmer_count_filter_BINARY_DIR:STATIC=/Users/dima/Desktop/Blackbird2/assembler/src
 //Value Computed by CMake
 kmer_count_filter_SOURCE_DIR:STATIC=/Users/dima/Desktop/Blackbird2/assembler/src/projects/mts
 
+//Dependencies for target
+libminimap2_LIB_DEPENDS:STATIC=
+
 //Value Computed by CMake
 llvm-support_BINARY_DIR:STATIC=/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/ext/llvm
 
@@ -682,6 +685,15 @@ llvm-support_SOURCE_DIR:STATIC=/Users/dima/Desktop/Blackbird2/assembler/ext/src/
 
 //Dependencies for target
 mapping_printer_LIB_DEPENDS:STATIC=
+
+//Value Computed by CMake
+minimap2_BINARY_DIR:STATIC=/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/ext/minimap2
+
+//Dependencies for target
+minimap2_LIB_DEPENDS:STATIC=
+
+//Value Computed by CMake
+minimap2_SOURCE_DIR:STATIC=/Users/dima/Desktop/Blackbird2/assembler/ext/src/minimap2
 
 //Value Computed by CMake
 modules_BINARY_DIR:STATIC=/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/common/modules
@@ -966,7 +978,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=68
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=69
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

@@ -6,12 +6,14 @@
 #define BLACKBIRD_PIPELINE_H
 #include<algorithm>
 
-#include "projects/spades/launch.hpp"
+
 #include "utils/logger/log_writers.hpp"
 #include "options.h"
 #include "io/sam/bam_reader.hpp"
 #include "common/io/reads/osequencestream.hpp"
 #include <boost/circular_buffer.hpp>
+#include "minimap2/minimap.h"
+#include "io/reads/fasta_fastq_gz_parser.hpp"
 
 void create_console_logger(std::string log_prop_fn) {
     using namespace logging;
@@ -42,14 +44,28 @@ struct RefWindow {
 
 
 class BlackBirdLauncher {
+
 public:
     int Launch() {
         utils::perf_counter pc;
         std::string log_filename = OptionBase::output_folder + "/blackdird.log";
+        std::unordered_map<std::string, std::string> reference_map;
         fs::make_dir(OptionBase::output_folder);
         create_console_logger(log_filename);
         INFO("Starting Blackbird");
         INFO("Hey, I'm Blackbird");
+
+
+
+        INFO("Uploading reeference genome");
+        io::FastaFastqGzParser reference_reader(OptionBase::reference);
+        io::SingleRead chrom;
+        while (!reference_reader.eof()) {
+            reference_reader >> chrom;
+            reference_map[chrom.name()] = chrom.GetSequenceString();
+        }
+
+
         BamTools::BamReader reader;
         BamTools::BamReader mate_reader;
 
@@ -59,6 +75,7 @@ public:
         size_t alignment_count = 0;
         size_t alignments_stored = 0;
         while(reader.GetNextAlignment(alignment)) {
+            break;
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
@@ -83,7 +100,7 @@ public:
 
         auto ref_data = reader.GetReferenceData();
 
-        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 30800000, reader.GetReferenceID("chr13"), 40000000);
+        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 32080000, reader.GetReferenceID("chr13"), 40000000);
 
 
         for (auto reference : ref_data) {
@@ -157,7 +174,12 @@ public:
                         single_out_stream << read;
                     }
                 }
+                std::string spades_command = OptionBase::path_to_spades + " --cov-cutoff 5 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
+                std::system(spades_command.c_str());
+                RunAndProcessMinimap(temp_dir + "/assembly/scaffolds.fasta", reference_map[reference.RefName].substr(start_pos, window_width));
             }
+
+
         }
 
 
@@ -169,6 +191,11 @@ public:
 private:
     std::unordered_map<std::string, std::vector<io::SingleRead>> map_of_bad_reads_;
 
+    void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference) {
+        INFO("Here we will run minimap");
+        mm_idx_t *index = mm_idx_str(10, 19, 0, 8, 1, (const char**)reference.c_str(), NULL);
+        INFO("Index built");
+    }
 
     bool IsBadAlignment(BamTools::BamAlignment &alignment) {
         //very bad alignment

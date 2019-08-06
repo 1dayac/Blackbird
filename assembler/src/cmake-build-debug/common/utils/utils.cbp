@@ -5,7 +5,7 @@
 		<Option title="utils"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="clang"/>
-		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\ext\;CMake Files\..\ext\src\;CMake Files\..\ext\src\bamtools\;CMake Files\..\ext\src\bamtools\api\;CMake Files\..\ext\src\bamtools\api\internal\;CMake Files\..\ext\src\bamtools\api\internal\bam\;CMake Files\..\ext\src\bamtools\api\internal\index\;CMake Files\..\ext\src\bamtools\api\internal\io\;CMake Files\..\ext\src\bamtools\api\internal\io\pbgzf\;CMake Files\..\ext\src\bamtools\api\internal\sam\;CMake Files\..\ext\src\bamtools\api\internal\utils\;CMake Files\..\ext\src\ConsensusCore\;CMake Files\..\ext\src\cppformat\;CMake Files\..\ext\src\jemalloc\;CMake Files\..\ext\src\jemalloc\build-aux\;CMake Files\..\ext\src\jemalloc\test\;CMake Files\..\ext\src\jemalloc\test\src\;CMake Files\..\ext\src\jemalloc\test\integration\;CMake Files\..\ext\src\jemalloc\test\unit\;CMake Files\..\ext\src\jemalloc\test\stress\;CMake Files\..\ext\src\jemalloc\src\;CMake Files\..\ext\src\nlopt\;CMake Files\..\ext\src\python_libs\;CMake Files\..\ext\src\python_libs\joblib2\;CMake Files\..\ext\src\python_libs\joblib3\;CMake Files\..\ext\src\python_libs\pyyaml2\;CMake Files\..\ext\src\python_libs\pyyaml3\;CMake Files\..\ext\src\samtools\;CMake Files\..\ext\src\ssw\;CMake Files\..\ext\src\cityhash\;CMake Files\..\ext\src\getopt_pp\;CMake Files\..\ext\src\llvm\;CMake Files\..\ext\src\htrie\;CMake Files\..\ext\src\bwa\;CMake Files\..\ext\src\gqf\;CMake Files\..\ext\src\edlib\;CMake Files\..\ext\src\gfa1\;CMake Files\..\ext\include\;CMake Files\..\ext\include\llvm\;CMake Files\cmake\;CMake Files\cmake\Modules\;CMake Files\include\;CMake Files\common\;CMake Files\common\pipeline\;CMake Files\common\sequence\;CMake Files\common\assembly_graph\;CMake Files\common\modules\;CMake Files\common\modules\path_extend\;CMake Files\common\modules\coverage_model\;CMake Files\common\paired_info\;CMake Files\common\stages\;CMake Files\common\utils\;CMake Files\common\utils\kmer_mph\;CMake Files\common\io\;CMake Files\common\io\graph\;CMake Files\projects\;CMake Files\projects\spades\;CMake Files\projects\hammer\;CMake Files\projects\ionhammer\;CMake Files\projects\corrector\;CMake Files\projects\scaffold_correction\;CMake Files\projects\kmercount\;CMake Files\projects\gbuilder\;CMake Files\projects\gmapper\;CMake Files\projects\edge_profiles\;CMake Files\projects\spaligner\;CMake Files\projects\blackbird\;CMake Files\projects\online_vis\;CMake Files\projects\truseq_analysis\;CMake Files\projects\mts\;CMake Files\spades_pipeline\;CMake Files\test\;CMake Files\test\include_test\;CMake Files\test\debruijn\;CMake Files\test\adt\;CMake Files\tools\;CMake Files\tools\correctionEvaluatorIon\;CMake Files\tools\correctionEvaluatorIon\cgce\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\ext\;CMake Files\..\ext\src\;CMake Files\..\ext\src\bamtools\;CMake Files\..\ext\src\bamtools\api\;CMake Files\..\ext\src\bamtools\api\internal\;CMake Files\..\ext\src\bamtools\api\internal\bam\;CMake Files\..\ext\src\bamtools\api\internal\index\;CMake Files\..\ext\src\bamtools\api\internal\io\;CMake Files\..\ext\src\bamtools\api\internal\io\pbgzf\;CMake Files\..\ext\src\bamtools\api\internal\sam\;CMake Files\..\ext\src\bamtools\api\internal\utils\;CMake Files\..\ext\src\ConsensusCore\;CMake Files\..\ext\src\cppformat\;CMake Files\..\ext\src\jemalloc\;CMake Files\..\ext\src\jemalloc\build-aux\;CMake Files\..\ext\src\jemalloc\test\;CMake Files\..\ext\src\jemalloc\test\src\;CMake Files\..\ext\src\jemalloc\test\integration\;CMake Files\..\ext\src\jemalloc\test\unit\;CMake Files\..\ext\src\jemalloc\test\stress\;CMake Files\..\ext\src\jemalloc\src\;CMake Files\..\ext\src\nlopt\;CMake Files\..\ext\src\python_libs\;CMake Files\..\ext\src\python_libs\joblib2\;CMake Files\..\ext\src\python_libs\joblib3\;CMake Files\..\ext\src\python_libs\pyyaml2\;CMake Files\..\ext\src\python_libs\pyyaml3\;CMake Files\..\ext\src\samtools\;CMake Files\..\ext\src\ssw\;CMake Files\..\ext\src\cityhash\;CMake Files\..\ext\src\getopt_pp\;CMake Files\..\ext\src\llvm\;CMake Files\..\ext\src\htrie\;CMake Files\..\ext\src\bwa\;CMake Files\..\ext\src\gqf\;CMake Files\..\ext\src\edlib\;CMake Files\..\ext\src\minimap2\;CMake Files\..\ext\src\gfa1\;CMake Files\..\ext\include\;CMake Files\..\ext\include\llvm\;CMake Files\..\..\;CMake Files\..\..\.git\;CMake Files\..\..\.git\refs\;CMake Files\..\..\.git\refs\heads\;CMake Files\cmake\;CMake Files\cmake\Modules\;CMake Files\include\;CMake Files\common\;CMake Files\common\pipeline\;CMake Files\common\sequence\;CMake Files\common\assembly_graph\;CMake Files\common\modules\;CMake Files\common\modules\path_extend\;CMake Files\common\modules\coverage_model\;CMake Files\common\paired_info\;CMake Files\common\stages\;CMake Files\common\utils\;CMake Files\common\utils\kmer_mph\;CMake Files\common\io\;CMake Files\common\io\graph\;CMake Files\projects\;CMake Files\projects\spades\;CMake Files\projects\hammer\;CMake Files\projects\ionhammer\;CMake Files\projects\corrector\;CMake Files\projects\scaffold_correction\;CMake Files\projects\kmercount\;CMake Files\projects\gbuilder\;CMake Files\projects\gmapper\;CMake Files\projects\edge_profiles\;CMake Files\projects\spaligner\;CMake Files\projects\blackbird\;CMake Files\projects\online_vis\;CMake Files\projects\truseq_analysis\;CMake Files\projects\mts\;CMake Files\spades_pipeline\;CMake Files\test\;CMake Files\test\include_test\;CMake Files\test\debruijn\;CMake Files\test\adt\;CMake Files\tools\;CMake Files\tools\correctionEvaluatorIon\;CMake Files\tools\correctionEvaluatorIon\cgce\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/common/utils"/>
@@ -425,6 +425,12 @@
 		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/edlib/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\edlib\"/>
 		</Unit>
+		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/minimap2/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\..\ext\src\minimap2\"/>
+		</Unit>
+		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/minimap2/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\..\ext\src\minimap2\"/>
+		</Unit>
 		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/gfa1/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\gfa1\"/>
 		</Unit>
@@ -436,6 +442,12 @@
 		</Unit>
 		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/include/llvm/Config.h.in">
 			<Option virtualFolder="CMake Files\..\ext\include\llvm\"/>
+		</Unit>
+		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../../.git/HEAD">
+			<Option virtualFolder="CMake Files\..\..\.git\"/>
+		</Unit>
+		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../../.git/refs/heads/master">
+			<Option virtualFolder="CMake Files\..\..\.git\refs\heads\"/>
 		</Unit>
 		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/cmake/options.cmake">
 			<Option virtualFolder="CMake Files\cmake\"/>
@@ -462,6 +474,9 @@
 			<Option virtualFolder="CMake Files\cmake\Modules\"/>
 		</Unit>
 		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/cmake/Modules/GetGitRevisionDescription.cmake">
+			<Option virtualFolder="CMake Files\cmake\Modules\"/>
+		</Unit>
+		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/cmake/Modules/GetGitRevisionDescription.cmake.in">
 			<Option virtualFolder="CMake Files\cmake\Modules\"/>
 		</Unit>
 		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/include/k_range.hpp.in">

@@ -13,6 +13,7 @@ public:
     static std::string output_folder;
     static int mapping_quality;
     static bool verbose;
+    static std::string path_to_spades;
 };
 
 #endif //BLACKBIRD_OPTIONS_H

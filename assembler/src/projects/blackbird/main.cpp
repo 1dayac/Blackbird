@@ -24,6 +24,7 @@ static const char *BLACKBIRD_USAGE_MESSAGE =
                 "           bam            Position-sorted and indexed bam-file with BX tags\n"
                 "           rerefence      BWA-indexed reference genome.\n"
                 "           output_folder  Folder where results will be stored.\n"
+                "           spades         Path to spades.py (not needed if spades.py is in path).\n"
                 "           verbose        Print additional output (for debug purposes).\n"
                 "           help           Print this message.\n"
                 "\nReport bugs to dmm2017@med.cornell.edu \n\n";
@@ -31,12 +32,13 @@ static const char *BLACKBIRD_USAGE_MESSAGE =
 
 
 
-static const char* shortopts = "b:r:o:hv";
+static const char* shortopts = "b:s:r:o:hv";
 static const struct option longopts[] = {
         {"bam",        required_argument, 0, 'b' },
         {"reference",  required_argument, 0, 'r' },
         {"output",     required_argument, 0, 'o' },
         {"verbose",    no_argument,       0, 'v' },
+        {"spades",     optional_argument, 0, 's' },
         {"help",       no_argument,       0, 'h' },
         {0,            0,                 0,  0  }
 };
@@ -51,6 +53,7 @@ bool getOptions(int argc, char **argv) {
             case 'b' : arg >> OptionBase::bam; break;
             case 'r' : arg >> OptionBase::reference; break;
             case 'o' : arg >> OptionBase::output_folder; break;
+            case 's' : arg >> OptionBase::path_to_spades; break;
             case 'v' : OptionBase::verbose = true; break;
             case 'h' : help = true; break;
         }

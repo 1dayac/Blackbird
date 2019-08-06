@@ -47,6 +47,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/ext/bwa/cmake_install.cmake")
   include("/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/ext/gqf/cmake_install.cmake")
   include("/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/ext/edlib/cmake_install.cmake")
+  include("/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/ext/minimap2/cmake_install.cmake")
   include("/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/ext/gfa1/cmake_install.cmake")
 
 endif()
