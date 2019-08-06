@@ -204,8 +204,8 @@
       <file leaf-file-name="pipeline.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/pipeline.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="194" column="41" lean-forward="true" selection-start-line="194" selection-start-column="41" selection-end-line="195" selection-end-column="53" />
+            <state relative-caret-position="490">
+              <caret line="198" column="0" lean-forward="false" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
               <folding>
                 <element signature="e#96#115#0" expanded="true" />
               </folding>
@@ -213,11 +213,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="iosfwd" pinned="false" current-in-tab="false">
+        <entry file="file:///Library/Developer/CommandLineTools/usr/include/c++/v1/iosfwd">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="index.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../ext/src/minimap2/index.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="386" column="0" lean-forward="false" selection-start-line="386" selection-start-column="0" selection-end-line="386" selection-end-column="0" />
+            <state relative-caret-position="507">
+              <caret line="431" column="0" lean-forward="false" selection-start-line="431" selection-start-column="0" selection-end-line="431" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -278,16 +288,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
               <caret line="9" column="24" lean-forward="false" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="path_helper.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/utils/filesystem/path_helper.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2400">
-              <caret line="174" column="5" lean-forward="false" selection-start-line="174" selection-start-column="5" selection-end-line="174" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -397,8 +397,8 @@
         <option value="$PROJECT_DIR$/projects/blackbird/main.cpp" />
         <option value="$PROJECT_DIR$/../ext/src/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/../ext/src/minimap2/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/projects/blackbird/utils/pipeline.h" />
         <option value="$PROJECT_DIR$/projects/blackbird/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/projects/blackbird/utils/pipeline.h" />
       </list>
     </option>
   </component>
@@ -1233,12 +1233,12 @@
       <workItem from="1555958963979" duration="4559000" />
       <workItem from="1559078502115" duration="12134000" />
       <workItem from="1564014726936" duration="34780000" />
-      <workItem from="1564679617257" duration="33147000" />
+      <workItem from="1564679617257" duration="33966000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="234748000" />
+    <option name="totallyTimeSpent" value="235567000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
@@ -1302,7 +1302,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/projects/blackbird/utils/pipeline.h</url>
-          <line>195</line>
+          <line>197</line>
           <option name="timeStamp" value="196" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -1310,13 +1310,17 @@
           <line>386</line>
           <option name="timeStamp" value="197" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/../ext/src/minimap2/index.c</url>
+          <line>428</line>
+          <option name="timeStamp" value="198" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="198" />
+      <option name="time" value="199" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cmake-build-debug/bin/out/_04KAhe/R2.fastq" />
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/bin/out/_Lm6bAw/R1.fastq" />
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/bin/out/_Lm6bAw/single.fastq" />
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/bin/out/_hhLgxX/single.fastq" />
@@ -1668,16 +1672,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../ext/src/minimap2/index.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="386" column="0" lean-forward="false" selection-start-line="386" selection-start-column="0" selection-end-line="386" selection-end-column="0" />
+        <state relative-caret-position="507">
+          <caret line="431" column="0" lean-forward="false" selection-start-line="431" selection-start-column="0" selection-end-line="431" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Developer/CommandLineTools/usr/include/c++/v1/iosfwd">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/projects/blackbird/utils/pipeline.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="194" column="41" lean-forward="true" selection-start-line="194" selection-start-column="41" selection-end-line="195" selection-end-column="53" />
+        <state relative-caret-position="490">
+          <caret line="198" column="0" lean-forward="false" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
           <folding>
             <element signature="e#96#115#0" expanded="true" />
           </folding>

@@ -193,7 +193,9 @@ private:
 
     void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference) {
         INFO("Here we will run minimap");
-        mm_idx_t *index = mm_idx_str(10, 19, 0, 8, 1, (const char**)reference.c_str(), NULL);
+        const char *reference_cstyle = reference.c_str();
+        const char **reference_array = &reference_cstyle;
+        mm_idx_t *index = mm_idx_str(10, 19, 0, 8, 1, reference_array, NULL);
         INFO("Index built");
     }
 
