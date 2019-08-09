@@ -11887,6 +11887,9 @@
 		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/ext/src/minimap2/sketch.c">
 			<Option target="minimap2"/>
 		</Unit>
+		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/ext/src/minimap2/splitidx.c">
+			<Option target="minimap2"/>
+		</Unit>
 		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/ext/src/nlopt/api/deprecated.c">
 			<Option target="nlopt"/>
 		</Unit>

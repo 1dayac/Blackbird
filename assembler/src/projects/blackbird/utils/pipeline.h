@@ -12,6 +12,7 @@
 #include "io/sam/bam_reader.hpp"
 #include "common/io/reads/osequencestream.hpp"
 #include <boost/circular_buffer.hpp>
+#include <minimap2/minimap.h>
 #include "minimap2/minimap.h"
 #include "io/reads/fasta_fastq_gz_parser.hpp"
 
@@ -21,6 +22,28 @@ void create_console_logger(std::string log_prop_fn) {
     lg->add_writer(std::make_shared<console_writer>());
     //lg->add_writer(std::make_shared<mutex_writer>(std::make_shared<console_writer>()));
     attach_logger(lg);
+}
+
+
+
+void test_minimap() {
+    std::string reference = "ACAGAGTTTTCCGATATAGCGTTCTTCTGGCCTCCCCTAATGTTAACATCTTATATAACTACGGTACACTGATCAAAACTAAGAACTTAATATTGAGATGAAGCTATTAACTACTTTACTCAGATTTCACCGGTTTTCCAATGATGTCCTTTTTCTGTTTCAGAATGCAATCCAAGATACCACACTGCATTTAGCTGTACTGTATATGAACACTTTTTAATACATCACTGGCTACAGAATAATAAATTAGTATCGAATCCTATTCTTAAGGATGAGGAACCTGAGTACTGGAGAAGCTAAAGGACTCATCCAGAAGCTCAGTATAAATGAACAATCAGAGTCAGGCCTGTGGTCCTAAAT";
+    const char *reference_cstyle = reference.c_str();
+    const char **reference_array = &reference_cstyle;
+    mm_idx_t *index = mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
+    mm_idx_stat(index);
+    std::string query = "ACAGAGTTTTCCGATATAGCGTTCTTCTGGCCTCCCCTAATGTTAACATCTTATATAACTACGGTACACTGATCAAAACTAAGAACTTGATGTCCTTTTTCTGTTTCAGAATGCAATCCAAGATACCACACTGCATTTAGCTGTACTGTATATGAACACTTTTTAATACATCACTGGCTACAGAATAATAAATTAGTATCGAATCCTATTCTTAAGGATGAGGAACCTGAGTACTGGAGAAGCTAAAGGACTCATCCAGAAGCTCAGTATAAATGAACAATCAGAGTCAGGCCTGTGGTCCTAAAT";
+    mm_tbuf_t *tbuf = mm_tbuf_init();
+    mm_idxopt_t iopt;
+    mm_mapopt_t mopt;
+    int number_of_hits;
+    mm_set_opt(0, &iopt, &mopt);
+
+    mm_mapopt_update(&mopt, index);
+    mopt.flag |= MM_F_CIGAR;
+    std::string name = "123";
+    mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
+    INFO(hit_array->score);
 }
 
 struct RefWindow {
@@ -55,7 +78,7 @@ public:
         INFO("Starting Blackbird");
         INFO("Hey, I'm Blackbird");
 
-
+        //test_minimap();
 
         INFO("Uploading reeference genome");
         io::FastaFastqGzParser reference_reader(OptionBase::reference);
@@ -196,7 +219,56 @@ private:
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
         mm_idx_t *index = mm_idx_str(10, 19, 0, 8, 1, reference_array, NULL);
+        mm_idx_stat(index);
         INFO("Index built");
+        io::FastaFastqGzParser reference_reader(path_to_scaffolds);
+        io::SingleRead contig;
+        while (!reference_reader.eof()) {
+            reference_reader >> contig;
+            std::string query = contig.GetSequenceString();
+            if (query.size() < 500) {
+                continue;
+            }
+            int number_of_hits;
+            mm_tbuf_t *tbuf = mm_tbuf_init();
+            mm_idxopt_t iopt;
+            mm_mapopt_t mopt;
+            mm_set_opt(0, &iopt, &mopt);
+            mopt.flag |= MM_F_CIGAR;
+            mm_mapopt_update(&mopt, index);
+            mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
+            INFO(contig.name().c_str());
+            INFO(hit_array->score);
+
+            for (int j = 0; j < number_of_hits; ++j) { // traverse hits and print them out
+                mm_reg1_t *r = &hit_array[j];
+                printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
+                if (!r->rev) {
+                    int query_start = r->qs;
+                    int reference_start = r->qs;
+                    for (int i = 0; i < r->p->n_cigar; ++i) {
+                        printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
+                            query_start += r->p->cigar[i]>>4;
+                            reference_start += r->p->cigar[i]>>4;
+                        }
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
+                            query_start += r->p->cigar[i]>>4;
+                            INFO("Insertion: " << reference_start << " " << query.substr(query_start - r->p->cigar[i]>>4, r->p->cigar[i]>>4));
+                        }
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
+                            reference_start += r->p->cigar[i]>>4;
+                            INFO("Deletion: " << reference_start << " " << reference.substr(reference_start - r->p->cigar[i]>>4, r->p->cigar[i]>>4));
+                        }
+                    }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
+                }
+
+                assert(r->p); // with MM_F_CIGAR, this should not be NULL
+                printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
+                printf("%s\t%d\t%d\t%d\t%d\t%d\t%d\tcg:Z:", index->seq[r->rid].name, index->seq[r->rid].len, r->rs, r->re, r->mlen, r->blen, r->mapq);
+                free(r->p);
+            }
+        }
     }
 
     bool IsBadAlignment(BamTools::BamAlignment &alignment) {

@@ -23,4 +23,5 @@ add_library(minimap2
         pe.c
         esterr.c
         ksw2_ll_sse.c
+        splitidx.c
 )
