@@ -98,7 +98,6 @@ public:
         size_t alignment_count = 0;
         size_t alignments_stored = 0;
         while(reader.GetNextAlignment(alignment)) {
-            break;
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
@@ -123,7 +122,7 @@ public:
 
         auto ref_data = reader.GetReferenceData();
 
-        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 32080000, reader.GetReferenceID("chr13"), 40000000);
+        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 30000000, reader.GetReferenceID("chr13"), 40000000);
 
 
         for (auto reference : ref_data) {
@@ -199,7 +198,7 @@ public:
                 }
                 std::string spades_command = OptionBase::path_to_spades + " --cov-cutoff 5 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
                 std::system(spades_command.c_str());
-                RunAndProcessMinimap(temp_dir + "/assembly/scaffolds.fasta", reference_map[reference.RefName].substr(start_pos, window_width));
+                RunAndProcessMinimap(temp_dir + "/assembly/K77/before_rr.fasta", reference_map[reference.RefName].substr(start_pos, window_width), reference.RefName, start_pos);
             }
 
 
@@ -214,7 +213,7 @@ public:
 private:
     std::unordered_map<std::string, std::vector<io::SingleRead>> map_of_bad_reads_;
 
-    void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference) {
+    void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
         INFO("Here we will run minimap");
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
@@ -226,7 +225,7 @@ private:
         while (!reference_reader.eof()) {
             reference_reader >> contig;
             std::string query = contig.GetSequenceString();
-            if (query.size() < 500) {
+            if (query.size() < 300) {
                 continue;
             }
             int number_of_hits;
@@ -238,34 +237,52 @@ private:
             mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             INFO(contig.name().c_str());
-            INFO(hit_array->score);
+            //INFO(hit_array->score);
 
             for (int j = 0; j < number_of_hits; ++j) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[j];
-                printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
+                //printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 if (!r->rev) {
                     int query_start = r->qs;
-                    int reference_start = r->qs;
+                    int reference_start = r->rs;
                     for (int i = 0; i < r->p->n_cigar; ++i) {
-                        printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
+                        //printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
                             query_start += r->p->cigar[i]>>4;
                             reference_start += r->p->cigar[i]>>4;
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
+                            INFO("Insertion: " << ref_name << " " << start_pos + reference_start << " " << query.substr(query_start, r->p->cigar[i]>>4));
                             query_start += r->p->cigar[i]>>4;
-                            INFO("Insertion: " << reference_start << " " << query.substr(query_start - r->p->cigar[i]>>4, r->p->cigar[i]>>4));
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
+                            INFO("Deletion: "  << ref_name << " " << start_pos + reference_start << " " << reference.substr(reference_start, r->p->cigar[i]>>4));
                             reference_start += r->p->cigar[i]>>4;
-                            INFO("Deletion: " << reference_start << " " << reference.substr(reference_start - r->p->cigar[i]>>4, r->p->cigar[i]>>4));
+                        }
+                    }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
+                } else {
+                    int query_start = r->qs;
+                    int reference_start = r->rs;
+                    for (int i = 0; i < r->p->n_cigar; ++i) {
+                        //printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
+                            query_start += r->p->cigar[i]>>4;
+                            reference_start += r->p->cigar[i]>>4;
+                        }
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
+                            INFO("Insertion: " << ref_name << " " << start_pos + reference_start << " " << ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
+                            query_start += r->p->cigar[i]>>4;
+                        }
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
+                            INFO("Deletion: "  << ref_name << " " << start_pos + reference_start << " " << reference.substr(reference_start, r->p->cigar[i]>>4));
+                            reference_start += r->p->cigar[i]>>4;
                         }
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
                 }
 
-                assert(r->p); // with MM_F_CIGAR, this should not be NULL
-                printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
-                printf("%s\t%d\t%d\t%d\t%d\t%d\t%d\tcg:Z:", index->seq[r->rid].name, index->seq[r->rid].len, r->rs, r->re, r->mlen, r->blen, r->mapq);
+                //assert(r->p); // with MM_F_CIGAR, this should not be NULL
+                //printf("%s\t%d\t%d\t%d\t%c\t\n", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
+                //printf("%s\t%d\t%d\t%d\t%d\t%d\t%d\tcg:Z:\n", index->seq[r->rid].name, index->seq[r->rid].len, r->rs, r->re, r->mlen, r->blen, r->mapq);
                 free(r->p);
             }
         }
