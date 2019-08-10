@@ -65,6 +65,16 @@ struct RefWindow {
     }
 };
 
+class VCFWriter {
+    std::ofstream file_;
+public:
+    VCFWriter(const std::string &filename)
+    {
+       file_ = std::ofstream(filename, std::ofstream::out);
+    }
+
+
+};
 
 class BlackBirdLauncher {
 
@@ -92,8 +102,16 @@ public:
         BamTools::BamReader reader;
         BamTools::BamReader mate_reader;
 
+
         reader.Open(OptionBase::bam.c_str());
         mate_reader.Open(OptionBase::bam.c_str());
+
+        auto ref_data = reader.GetReferenceData();
+        std::unordered_map<int, std::string> refid_to_ref_name;
+        for (auto reference : ref_data) {
+            refid_to_ref_name[reader.GetReferenceID(reference.RefName)] = reference.RefName;
+        }
+
         BamTools::BamAlignment alignment;
         size_t alignment_count = 0;
         size_t alignments_stored = 0;
@@ -101,7 +119,7 @@ public:
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
-            if (IsBadAlignment(alignment) && alignment.IsPrimaryAlignment()) {
+            if (IsBadAlignment(alignment, refid_to_ref_name) && alignment.IsPrimaryAlignment()) {
                 //INFO(alignment.Name << " " << alignment.QueryBases);
                 map_of_bad_reads_[bx].push_back(io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::PhredOffset));
                 VERBOSE_POWER(++alignments_stored, " alignments stored");
@@ -120,9 +138,8 @@ public:
         }
         mate_reader.OpenIndex((OptionBase::bam + ".bai").c_str());
 
-        auto ref_data = reader.GetReferenceData();
 
-        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 30000000, reader.GetReferenceID("chr13"), 40000000);
+        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 31040000, reader.GetReferenceID("chr13"), 40000000);
 
 
         for (auto reference : ref_data) {
@@ -160,13 +177,17 @@ public:
                         }
                     }
                 }
-                INFO("Taking first " << number_of_barcodes_to_assemble << " barcodes");
+                DEBUG("Taking first " << number_of_barcodes_to_assemble << " barcodes");
+
+
                 reader.SetRegion(region);
                 std::string temp_dir = OptionBase::output_folder + "/" + reference.RefName + "_" + std::to_string(start_pos) + "_" + std::to_string(start_pos + window_width);
                 fs::make_dir(temp_dir);
                 io::OPairedReadStream<std::ofstream, io::FastqWriter> out_stream(temp_dir + "/R1.fastq", temp_dir + "/R2.fastq");
                 io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
                 boost::circular_buffer<BamTools::BamAlignment> last_entries(100);
+
+
 
                 while (reader.GetNextAlignment(alignment)) {
                     if (alignment.Position > start_pos + window_width || alignment.RefID != reader.GetReferenceID(reference.RefName)) {
@@ -189,6 +210,12 @@ public:
                     } else {
                         OutputPairedRead(alignment, out_stream, mate_reader);
                     }
+                }
+
+                std::string barcode_file = temp_dir + "/barcodes.txt";
+                std::ofstream barcode_output(barcode_file.c_str(), std::ofstream::out);
+                for (auto barcode : barcodes_count_over_threshold) {
+                    barcode_output << barcode << "\n";
                 }
 
                 for (auto barcode : barcodes_count_over_threshold) {
@@ -288,13 +315,29 @@ private:
         }
     }
 
-    bool IsBadAlignment(BamTools::BamAlignment &alignment) {
+
+    bool IsGoodRef(const std::string &ref_name) {
+        if (ref_name[0] != 'c') {
+            return false;
+        }
+        if (ref_name.size() > 10) {
+            return false;
+        }
+        return true;
+    }
+
+    bool IsBadAlignment(BamTools::BamAlignment &alignment, std::unordered_map<int, std::string> &refid_to_ref_name) {
         //very bad alignment
         for (auto ch : alignment.Qualities) {
             if (ch < '5') {
                 return false;
             }
         }
+
+        if (!IsGoodRef(refid_to_ref_name[alignment.RefID])) {
+            return true;
+        }
+
         auto cigar = alignment.CigarData;
         int num_soft_clip = 0;
         for (auto c : cigar) {
