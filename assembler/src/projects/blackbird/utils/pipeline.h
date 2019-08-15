@@ -65,20 +65,69 @@ struct RefWindow {
     }
 };
 
+
+class SV {
+public:
+    SV(const std::string &chrom, int ref_position, const std::string &sv_seq)
+    : chrom_(chrom), ref_position_(ref_position), sv_seq_(sv_seq)
+    { }
+
+    int Size() {
+        return sv_seq_.size();
+    }
+
+    virtual std::string ToString() const = 0;
+protected:
+    std::string chrom_;
+    int ref_position_;
+    std::string sv_seq_;
+};
+
+class Deletion : public SV {
+public:
+    Deletion(const std::string &chrom, int ref_position, int second_ref_position, const std::string &deletion_seq)
+    : SV(chrom, ref_position, deletion_seq), second_ref_position_(second_ref_position) {    }
+
+    std::string ToString() const {
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<DEL>\t"  + "SEQ=" + sv_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_);
+    }
+
+private:
+    int second_ref_position_;
+};
+
+class Insertion : public SV {
+public:
+    Insertion(const std::string &chrom, int ref_position, const std::string &insertion_seq)
+            : SV(chrom, ref_position, insertion_seq) {}
+
+    std::string ToString() const {
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<INS>\t"  + "SEQ=" + sv_seq_ + ";SVLEN=" + std::to_string(sv_seq_.size());
+    }
+};
+
 class VCFWriter {
     std::ofstream file_;
 public:
+    VCFWriter() { }
+
     VCFWriter(const std::string &filename)
     {
        file_ = std::ofstream(filename, std::ofstream::out);
     }
 
-
+    inline std::ofstream &operator<<(const SV &sv) {
+        file_ << sv.ToString() << std::endl;
+        return  file_;
+    }
 };
 
 class BlackBirdLauncher {
 
 public:
+    BlackBirdLauncher ()
+    {}
+
     int Launch() {
         utils::perf_counter pc;
         std::string log_filename = OptionBase::output_folder + "/blackdird.log";
@@ -90,7 +139,10 @@ public:
 
         //test_minimap();
 
-        INFO("Uploading reeference genome");
+        INFO("Uploading reference genome");
+        writer_ = VCFWriter(OptionBase::output_folder + "/out_50.vcf");
+        writer_small_ = VCFWriter(OptionBase::output_folder + "/out.vcf");
+
         io::FastaFastqGzParser reference_reader(OptionBase::reference);
         io::SingleRead chrom;
         while (!reference_reader.eof()) {
@@ -237,8 +289,11 @@ public:
         INFO("Blackbird finished");
         return 0;
     }
+
 private:
     std::unordered_map<std::string, std::vector<io::SingleRead>> map_of_bad_reads_;
+    VCFWriter writer_;
+    VCFWriter writer_small_;
 
     void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
         INFO("Here we will run minimap");
@@ -279,11 +334,17 @@ private:
                             reference_start += r->p->cigar[i]>>4;
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
-                            INFO("Insertion: " << ref_name << " " << start_pos + reference_start << " " << query.substr(query_start, r->p->cigar[i]>>4));
+                            Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4));
+                            if (ins.Size() >= 50) {
+                                writer_ << ins;
+                            } else {
+                                writer_small_ << ins;
+                            }
+
                             query_start += r->p->cigar[i]>>4;
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
-                            INFO("Deletion: "  << ref_name << " " << start_pos + reference_start << " " << reference.substr(reference_start, r->p->cigar[i]>>4));
+                            Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
                             reference_start += r->p->cigar[i]>>4;
                         }
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
@@ -297,11 +358,17 @@ private:
                             reference_start += r->p->cigar[i]>>4;
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
-                            INFO("Insertion: " << ref_name << " " << start_pos + reference_start << " " << ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
+
+                            Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
+                            if (ins.Size() >= 50) {
+                                writer_ << ins;
+                            } else {
+                                writer_small_ << ins;
+                            }
                             query_start += r->p->cigar[i]>>4;
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
-                            INFO("Deletion: "  << ref_name << " " << start_pos + reference_start << " " << reference.substr(reference_start, r->p->cigar[i]>>4));
+                            Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
                             reference_start += r->p->cigar[i]>>4;
                         }
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
