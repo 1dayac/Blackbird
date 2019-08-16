@@ -178,6 +178,7 @@ public:
         size_t alignment_count = 0;
         size_t alignments_stored = 0;
         while(reader.GetNextAlignment(alignment)) {
+            break;
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
@@ -203,7 +204,7 @@ public:
             int window_width = 50000;
             int overlap = 10000;
             for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
-                if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition) {
+                if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr13") {
                     continue;
                 }
                 RefWindow r(reference.RefName, start_pos, start_pos + window_width);
@@ -222,18 +223,6 @@ public:
 
         //test_minimap();
 
-
-
-
-
-
-        reader.Open(OptionBase::bam.c_str());
-        if (reader.OpenIndex((OptionBase::bam + ".bai").c_str())) {
-            INFO("Index located at " << OptionBase::bam << ".bai");
-        } else {
-            FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
-        }
-        mate_reader.OpenIndex((OptionBase::bam + ".bai").c_str());
 
 
 
@@ -274,6 +263,7 @@ private:
     std::unordered_map<int, std::string> refid_to_ref_name_;
 
     void ProcessWindow(const RefWindow &window,  BamTools::BamReader &reader, BamTools::BamReader &mate_reader) {
+        INFO("Processing " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ")");
         BamTools::BamRegion region(reader.GetReferenceID(window.RefName.RefName), window.WindowStart, reader.GetReferenceID(window.RefName.RefName), window.WindowEnd);
         BamTools::BamAlignment alignment;
         if (!reader.SetRegion(region)) {
@@ -349,6 +339,7 @@ private:
         BamTools::BamReader reader;
         BamTools::BamReader mate_reader;
         reader.Open(OptionBase::bam.c_str());
+        mate_reader.Open(OptionBase::bam.c_str());
         if (reader.OpenIndex((OptionBase::bam + ".bai").c_str())) {
             INFO("Index located at " << OptionBase::bam << ".bai");
         } else {
@@ -402,9 +393,9 @@ private:
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
                             Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4));
                             if (ins.Size() >= 50) {
-                                writer_ << ins;
+                                WriteToVCF(ins);
                             } else {
-                                writer_small_ << ins;
+                                WriteToVCFShort(ins);
                             }
 
                             query_start += r->p->cigar[i]>>4;
@@ -412,9 +403,9 @@ private:
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
                             if (del.Size() >= 50) {
-                                writer_ << del;
+                                WriteToVCF(del);
                             } else {
-                                writer_small_ << del;
+                                WriteToVCFShort(del);
                             }
                             reference_start += r->p->cigar[i]>>4;
                         }
@@ -432,18 +423,18 @@ private:
 
                             Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
                             if (ins.Size() >= 50) {
-                                writer_ << ins;
+                                WriteToVCF(ins);
                             } else {
-                                writer_small_ << ins;
+                                WriteToVCFShort(ins);
                             }
                             query_start += r->p->cigar[i]>>4;
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
                             if (del.Size() >= 50) {
-                                writer_ << del;
+                                WriteToVCF(del);
                             } else {
-                                writer_small_ << del;
+                                WriteToVCFShort(del);
                             }
                             reference_start += r->p->cigar[i]>>4;
                         }
@@ -563,6 +554,21 @@ private:
         io::SingleRead first = io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::OffsetType::PhredOffset);
         out_stream << first;
     }
+
+    void WriteToVCF(SV &sv) {
+        #pragma omp critical
+        {
+            writer_ << sv;
+        }
+    }
+
+    void WriteToVCFShort(SV &sv) {
+        #pragma omp critical
+        {
+         writer_small_ << sv;
+        }
+    }
+
 
 };
 

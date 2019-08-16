@@ -2,6 +2,6 @@
 #define __SPADES_VERSION_HPP__
 
 #define SPADES_GIT_REFSPEC "refs/heads/master"
-#define SPADES_GIT_SHA1 "8041ed03e918fece6a7c5a0e0ff1c5f48c04212c"
+#define SPADES_GIT_SHA1 "6b589171da64412116e1e1413e61a066d1ba62e1"
 
 #endif // __SPADES_VERSION_HPP__
