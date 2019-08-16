@@ -137,7 +137,10 @@ public:
 
         int max_treads = omp_get_max_threads();
 
-        printf("Hello from thread %d, nthreads %d\n", omp_get_thread_num(), omp_get_num_threads());
+        #pragma omp parallel for num_threads(10)
+        for (int i = 0; i < 100; ++i) {
+            INFO(i << " " << omp_get_thread_num());
+        }
 
         if (OptionBase::threads > max_treads) {
             WARN("Only " << max_treads << " are available.");
