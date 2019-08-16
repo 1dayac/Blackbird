@@ -89,7 +89,7 @@ public:
     : SV(chrom, ref_position, deletion_seq), second_ref_position_(second_ref_position) {    }
 
     std::string ToString() const {
-        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<DEL>\t"  + "SEQ=" + sv_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_);
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<DEL>\t"  + "SEQ=" + sv_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_) + ";SVTYPE=DEL";
     }
 
 private:
@@ -102,7 +102,7 @@ public:
             : SV(chrom, ref_position, insertion_seq) {}
 
     std::string ToString() const {
-        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<INS>\t"  + "SEQ=" + sv_seq_ + ";SVLEN=" + std::to_string(sv_seq_.size());
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<INS>\t"  + "SEQ=" + sv_seq_ + ";SVLEN=" + std::to_string(sv_seq_.size())  + ";SVTYPE=INS";
     }
 };
 
@@ -137,6 +137,7 @@ public:
         INFO("Starting Blackbird");
         INFO("Hey, I'm Blackbird");
 
+        INFO("Number of threads being used");
         //test_minimap();
 
         INFO("Uploading reference genome");
@@ -230,8 +231,6 @@ public:
                     }
                 }
                 DEBUG("Taking first " << number_of_barcodes_to_assemble << " barcodes");
-
-
                 reader.SetRegion(region);
                 std::string temp_dir = OptionBase::output_folder + "/" + reference.RefName + "_" + std::to_string(start_pos) + "_" + std::to_string(start_pos + window_width);
                 fs::make_dir(temp_dir);
@@ -345,6 +344,11 @@ private:
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
+                            if (del.Size() >= 50) {
+                                writer_ << del;
+                            } else {
+                                writer_small_ << del;
+                            }
                             reference_start += r->p->cigar[i]>>4;
                         }
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
@@ -369,6 +373,11 @@ private:
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
+                            if (del.Size() >= 50) {
+                                writer_ << del;
+                            } else {
+                                writer_small_ << del;
+                            }
                             reference_start += r->p->cigar[i]>>4;
                         }
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
