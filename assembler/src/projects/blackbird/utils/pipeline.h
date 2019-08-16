@@ -6,7 +6,6 @@
 #define BLACKBIRD_PIPELINE_H
 #include<algorithm>
 
-
 #include "utils/logger/log_writers.hpp"
 #include "options.h"
 #include "io/sam/bam_reader.hpp"
@@ -15,7 +14,7 @@
 #include <minimap2/minimap.h>
 #include "minimap2/minimap.h"
 #include "io/reads/fasta_fastq_gz_parser.hpp"
-
+#include "common/utils/parallel/openmp_wrapper.h"
 void create_console_logger(std::string log_prop_fn) {
     using namespace logging;
     logger *lg = create_logger(fs::FileExists(log_prop_fn) ? log_prop_fn : "");
@@ -135,9 +134,17 @@ public:
         fs::make_dir(OptionBase::output_folder);
         create_console_logger(log_filename);
         INFO("Starting Blackbird");
-        INFO("Hey, I'm Blackbird");
 
-        INFO("Number of threads being used");
+        int max_treads = omp_get_max_threads();
+
+        printf("Hello from thread %d, nthreads %d\n", omp_get_thread_num(), omp_get_num_threads());
+
+        if (OptionBase::threads > max_treads) {
+            WARN("Only " << max_treads << " are available.");
+            OptionBase::threads = max_treads;
+        }
+
+        INFO("Number of threads being used - " << OptionBase::threads);
         //test_minimap();
 
         INFO("Uploading reference genome");
