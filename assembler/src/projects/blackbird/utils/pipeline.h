@@ -47,19 +47,19 @@ void test_minimap() {
 
 struct RefWindow {
 
-    std::string RefName;    //!< name of reference sequence
-    int32_t     WindowStart;  //!< length of reference sequence
-    int32_t     WindowEnd;  //!< length of reference sequence
+    BamTools::RefData RefName;    //!< name of reference sequence
+    int32_t           WindowStart;  //!< length of reference sequence
+    int32_t           WindowEnd;  //!< length of reference sequence
 
     //! constructor
-    RefWindow(const std::string& name,
+    RefWindow(const BamTools::RefData& reference,
             const int32_t& windowStart, const int32_t& windowEnd)
-            : RefName(name), WindowStart(windowStart)
+            : RefName(reference), WindowStart(windowStart)
             , WindowEnd(windowEnd)
     { }
 
     std::string ToString() {
-        std::string out = RefName + " " + std::to_string(WindowStart) + " " + std::to_string(WindowEnd);
+        std::string out = RefName.RefName + " " + std::to_string(WindowStart) + " " + std::to_string(WindowEnd);
         return out;
     }
 };
@@ -130,37 +130,35 @@ public:
     int Launch() {
         utils::perf_counter pc;
         std::string log_filename = OptionBase::output_folder + "/blackdird.log";
-        std::unordered_map<std::string, std::string> reference_map;
+
         fs::make_dir(OptionBase::output_folder);
+
+        writer_ = VCFWriter(OptionBase::output_folder + "/out_50.vcf");
+        writer_small_ = VCFWriter(OptionBase::output_folder + "/out.vcf");
+
         create_console_logger(log_filename);
         INFO("Starting Blackbird");
 
         int max_treads = omp_get_max_threads();
 
-        #pragma omp parallel for num_threads(10)
-        for (int i = 0; i < 100; ++i) {
-            INFO(i << " " << omp_get_thread_num());
-        }
 
         if (OptionBase::threads > max_treads) {
-            WARN("Only " << max_treads << " are available.");
+            WARN("Only " << max_treads << " thread(s) available.");
             OptionBase::threads = max_treads;
         }
 
         INFO("Number of threads being used - " << OptionBase::threads);
-        //test_minimap();
 
         INFO("Uploading reference genome");
-        writer_ = VCFWriter(OptionBase::output_folder + "/out_50.vcf");
-        writer_small_ = VCFWriter(OptionBase::output_folder + "/out.vcf");
 
         io::FastaFastqGzParser reference_reader(OptionBase::reference);
         io::SingleRead chrom;
         while (!reference_reader.eof()) {
             reference_reader >> chrom;
-            reference_map[chrom.name()] = chrom.GetSequenceString();
+            reference_map_[chrom.name()] = chrom.GetSequenceString();
         }
 
+        INFO("Filter poorly aligned reads");
 
         BamTools::BamReader reader;
         BamTools::BamReader mate_reader;
@@ -170,10 +168,11 @@ public:
         mate_reader.Open(OptionBase::bam.c_str());
 
         auto ref_data = reader.GetReferenceData();
-        std::unordered_map<int, std::string> refid_to_ref_name;
+
         for (auto reference : ref_data) {
-            refid_to_ref_name[reader.GetReferenceID(reference.RefName)] = reference.RefName;
+            refid_to_ref_name_[reader.GetReferenceID(reference.RefName)] = reference.RefName;
         }
+
 
         BamTools::BamAlignment alignment;
         size_t alignment_count = 0;
@@ -182,7 +181,7 @@ public:
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
-            if (IsBadAlignment(alignment, refid_to_ref_name) && alignment.IsPrimaryAlignment()) {
+            if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
                 //INFO(alignment.Name << " " << alignment.QueryBases);
                 map_of_bad_reads_[bx].push_back(io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::PhredOffset));
                 VERBOSE_POWER(++alignments_stored, " alignments stored");
@@ -191,6 +190,41 @@ public:
         INFO("Total " << alignment_count << " alignments processed");
         INFO("Total " << alignments_stored << " alignments stored");
         reader.Close();
+
+        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 30000000, reader.GetReferenceID("chr13"), 40000000);
+        INFO("Create reference windows");
+        std::vector<std::vector<RefWindow>> reference_windows;
+        reference_windows.resize(OptionBase::threads);
+        int number_of_windows = 0;
+        for (auto reference : ref_data) {
+            if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
+                continue;
+            }
+            int window_width = 50000;
+            int overlap = 10000;
+            for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
+                if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition) {
+                    continue;
+                }
+                RefWindow r(reference.RefName, start_pos, start_pos + window_width);
+                reference_windows[number_of_windows % OptionBase::threads].push_back(r);
+                ++number_of_windows;
+            }
+        }
+        INFO(number_of_windows << " totally created.");
+
+#pragma omp parallel for num_threads(OptionBase::threads)
+        for (int i = 0; i < reference_windows.size(); ++i) {
+            ProcessWindows(reference_windows[omp_get_thread_num()]);
+            INFO(i << " " << omp_get_thread_num());
+        }
+
+
+        //test_minimap();
+
+
+
+
 
 
         reader.Open(OptionBase::bam.c_str());
@@ -202,7 +236,6 @@ public:
         mate_reader.OpenIndex((OptionBase::bam + ".bai").c_str());
 
 
-        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 31040000, reader.GetReferenceID("chr13"), 40000000);
 
 
         for (auto reference : ref_data) {
@@ -215,7 +248,7 @@ public:
                 if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition) {
                     continue;
                 }
-                RefWindow r(reference.RefName, start_pos, start_pos + window_width);
+                RefWindow r(reference, start_pos, start_pos + window_width);
                 INFO(r.ToString());
                 BamTools::BamRegion region(reader.GetReferenceID(reference.RefName), start_pos, reader.GetReferenceID(reference.RefName), start_pos + window_width);
                 if (reader.SetRegion(region)) {
@@ -224,76 +257,10 @@ public:
                     INFO("Region can't be set");
                     continue;
                 }
-                std::unordered_map<std::string, int> barcodes_count;
-                std::set<std::string> barcodes_count_over_threshold;
-                const int threshold = 4;
-                const int number_of_barcodes_to_assemble = 200;
-                while(reader.GetNextAlignment(alignment)) {
-                    if (alignment.IsPrimaryAlignment() && IsGoodAlignment(alignment)) {
-                        std::string bx = "";
-                        alignment.GetTag("BX", bx);
-                        if (++barcodes_count[bx] > threshold) {
-                            barcodes_count_over_threshold.insert(bx);
-                            if (barcodes_count_over_threshold.size() == number_of_barcodes_to_assemble) {
-                                break;
-                            }
-                        }
-                    }
-                }
-                DEBUG("Taking first " << number_of_barcodes_to_assemble << " barcodes");
-                reader.SetRegion(region);
-                std::string temp_dir = OptionBase::output_folder + "/" + reference.RefName + "_" + std::to_string(start_pos) + "_" + std::to_string(start_pos + window_width);
-                fs::make_dir(temp_dir);
-                io::OPairedReadStream<std::ofstream, io::FastqWriter> out_stream(temp_dir + "/R1.fastq", temp_dir + "/R2.fastq");
-                io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
-                boost::circular_buffer<BamTools::BamAlignment> last_entries(100);
-
-
-
-                while (reader.GetNextAlignment(alignment)) {
-                    if (alignment.Position > start_pos + window_width || alignment.RefID != reader.GetReferenceID(reference.RefName)) {
-                        break;
-                    }
-                    std::string bx = "";
-                    alignment.GetTag("BX", bx);
-                    if (!barcodes_count_over_threshold.count(bx) || !alignment.IsPrimaryAlignment()) {
-                        continue;
-                    }
-
-                    last_entries.push_back(alignment);
-                    if (last_entries.full() && alignment.Position - last_entries.front().Position < 50) {
-                        reader.Jump(alignment.RefID, alignment.Position + 500);
-                        continue;
-                    }
-
-                    if (alignment.MateRefID == -1) {
-                        OutputSingleRead(alignment, single_out_stream);
-                    } else {
-                        OutputPairedRead(alignment, out_stream, mate_reader);
-                    }
-                }
-
-                std::string barcode_file = temp_dir + "/barcodes.txt";
-                std::ofstream barcode_output(barcode_file.c_str(), std::ofstream::out);
-                for (auto barcode : barcodes_count_over_threshold) {
-                    barcode_output << barcode << "\n";
-                }
-
-                for (auto barcode : barcodes_count_over_threshold) {
-                    for (auto read : map_of_bad_reads_[barcode]) {
-                        single_out_stream << read;
-                    }
-                }
-                std::string spades_command = OptionBase::path_to_spades + " --cov-cutoff 5 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
-                std::system(spades_command.c_str());
-                RunAndProcessMinimap(temp_dir + "/assembly/K77/before_rr.fasta", reference_map[reference.RefName].substr(start_pos, window_width), reference.RefName, start_pos);
             }
 
 
         }
-
-
-
 
         INFO("Blackbird finished");
         return 0;
@@ -303,6 +270,96 @@ private:
     std::unordered_map<std::string, std::vector<io::SingleRead>> map_of_bad_reads_;
     VCFWriter writer_;
     VCFWriter writer_small_;
+    std::unordered_map<std::string, std::string> reference_map_;
+    std::unordered_map<int, std::string> refid_to_ref_name_;
+
+    void ProcessWindow(const RefWindow &window,  BamTools::BamReader &reader, BamTools::BamReader &mate_reader) {
+        BamTools::BamRegion region(reader.GetReferenceID(window.RefName.RefName), window.WindowStart, reader.GetReferenceID(window.RefName.RefName), window.WindowEnd);
+        BamTools::BamAlignment alignment;
+        if (!reader.SetRegion(region)) {
+            return;
+        }
+        std::unordered_map<std::string, int> barcodes_count;
+        std::set<std::string> barcodes_count_over_threshold;
+        const int threshold = 4;
+        const int number_of_barcodes_to_assemble = 200;
+        while(reader.GetNextAlignment(alignment)) {
+            if (alignment.IsPrimaryAlignment() && IsGoodAlignment(alignment)) {
+                std::string bx = "";
+                alignment.GetTag("BX", bx);
+                if (++barcodes_count[bx] > threshold) {
+                    barcodes_count_over_threshold.insert(bx);
+                    if (barcodes_count_over_threshold.size() == number_of_barcodes_to_assemble) {
+                        break;
+                    }
+                }
+            }
+        }
+        DEBUG("Taking first " << number_of_barcodes_to_assemble << " barcodes");
+        reader.SetRegion(region);
+        std::string temp_dir = OptionBase::output_folder + "/" + refid_to_ref_name_[region.RightRefID] + "_" + std::to_string(region.LeftPosition) + "_" + std::to_string(region.RightPosition);
+        fs::make_dir(temp_dir);
+        io::OPairedReadStream<std::ofstream, io::FastqWriter> out_stream(temp_dir + "/R1.fastq", temp_dir + "/R2.fastq");
+        io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
+        boost::circular_buffer<BamTools::BamAlignment> last_entries(100);
+
+
+
+        while (reader.GetNextAlignment(alignment)) {
+            if (alignment.Position > region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
+                break;
+            }
+            std::string bx = "";
+            alignment.GetTag("BX", bx);
+            if (!barcodes_count_over_threshold.count(bx) || !alignment.IsPrimaryAlignment()) {
+                continue;
+            }
+
+            last_entries.push_back(alignment);
+            if (last_entries.full() && alignment.Position - last_entries.front().Position < 50) {
+                reader.Jump(alignment.RefID, alignment.Position + 500);
+                continue;
+            }
+
+            if (alignment.MateRefID == -1) {
+                OutputSingleRead(alignment, single_out_stream);
+            } else {
+                OutputPairedRead(alignment, out_stream, mate_reader);
+            }
+        }
+
+        std::string barcode_file = temp_dir + "/barcodes.txt";
+        std::ofstream barcode_output(barcode_file.c_str(), std::ofstream::out);
+        for (auto barcode : barcodes_count_over_threshold) {
+            barcode_output << barcode << "\n";
+        }
+
+        for (auto barcode : barcodes_count_over_threshold) {
+            for (auto read : map_of_bad_reads_[barcode]) {
+                single_out_stream << read;
+            }
+        }
+        std::string spades_command = OptionBase::path_to_spades + " --cov-cutoff 5 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
+        std::system(spades_command.c_str());
+        RunAndProcessMinimap(temp_dir + "/assembly/K77/before_rr.fasta", refid_to_ref_name_[region.RightRefID].substr(region.LeftPosition, region.RightPosition - region.LeftPosition), window.RefName.RefName, region.LeftPosition);
+    }
+
+    void ProcessWindows(const std::vector<RefWindow> &windows) {
+
+        BamTools::BamReader reader;
+        BamTools::BamReader mate_reader;
+        reader.Open(OptionBase::bam.c_str());
+        if (reader.OpenIndex((OptionBase::bam + ".bai").c_str())) {
+            INFO("Index located at " << OptionBase::bam << ".bai");
+        } else {
+            FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
+        }
+        mate_reader.OpenIndex((OptionBase::bam + ".bai").c_str());
+
+        for (auto w : windows) {
+            ProcessWindow(w, reader, mate_reader);
+        }
+    }
 
     void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
         INFO("Here we will run minimap");
