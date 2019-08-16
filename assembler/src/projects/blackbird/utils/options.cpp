@@ -6,6 +6,6 @@
 std::string OptionBase::bam = "";
 std::string OptionBase::reference = "";
 std::string OptionBase::output_folder = "";
-int OptionBase::mapping_quality = 20;
+int OptionBase::threads = 1;
 bool OptionBase::verbose = false;
 std::string OptionBase::path_to_spades = "spades.py";
