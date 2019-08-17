@@ -178,7 +178,6 @@ public:
         size_t alignment_count = 0;
         size_t alignments_stored = 0;
         while(reader.GetNextAlignment(alignment)) {
-            break;
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
