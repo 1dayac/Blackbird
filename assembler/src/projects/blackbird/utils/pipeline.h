@@ -15,6 +15,7 @@
 #include "minimap2/minimap.h"
 #include "io/reads/fasta_fastq_gz_parser.hpp"
 #include "common/utils/parallel/openmp_wrapper.h"
+#include "common/utils/memory_limit.hpp"
 void create_console_logger(std::string log_prop_fn) {
     using namespace logging;
     logger *lg = create_logger(fs::FileExists(log_prop_fn) ? log_prop_fn : "");
@@ -149,6 +150,7 @@ public:
 
         INFO("Number of threads being used - " << OptionBase::threads);
 
+        INFO("Memory limit - " << utils::get_memory_limit());
         INFO("Uploading reference genome");
 
         io::FastaFastqGzParser reference_reader(OptionBase::reference);
@@ -191,7 +193,7 @@ public:
             }
             if (map_of_bad_reads_.size() > current_size) {
                 current_size = map_of_bad_reads_.size();
-                INFO("current size " << current_size;
+                INFO("current size " << current_size);
             }
 
             if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
