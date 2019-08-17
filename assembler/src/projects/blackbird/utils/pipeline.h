@@ -188,6 +188,7 @@ public:
                 INFO("Processing chromosome " << refid_to_ref_name_[current_refid]);
             }
             if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
+                INFO(alignment.Name);
                 //INFO(alignment.Name << " " << alignment.QueryBases);
                 map_of_bad_reads_[bx].push_back(io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::PhredOffset));
                 VERBOSE_POWER(++alignments_stored, " alignments stored");
