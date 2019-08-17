@@ -178,7 +178,9 @@ public:
         size_t alignment_count = 0;
         size_t alignments_stored = 0;
         int current_refid = -1;
+        int current_size = 0;
 
+        INFO("Map of bad reads max size() " << map_of_bad_reads_.size());
         while(reader.GetNextAlignment(alignment)) {
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
@@ -187,6 +189,11 @@ public:
                 current_refid = alignment.RefID;
                 INFO("Processing chromosome " << refid_to_ref_name_[current_refid]);
             }
+            if (map_of_bad_reads_.size() > current_size) {
+                current_size = map_of_bad_reads_.size();
+                INFO("current size " << current_size;
+            }
+
             if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
                 INFO(alignment.Name);
                 //INFO(alignment.Name << " " << alignment.QueryBases);
