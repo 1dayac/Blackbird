@@ -177,10 +177,16 @@ public:
         BamTools::BamAlignment alignment;
         size_t alignment_count = 0;
         size_t alignments_stored = 0;
+        int current_refid = -1;
+
         while(reader.GetNextAlignment(alignment)) {
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
+            if (alignment.RefID != current_refid) {
+                current_refid = alignment.RefID;
+                INFO("Processing chromosome " << refid_to_ref_name_[current_refid]);
+            }
             if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
                 //INFO(alignment.Name << " " << alignment.QueryBases);
                 map_of_bad_reads_[bx].push_back(io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::PhredOffset));
