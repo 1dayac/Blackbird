@@ -150,7 +150,8 @@ public:
 
         INFO("Number of threads being used - " << OptionBase::threads);
 
-        INFO("Memory limit - " << utils::get_memory_limit());
+        INFO("Memory limit  " << (1.0 * (double) utils::get_memory_limit() / 1024 / 1024 / 1024) << " Gb");
+        INFO("Free memory - " << utils::get_free_memory());
         INFO("Uploading reference genome");
 
         io::FastaFastqGzParser reference_reader(OptionBase::reference);
@@ -182,7 +183,7 @@ public:
         int current_refid = -1;
         int current_size = 0;
 
-        INFO("Map of bad reads max size() " << map_of_bad_reads_.size());
+        INFO("Map of bad reads max size() " << map_of_bad_reads_.max_size());
         while(reader.GetNextAlignment(alignment)) {
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
