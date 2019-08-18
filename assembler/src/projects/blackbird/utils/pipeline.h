@@ -189,6 +189,9 @@ public:
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
+            if (bx == "") {
+                continue;
+            }
             if (alignment.RefID != current_refid) {
                 current_refid = alignment.RefID;
                 INFO("Processing chromosome " << refid_to_ref_name_[current_refid]);
@@ -294,6 +297,9 @@ private:
             if (alignment.IsPrimaryAlignment() && IsGoodAlignment(alignment)) {
                 std::string bx = "";
                 alignment.GetTag("BX", bx);
+                if (bx == "") {
+                    continue;
+                }
                 if (++barcodes_count[bx] > threshold) {
                     barcodes_count_over_threshold.insert(bx);
                     if (barcodes_count_over_threshold.size() == number_of_barcodes_to_assemble) {
