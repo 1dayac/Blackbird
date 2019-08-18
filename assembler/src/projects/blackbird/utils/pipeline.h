@@ -5,7 +5,7 @@
 #ifndef BLACKBIRD_PIPELINE_H
 #define BLACKBIRD_PIPELINE_H
 #include<algorithm>
-
+#include <list>
 #include "utils/logger/log_writers.hpp"
 #include "options.h"
 #include "io/sam/bam_reader.hpp"
@@ -153,7 +153,8 @@ public:
         INFO("Memory limit  " << (1.0 * (double) utils::get_memory_limit() / 1024 / 1024 / 1024) << " Gb");
         INFO("Free memory - " << utils::get_free_memory());
         INFO("Uploading reference genome");
-
+        utils::limit_memory(utils::get_memory_limit() * 2);
+        INFO("Memory limit  " << (1.0 * (double) utils::get_memory_limit() / 1024 / 1024 / 1024) << " Gb");
         io::FastaFastqGzParser reference_reader(OptionBase::reference);
         io::SingleRead chrom;
         while (!reference_reader.eof()) {
@@ -272,7 +273,7 @@ public:
     }
 
 private:
-    std::unordered_map<std::string, std::vector<io::SingleRead>> map_of_bad_reads_;
+    std::unordered_map<std::string, std::list<io::SingleRead>> map_of_bad_reads_;
     VCFWriter writer_;
     VCFWriter writer_small_;
     std::unordered_map<std::string, std::string> reference_map_;
