@@ -453,7 +453,7 @@ private:
         }
         return true;
     }
-5
+
     bool IsBadAlignment(BamTools::BamAlignment &alignment, std::unordered_map<int, std::string> &refid_to_ref_name) {
         //very bad alignment
         for (auto ch : alignment.Qualities) {
