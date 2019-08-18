@@ -212,7 +212,7 @@ public:
         INFO("Total " << alignments_stored << " alignments stored");
         reader.Close();
 
-        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 30000000, reader.GetReferenceID("chr13"), 40000000);
+        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 100000, reader.GetReferenceID("chr13"), 100000000);
         INFO("Create reference windows");
         std::vector<std::vector<RefWindow>> reference_windows;
         reference_windows.resize(OptionBase::threads);
@@ -240,36 +240,7 @@ public:
             INFO(i << " " << omp_get_thread_num());
         }
 
-
         //test_minimap();
-
-
-
-
-
-        for (auto reference : ref_data) {
-            if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
-                continue;
-            }
-            int window_width = 50000;
-            int overlap = 10000;
-            for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
-                if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition) {
-                    continue;
-                }
-                RefWindow r(reference, start_pos, start_pos + window_width);
-                INFO(r.ToString());
-                BamTools::BamRegion region(reader.GetReferenceID(reference.RefName), start_pos, reader.GetReferenceID(reference.RefName), start_pos + window_width);
-                if (reader.SetRegion(region)) {
-                    INFO("Region is set");
-                } else {
-                    INFO("Region can't be set");
-                    continue;
-                }
-            }
-
-
-        }
 
         INFO("Blackbird finished");
         return 0;
@@ -482,7 +453,7 @@ private:
         }
         return true;
     }
-
+5
     bool IsBadAlignment(BamTools::BamAlignment &alignment, std::unordered_map<int, std::string> &refid_to_ref_name) {
         //very bad alignment
         for (auto ch : alignment.Qualities) {
