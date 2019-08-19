@@ -81,6 +81,26 @@ protected:
     std::string chrom_;
     int ref_position_;
     std::string sv_seq_;
+
+    bool operator > (SV& op2)
+    {
+        if (chrom_ > op2.chrom_)
+        {
+            return true;
+        }
+        if (chrom_ < op2.chrom_)
+        {
+            return false;
+        }
+        if (ref_position_ > op2.ref_position_) {
+            return true;
+        }
+        return false;
+    }
+
+    bool operator = (SV& op2) {
+        return chrom_ == op2.chrom_ && ref_position_ == op2.ref_position_;
+    }
 };
 
 class Deletion : public SV {
@@ -105,6 +125,8 @@ public:
         return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<INS>\t"  + "SEQ=" + sv_seq_ + ";SVLEN=" + std::to_string(sv_seq_.size())  + ";SVTYPE=INS";
     }
 };
+
+
 
 class VCFWriter {
     std::ofstream file_;
@@ -441,8 +463,9 @@ private:
                 free(r->p);
             }
             mm_tbuf_destroy(tbuf);
-            mm_idx_destroy(index);
         }
+
+        mm_idx_destroy(index);
     }
 
 
