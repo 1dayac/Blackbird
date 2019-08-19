@@ -440,6 +440,8 @@ private:
                 //printf("%s\t%d\t%d\t%d\t%d\t%d\t%d\tcg:Z:\n", index->seq[r->rid].name, index->seq[r->rid].len, r->rs, r->re, r->mlen, r->blen, r->mapq);
                 free(r->p);
             }
+            mm_tbuf_destroy(tbuf);
+            mm_idx_destroy(index);
         }
     }
 
