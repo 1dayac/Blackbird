@@ -76,13 +76,8 @@ public:
         return sv_seq_.size();
     }
 
-    virtual std::string ToString() const = 0;
-protected:
-    std::string chrom_;
-    int ref_position_;
-    std::string sv_seq_;
 
-    bool operator > (SV& op2)
+    bool operator > (const SV& op2) const
     {
         if (chrom_ > op2.chrom_)
         {
@@ -98,9 +93,16 @@ protected:
         return false;
     }
 
-    bool operator = (SV& op2) {
+    bool operator = (const SV& op2) const {
         return chrom_ == op2.chrom_ && ref_position_ == op2.ref_position_;
     }
+
+    virtual std::string ToString() const = 0;
+protected:
+    std::string chrom_;
+    int ref_position_;
+    std::string sv_seq_;
+
 };
 
 class Deletion : public SV {
@@ -218,14 +220,8 @@ public:
                 current_refid = alignment.RefID;
                 INFO("Processing chromosome " << refid_to_ref_name_[current_refid]);
             }
-            if (map_of_bad_reads_.size() > current_size) {
-                current_size = map_of_bad_reads_.size();
-                INFO("current size " << current_size);
-            }
 
             if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
-                INFO(alignment.Name);
-                //INFO(alignment.Name << " " << alignment.QueryBases);
                 map_of_bad_reads_[bx].push_back(io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::PhredOffset));
                 VERBOSE_POWER(++alignments_stored, " alignments stored");
             }
@@ -272,6 +268,9 @@ private:
     std::unordered_map<std::string, std::list<io::SingleRead>> map_of_bad_reads_;
     VCFWriter writer_;
     VCFWriter writer_small_;
+    std::vector<SV*> vector_of_sv_;
+    std::vector<SV*> vector_of_small_sv_;
+
     std::unordered_map<std::string, std::string> reference_map_;
     std::unordered_map<int, std::string> refid_to_ref_name_;
 
@@ -348,6 +347,22 @@ private:
         std::string spades_command = OptionBase::path_to_spades + " --cov-cutoff 5 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
         std::system(spades_command.c_str());
         RunAndProcessMinimap(temp_dir + "/assembly/K77/before_rr.fasta", reference_map_[refid_to_ref_name_[region.RightRefID]].substr(region.LeftPosition, region.RightPosition - region.LeftPosition), window.RefName.RefName, region.LeftPosition);
+        std::sort(vector_of_sv_.begin(), vector_of_sv_.end(), [](const SV *a, const SV *b) -> bool
+        {
+            return (*a) > (*b);
+        });
+        std::sort(vector_of_small_sv_.begin(), vector_of_small_sv_.end(), [](const SV *a, const SV *b) -> bool
+        {
+            return (*a) > (*b);
+        });
+
+        for (auto sv : vector_of_sv_) {
+            writer_ << *sv;
+        }
+        for (auto sv : vector_of_small_sv_) {
+            writer_small_ << *sv;
+        }
+
     }
 
     void ProcessWindows(const std::vector<RefWindow> &windows) {
@@ -410,8 +425,10 @@ private:
                             Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4));
                             if (ins.Size() >= 50) {
                                 WriteToVCF(ins);
+                                vector_of_sv_.push_back(&ins);
                             } else {
                                 WriteToVCFShort(ins);
+                                vector_of_small_sv_.push_back(&ins);
                             }
 
                             query_start += r->p->cigar[i]>>4;
@@ -420,8 +437,10 @@ private:
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
                             if (del.Size() >= 50) {
                                 WriteToVCF(del);
+                                vector_of_sv_.push_back(&del);
                             } else {
                                 WriteToVCFShort(del);
+                                vector_of_small_sv_.push_back(&del);
                             }
                             reference_start += r->p->cigar[i]>>4;
                         }
@@ -440,8 +459,10 @@ private:
                             Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
                             if (ins.Size() >= 50) {
                                 WriteToVCF(ins);
+                                vector_of_sv_.push_back(&ins);
                             } else {
                                 WriteToVCFShort(ins);
+                                vector_of_small_sv_.push_back(&ins);
                             }
                             query_start += r->p->cigar[i]>>4;
                         }
@@ -449,8 +470,10 @@ private:
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
                             if (del.Size() >= 50) {
                                 WriteToVCF(del);
+                                vector_of_sv_.push_back(&del);
                             } else {
                                 WriteToVCFShort(del);
+                                vector_of_small_sv_.push_back(&del);
                             }
                             reference_start += r->p->cigar[i]>>4;
                         }
