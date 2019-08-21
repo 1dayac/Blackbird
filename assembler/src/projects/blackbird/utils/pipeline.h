@@ -140,10 +140,14 @@ public:
        file_ = std::ofstream(filename, std::ofstream::out);
     }
 
-    inline std::ofstream &operator<<(const SV &sv) {
+    void Write(const Deletion &sv) {
         file_ << sv.ToString() << std::endl;
-        return  file_;
     }
+
+    void Write(const Insertion &sv) {
+        file_ << sv.ToString() << std::endl;
+    }
+
 };
 
 class BlackBirdLauncher {
@@ -160,6 +164,7 @@ public:
 
         writer_ = VCFWriter(OptionBase::output_folder + "/out_50.vcf");
         writer_small_ = VCFWriter(OptionBase::output_folder + "/out.vcf");
+
 
         create_console_logger(log_filename);
         INFO("Starting Blackbird");
@@ -230,7 +235,7 @@ public:
         INFO("Total " << alignments_stored << " alignments stored");
         reader.Close();
 
-        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 100000, reader.GetReferenceID("chr13"), 100000000);
+        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 30000000, reader.GetReferenceID("chr13"), 30100000);
         INFO("Create reference windows");
         std::vector<std::vector<RefWindow>> reference_windows;
         reference_windows.resize(OptionBase::threads);
@@ -258,6 +263,28 @@ public:
             INFO(i << " " << omp_get_thread_num());
         }
 
+        std::sort(vector_of_ins_.begin(), vector_of_ins_.end(), [](Insertion a, Insertion b) -> bool
+        {
+            return a > b;
+        });
+        std::sort(vector_of_del_.begin(), vector_of_del_.end(), [](Deletion a, Deletion b) -> bool
+        {
+            return a > b;
+        });
+
+        std::sort(vector_of_small_ins_.begin(), vector_of_small_ins_.end(), [](Insertion a, Insertion b) -> bool
+        {
+            return a > b;
+        });
+        std::sort(vector_of_small_del_.begin(), vector_of_small_del_.end(), [](Deletion a, Deletion b) -> bool
+        {
+            return a > b;
+        });
+
+
+        Print(vector_of_ins_, vector_of_del_, writer_);
+        Print(vector_of_small_ins_, vector_of_small_del_, writer_small_);
+
         //test_minimap();
 
         INFO("Blackbird finished");
@@ -268,11 +295,38 @@ private:
     std::unordered_map<std::string, std::list<io::SingleRead>> map_of_bad_reads_;
     VCFWriter writer_;
     VCFWriter writer_small_;
-    std::vector<SV*> vector_of_sv_;
-    std::vector<SV*> vector_of_small_sv_;
+    std::vector<Insertion> vector_of_small_ins_;
+    std::vector<Deletion> vector_of_small_del_;
+    std::vector<Insertion> vector_of_ins_;
+    std::vector<Deletion> vector_of_del_;
 
     std::unordered_map<std::string, std::string> reference_map_;
     std::unordered_map<int, std::string> refid_to_ref_name_;
+
+    void Print(const std::vector<Insertion> &vector_of_ins, const std::vector<Deletion> &vector_of_del, VCFWriter &writer) {
+        int i = 0;
+        int j = 0;
+        while (i != vector_of_ins.size() || j != vector_of_del.size()) {
+            if (i == vector_of_ins.size()) {
+                writer.Write(vector_of_del[j]);
+                j++;
+                continue;
+            }
+            if (j == vector_of_del.size()) {
+                writer.Write(vector_of_ins[i]);
+                i++;
+                continue;
+            }
+
+            if (dynamic_cast<const SV&>(vector_of_ins[i]) > (dynamic_cast<const SV&>(vector_of_del[j]))) {
+                writer.Write(vector_of_del[j]);
+                j++;
+            } else {
+                writer.Write(vector_of_ins[i]);
+                i++;
+            }
+        }
+    }
 
     void ProcessWindow(const RefWindow &window,  BamTools::BamReader &reader, BamTools::BamReader &mate_reader) {
         INFO("Processing " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ")");
@@ -347,22 +401,6 @@ private:
         std::string spades_command = OptionBase::path_to_spades + " --cov-cutoff 5 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
         std::system(spades_command.c_str());
         RunAndProcessMinimap(temp_dir + "/assembly/K77/before_rr.fasta", reference_map_[refid_to_ref_name_[region.RightRefID]].substr(region.LeftPosition, region.RightPosition - region.LeftPosition), window.RefName.RefName, region.LeftPosition);
-        std::sort(vector_of_sv_.begin(), vector_of_sv_.end(), [](const SV *a, const SV *b) -> bool
-        {
-            return (*a) > (*b);
-        });
-        std::sort(vector_of_small_sv_.begin(), vector_of_small_sv_.end(), [](const SV *a, const SV *b) -> bool
-        {
-            return (*a) > (*b);
-        });
-
-        for (auto sv : vector_of_sv_) {
-            writer_ << *sv;
-        }
-        for (auto sv : vector_of_small_sv_) {
-            writer_small_ << *sv;
-        }
-
     }
 
     void ProcessWindows(const std::vector<RefWindow> &windows) {
@@ -424,11 +462,15 @@ private:
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
                             Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4));
                             if (ins.Size() >= 50) {
-                                WriteToVCF(ins);
-                                vector_of_sv_.push_back(&ins);
+                                #pragma omp critical
+                                {
+                                    vector_of_ins_.push_back(ins);
+                                }
                             } else {
-                                WriteToVCFShort(ins);
-                                vector_of_small_sv_.push_back(&ins);
+                                #pragma omp critical
+                                {
+                                    vector_of_small_ins_.push_back(ins);
+                                }
                             }
 
                             query_start += r->p->cigar[i]>>4;
@@ -436,11 +478,16 @@ private:
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
                             if (del.Size() >= 50) {
-                                WriteToVCF(del);
-                                vector_of_sv_.push_back(&del);
+                                #pragma omp critical
+                                {
+                                    vector_of_del_.push_back(del);
+                                }
                             } else {
-                                WriteToVCFShort(del);
-                                vector_of_small_sv_.push_back(&del);
+                                #pragma omp critical
+                                {
+
+                                    vector_of_small_del_.push_back(del);
+                                }
                             }
                             reference_start += r->p->cigar[i]>>4;
                         }
@@ -458,22 +505,18 @@ private:
 
                             Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
                             if (ins.Size() >= 50) {
-                                WriteToVCF(ins);
-                                vector_of_sv_.push_back(&ins);
+                                vector_of_ins_.push_back(ins);
                             } else {
-                                WriteToVCFShort(ins);
-                                vector_of_small_sv_.push_back(&ins);
+                                vector_of_small_ins_.push_back(ins);
                             }
                             query_start += r->p->cigar[i]>>4;
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
                             if (del.Size() >= 50) {
-                                WriteToVCF(del);
-                                vector_of_sv_.push_back(&del);
+                                vector_of_del_.push_back(del);
                             } else {
-                                WriteToVCFShort(del);
-                                vector_of_small_sv_.push_back(&del);
+                                vector_of_small_del_.push_back(del);
                             }
                             reference_start += r->p->cigar[i]>>4;
                         }
@@ -596,21 +639,6 @@ private:
         io::SingleRead first = io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::OffsetType::PhredOffset);
         out_stream << first;
     }
-
-    void WriteToVCF(SV &sv) {
-        #pragma omp critical
-        {
-            writer_ << sv;
-        }
-    }
-
-    void WriteToVCFShort(SV &sv) {
-        #pragma omp critical
-        {
-         writer_small_ << sv;
-        }
-    }
-
 
 };
 
