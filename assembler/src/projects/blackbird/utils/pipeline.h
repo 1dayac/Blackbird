@@ -66,66 +66,84 @@ struct RefWindow {
 };
 
 
-class SV {
-public:
-    SV(const std::string &chrom, int ref_position, const std::string &sv_seq)
-    : chrom_(chrom), ref_position_(ref_position), sv_seq_(sv_seq)
-    { }
 
-    int Size() {
-        return sv_seq_.size();
+class Deletion {
+public:
+    Deletion(const std::string &chrom, int ref_position, int second_ref_position, const std::string &deletion_seq)
+    : chrom_(chrom), ref_position_(ref_position), deletion_seq_(deletion_seq), second_ref_position_(second_ref_position) {    }
+
+    std::string ToString() const {
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<DEL>\t"  + "SEQ=" + deletion_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_) + ";SVTYPE=DEL";
     }
 
+    int Size() const {
+        return second_ref_position_ - ref_position_;
+    }
 
-    bool operator > (const SV& op2) const
+    template <class T>
+    bool operator < (const T& op2) const
     {
-        if (chrom_ > op2.chrom_)
+        if (chrom_ < op2.chrom_)
         {
             return true;
         }
-        if (chrom_ < op2.chrom_)
+        if (chrom_ > op2.chrom_)
         {
             return false;
         }
-        if (ref_position_ > op2.ref_position_) {
+        if (ref_position_ < op2.ref_position_) {
             return true;
         }
         return false;
     }
 
-    bool operator = (const SV& op2) const {
+    bool operator ==(const Deletion& op2) const {
         return chrom_ == op2.chrom_ && ref_position_ == op2.ref_position_;
     }
 
-    virtual std::string ToString() const = 0;
-protected:
     std::string chrom_;
     int ref_position_;
-    std::string sv_seq_;
-
-};
-
-class Deletion : public SV {
-public:
-    Deletion(const std::string &chrom, int ref_position, int second_ref_position, const std::string &deletion_seq)
-    : SV(chrom, ref_position, deletion_seq), second_ref_position_(second_ref_position) {    }
-
-    std::string ToString() const {
-        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<DEL>\t"  + "SEQ=" + sv_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_) + ";SVTYPE=DEL";
-    }
-
-private:
     int second_ref_position_;
+    std::string deletion_seq_;
 };
 
-class Insertion : public SV {
+class Insertion {
 public:
     Insertion(const std::string &chrom, int ref_position, const std::string &insertion_seq)
-            : SV(chrom, ref_position, insertion_seq) {}
+            : chrom_(chrom), ref_position_(ref_position), insertion_seq_(insertion_seq) {}
 
     std::string ToString() const {
-        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<INS>\t"  + "SEQ=" + sv_seq_ + ";SVLEN=" + std::to_string(sv_seq_.size())  + ";SVTYPE=INS";
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<INS>\t"  + "SEQ=" + insertion_seq_ + ";SVLEN=" + std::to_string(insertion_seq_.size())  + ";SVTYPE=INS";
     }
+
+    int Size() const {
+        return insertion_seq_.size();
+    }
+
+    template <class T>
+    bool operator < (const T& op2) const
+    {
+        if (chrom_ < op2.chrom_)
+        {
+            return true;
+        }
+        if (chrom_ > op2.chrom_)
+        {
+            return false;
+        }
+        if (ref_position_ < op2.ref_position_) {
+            return true;
+        }
+        return false;
+    }
+
+    bool operator ==(const Insertion& op2) const {
+        return chrom_ == op2.chrom_ && ref_position_ == op2.ref_position_;
+    }
+
+    std::string chrom_;
+    int ref_position_;
+    std::string insertion_seq_;
 };
 
 
@@ -235,7 +253,7 @@ public:
         INFO("Total " << alignments_stored << " alignments stored");
         reader.Close();
 
-        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 30000000, reader.GetReferenceID("chr13"), 30100000);
+        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 1000000, reader.GetReferenceID("chr13"), 100000000);
         INFO("Create reference windows");
         std::vector<std::vector<RefWindow>> reference_windows;
         reference_windows.resize(OptionBase::threads);
@@ -263,23 +281,11 @@ public:
             INFO(i << " " << omp_get_thread_num());
         }
 
-        std::sort(vector_of_ins_.begin(), vector_of_ins_.end(), [](Insertion a, Insertion b) -> bool
-        {
-            return a > b;
-        });
-        std::sort(vector_of_del_.begin(), vector_of_del_.end(), [](Deletion a, Deletion b) -> bool
-        {
-            return a > b;
-        });
+        std::sort(vector_of_ins_.begin(), vector_of_ins_.end());
+        std::sort(vector_of_del_.begin(), vector_of_del_.end());
 
-        std::sort(vector_of_small_ins_.begin(), vector_of_small_ins_.end(), [](Insertion a, Insertion b) -> bool
-        {
-            return a > b;
-        });
-        std::sort(vector_of_small_del_.begin(), vector_of_small_del_.end(), [](Deletion a, Deletion b) -> bool
-        {
-            return a > b;
-        });
+        std::sort(vector_of_small_ins_.begin(), vector_of_small_ins_.end());
+        std::sort(vector_of_small_del_.begin(), vector_of_small_del_.end());
 
 
         Print(vector_of_ins_, vector_of_del_, writer_);
@@ -310,20 +316,32 @@ private:
             if (i == vector_of_ins.size()) {
                 writer.Write(vector_of_del[j]);
                 j++;
+                while(j != vector_of_del.size() && vector_of_del[j] == vector_of_del[j - 1]) {
+                    ++j;
+                }
                 continue;
             }
             if (j == vector_of_del.size()) {
                 writer.Write(vector_of_ins[i]);
-                i++;
+                ++i;
+                while(i != vector_of_ins.size() && vector_of_ins[i] == vector_of_ins[i - 1]) {
+                    ++i;
+                }
                 continue;
             }
 
-            if (dynamic_cast<const SV&>(vector_of_ins[i]) > (dynamic_cast<const SV&>(vector_of_del[j]))) {
+            if (vector_of_del[j] < vector_of_ins[i]) {
                 writer.Write(vector_of_del[j]);
                 j++;
+                while(j != vector_of_del.size() && vector_of_del[j] == vector_of_del[j - 1]) {
+                    ++j;
+                }
             } else {
                 writer.Write(vector_of_ins[i]);
                 i++;
+                while(i != vector_of_ins.size() && vector_of_ins[i] == vector_of_ins[i - 1]) {
+                    ++i;
+                }
             }
         }
     }
