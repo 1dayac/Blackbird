@@ -26,25 +26,6 @@ void create_console_logger(std::string log_prop_fn) {
 
 
 
-void test_minimap() {
-    std::string reference = "ACAGAGTTTTCCGATATAGCGTTCTTCTGGCCTCCCCTAATGTTAACATCTTATATAACTACGGTACACTGATCAAAACTAAGAACTTAATATTGAGATGAAGCTATTAACTACTTTACTCAGATTTCACCGGTTTTCCAATGATGTCCTTTTTCTGTTTCAGAATGCAATCCAAGATACCACACTGCATTTAGCTGTACTGTATATGAACACTTTTTAATACATCACTGGCTACAGAATAATAAATTAGTATCGAATCCTATTCTTAAGGATGAGGAACCTGAGTACTGGAGAAGCTAAAGGACTCATCCAGAAGCTCAGTATAAATGAACAATCAGAGTCAGGCCTGTGGTCCTAAAT";
-    const char *reference_cstyle = reference.c_str();
-    const char **reference_array = &reference_cstyle;
-    mm_idx_t *index = mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
-    mm_idx_stat(index);
-    std::string query = "ACAGAGTTTTCCGATATAGCGTTCTTCTGGCCTCCCCTAATGTTAACATCTTATATAACTACGGTACACTGATCAAAACTAAGAACTTGATGTCCTTTTTCTGTTTCAGAATGCAATCCAAGATACCACACTGCATTTAGCTGTACTGTATATGAACACTTTTTAATACATCACTGGCTACAGAATAATAAATTAGTATCGAATCCTATTCTTAAGGATGAGGAACCTGAGTACTGGAGAAGCTAAAGGACTCATCCAGAAGCTCAGTATAAATGAACAATCAGAGTCAGGCCTGTGGTCCTAAAT";
-    mm_tbuf_t *tbuf = mm_tbuf_init();
-    mm_idxopt_t iopt;
-    mm_mapopt_t mopt;
-    int number_of_hits;
-    mm_set_opt(0, &iopt, &mopt);
-
-    mm_mapopt_update(&mopt, index);
-    mopt.flag |= MM_F_CIGAR;
-    std::string name = "123";
-    mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
-    INFO(hit_array->score);
-}
 
 struct RefWindow {
 
@@ -170,6 +151,38 @@ public:
 
 class BlackBirdLauncher {
 
+
+
+    void test_minimap() {
+
+        BamTools::BamReader reader;
+        reader.Open(OptionBase::bam.c_str());
+        BamTools::BamRegion region(reader.GetReferenceID("chr13"), 84880000, reader.GetReferenceID("chr13"), 84930000);
+
+        INFO(reference_map_[refid_to_ref_name_[region.RightRefID]].substr(region.LeftPosition, region.RightPosition - region.LeftPosition));
+        RunAndProcessMinimap("before_rr.fasta", reference_map_[refid_to_ref_name_[region.RightRefID]].substr(region.LeftPosition, region.RightPosition - region.LeftPosition), "chr13", region.LeftPosition);
+
+
+        std::string reference = "ACAGAGTTTTCCGATATAGCGTTCTTCTGGCCTCCCCTAATGTTAACATCTTATATAACTACGGTACACTGATCAAAACTAAGAACTTAATATTGAGATGAAGCTATTAACTACTTTACTCAGATTTCACCGGTTTTCCAATGATGTCCTTTTTCTGTTTCAGAATGCAATCCAAGATACCACACTGCATTTAGCTGTACTGTATATGAACACTTTTTAATACATCACTGGCTACAGAATAATAAATTAGTATCGAATCCTATTCTTAAGGATGAGGAACCTGAGTACTGGAGAAGCTAAAGGACTCATCCAGAAGCTCAGTATAAATGAACAATCAGAGTCAGGCCTGTGGTCCTAAAT";
+        const char *reference_cstyle = reference.c_str();
+        const char **reference_array = &reference_cstyle;
+        mm_idx_t *index = mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
+        mm_idx_stat(index);
+        std::string query = "ACAGAGTTTTCCGATATAGCGTTCTTCTGGCCTCCCCTAATGTTAACATCTTATATAACTACGGTACACTGATCAAAACTAAGAACTTGATGTCCTTTTTCTGTTTCAGAATGCAATCCAAGATACCACACTGCATTTAGCTGTACTGTATATGAACACTTTTTAATACATCACTGGCTACAGAATAATAAATTAGTATCGAATCCTATTCTTAAGGATGAGGAACCTGAGTACTGGAGAAGCTAAAGGACTCATCCAGAAGCTCAGTATAAATGAACAATCAGAGTCAGGCCTGTGGTCCTAAAT";
+        mm_tbuf_t *tbuf = mm_tbuf_init();
+        mm_idxopt_t iopt;
+        mm_mapopt_t mopt;
+        int number_of_hits;
+        mm_set_opt(0, &iopt, &mopt);
+
+        mm_mapopt_update(&mopt, index);
+        mopt.flag |= MM_F_CIGAR;
+        std::string name = "123";
+        mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
+        INFO(hit_array->score);
+    }
+
+
 public:
     BlackBirdLauncher ()
     {}
@@ -186,6 +199,7 @@ public:
 
         create_console_logger(log_filename);
         INFO("Starting Blackbird");
+
 
         int max_treads = omp_get_max_threads();
 
@@ -209,6 +223,7 @@ public:
             reference_map_[chrom.name()] = chrom.GetSequenceString();
         }
 
+
         INFO("Filter poorly aligned reads");
 
         BamTools::BamReader reader;
@@ -224,6 +239,8 @@ public:
             refid_to_ref_name_[reader.GetReferenceID(reference.RefName)] = reference.RefName;
         }
 
+        test_minimap();
+        return 0;
 
         BamTools::BamAlignment alignment;
         size_t alignment_count = 0;
@@ -253,21 +270,21 @@ public:
         INFO("Total " << alignments_stored << " alignments stored");
         reader.Close();
 
-        BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 1000000, reader.GetReferenceID("chr13"), 100000000);
+        //BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 1000000, reader.GetReferenceID("chr13"), 100000000);
         INFO("Create reference windows");
         std::vector<std::vector<RefWindow>> reference_windows;
         reference_windows.resize(OptionBase::threads);
         int number_of_windows = 0;
         for (auto reference : ref_data) {
-            if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
-                continue;
-            }
+//            if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
+//                continue;
+//            }
             int window_width = 50000;
             int overlap = 10000;
             for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
-                if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr13") {
-                    continue;
-                }
+//                if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr13") {
+//                    continue;
+//                }
                 RefWindow r(reference.RefName, start_pos, start_pos + window_width);
                 reference_windows[number_of_windows % OptionBase::threads].push_back(r);
                 ++number_of_windows;
@@ -546,6 +563,7 @@ private:
                 //printf("%s\t%d\t%d\t%d\t%d\t%d\t%d\tcg:Z:\n", index->seq[r->rid].name, index->seq[r->rid].len, r->rs, r->re, r->mlen, r->blen, r->mapq);
                 free(r->p);
             }
+            free(hit_array);
             mm_tbuf_destroy(tbuf);
         }
 
