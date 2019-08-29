@@ -239,8 +239,8 @@ public:
             refid_to_ref_name_[reader.GetReferenceID(reference.RefName)] = reference.RefName;
         }
 
-        test_minimap();
-        return 0;
+        //test_minimap();
+        //return 0;
 
         BamTools::BamAlignment alignment;
         size_t alignment_count = 0;
