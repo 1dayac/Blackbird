@@ -270,21 +270,21 @@ public:
         INFO("Total " << alignments_stored << " alignments stored");
         reader.Close();
 
-        //BamTools::BamRegion target_region(reader.GetReferenceID("chr13"), 1000000, reader.GetReferenceID("chr13"), 100000000);
+        BamTools::BamRegion target_region(reader.GetReferenceID("chr1"), 0, reader.GetReferenceID("chr1"), 300000000);
         INFO("Create reference windows");
         std::vector<std::vector<RefWindow>> reference_windows;
         reference_windows.resize(OptionBase::threads);
         int number_of_windows = 0;
         for (auto reference : ref_data) {
-//            if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
-//                continue;
-//            }
+            if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
+                continue;
+            }
             int window_width = 50000;
             int overlap = 10000;
             for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
-//                if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr13") {
-//                    continue;
-//                }
+                if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr13") {
+                    continue;
+                }
                 RefWindow r(reference.RefName, start_pos, start_pos + window_width);
                 reference_windows[number_of_windows % OptionBase::threads].push_back(r);
                 ++number_of_windows;
@@ -397,7 +397,7 @@ private:
         io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
         boost::circular_buffer<BamTools::BamAlignment> last_entries(100);
 
-
+        std::unordered_map<std::string, std::vector<BamTools::BamAlignment>> filtered_reads;
 
         while (reader.GetNextAlignment(alignment)) {
             if (alignment.Position > region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
@@ -408,19 +408,36 @@ private:
             if (!barcodes_count_over_threshold.count(bx) || !alignment.IsPrimaryAlignment()) {
                 continue;
             }
-
+            filtered_reads[alignment.Name].push_back(alignment);
             last_entries.push_back(alignment);
             if (last_entries.full() && alignment.Position - last_entries.front().Position < 50) {
                 reader.Jump(alignment.RefID, alignment.Position + 500);
                 continue;
             }
 
-            if (alignment.MateRefID == -1) {
-                OutputSingleRead(alignment, single_out_stream);
-            } else {
-                OutputPairedRead(alignment, out_stream, mate_reader);
+        }
+
+        for (auto p : filtered_reads) {
+            if (p.second.size() == 1) {
+                if (alignment.MateRefID == -1) {
+                    OutputSingleRead(p.second[0], single_out_stream);
+                } else {
+                    OutputPairedRead(p.second[0], out_stream, mate_reader);
+                }
+            }
+            if (p.second.size() == 2) {
+                io::SingleRead first = CreateRead(p.second[0]);
+                io::SingleRead second = CreateRead(p.second[1]);
+                if (p.second[0].IsSecondMate()) {
+                    std::swap(first, second);
+                }
+                io::PairedRead pair(first, second, 0);
+                out_stream << pair;
             }
         }
+
+
+
 
         std::string barcode_file = temp_dir + "/barcodes.txt";
         std::ofstream barcode_output(barcode_file.c_str(), std::ofstream::out);
