@@ -479,7 +479,6 @@ private:
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
         mm_idx_t *index = mm_idx_str(10, 19, 0, 8, 1, reference_array, NULL);
-        mm_idx_stat(index);
         INFO("Index built");
         io::FastaFastqGzParser reference_reader(path_to_scaffolds);
         io::SingleRead contig;
