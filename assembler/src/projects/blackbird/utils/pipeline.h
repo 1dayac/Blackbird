@@ -282,7 +282,7 @@ public:
             int window_width = 50000;
             int overlap = 10000;
             for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
-                if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr13") {
+                if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr1") {
                     continue;
                 }
                 RefWindow r(reference.RefName, start_pos, start_pos + window_width);
