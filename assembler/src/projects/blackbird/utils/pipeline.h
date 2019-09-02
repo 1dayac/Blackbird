@@ -250,6 +250,7 @@ public:
 
         INFO("Map of bad reads max size() " << map_of_bad_reads_.max_size());
         while(reader.GetNextAlignment(alignment)) {
+            break;
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
@@ -270,7 +271,7 @@ public:
         INFO("Total " << alignments_stored << " alignments stored");
         reader.Close();
 
-        BamTools::BamRegion target_region(reader.GetReferenceID("chr1"), 0, reader.GetReferenceID("chr1"), 300000000);
+        BamTools::BamRegion target_region(reader.GetReferenceID("chr1"), 236880000, reader.GetReferenceID("chr1"), 236980000);
         INFO("Create reference windows");
         std::vector<std::vector<RefWindow>> reference_windows;
         reference_windows.resize(OptionBase::threads);
@@ -398,6 +399,7 @@ private:
         boost::circular_buffer<BamTools::BamAlignment> last_entries(100);
 
         std::unordered_map<std::string, std::vector<BamTools::BamAlignment>> filtered_reads;
+        INFO("Here");
 
         while (reader.GetNextAlignment(alignment)) {
             if (alignment.Position > region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
@@ -412,10 +414,12 @@ private:
             last_entries.push_back(alignment);
             if (last_entries.full() && alignment.Position - last_entries.front().Position < 50) {
                 reader.Jump(alignment.RefID, alignment.Position + 500);
+                INFO("Here");
                 continue;
             }
 
         }
+        INFO("Here");
 
         for (auto p : filtered_reads) {
             if (p.second.size() == 1) {
@@ -425,6 +429,7 @@ private:
                     OutputPairedRead(p.second[0], out_stream, mate_reader);
                 }
             }
+            INFO("Here");
             if (p.second.size() == 2) {
                 io::SingleRead first = CreateRead(p.second[0]);
                 io::SingleRead second = CreateRead(p.second[1]);
@@ -637,6 +642,7 @@ private:
     }
 
     void OutputPairedRead(BamTools::BamAlignment &alignment, io::OPairedReadStream<std::ofstream, io::FastqWriter> &out_stream, BamTools::BamReader &reader) {
+        INFO("Here");
         io::SingleRead first;
         io::SingleRead second;
         if (alignment.IsFirstMate()) {
