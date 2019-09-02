@@ -249,7 +249,6 @@ public:
         int current_size = 0;
 
         while(reader.GetNextAlignment(alignment)) {
-            break;
             std::string bx;
             VERBOSE_POWER(++alignment_count, " alignments processed");
             alignment.GetTag("BX", bx);
