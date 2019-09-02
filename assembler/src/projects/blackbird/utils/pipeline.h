@@ -659,8 +659,11 @@ private:
 
             BamTools::BamAlignment mate_alignment;
             while(mate_alignment.Position < alignment.MatePosition) {
-                reader.GetNextAlignmentCore(mate_alignment);
-                INFO("Here");
+                INFO(mate_alignment.MatePosition);
+                INFO(mate_alignment.MateRefID);
+                if(!reader.GetNextAlignmentCore(mate_alignment) || mate_alignment.RefID != alignment.MateRefID) {
+                    return;
+                }
             }
             mate_alignment.BuildCharData();
             while(mate_alignment.Name != alignment.Name || mate_alignment.IsFirstMate() || !mate_alignment.IsPrimaryAlignment()) {
@@ -684,7 +687,9 @@ private:
             BamTools::BamAlignment mate_alignment;
             INFO("Here");
             while(mate_alignment.Position < alignment.MatePosition) {
-                reader.GetNextAlignmentCore(mate_alignment);
+                if(!reader.GetNextAlignmentCore(mate_alignment) || mate_alignment.RefID != alignment.MateRefID) {
+                    return;
+                }
             }
             INFO("Here");
 
