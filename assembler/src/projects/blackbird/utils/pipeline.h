@@ -658,9 +658,14 @@ private:
             INFO("Here");
 
             BamTools::BamAlignment mate_alignment;
+            int jump_num = 0;
             while(mate_alignment.Position < alignment.MatePosition) {
                 INFO(mate_alignment.MatePosition);
                 INFO(mate_alignment.MateRefID);
+                ++jump_num;
+                if (jump_num > 100000) {
+                    return;
+                }
                 if(!reader.GetNextAlignmentCore(mate_alignment) || mate_alignment.RefID != alignment.MateRefID) {
                     return;
                 }
@@ -686,7 +691,12 @@ private:
             reader.Jump(alignment.MateRefID, alignment.MatePosition);
             BamTools::BamAlignment mate_alignment;
             INFO("Here");
+            int jump_num = 0;
             while(mate_alignment.Position < alignment.MatePosition) {
+                ++jump_num;
+                if (jump_num > 100000) {
+                    return;
+                }
                 if(!reader.GetNextAlignmentCore(mate_alignment) || mate_alignment.RefID != alignment.MateRefID) {
                     return;
                 }
