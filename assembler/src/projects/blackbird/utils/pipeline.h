@@ -645,40 +645,57 @@ private:
         INFO("Here");
         io::SingleRead first;
         io::SingleRead second;
+        INFO(alignment.Name);
+        INFO(alignment.MatePosition);
+        INFO(alignment.MateRefID);
+
         if (alignment.IsFirstMate()) {
+            INFO("Here");
+
             std::string read_name = alignment.Name;
             first = CreateRead(alignment);
             reader.Jump(alignment.MateRefID, alignment.MatePosition);
+            INFO("Here");
+
             BamTools::BamAlignment mate_alignment;
             while(mate_alignment.Position < alignment.MatePosition) {
                 reader.GetNextAlignmentCore(mate_alignment);
+                INFO("Here");
             }
             mate_alignment.BuildCharData();
             while(mate_alignment.Name != alignment.Name || mate_alignment.IsFirstMate() || !mate_alignment.IsPrimaryAlignment()) {
+                INFO("Here");
                 reader.GetNextAlignment(mate_alignment);
                 if (mate_alignment.Position > alignment.MatePosition) {
+                    INFO("Here");
                     return;
                 }
             }
             second = CreateRead(mate_alignment);
         } else {
+            INFO("Here");
             second = CreateRead(alignment);
             std::string read_name = alignment.Name;
             reader.Jump(alignment.MateRefID, alignment.MatePosition);
             BamTools::BamAlignment mate_alignment;
+            INFO("Here");
             while(mate_alignment.Position < alignment.MatePosition) {
                 reader.GetNextAlignmentCore(mate_alignment);
             }
+            INFO("Here");
+
             mate_alignment.BuildCharData();
             while(mate_alignment.Name != alignment.Name || mate_alignment.IsSecondMate() || !mate_alignment.IsPrimaryAlignment()) {
+                INFO("Here");
                 reader.GetNextAlignment(mate_alignment);
                 if (mate_alignment.Position > alignment.MatePosition) {
                     return;
                 }
+                INFO("Here");
             }
             first = CreateRead(mate_alignment);
         }
-
+        INFO("Here");
         io::PairedRead pair(first, second, 0);
         out_stream << pair;
 
