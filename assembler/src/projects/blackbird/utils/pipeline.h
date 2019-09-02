@@ -665,8 +665,12 @@ private:
             mate_alignment.BuildCharData();
             while(mate_alignment.Name != alignment.Name || mate_alignment.IsFirstMate() || !mate_alignment.IsPrimaryAlignment()) {
                 INFO("Here");
-                reader.GetNextAlignment(mate_alignment);
-                if (mate_alignment.Position > alignment.MatePosition) {
+                INFO(mate_alignment.MatePosition);
+                INFO(mate_alignment.MateRefID);
+                if(!reader.GetNextAlignment(mate_alignment)) {
+                    return;
+                }
+                if (mate_alignment.Position > alignment.MatePosition || mate_alignment.RefID != alignment.MateRefID) {
                     INFO("Here");
                     return;
                 }
@@ -687,8 +691,11 @@ private:
             mate_alignment.BuildCharData();
             while(mate_alignment.Name != alignment.Name || mate_alignment.IsSecondMate() || !mate_alignment.IsPrimaryAlignment()) {
                 INFO("Here");
-                reader.GetNextAlignment(mate_alignment);
-                if (mate_alignment.Position > alignment.MatePosition) {
+                if(!reader.GetNextAlignment(mate_alignment)) {
+                    return;
+                }
+
+                if (mate_alignment.Position > alignment.MatePosition || mate_alignment.RefID != alignment.MateRefID) {
                     return;
                 }
                 INFO("Here");
