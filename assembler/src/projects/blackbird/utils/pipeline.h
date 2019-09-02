@@ -660,8 +660,8 @@ private:
             BamTools::BamAlignment mate_alignment;
             int jump_num = 0;
             while(mate_alignment.Position < alignment.MatePosition) {
-                INFO(mate_alignment.MatePosition);
-                INFO(mate_alignment.MateRefID);
+                INFO(mate_alignment.Position);
+                INFO(mate_alignment.RefID);
                 ++jump_num;
                 if (jump_num > 100000) {
                     return;
@@ -673,8 +673,8 @@ private:
             mate_alignment.BuildCharData();
             while(mate_alignment.Name != alignment.Name || mate_alignment.IsFirstMate() || !mate_alignment.IsPrimaryAlignment()) {
                 INFO("Here");
-                INFO(mate_alignment.MatePosition);
-                INFO(mate_alignment.MateRefID);
+                INFO(mate_alignment.Position);
+                INFO(mate_alignment.RefID);
                 if(!reader.GetNextAlignment(mate_alignment)) {
                     return;
                 }
