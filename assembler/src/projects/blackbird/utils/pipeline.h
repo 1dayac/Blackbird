@@ -269,21 +269,24 @@ public:
         INFO("Total " << alignments_stored << " alignments stored");
         reader.Close();
 
-        BamTools::BamRegion target_region(reader.GetReferenceID("chr1"), 0, reader.GetReferenceID("chr1"), 300000000);
+        //BamTools::BamRegion target_region(reader.GetReferenceID("chr1"), 0, reader.GetReferenceID("chr1"), 300000000);
         INFO("Create reference windows");
         std::vector<std::vector<RefWindow>> reference_windows;
         reference_windows.resize(OptionBase::threads);
         int number_of_windows = 0;
         for (auto reference : ref_data) {
-            if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
+            //if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
+            //    continue;
+            //}
+            if (!IsGoodRef(reference.RefName)) {
                 continue;
             }
             int window_width = 50000;
             int overlap = 10000;
             for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
-                if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr1") {
-                    continue;
-                }
+                //if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr1") {
+                //    continue;
+                //}
                 RefWindow r(reference.RefName, start_pos, start_pos + window_width);
                 reference_windows[number_of_windows % OptionBase::threads].push_back(r);
                 ++number_of_windows;
@@ -452,7 +455,7 @@ private:
         std::string spades_command = OptionBase::path_to_spades + " --cov-cutoff 5 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
         std::system(spades_command.c_str());
         RunAndProcessMinimap(temp_dir + "/assembly/K77/before_rr.fasta", reference_map_[refid_to_ref_name_[region.RightRefID]].substr(region.LeftPosition, region.RightPosition - region.LeftPosition), window.RefName.RefName, region.LeftPosition);
-        rmdir(temp_dir.c_str());
+        fs::remove_dir(temp_dir.c_str());
     }
 
     void ProcessWindows(const std::vector<RefWindow> &windows) {
