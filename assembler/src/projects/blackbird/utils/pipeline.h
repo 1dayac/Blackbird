@@ -278,7 +278,7 @@ public:
             //if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
             //    continue;
             //}
-            if (!IsGoodRef(reference.RefName)) {
+            if (!IsGoodRef(reference.RefName) || !reference_map_.count(reference.RefName)) {
                 continue;
             }
             int window_width = 50000;
