@@ -391,7 +391,7 @@ private:
                 }
             }
         }
-        DEBUG("Taking first " << number_of_barcodes_to_assemble << " barcodes");
+//        DEBUG("Taking first " << number_of_barcodes_to_assemble << " barcodes");
         reader.SetRegion(region);
         std::string temp_dir = OptionBase::output_folder + "/" + refid_to_ref_name_[region.RightRefID] + "_" + std::to_string(region.LeftPosition) + "_" + std::to_string(region.RightPosition);
         fs::make_dir(temp_dir);
