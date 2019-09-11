@@ -39,57 +39,57 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
+RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird2/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target list_install_components
@@ -102,21 +102,10 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -127,7 +116,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -135,10 +124,21 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -148,14 +148,14 @@ package/fast: package
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/projects/truseq_analysis/CMakeFiles/progress.marks
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/truseq_analysis/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/truseq_analysis/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/truseq_analysis/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/truseq_analysis/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/truseq_analysis/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/truseq_analysis/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/truseq_analysis/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/truseq_analysis/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/truseq_analysis/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/rule
 .PHONY : projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ spades-truseq-analysis: projects/truseq_analysis/CMakeFiles/spades-truseq-analys
 
 # fast build rule for target.
 spades-truseq-analysis/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build
 .PHONY : spades-truseq-analysis/fast
 
 AlignmentAnalyserNew.o: AlignmentAnalyserNew.cpp.o
@@ -199,7 +199,7 @@ AlignmentAnalyserNew.o: AlignmentAnalyserNew.cpp.o
 
 # target to build an object file
 AlignmentAnalyserNew.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/AlignmentAnalyserNew.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/AlignmentAnalyserNew.cpp.o
 .PHONY : AlignmentAnalyserNew.cpp.o
 
 AlignmentAnalyserNew.i: AlignmentAnalyserNew.cpp.i
@@ -208,7 +208,7 @@ AlignmentAnalyserNew.i: AlignmentAnalyserNew.cpp.i
 
 # target to preprocess a source file
 AlignmentAnalyserNew.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/AlignmentAnalyserNew.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/AlignmentAnalyserNew.cpp.i
 .PHONY : AlignmentAnalyserNew.cpp.i
 
 AlignmentAnalyserNew.s: AlignmentAnalyserNew.cpp.s
@@ -217,7 +217,7 @@ AlignmentAnalyserNew.s: AlignmentAnalyserNew.cpp.s
 
 # target to generate assembly for a file
 AlignmentAnalyserNew.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/AlignmentAnalyserNew.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/AlignmentAnalyserNew.cpp.s
 .PHONY : AlignmentAnalyserNew.cpp.s
 
 alignment_analyser.o: alignment_analyser.cpp.o
@@ -226,7 +226,7 @@ alignment_analyser.o: alignment_analyser.cpp.o
 
 # target to build an object file
 alignment_analyser.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/alignment_analyser.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/alignment_analyser.cpp.o
 .PHONY : alignment_analyser.cpp.o
 
 alignment_analyser.i: alignment_analyser.cpp.i
@@ -235,7 +235,7 @@ alignment_analyser.i: alignment_analyser.cpp.i
 
 # target to preprocess a source file
 alignment_analyser.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/alignment_analyser.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/alignment_analyser.cpp.i
 .PHONY : alignment_analyser.cpp.i
 
 alignment_analyser.s: alignment_analyser.cpp.s
@@ -244,7 +244,7 @@ alignment_analyser.s: alignment_analyser.cpp.s
 
 # target to generate assembly for a file
 alignment_analyser.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/alignment_analyser.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/alignment_analyser.cpp.s
 .PHONY : alignment_analyser.cpp.s
 
 analysis_pipeline.o: analysis_pipeline.cpp.o
@@ -253,7 +253,7 @@ analysis_pipeline.o: analysis_pipeline.cpp.o
 
 # target to build an object file
 analysis_pipeline.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/analysis_pipeline.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/analysis_pipeline.cpp.o
 .PHONY : analysis_pipeline.cpp.o
 
 analysis_pipeline.i: analysis_pipeline.cpp.i
@@ -262,7 +262,7 @@ analysis_pipeline.i: analysis_pipeline.cpp.i
 
 # target to preprocess a source file
 analysis_pipeline.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/analysis_pipeline.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/analysis_pipeline.cpp.i
 .PHONY : analysis_pipeline.cpp.i
 
 analysis_pipeline.s: analysis_pipeline.cpp.s
@@ -271,7 +271,7 @@ analysis_pipeline.s: analysis_pipeline.cpp.s
 
 # target to generate assembly for a file
 analysis_pipeline.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/analysis_pipeline.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/analysis_pipeline.cpp.s
 .PHONY : analysis_pipeline.cpp.s
 
 consistent_mapping.o: consistent_mapping.cpp.o
@@ -280,7 +280,7 @@ consistent_mapping.o: consistent_mapping.cpp.o
 
 # target to build an object file
 consistent_mapping.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/consistent_mapping.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/consistent_mapping.cpp.o
 .PHONY : consistent_mapping.cpp.o
 
 consistent_mapping.i: consistent_mapping.cpp.i
@@ -289,7 +289,7 @@ consistent_mapping.i: consistent_mapping.cpp.i
 
 # target to preprocess a source file
 consistent_mapping.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/consistent_mapping.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/consistent_mapping.cpp.i
 .PHONY : consistent_mapping.cpp.i
 
 consistent_mapping.s: consistent_mapping.cpp.s
@@ -298,7 +298,7 @@ consistent_mapping.s: consistent_mapping.cpp.s
 
 # target to generate assembly for a file
 consistent_mapping.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/consistent_mapping.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/consistent_mapping.cpp.s
 .PHONY : consistent_mapping.cpp.s
 
 main.o: main.cpp.o
@@ -307,7 +307,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/main.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -316,7 +316,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/main.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -325,7 +325,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/main.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/build.make projects/truseq_analysis/CMakeFiles/spades-truseq-analysis.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -334,13 +334,13 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
 	@echo "... install/strip"
+	@echo "... install/local"
 	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... package_source"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... package_source"
 	@echo "... package"
 	@echo "... spades-truseq-analysis"
 	@echo "... AlignmentAnalyserNew.o"
@@ -369,6 +369,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

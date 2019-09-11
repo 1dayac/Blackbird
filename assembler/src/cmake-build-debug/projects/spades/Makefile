@@ -39,57 +39,57 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
+RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird2/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target list_install_components
@@ -102,21 +102,10 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -127,7 +116,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -138,7 +127,7 @@ package_source/fast: package_source
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -146,16 +135,27 @@ package/fast: package
 
 .PHONY : package/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/projects/spades/CMakeFiles/progress.marks
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spades/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/spades/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spades/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spades/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spades/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spades/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spades/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spades/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spades/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 projects/spades/CMakeFiles/spades-core.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spades/CMakeFiles/spades-core.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spades/CMakeFiles/spades-core.dir/rule
 .PHONY : projects/spades/CMakeFiles/spades-core.dir/rule
 
 # Convenience name for target.
@@ -190,12 +190,12 @@ spades-core: projects/spades/CMakeFiles/spades-core.dir/rule
 
 # fast build rule for target.
 spades-core/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/build
 .PHONY : spades-core/fast
 
 # Convenience name for target.
 projects/spades/CMakeFiles/spades-stages.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spades/CMakeFiles/spades-stages.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spades/CMakeFiles/spades-stages.dir/rule
 .PHONY : projects/spades/CMakeFiles/spades-stages.dir/rule
 
 # Convenience name for target.
@@ -205,7 +205,7 @@ spades-stages: projects/spades/CMakeFiles/spades-stages.dir/rule
 
 # fast build rule for target.
 spades-stages/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/build
 .PHONY : spades-stages/fast
 
 __/mts/contig_abundance.o: __/mts/contig_abundance.cpp.o
@@ -214,7 +214,7 @@ __/mts/contig_abundance.o: __/mts/contig_abundance.cpp.o
 
 # target to build an object file
 __/mts/contig_abundance.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/__/mts/contig_abundance.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/__/mts/contig_abundance.cpp.o
 .PHONY : __/mts/contig_abundance.cpp.o
 
 __/mts/contig_abundance.i: __/mts/contig_abundance.cpp.i
@@ -223,7 +223,7 @@ __/mts/contig_abundance.i: __/mts/contig_abundance.cpp.i
 
 # target to preprocess a source file
 __/mts/contig_abundance.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/__/mts/contig_abundance.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/__/mts/contig_abundance.cpp.i
 .PHONY : __/mts/contig_abundance.cpp.i
 
 __/mts/contig_abundance.s: __/mts/contig_abundance.cpp.s
@@ -232,7 +232,7 @@ __/mts/contig_abundance.s: __/mts/contig_abundance.cpp.s
 
 # target to generate assembly for a file
 __/mts/contig_abundance.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/__/mts/contig_abundance.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/__/mts/contig_abundance.cpp.s
 .PHONY : __/mts/contig_abundance.cpp.s
 
 chromosome_removal.o: chromosome_removal.cpp.o
@@ -241,7 +241,7 @@ chromosome_removal.o: chromosome_removal.cpp.o
 
 # target to build an object file
 chromosome_removal.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/chromosome_removal.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/chromosome_removal.cpp.o
 .PHONY : chromosome_removal.cpp.o
 
 chromosome_removal.i: chromosome_removal.cpp.i
@@ -250,7 +250,7 @@ chromosome_removal.i: chromosome_removal.cpp.i
 
 # target to preprocess a source file
 chromosome_removal.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/chromosome_removal.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/chromosome_removal.cpp.i
 .PHONY : chromosome_removal.cpp.i
 
 chromosome_removal.s: chromosome_removal.cpp.s
@@ -259,7 +259,7 @@ chromosome_removal.s: chromosome_removal.cpp.s
 
 # target to generate assembly for a file
 chromosome_removal.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/chromosome_removal.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/chromosome_removal.cpp.s
 .PHONY : chromosome_removal.cpp.s
 
 contig_output_stage.o: contig_output_stage.cpp.o
@@ -268,7 +268,7 @@ contig_output_stage.o: contig_output_stage.cpp.o
 
 # target to build an object file
 contig_output_stage.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/contig_output_stage.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/contig_output_stage.cpp.o
 .PHONY : contig_output_stage.cpp.o
 
 contig_output_stage.i: contig_output_stage.cpp.i
@@ -277,7 +277,7 @@ contig_output_stage.i: contig_output_stage.cpp.i
 
 # target to preprocess a source file
 contig_output_stage.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/contig_output_stage.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/contig_output_stage.cpp.i
 .PHONY : contig_output_stage.cpp.i
 
 contig_output_stage.s: contig_output_stage.cpp.s
@@ -286,7 +286,7 @@ contig_output_stage.s: contig_output_stage.cpp.s
 
 # target to generate assembly for a file
 contig_output_stage.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/contig_output_stage.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/contig_output_stage.cpp.s
 .PHONY : contig_output_stage.cpp.s
 
 distance_estimation.o: distance_estimation.cpp.o
@@ -295,7 +295,7 @@ distance_estimation.o: distance_estimation.cpp.o
 
 # target to build an object file
 distance_estimation.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/distance_estimation.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/distance_estimation.cpp.o
 .PHONY : distance_estimation.cpp.o
 
 distance_estimation.i: distance_estimation.cpp.i
@@ -304,7 +304,7 @@ distance_estimation.i: distance_estimation.cpp.i
 
 # target to preprocess a source file
 distance_estimation.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/distance_estimation.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/distance_estimation.cpp.i
 .PHONY : distance_estimation.cpp.i
 
 distance_estimation.s: distance_estimation.cpp.s
@@ -313,7 +313,7 @@ distance_estimation.s: distance_estimation.cpp.s
 
 # target to generate assembly for a file
 distance_estimation.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/distance_estimation.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/distance_estimation.cpp.s
 .PHONY : distance_estimation.cpp.s
 
 gap_closer.o: gap_closer.cpp.o
@@ -322,7 +322,7 @@ gap_closer.o: gap_closer.cpp.o
 
 # target to build an object file
 gap_closer.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/gap_closer.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/gap_closer.cpp.o
 .PHONY : gap_closer.cpp.o
 
 gap_closer.i: gap_closer.cpp.i
@@ -331,7 +331,7 @@ gap_closer.i: gap_closer.cpp.i
 
 # target to preprocess a source file
 gap_closer.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/gap_closer.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/gap_closer.cpp.i
 .PHONY : gap_closer.cpp.i
 
 gap_closer.s: gap_closer.cpp.s
@@ -340,7 +340,7 @@ gap_closer.s: gap_closer.cpp.s
 
 # target to generate assembly for a file
 gap_closer.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/gap_closer.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/gap_closer.cpp.s
 .PHONY : gap_closer.cpp.s
 
 hybrid_aligning.o: hybrid_aligning.cpp.o
@@ -349,7 +349,7 @@ hybrid_aligning.o: hybrid_aligning.cpp.o
 
 # target to build an object file
 hybrid_aligning.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/hybrid_aligning.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/hybrid_aligning.cpp.o
 .PHONY : hybrid_aligning.cpp.o
 
 hybrid_aligning.i: hybrid_aligning.cpp.i
@@ -358,7 +358,7 @@ hybrid_aligning.i: hybrid_aligning.cpp.i
 
 # target to preprocess a source file
 hybrid_aligning.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/hybrid_aligning.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/hybrid_aligning.cpp.i
 .PHONY : hybrid_aligning.cpp.i
 
 hybrid_aligning.s: hybrid_aligning.cpp.s
@@ -367,7 +367,7 @@ hybrid_aligning.s: hybrid_aligning.cpp.s
 
 # target to generate assembly for a file
 hybrid_aligning.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/hybrid_aligning.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/hybrid_aligning.cpp.s
 .PHONY : hybrid_aligning.cpp.s
 
 main.o: main.cpp.o
@@ -376,7 +376,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/main.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -385,7 +385,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/main.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -394,7 +394,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/main.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 mismatch_correction.o: mismatch_correction.cpp.o
@@ -403,7 +403,7 @@ mismatch_correction.o: mismatch_correction.cpp.o
 
 # target to build an object file
 mismatch_correction.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/mismatch_correction.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/mismatch_correction.cpp.o
 .PHONY : mismatch_correction.cpp.o
 
 mismatch_correction.i: mismatch_correction.cpp.i
@@ -412,7 +412,7 @@ mismatch_correction.i: mismatch_correction.cpp.i
 
 # target to preprocess a source file
 mismatch_correction.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/mismatch_correction.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/mismatch_correction.cpp.i
 .PHONY : mismatch_correction.cpp.i
 
 mismatch_correction.s: mismatch_correction.cpp.s
@@ -421,7 +421,7 @@ mismatch_correction.s: mismatch_correction.cpp.s
 
 # target to generate assembly for a file
 mismatch_correction.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/mismatch_correction.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/mismatch_correction.cpp.s
 .PHONY : mismatch_correction.cpp.s
 
 pair_info_count.o: pair_info_count.cpp.o
@@ -430,7 +430,7 @@ pair_info_count.o: pair_info_count.cpp.o
 
 # target to build an object file
 pair_info_count.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/pair_info_count.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/pair_info_count.cpp.o
 .PHONY : pair_info_count.cpp.o
 
 pair_info_count.i: pair_info_count.cpp.i
@@ -439,7 +439,7 @@ pair_info_count.i: pair_info_count.cpp.i
 
 # target to preprocess a source file
 pair_info_count.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/pair_info_count.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/pair_info_count.cpp.i
 .PHONY : pair_info_count.cpp.i
 
 pair_info_count.s: pair_info_count.cpp.s
@@ -448,7 +448,7 @@ pair_info_count.s: pair_info_count.cpp.s
 
 # target to generate assembly for a file
 pair_info_count.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/pair_info_count.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/pair_info_count.cpp.s
 .PHONY : pair_info_count.cpp.s
 
 repeat_resolving.o: repeat_resolving.cpp.o
@@ -457,7 +457,7 @@ repeat_resolving.o: repeat_resolving.cpp.o
 
 # target to build an object file
 repeat_resolving.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/repeat_resolving.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/repeat_resolving.cpp.o
 .PHONY : repeat_resolving.cpp.o
 
 repeat_resolving.i: repeat_resolving.cpp.i
@@ -466,7 +466,7 @@ repeat_resolving.i: repeat_resolving.cpp.i
 
 # target to preprocess a source file
 repeat_resolving.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/repeat_resolving.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/repeat_resolving.cpp.i
 .PHONY : repeat_resolving.cpp.i
 
 repeat_resolving.s: repeat_resolving.cpp.s
@@ -475,7 +475,7 @@ repeat_resolving.s: repeat_resolving.cpp.s
 
 # target to generate assembly for a file
 repeat_resolving.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/repeat_resolving.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/repeat_resolving.cpp.s
 .PHONY : repeat_resolving.cpp.s
 
 second_phase_setup.o: second_phase_setup.cpp.o
@@ -484,7 +484,7 @@ second_phase_setup.o: second_phase_setup.cpp.o
 
 # target to build an object file
 second_phase_setup.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/second_phase_setup.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/second_phase_setup.cpp.o
 .PHONY : second_phase_setup.cpp.o
 
 second_phase_setup.i: second_phase_setup.cpp.i
@@ -493,7 +493,7 @@ second_phase_setup.i: second_phase_setup.cpp.i
 
 # target to preprocess a source file
 second_phase_setup.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/second_phase_setup.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/second_phase_setup.cpp.i
 .PHONY : second_phase_setup.cpp.i
 
 second_phase_setup.s: second_phase_setup.cpp.s
@@ -502,7 +502,7 @@ second_phase_setup.s: second_phase_setup.cpp.s
 
 # target to generate assembly for a file
 second_phase_setup.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/second_phase_setup.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/second_phase_setup.cpp.s
 .PHONY : second_phase_setup.cpp.s
 
 series_analysis.o: series_analysis.cpp.o
@@ -511,8 +511,8 @@ series_analysis.o: series_analysis.cpp.o
 
 # target to build an object file
 series_analysis.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/series_analysis.cpp.o
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/series_analysis.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/series_analysis.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/series_analysis.cpp.o
 .PHONY : series_analysis.cpp.o
 
 series_analysis.i: series_analysis.cpp.i
@@ -521,8 +521,8 @@ series_analysis.i: series_analysis.cpp.i
 
 # target to preprocess a source file
 series_analysis.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/series_analysis.cpp.i
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/series_analysis.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/series_analysis.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/series_analysis.cpp.i
 .PHONY : series_analysis.cpp.i
 
 series_analysis.s: series_analysis.cpp.s
@@ -531,8 +531,8 @@ series_analysis.s: series_analysis.cpp.s
 
 # target to generate assembly for a file
 series_analysis.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/series_analysis.cpp.s
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/series_analysis.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-core.dir/build.make projects/spades/CMakeFiles/spades-core.dir/series_analysis.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spades/CMakeFiles/spades-stages.dir/build.make projects/spades/CMakeFiles/spades-stages.dir/series_analysis.cpp.s
 .PHONY : series_analysis.cpp.s
 
 # Help Target
@@ -541,15 +541,15 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
 	@echo "... install/strip"
+	@echo "... install/local"
 	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... package_source"
 	@echo "... package"
 	@echo "... spades-core"
+	@echo "... edit_cache"
 	@echo "... spades-stages"
 	@echo "... __/mts/contig_abundance.o"
 	@echo "... __/mts/contig_abundance.i"
@@ -598,6 +598,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

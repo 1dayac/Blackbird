@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
+RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird2/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,14 +59,82 @@ CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debu
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+
+.PHONY : package/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -78,84 +146,16 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-
-.PHONY : package/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # The main all target
 all: cmake_check_build_system
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/test/debruijn/CMakeFiles/progress.marks
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/test/debruijn/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 test/debruijn/CMakeFiles/debruijn_test.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/CMakeFiles/debruijn_test.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/CMakeFiles/debruijn_test.dir/rule
 .PHONY : test/debruijn/CMakeFiles/debruijn_test.dir/rule
 
 # Convenience name for target.
@@ -190,27 +190,12 @@ debruijn_test: test/debruijn/CMakeFiles/debruijn_test.dir/rule
 
 # fast build rule for target.
 debruijn_test/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/build
 .PHONY : debruijn_test/fast
 
 # Convenience name for target.
-test/debruijn/CMakeFiles/sequence_threader.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/CMakeFiles/sequence_threader.dir/rule
-.PHONY : test/debruijn/CMakeFiles/sequence_threader.dir/rule
-
-# Convenience name for target.
-sequence_threader: test/debruijn/CMakeFiles/sequence_threader.dir/rule
-
-.PHONY : sequence_threader
-
-# fast build rule for target.
-sequence_threader/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/sequence_threader.dir/build.make test/debruijn/CMakeFiles/sequence_threader.dir/build
-.PHONY : sequence_threader/fast
-
-# Convenience name for target.
 test/debruijn/CMakeFiles/reference_fixer.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/CMakeFiles/reference_fixer.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/CMakeFiles/reference_fixer.dir/rule
 .PHONY : test/debruijn/CMakeFiles/reference_fixer.dir/rule
 
 # Convenience name for target.
@@ -220,12 +205,12 @@ reference_fixer: test/debruijn/CMakeFiles/reference_fixer.dir/rule
 
 # fast build rule for target.
 reference_fixer/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/reference_fixer.dir/build.make test/debruijn/CMakeFiles/reference_fixer.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/reference_fixer.dir/build.make test/debruijn/CMakeFiles/reference_fixer.dir/build
 .PHONY : reference_fixer/fast
 
 # Convenience name for target.
 test/debruijn/CMakeFiles/short_edge_contractor.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/CMakeFiles/short_edge_contractor.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/CMakeFiles/short_edge_contractor.dir/rule
 .PHONY : test/debruijn/CMakeFiles/short_edge_contractor.dir/rule
 
 # Convenience name for target.
@@ -235,12 +220,12 @@ short_edge_contractor: test/debruijn/CMakeFiles/short_edge_contractor.dir/rule
 
 # fast build rule for target.
 short_edge_contractor/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/short_edge_contractor.dir/build.make test/debruijn/CMakeFiles/short_edge_contractor.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/short_edge_contractor.dir/build.make test/debruijn/CMakeFiles/short_edge_contractor.dir/build
 .PHONY : short_edge_contractor/fast
 
 # Convenience name for target.
 test/debruijn/CMakeFiles/component_generator.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/CMakeFiles/component_generator.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/CMakeFiles/component_generator.dir/rule
 .PHONY : test/debruijn/CMakeFiles/component_generator.dir/rule
 
 # Convenience name for target.
@@ -250,62 +235,23 @@ component_generator: test/debruijn/CMakeFiles/component_generator.dir/rule
 
 # fast build rule for target.
 component_generator/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/component_generator.dir/build.make test/debruijn/CMakeFiles/component_generator.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/component_generator.dir/build.make test/debruijn/CMakeFiles/component_generator.dir/build
 .PHONY : component_generator/fast
 
-Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.o: Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o
+# Convenience name for target.
+test/debruijn/CMakeFiles/sequence_threader.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/debruijn/CMakeFiles/sequence_threader.dir/rule
+.PHONY : test/debruijn/CMakeFiles/sequence_threader.dir/rule
 
-.PHONY : Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.o
+# Convenience name for target.
+sequence_threader: test/debruijn/CMakeFiles/sequence_threader.dir/rule
 
-# target to build an object file
-Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o
-.PHONY : Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o
+.PHONY : sequence_threader
 
-Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.i: Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i
-
-.PHONY : Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.i
-
-# target to preprocess a source file
-Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i
-.PHONY : Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i
-
-Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.s: Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s
-
-.PHONY : Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.s
-
-# target to generate assembly for a file
-Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s
-.PHONY : Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s
-
-Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.o: Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o
-
-.PHONY : Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.o
-
-# target to build an object file
-Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o
-.PHONY : Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o
-
-Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.i: Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i
-
-.PHONY : Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.i
-
-# target to preprocess a source file
-Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i
-.PHONY : Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i
-
-Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.s: Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s
-
-.PHONY : Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.s
-
-# target to generate assembly for a file
-Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s
-.PHONY : Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s
+# fast build rule for target.
+sequence_threader/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/sequence_threader.dir/build.make test/debruijn/CMakeFiles/sequence_threader.dir/build
+.PHONY : sequence_threader/fast
 
 generate_component.o: generate_component.cpp.o
 
@@ -313,7 +259,7 @@ generate_component.o: generate_component.cpp.o
 
 # target to build an object file
 generate_component.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/component_generator.dir/build.make test/debruijn/CMakeFiles/component_generator.dir/generate_component.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/component_generator.dir/build.make test/debruijn/CMakeFiles/component_generator.dir/generate_component.cpp.o
 .PHONY : generate_component.cpp.o
 
 generate_component.i: generate_component.cpp.i
@@ -322,7 +268,7 @@ generate_component.i: generate_component.cpp.i
 
 # target to preprocess a source file
 generate_component.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/component_generator.dir/build.make test/debruijn/CMakeFiles/component_generator.dir/generate_component.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/component_generator.dir/build.make test/debruijn/CMakeFiles/component_generator.dir/generate_component.cpp.i
 .PHONY : generate_component.cpp.i
 
 generate_component.s: generate_component.cpp.s
@@ -331,8 +277,62 @@ generate_component.s: generate_component.cpp.s
 
 # target to generate assembly for a file
 generate_component.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/component_generator.dir/build.make test/debruijn/CMakeFiles/component_generator.dir/generate_component.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/component_generator.dir/build.make test/debruijn/CMakeFiles/component_generator.dir/generate_component.cpp.s
 .PHONY : generate_component.cpp.s
+
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.o: home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o
+
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.o
+
+# target to build an object file
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o
+
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.i: home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i
+
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.i
+
+# target to preprocess a source file
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i
+
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.s: home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s
+
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.s
+
+# target to generate assembly for a file
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s
+
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.o: home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o
+
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.o
+
+# target to build an object file
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o
+
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.i: home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i
+
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.i
+
+# target to preprocess a source file
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i
+
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.s: home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s
+
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.s
+
+# target to generate assembly for a file
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s
 
 reference_fixer.o: reference_fixer.cpp.o
 
@@ -340,7 +340,7 @@ reference_fixer.o: reference_fixer.cpp.o
 
 # target to build an object file
 reference_fixer.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/reference_fixer.dir/build.make test/debruijn/CMakeFiles/reference_fixer.dir/reference_fixer.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/reference_fixer.dir/build.make test/debruijn/CMakeFiles/reference_fixer.dir/reference_fixer.cpp.o
 .PHONY : reference_fixer.cpp.o
 
 reference_fixer.i: reference_fixer.cpp.i
@@ -349,7 +349,7 @@ reference_fixer.i: reference_fixer.cpp.i
 
 # target to preprocess a source file
 reference_fixer.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/reference_fixer.dir/build.make test/debruijn/CMakeFiles/reference_fixer.dir/reference_fixer.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/reference_fixer.dir/build.make test/debruijn/CMakeFiles/reference_fixer.dir/reference_fixer.cpp.i
 .PHONY : reference_fixer.cpp.i
 
 reference_fixer.s: reference_fixer.cpp.s
@@ -358,7 +358,7 @@ reference_fixer.s: reference_fixer.cpp.s
 
 # target to generate assembly for a file
 reference_fixer.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/reference_fixer.dir/build.make test/debruijn/CMakeFiles/reference_fixer.dir/reference_fixer.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/reference_fixer.dir/build.make test/debruijn/CMakeFiles/reference_fixer.dir/reference_fixer.cpp.s
 .PHONY : reference_fixer.cpp.s
 
 short_edge_contractor.o: short_edge_contractor.cpp.o
@@ -367,7 +367,7 @@ short_edge_contractor.o: short_edge_contractor.cpp.o
 
 # target to build an object file
 short_edge_contractor.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/short_edge_contractor.dir/build.make test/debruijn/CMakeFiles/short_edge_contractor.dir/short_edge_contractor.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/short_edge_contractor.dir/build.make test/debruijn/CMakeFiles/short_edge_contractor.dir/short_edge_contractor.cpp.o
 .PHONY : short_edge_contractor.cpp.o
 
 short_edge_contractor.i: short_edge_contractor.cpp.i
@@ -376,7 +376,7 @@ short_edge_contractor.i: short_edge_contractor.cpp.i
 
 # target to preprocess a source file
 short_edge_contractor.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/short_edge_contractor.dir/build.make test/debruijn/CMakeFiles/short_edge_contractor.dir/short_edge_contractor.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/short_edge_contractor.dir/build.make test/debruijn/CMakeFiles/short_edge_contractor.dir/short_edge_contractor.cpp.i
 .PHONY : short_edge_contractor.cpp.i
 
 short_edge_contractor.s: short_edge_contractor.cpp.s
@@ -385,7 +385,7 @@ short_edge_contractor.s: short_edge_contractor.cpp.s
 
 # target to generate assembly for a file
 short_edge_contractor.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/short_edge_contractor.dir/build.make test/debruijn/CMakeFiles/short_edge_contractor.dir/short_edge_contractor.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/short_edge_contractor.dir/build.make test/debruijn/CMakeFiles/short_edge_contractor.dir/short_edge_contractor.cpp.s
 .PHONY : short_edge_contractor.cpp.s
 
 test.o: test.cpp.o
@@ -394,7 +394,7 @@ test.o: test.cpp.o
 
 # target to build an object file
 test.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/test.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/test.cpp.o
 .PHONY : test.cpp.o
 
 test.i: test.cpp.i
@@ -403,7 +403,7 @@ test.i: test.cpp.i
 
 # target to preprocess a source file
 test.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/test.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/test.cpp.i
 .PHONY : test.cpp.i
 
 test.s: test.cpp.s
@@ -412,7 +412,7 @@ test.s: test.cpp.s
 
 # target to generate assembly for a file
 test.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/test.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/test.cpp.s
 .PHONY : test.cpp.s
 
 thread_sequences.o: thread_sequences.cpp.o
@@ -421,7 +421,7 @@ thread_sequences.o: thread_sequences.cpp.o
 
 # target to build an object file
 thread_sequences.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/sequence_threader.dir/build.make test/debruijn/CMakeFiles/sequence_threader.dir/thread_sequences.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/sequence_threader.dir/build.make test/debruijn/CMakeFiles/sequence_threader.dir/thread_sequences.cpp.o
 .PHONY : thread_sequences.cpp.o
 
 thread_sequences.i: thread_sequences.cpp.i
@@ -430,7 +430,7 @@ thread_sequences.i: thread_sequences.cpp.i
 
 # target to preprocess a source file
 thread_sequences.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/sequence_threader.dir/build.make test/debruijn/CMakeFiles/sequence_threader.dir/thread_sequences.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/sequence_threader.dir/build.make test/debruijn/CMakeFiles/sequence_threader.dir/thread_sequences.cpp.i
 .PHONY : thread_sequences.cpp.i
 
 thread_sequences.s: thread_sequences.cpp.s
@@ -439,7 +439,7 @@ thread_sequences.s: thread_sequences.cpp.s
 
 # target to generate assembly for a file
 thread_sequences.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/sequence_threader.dir/build.make test/debruijn/CMakeFiles/sequence_threader.dir/thread_sequences.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/debruijn/CMakeFiles/sequence_threader.dir/build.make test/debruijn/CMakeFiles/sequence_threader.dir/thread_sequences.cpp.s
 .PHONY : thread_sequences.cpp.s
 
 # Help Target
@@ -449,27 +449,27 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/local"
-	@echo "... list_install_components"
-	@echo "... rebuild_cache"
-	@echo "... package_source"
-	@echo "... install/strip"
-	@echo "... package"
 	@echo "... install"
 	@echo "... debruijn_test"
-	@echo "... sequence_threader"
-	@echo "... edit_cache"
+	@echo "... package_source"
 	@echo "... reference_fixer"
+	@echo "... package"
 	@echo "... short_edge_contractor"
 	@echo "... component_generator"
-	@echo "... Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.o"
-	@echo "... Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.i"
-	@echo "... Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_boost.s"
-	@echo "... Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.o"
-	@echo "... Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.i"
-	@echo "... Users/dima/Desktop/Blackbird2/assembler/ext/include/teamcity_boost/teamcity_messages.s"
+	@echo "... sequence_threader"
+	@echo "... edit_cache"
+	@echo "... rebuild_cache"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... generate_component.o"
 	@echo "... generate_component.i"
 	@echo "... generate_component.s"
+	@echo "... home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.o"
+	@echo "... home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.i"
+	@echo "... home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.s"
+	@echo "... home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.o"
+	@echo "... home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.i"
+	@echo "... home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.s"
 	@echo "... reference_fixer.o"
 	@echo "... reference_fixer.i"
 	@echo "... reference_fixer.s"
@@ -493,6 +493,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

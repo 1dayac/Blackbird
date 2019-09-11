@@ -4,552 +4,564 @@
 	<Project>
 		<Option title="spades_pipeline"/>
 		<Option makefile_is_custom="1"/>
-		<Option compiler="clang"/>
-		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\ext\;CMake Files\..\ext\src\;CMake Files\..\ext\src\bamtools\;CMake Files\..\ext\src\bamtools\api\;CMake Files\..\ext\src\bamtools\api\internal\;CMake Files\..\ext\src\bamtools\api\internal\bam\;CMake Files\..\ext\src\bamtools\api\internal\index\;CMake Files\..\ext\src\bamtools\api\internal\io\;CMake Files\..\ext\src\bamtools\api\internal\io\pbgzf\;CMake Files\..\ext\src\bamtools\api\internal\sam\;CMake Files\..\ext\src\bamtools\api\internal\utils\;CMake Files\..\ext\src\ConsensusCore\;CMake Files\..\ext\src\cppformat\;CMake Files\..\ext\src\jemalloc\;CMake Files\..\ext\src\jemalloc\build-aux\;CMake Files\..\ext\src\jemalloc\test\;CMake Files\..\ext\src\jemalloc\test\src\;CMake Files\..\ext\src\jemalloc\test\integration\;CMake Files\..\ext\src\jemalloc\test\unit\;CMake Files\..\ext\src\jemalloc\test\stress\;CMake Files\..\ext\src\jemalloc\src\;CMake Files\..\ext\src\nlopt\;CMake Files\..\ext\src\python_libs\;CMake Files\..\ext\src\python_libs\joblib2\;CMake Files\..\ext\src\python_libs\joblib3\;CMake Files\..\ext\src\python_libs\pyyaml2\;CMake Files\..\ext\src\python_libs\pyyaml3\;CMake Files\..\ext\src\samtools\;CMake Files\..\ext\src\ssw\;CMake Files\..\ext\src\cityhash\;CMake Files\..\ext\src\getopt_pp\;CMake Files\..\ext\src\llvm\;CMake Files\..\ext\src\htrie\;CMake Files\..\ext\src\bwa\;CMake Files\..\ext\src\gqf\;CMake Files\..\ext\src\edlib\;CMake Files\..\ext\src\minimap2\;CMake Files\..\ext\src\gfa1\;CMake Files\..\ext\include\;CMake Files\..\ext\include\llvm\;CMake Files\..\..\;CMake Files\..\..\.git\;CMake Files\..\..\.git\refs\;CMake Files\..\..\.git\refs\heads\;CMake Files\cmake\;CMake Files\cmake\Modules\;CMake Files\include\;CMake Files\common\;CMake Files\common\pipeline\;CMake Files\common\sequence\;CMake Files\common\assembly_graph\;CMake Files\common\modules\;CMake Files\common\modules\path_extend\;CMake Files\common\modules\coverage_model\;CMake Files\common\paired_info\;CMake Files\common\stages\;CMake Files\common\utils\;CMake Files\common\utils\kmer_mph\;CMake Files\common\io\;CMake Files\common\io\graph\;CMake Files\projects\;CMake Files\projects\spades\;CMake Files\projects\hammer\;CMake Files\projects\ionhammer\;CMake Files\projects\corrector\;CMake Files\projects\scaffold_correction\;CMake Files\projects\kmercount\;CMake Files\projects\gbuilder\;CMake Files\projects\gmapper\;CMake Files\projects\edge_profiles\;CMake Files\projects\spaligner\;CMake Files\projects\blackbird\;CMake Files\projects\online_vis\;CMake Files\projects\truseq_analysis\;CMake Files\projects\mts\;CMake Files\spades_pipeline\;CMake Files\test\;CMake Files\test\include_test\;CMake Files\test\debruijn\;CMake Files\test\adt\;CMake Files\tools\;CMake Files\tools\correctionEvaluatorIon\;CMake Files\tools\correctionEvaluatorIon\cgce\;"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\ext\;CMake Files\..\ext\src\;CMake Files\..\ext\src\bamtools\;CMake Files\..\ext\src\bamtools\api\;CMake Files\..\ext\src\bamtools\api\internal\;CMake Files\..\ext\src\bamtools\api\internal\bam\;CMake Files\..\ext\src\bamtools\api\internal\index\;CMake Files\..\ext\src\bamtools\api\internal\io\;CMake Files\..\ext\src\bamtools\api\internal\io\pbgzf\;CMake Files\..\ext\src\bamtools\api\internal\sam\;CMake Files\..\ext\src\bamtools\api\internal\utils\;CMake Files\..\ext\src\ConsensusCore\;CMake Files\..\ext\src\cppformat\;CMake Files\..\ext\src\jemalloc\;CMake Files\..\ext\src\jemalloc\build-aux\;CMake Files\..\ext\src\jemalloc\test\;CMake Files\..\ext\src\jemalloc\test\src\;CMake Files\..\ext\src\jemalloc\test\integration\;CMake Files\..\ext\src\jemalloc\test\unit\;CMake Files\..\ext\src\jemalloc\test\stress\;CMake Files\..\ext\src\jemalloc\src\;CMake Files\..\ext\src\nlopt\;CMake Files\..\ext\src\python_libs\;CMake Files\..\ext\src\python_libs\joblib2\;CMake Files\..\ext\src\python_libs\joblib3\;CMake Files\..\ext\src\python_libs\pyyaml2\;CMake Files\..\ext\src\python_libs\pyyaml3\;CMake Files\..\ext\src\samtools\;CMake Files\..\ext\src\ssw\;CMake Files\..\ext\src\cityhash\;CMake Files\..\ext\src\getopt_pp\;CMake Files\..\ext\src\llvm\;CMake Files\..\ext\src\htrie\;CMake Files\..\ext\src\bwa\;CMake Files\..\ext\src\gqf\;CMake Files\..\ext\src\edlib\;CMake Files\..\ext\src\minimap2\;CMake Files\..\ext\src\gfa1\;CMake Files\..\ext\include\;CMake Files\..\ext\include\llvm\;CMake Files\..\..\;CMake Files\..\..\.git\;CMake Files\..\..\.git\refs\;CMake Files\..\..\.git\refs\heads\;CMake Files\cmake\;CMake Files\cmake\Modules\;CMake Files\include\;CMake Files\cmake-build-debug\;CMake Files\cmake-build-debug\ext\;CMake Files\cmake-build-debug\ext\jemalloc\;CMake Files\cmake-build-debug\ext\jemalloc\GetSystemAddrBits\;CMake Files\cmake-build-debug\ext\jemalloc\GetSizes\;CMake Files\common\;CMake Files\common\pipeline\;CMake Files\common\sequence\;CMake Files\common\assembly_graph\;CMake Files\common\modules\;CMake Files\common\modules\path_extend\;CMake Files\common\modules\coverage_model\;CMake Files\common\paired_info\;CMake Files\common\stages\;CMake Files\common\utils\;CMake Files\common\utils\kmer_mph\;CMake Files\common\io\;CMake Files\common\io\graph\;CMake Files\projects\;CMake Files\projects\spades\;CMake Files\projects\hammer\;CMake Files\projects\ionhammer\;CMake Files\projects\corrector\;CMake Files\projects\scaffold_correction\;CMake Files\projects\kmercount\;CMake Files\projects\gbuilder\;CMake Files\projects\gmapper\;CMake Files\projects\edge_profiles\;CMake Files\projects\spaligner\;CMake Files\projects\blackbird\;CMake Files\projects\online_vis\;CMake Files\projects\truseq_analysis\;CMake Files\projects\mts\;CMake Files\spades_pipeline\;CMake Files\test\;CMake Files\test\include_test\;CMake Files\test\debruijn\;CMake Files\test\adt\;CMake Files\tools\;CMake Files\tools\correctionEvaluatorIon\;CMake Files\tools\correctionEvaluatorIon\cgce\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/spades_pipeline"/>
+				<Option working_dir="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/spades_pipeline"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/spades_pipeline/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/spades_pipeline/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/spades_pipeline/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/spades_pipeline/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/spades_pipeline/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/spades_pipeline/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/spades_pipeline/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/spades_pipeline/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/CMakeListsInternal.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/CMakeListsInternal.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/bam/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/bam/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\bam\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/bam/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/bam/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\bam\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/index/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/index/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\index\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/index/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/index/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\index\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/io/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/io/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\io\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/io/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/io/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\io\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/io/pbgzf/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/io/pbgzf/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\io\pbgzf\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/io/pbgzf/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/io/pbgzf/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\io\pbgzf\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/sam/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/sam/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\sam\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/sam/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/sam/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\sam\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/utils/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/utils/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\utils\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bamtools/api/internal/utils/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/utils/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\utils\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/ConsensusCore/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/ConsensusCore/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\ConsensusCore\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/ConsensusCore/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/ConsensusCore/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\ConsensusCore\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/cppformat/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/cppformat/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\cppformat\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/cppformat/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/cppformat/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\cppformat\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/build-aux/Utilities.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/build-aux/Utilities.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/build-aux/GetSystemSizes.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/build-aux/GetSystemSizes.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/build-aux/GetSystemAddrBits.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/build-aux/GetSystemAddrBits.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/build-aux/DetectOSFeatures.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/build-aux/DetectOSFeatures.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/build-aux/DetectCompilerFeatures.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/build-aux/DetectCompilerFeatures.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/build-aux/UserCompileOptions.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/build-aux/UserCompileOptions.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/build-aux/Utilities.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/build-aux/Utilities.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/build-aux/GetSystemSizes.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/build-aux/GetSystemSizes.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/build-aux/GetSystemAddrBits.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/build-aux/GetSystemAddrBits.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/build-aux/DetectOSFeatures.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/build-aux/DetectOSFeatures.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/build-aux/DetectCompilerFeatures.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/build-aux/DetectCompilerFeatures.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/build-aux/UserCompileOptions.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/build-aux/UserCompileOptions.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/test/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/test/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/test/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/test/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/test/src/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/test/src/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\src\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/test/src/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/test/src/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\src\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/test/integration/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/test/integration/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\integration\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/test/integration/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/test/integration/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\integration\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/test/unit/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/test/unit/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\unit\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/test/unit/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/test/unit/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\unit\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/test/stress/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/test/stress/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\stress\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/test/stress/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/test/stress/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\stress\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/src/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/src/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\src\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/jemalloc/src/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/jemalloc/src/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\src\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/nlopt/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/nlopt/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\nlopt\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/nlopt/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/nlopt/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\nlopt\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/python_libs/joblib2/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/python_libs/joblib2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\python_libs\joblib2\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/python_libs/joblib2/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/python_libs/joblib2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\python_libs\joblib2\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/python_libs/joblib3/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/python_libs/joblib3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\python_libs\joblib3\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/python_libs/joblib3/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/python_libs/joblib3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\python_libs\joblib3\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/python_libs/pyyaml2/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/python_libs/pyyaml2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\python_libs\pyyaml2\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/python_libs/pyyaml2/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/python_libs/pyyaml2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\python_libs\pyyaml2\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/python_libs/pyyaml3/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/python_libs/pyyaml3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\python_libs\pyyaml3\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/python_libs/pyyaml3/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/python_libs/pyyaml3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\python_libs\pyyaml3\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/samtools/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/samtools/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\samtools\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/samtools/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/samtools/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\samtools\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/ssw/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/ssw/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\ssw\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/ssw/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/ssw/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\ssw\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/cityhash/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/cityhash/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\cityhash\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/cityhash/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/cityhash/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\cityhash\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/getopt_pp/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/getopt_pp/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\getopt_pp\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/getopt_pp/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/getopt_pp/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\getopt_pp\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/llvm/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/llvm/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\llvm\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/llvm/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/llvm/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\llvm\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/htrie/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/htrie/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\htrie\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/htrie/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/htrie/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\htrie\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bwa/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bwa/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bwa\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/bwa/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bwa/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bwa\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/gqf/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/gqf/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\gqf\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/gqf/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/gqf/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\gqf\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/edlib/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/edlib/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\edlib\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/edlib/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/edlib/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\edlib\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/minimap2/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/minimap2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\minimap2\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/minimap2/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/minimap2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\minimap2\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/gfa1/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/gfa1/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\gfa1\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/src/gfa1/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/gfa1/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\gfa1\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/include/llvm/Config.h.in">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/include/llvm/Config.h.in">
 			<Option virtualFolder="CMake Files\..\ext\include\llvm\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../ext/include/llvm/Config.h.in">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/include/llvm/Config.h.in">
 			<Option virtualFolder="CMake Files\..\ext\include\llvm\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../../.git/HEAD">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../../.git/HEAD">
 			<Option virtualFolder="CMake Files\..\..\.git\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/../../.git/refs/heads/master">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../../.git/refs/heads/master">
 			<Option virtualFolder="CMake Files\..\..\.git\refs\heads\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/cmake/options.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/options.cmake">
 			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/cmake/deps.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/deps.cmake">
 			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/cmake/flags.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/flags.cmake">
 			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/cmake/includes.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/includes.cmake">
 			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/cmake/libs.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/libs.cmake">
 			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/cmake/pack.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/pack.cmake">
 			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/cmake/Modules/FindReadline.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/Modules/FindReadline.cmake">
 			<Option virtualFolder="CMake Files\cmake\Modules\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/cmake/Modules/FindCurses.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/Modules/FindCurses.cmake">
 			<Option virtualFolder="CMake Files\cmake\Modules\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/cmake/Modules/GetGitRevisionDescription.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/Modules/GetGitRevisionDescription.cmake">
 			<Option virtualFolder="CMake Files\cmake\Modules\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/cmake/Modules/GetGitRevisionDescription.cmake.in">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/Modules/GetGitRevisionDescription.cmake.in">
 			<Option virtualFolder="CMake Files\cmake\Modules\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/include/k_range.hpp.in">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/include/k_range.hpp.in">
 			<Option virtualFolder="CMake Files\include\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/include/config.hpp.in">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/include/config.hpp.in">
 			<Option virtualFolder="CMake Files\include\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/include/version-gen.hpp.in">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/include/version-gen.hpp.in">
 			<Option virtualFolder="CMake Files\include\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/jemalloc/GetSystemAddrBits/getsystemaddrbits.c">
+			<Option virtualFolder="CMake Files\cmake-build-debug\ext\jemalloc\GetSystemAddrBits\"/>
+		</Unit>
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/jemalloc/GetSystemAddrBits/getsystemaddrbits.c">
+			<Option virtualFolder="CMake Files\cmake-build-debug\ext\jemalloc\GetSystemAddrBits\"/>
+		</Unit>
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/jemalloc/GetSizes/getsizes.c">
+			<Option virtualFolder="CMake Files\cmake-build-debug\ext\jemalloc\GetSizes\"/>
+		</Unit>
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/jemalloc/GetSizes/getsizes.c">
+			<Option virtualFolder="CMake Files\cmake-build-debug\ext\jemalloc\GetSizes\"/>
+		</Unit>
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/pipeline/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/pipeline/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\pipeline\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/pipeline/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/pipeline/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\pipeline\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/pipeline/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/pipeline/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\pipeline\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/sequence/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/sequence/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\sequence\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/sequence/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/sequence/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\sequence\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/sequence/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/sequence/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\sequence\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/assembly_graph/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/assembly_graph/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\assembly_graph\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/assembly_graph/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/assembly_graph/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\assembly_graph\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/assembly_graph/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/assembly_graph/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\assembly_graph\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/modules/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/modules/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\modules\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/modules/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/modules/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\modules\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/modules/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/modules/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\modules\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/modules/path_extend/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/modules/path_extend/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\modules\path_extend\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/modules/path_extend/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/modules/path_extend/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\modules\path_extend\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/modules/path_extend/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/modules/path_extend/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\modules\path_extend\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/modules/coverage_model/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/modules/coverage_model/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\modules\coverage_model\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/modules/coverage_model/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/modules/coverage_model/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\modules\coverage_model\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/modules/coverage_model/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/modules/coverage_model/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\modules\coverage_model\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/paired_info/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/paired_info/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\paired_info\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/paired_info/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/paired_info/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\paired_info\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/paired_info/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/paired_info/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\paired_info\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/stages/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/stages/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\stages\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/stages/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/stages/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\stages\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/stages/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/stages/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\stages\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/utils/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/utils/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\utils\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/utils/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/utils/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\utils\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/utils/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/utils/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\utils\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/utils/kmer_mph/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/utils/kmer_mph/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\utils\kmer_mph\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/utils/kmer_mph/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/utils/kmer_mph/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\utils\kmer_mph\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/utils/kmer_mph/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/utils/kmer_mph/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\utils\kmer_mph\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/io/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/io/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\io\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/io/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/io/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\io\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/io/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/io/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\io\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/io/graph/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/io/graph/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\io\graph\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/io/graph/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/io/graph/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\io\graph\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/io/graph/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/io/graph/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\io\graph\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/common/io/graph/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/io/graph/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\io\graph\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/spades/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/spades/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\spades\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/spades/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/spades/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\spades\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/hammer/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/hammer/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\hammer\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/hammer/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/hammer/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\hammer\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/ionhammer/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/ionhammer/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\ionhammer\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/ionhammer/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/ionhammer/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\ionhammer\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/corrector/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/corrector/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\corrector\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/corrector/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/corrector/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\corrector\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/scaffold_correction/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/scaffold_correction/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\scaffold_correction\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/scaffold_correction/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/scaffold_correction/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\scaffold_correction\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/kmercount/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/kmercount/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\kmercount\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/kmercount/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/kmercount/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\kmercount\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/gbuilder/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/gbuilder/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\gbuilder\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/gbuilder/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/gbuilder/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\gbuilder\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/gmapper/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/gmapper/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\gmapper\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/gmapper/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/gmapper/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\gmapper\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/edge_profiles/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/edge_profiles/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\edge_profiles\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/edge_profiles/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/edge_profiles/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\edge_profiles\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/spaligner/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/spaligner/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\spaligner\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/spaligner/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/spaligner/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\spaligner\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/blackbird/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/blackbird/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\blackbird\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/blackbird/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/blackbird/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\blackbird\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/online_vis/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/online_vis/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\online_vis\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/online_vis/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/online_vis/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\online_vis\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/truseq_analysis/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/truseq_analysis/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\truseq_analysis\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/truseq_analysis/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/truseq_analysis/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\truseq_analysis\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/mts/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\mts\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/projects/mts/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\mts\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/spades_pipeline/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/spades_pipeline/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\spades_pipeline\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/spades_pipeline/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/spades_pipeline/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\spades_pipeline\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/test/include_test/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/test/include_test/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\test\include_test\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/test/include_test/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/test/include_test/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\test\include_test\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/test/debruijn/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/test/debruijn/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\test\debruijn\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/test/debruijn/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/test/debruijn/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\test\debruijn\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/test/adt/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/test/adt/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\test\adt\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/test/adt/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/test/adt/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\test\adt\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/tools/correctionEvaluatorIon/cgce/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/tools/correctionEvaluatorIon/cgce/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\tools\correctionEvaluatorIon\cgce\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird2/assembler/src/tools/correctionEvaluatorIon/cgce/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/tools/correctionEvaluatorIon/cgce/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\tools\correctionEvaluatorIon\cgce\"/>
 		</Unit>
 	</Project>

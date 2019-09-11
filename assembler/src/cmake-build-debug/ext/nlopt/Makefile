@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
+RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird2/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,25 +59,37 @@ CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debu
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target list_install_components
@@ -90,21 +102,10 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -115,7 +116,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -123,10 +124,21 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -134,28 +146,16 @@ package/fast: package
 
 .PHONY : package/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # The main all target
 all: cmake_check_build_system
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/ext/nlopt/CMakeFiles/progress.marks
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/nlopt/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/nlopt/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/nlopt/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/nlopt/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/nlopt/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/nlopt/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/nlopt/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/nlopt/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/nlopt/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 ext/nlopt/CMakeFiles/nlopt.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/nlopt/CMakeFiles/nlopt.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/nlopt/CMakeFiles/nlopt.dir/rule
 .PHONY : ext/nlopt/CMakeFiles/nlopt.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ nlopt: ext/nlopt/CMakeFiles/nlopt.dir/rule
 
 # fast build rule for target.
 nlopt/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/build
 .PHONY : nlopt/fast
 
 api/deprecated.o: api/deprecated.c.o
@@ -199,7 +199,7 @@ api/deprecated.o: api/deprecated.c.o
 
 # target to build an object file
 api/deprecated.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.o
 .PHONY : api/deprecated.c.o
 
 api/deprecated.i: api/deprecated.c.i
@@ -208,7 +208,7 @@ api/deprecated.i: api/deprecated.c.i
 
 # target to preprocess a source file
 api/deprecated.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.i
 .PHONY : api/deprecated.c.i
 
 api/deprecated.s: api/deprecated.c.s
@@ -217,7 +217,7 @@ api/deprecated.s: api/deprecated.c.s
 
 # target to generate assembly for a file
 api/deprecated.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.s
 .PHONY : api/deprecated.c.s
 
 api/general.o: api/general.c.o
@@ -226,7 +226,7 @@ api/general.o: api/general.c.o
 
 # target to build an object file
 api/general.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/general.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/general.c.o
 .PHONY : api/general.c.o
 
 api/general.i: api/general.c.i
@@ -235,7 +235,7 @@ api/general.i: api/general.c.i
 
 # target to preprocess a source file
 api/general.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/general.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/general.c.i
 .PHONY : api/general.c.i
 
 api/general.s: api/general.c.s
@@ -244,7 +244,7 @@ api/general.s: api/general.c.s
 
 # target to generate assembly for a file
 api/general.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/general.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/general.c.s
 .PHONY : api/general.c.s
 
 api/optimize.o: api/optimize.c.o
@@ -253,7 +253,7 @@ api/optimize.o: api/optimize.c.o
 
 # target to build an object file
 api/optimize.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/optimize.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/optimize.c.o
 .PHONY : api/optimize.c.o
 
 api/optimize.i: api/optimize.c.i
@@ -262,7 +262,7 @@ api/optimize.i: api/optimize.c.i
 
 # target to preprocess a source file
 api/optimize.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/optimize.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/optimize.c.i
 .PHONY : api/optimize.c.i
 
 api/optimize.s: api/optimize.c.s
@@ -271,7 +271,7 @@ api/optimize.s: api/optimize.c.s
 
 # target to generate assembly for a file
 api/optimize.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/optimize.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/optimize.c.s
 .PHONY : api/optimize.c.s
 
 api/options.o: api/options.c.o
@@ -280,7 +280,7 @@ api/options.o: api/options.c.o
 
 # target to build an object file
 api/options.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/options.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/options.c.o
 .PHONY : api/options.c.o
 
 api/options.i: api/options.c.i
@@ -289,7 +289,7 @@ api/options.i: api/options.c.i
 
 # target to preprocess a source file
 api/options.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/options.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/options.c.i
 .PHONY : api/options.c.i
 
 api/options.s: api/options.c.s
@@ -298,7 +298,7 @@ api/options.s: api/options.c.s
 
 # target to generate assembly for a file
 api/options.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/options.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/api/options.c.s
 .PHONY : api/options.c.s
 
 auglag/auglag.o: auglag/auglag.c.o
@@ -307,7 +307,7 @@ auglag/auglag.o: auglag/auglag.c.o
 
 # target to build an object file
 auglag/auglag.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.o
 .PHONY : auglag/auglag.c.o
 
 auglag/auglag.i: auglag/auglag.c.i
@@ -316,7 +316,7 @@ auglag/auglag.i: auglag/auglag.c.i
 
 # target to preprocess a source file
 auglag/auglag.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.i
 .PHONY : auglag/auglag.c.i
 
 auglag/auglag.s: auglag/auglag.c.s
@@ -325,7 +325,7 @@ auglag/auglag.s: auglag/auglag.c.s
 
 # target to generate assembly for a file
 auglag/auglag.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.s
 .PHONY : auglag/auglag.c.s
 
 bobyqa/bobyqa.o: bobyqa/bobyqa.c.o
@@ -334,7 +334,7 @@ bobyqa/bobyqa.o: bobyqa/bobyqa.c.o
 
 # target to build an object file
 bobyqa/bobyqa.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o
 .PHONY : bobyqa/bobyqa.c.o
 
 bobyqa/bobyqa.i: bobyqa/bobyqa.c.i
@@ -343,7 +343,7 @@ bobyqa/bobyqa.i: bobyqa/bobyqa.c.i
 
 # target to preprocess a source file
 bobyqa/bobyqa.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.i
 .PHONY : bobyqa/bobyqa.c.i
 
 bobyqa/bobyqa.s: bobyqa/bobyqa.c.s
@@ -352,7 +352,7 @@ bobyqa/bobyqa.s: bobyqa/bobyqa.c.s
 
 # target to generate assembly for a file
 bobyqa/bobyqa.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.s
 .PHONY : bobyqa/bobyqa.c.s
 
 cdirect/cdirect.o: cdirect/cdirect.c.o
@@ -361,7 +361,7 @@ cdirect/cdirect.o: cdirect/cdirect.c.o
 
 # target to build an object file
 cdirect/cdirect.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.o
 .PHONY : cdirect/cdirect.c.o
 
 cdirect/cdirect.i: cdirect/cdirect.c.i
@@ -370,7 +370,7 @@ cdirect/cdirect.i: cdirect/cdirect.c.i
 
 # target to preprocess a source file
 cdirect/cdirect.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.i
 .PHONY : cdirect/cdirect.c.i
 
 cdirect/cdirect.s: cdirect/cdirect.c.s
@@ -379,7 +379,7 @@ cdirect/cdirect.s: cdirect/cdirect.c.s
 
 # target to generate assembly for a file
 cdirect/cdirect.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.s
 .PHONY : cdirect/cdirect.c.s
 
 cdirect/hybrid.o: cdirect/hybrid.c.o
@@ -388,7 +388,7 @@ cdirect/hybrid.o: cdirect/hybrid.c.o
 
 # target to build an object file
 cdirect/hybrid.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.o
 .PHONY : cdirect/hybrid.c.o
 
 cdirect/hybrid.i: cdirect/hybrid.c.i
@@ -397,7 +397,7 @@ cdirect/hybrid.i: cdirect/hybrid.c.i
 
 # target to preprocess a source file
 cdirect/hybrid.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.i
 .PHONY : cdirect/hybrid.c.i
 
 cdirect/hybrid.s: cdirect/hybrid.c.s
@@ -406,7 +406,7 @@ cdirect/hybrid.s: cdirect/hybrid.c.s
 
 # target to generate assembly for a file
 cdirect/hybrid.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.s
 .PHONY : cdirect/hybrid.c.s
 
 cobyla/cobyla.o: cobyla/cobyla.c.o
@@ -415,7 +415,7 @@ cobyla/cobyla.o: cobyla/cobyla.c.o
 
 # target to build an object file
 cobyla/cobyla.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.o
 .PHONY : cobyla/cobyla.c.o
 
 cobyla/cobyla.i: cobyla/cobyla.c.i
@@ -424,7 +424,7 @@ cobyla/cobyla.i: cobyla/cobyla.c.i
 
 # target to preprocess a source file
 cobyla/cobyla.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.i
 .PHONY : cobyla/cobyla.c.i
 
 cobyla/cobyla.s: cobyla/cobyla.c.s
@@ -433,7 +433,7 @@ cobyla/cobyla.s: cobyla/cobyla.c.s
 
 # target to generate assembly for a file
 cobyla/cobyla.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.s
 .PHONY : cobyla/cobyla.c.s
 
 crs/crs.o: crs/crs.c.o
@@ -442,7 +442,7 @@ crs/crs.o: crs/crs.c.o
 
 # target to build an object file
 crs/crs.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/crs/crs.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/crs/crs.c.o
 .PHONY : crs/crs.c.o
 
 crs/crs.i: crs/crs.c.i
@@ -451,7 +451,7 @@ crs/crs.i: crs/crs.c.i
 
 # target to preprocess a source file
 crs/crs.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/crs/crs.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/crs/crs.c.i
 .PHONY : crs/crs.c.i
 
 crs/crs.s: crs/crs.c.s
@@ -460,7 +460,7 @@ crs/crs.s: crs/crs.c.s
 
 # target to generate assembly for a file
 crs/crs.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/crs/crs.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/crs/crs.c.s
 .PHONY : crs/crs.c.s
 
 esch/esch.o: esch/esch.c.o
@@ -469,7 +469,7 @@ esch/esch.o: esch/esch.c.o
 
 # target to build an object file
 esch/esch.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/esch/esch.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/esch/esch.c.o
 .PHONY : esch/esch.c.o
 
 esch/esch.i: esch/esch.c.i
@@ -478,7 +478,7 @@ esch/esch.i: esch/esch.c.i
 
 # target to preprocess a source file
 esch/esch.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/esch/esch.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/esch/esch.c.i
 .PHONY : esch/esch.c.i
 
 esch/esch.s: esch/esch.c.s
@@ -487,7 +487,7 @@ esch/esch.s: esch/esch.c.s
 
 # target to generate assembly for a file
 esch/esch.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/esch/esch.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/esch/esch.c.s
 .PHONY : esch/esch.c.s
 
 isres/isres.o: isres/isres.c.o
@@ -496,7 +496,7 @@ isres/isres.o: isres/isres.c.o
 
 # target to build an object file
 isres/isres.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/isres/isres.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/isres/isres.c.o
 .PHONY : isres/isres.c.o
 
 isres/isres.i: isres/isres.c.i
@@ -505,7 +505,7 @@ isres/isres.i: isres/isres.c.i
 
 # target to preprocess a source file
 isres/isres.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/isres/isres.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/isres/isres.c.i
 .PHONY : isres/isres.c.i
 
 isres/isres.s: isres/isres.c.s
@@ -514,7 +514,7 @@ isres/isres.s: isres/isres.c.s
 
 # target to generate assembly for a file
 isres/isres.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/isres/isres.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/isres/isres.c.s
 .PHONY : isres/isres.c.s
 
 mlsl/mlsl.o: mlsl/mlsl.c.o
@@ -523,7 +523,7 @@ mlsl/mlsl.o: mlsl/mlsl.c.o
 
 # target to build an object file
 mlsl/mlsl.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.o
 .PHONY : mlsl/mlsl.c.o
 
 mlsl/mlsl.i: mlsl/mlsl.c.i
@@ -532,7 +532,7 @@ mlsl/mlsl.i: mlsl/mlsl.c.i
 
 # target to preprocess a source file
 mlsl/mlsl.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.i
 .PHONY : mlsl/mlsl.c.i
 
 mlsl/mlsl.s: mlsl/mlsl.c.s
@@ -541,7 +541,7 @@ mlsl/mlsl.s: mlsl/mlsl.c.s
 
 # target to generate assembly for a file
 mlsl/mlsl.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.s
 .PHONY : mlsl/mlsl.c.s
 
 mma/ccsa_quadratic.o: mma/ccsa_quadratic.c.o
@@ -550,7 +550,7 @@ mma/ccsa_quadratic.o: mma/ccsa_quadratic.c.o
 
 # target to build an object file
 mma/ccsa_quadratic.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mma/ccsa_quadratic.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mma/ccsa_quadratic.c.o
 .PHONY : mma/ccsa_quadratic.c.o
 
 mma/ccsa_quadratic.i: mma/ccsa_quadratic.c.i
@@ -559,7 +559,7 @@ mma/ccsa_quadratic.i: mma/ccsa_quadratic.c.i
 
 # target to preprocess a source file
 mma/ccsa_quadratic.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mma/ccsa_quadratic.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mma/ccsa_quadratic.c.i
 .PHONY : mma/ccsa_quadratic.c.i
 
 mma/ccsa_quadratic.s: mma/ccsa_quadratic.c.s
@@ -568,7 +568,7 @@ mma/ccsa_quadratic.s: mma/ccsa_quadratic.c.s
 
 # target to generate assembly for a file
 mma/ccsa_quadratic.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mma/ccsa_quadratic.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mma/ccsa_quadratic.c.s
 .PHONY : mma/ccsa_quadratic.c.s
 
 mma/mma.o: mma/mma.c.o
@@ -577,7 +577,7 @@ mma/mma.o: mma/mma.c.o
 
 # target to build an object file
 mma/mma.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mma/mma.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mma/mma.c.o
 .PHONY : mma/mma.c.o
 
 mma/mma.i: mma/mma.c.i
@@ -586,7 +586,7 @@ mma/mma.i: mma/mma.c.i
 
 # target to preprocess a source file
 mma/mma.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mma/mma.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mma/mma.c.i
 .PHONY : mma/mma.c.i
 
 mma/mma.s: mma/mma.c.s
@@ -595,7 +595,7 @@ mma/mma.s: mma/mma.c.s
 
 # target to generate assembly for a file
 mma/mma.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mma/mma.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/mma/mma.c.s
 .PHONY : mma/mma.c.s
 
 neldermead/nldrmd.o: neldermead/nldrmd.c.o
@@ -604,7 +604,7 @@ neldermead/nldrmd.o: neldermead/nldrmd.c.o
 
 # target to build an object file
 neldermead/nldrmd.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o
 .PHONY : neldermead/nldrmd.c.o
 
 neldermead/nldrmd.i: neldermead/nldrmd.c.i
@@ -613,7 +613,7 @@ neldermead/nldrmd.i: neldermead/nldrmd.c.i
 
 # target to preprocess a source file
 neldermead/nldrmd.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.i
 .PHONY : neldermead/nldrmd.c.i
 
 neldermead/nldrmd.s: neldermead/nldrmd.c.s
@@ -622,7 +622,7 @@ neldermead/nldrmd.s: neldermead/nldrmd.c.s
 
 # target to generate assembly for a file
 neldermead/nldrmd.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.s
 .PHONY : neldermead/nldrmd.c.s
 
 neldermead/sbplx.o: neldermead/sbplx.c.o
@@ -631,7 +631,7 @@ neldermead/sbplx.o: neldermead/sbplx.c.o
 
 # target to build an object file
 neldermead/sbplx.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.o
 .PHONY : neldermead/sbplx.c.o
 
 neldermead/sbplx.i: neldermead/sbplx.c.i
@@ -640,7 +640,7 @@ neldermead/sbplx.i: neldermead/sbplx.c.i
 
 # target to preprocess a source file
 neldermead/sbplx.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.i
 .PHONY : neldermead/sbplx.c.i
 
 neldermead/sbplx.s: neldermead/sbplx.c.s
@@ -649,7 +649,7 @@ neldermead/sbplx.s: neldermead/sbplx.c.s
 
 # target to generate assembly for a file
 neldermead/sbplx.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.s
 .PHONY : neldermead/sbplx.c.s
 
 newuoa/newuoa.o: newuoa/newuoa.c.o
@@ -658,7 +658,7 @@ newuoa/newuoa.o: newuoa/newuoa.c.o
 
 # target to build an object file
 newuoa/newuoa.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.o
 .PHONY : newuoa/newuoa.c.o
 
 newuoa/newuoa.i: newuoa/newuoa.c.i
@@ -667,7 +667,7 @@ newuoa/newuoa.i: newuoa/newuoa.c.i
 
 # target to preprocess a source file
 newuoa/newuoa.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.i
 .PHONY : newuoa/newuoa.c.i
 
 newuoa/newuoa.s: newuoa/newuoa.c.s
@@ -676,7 +676,7 @@ newuoa/newuoa.s: newuoa/newuoa.c.s
 
 # target to generate assembly for a file
 newuoa/newuoa.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.s
 .PHONY : newuoa/newuoa.c.s
 
 praxis/praxis.o: praxis/praxis.c.o
@@ -685,7 +685,7 @@ praxis/praxis.o: praxis/praxis.c.o
 
 # target to build an object file
 praxis/praxis.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.o
 .PHONY : praxis/praxis.c.o
 
 praxis/praxis.i: praxis/praxis.c.i
@@ -694,7 +694,7 @@ praxis/praxis.i: praxis/praxis.c.i
 
 # target to preprocess a source file
 praxis/praxis.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.i
 .PHONY : praxis/praxis.c.i
 
 praxis/praxis.s: praxis/praxis.c.s
@@ -703,7 +703,7 @@ praxis/praxis.s: praxis/praxis.c.s
 
 # target to generate assembly for a file
 praxis/praxis.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.s
 .PHONY : praxis/praxis.c.s
 
 util/mt19937ar.o: util/mt19937ar.c.o
@@ -712,7 +712,7 @@ util/mt19937ar.o: util/mt19937ar.c.o
 
 # target to build an object file
 util/mt19937ar.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.o
 .PHONY : util/mt19937ar.c.o
 
 util/mt19937ar.i: util/mt19937ar.c.i
@@ -721,7 +721,7 @@ util/mt19937ar.i: util/mt19937ar.c.i
 
 # target to preprocess a source file
 util/mt19937ar.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.i
 .PHONY : util/mt19937ar.c.i
 
 util/mt19937ar.s: util/mt19937ar.c.s
@@ -730,7 +730,7 @@ util/mt19937ar.s: util/mt19937ar.c.s
 
 # target to generate assembly for a file
 util/mt19937ar.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.s
 .PHONY : util/mt19937ar.c.s
 
 util/qsort_r.o: util/qsort_r.c.o
@@ -739,7 +739,7 @@ util/qsort_r.o: util/qsort_r.c.o
 
 # target to build an object file
 util/qsort_r.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.o
 .PHONY : util/qsort_r.c.o
 
 util/qsort_r.i: util/qsort_r.c.i
@@ -748,7 +748,7 @@ util/qsort_r.i: util/qsort_r.c.i
 
 # target to preprocess a source file
 util/qsort_r.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.i
 .PHONY : util/qsort_r.c.i
 
 util/qsort_r.s: util/qsort_r.c.s
@@ -757,7 +757,7 @@ util/qsort_r.s: util/qsort_r.c.s
 
 # target to generate assembly for a file
 util/qsort_r.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.s
 .PHONY : util/qsort_r.c.s
 
 util/redblack.o: util/redblack.c.o
@@ -766,7 +766,7 @@ util/redblack.o: util/redblack.c.o
 
 # target to build an object file
 util/redblack.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/redblack.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/redblack.c.o
 .PHONY : util/redblack.c.o
 
 util/redblack.i: util/redblack.c.i
@@ -775,7 +775,7 @@ util/redblack.i: util/redblack.c.i
 
 # target to preprocess a source file
 util/redblack.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/redblack.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/redblack.c.i
 .PHONY : util/redblack.c.i
 
 util/redblack.s: util/redblack.c.s
@@ -784,7 +784,7 @@ util/redblack.s: util/redblack.c.s
 
 # target to generate assembly for a file
 util/redblack.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/redblack.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/redblack.c.s
 .PHONY : util/redblack.c.s
 
 util/rescale.o: util/rescale.c.o
@@ -793,7 +793,7 @@ util/rescale.o: util/rescale.c.o
 
 # target to build an object file
 util/rescale.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/rescale.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/rescale.c.o
 .PHONY : util/rescale.c.o
 
 util/rescale.i: util/rescale.c.i
@@ -802,7 +802,7 @@ util/rescale.i: util/rescale.c.i
 
 # target to preprocess a source file
 util/rescale.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/rescale.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/rescale.c.i
 .PHONY : util/rescale.c.i
 
 util/rescale.s: util/rescale.c.s
@@ -811,7 +811,7 @@ util/rescale.s: util/rescale.c.s
 
 # target to generate assembly for a file
 util/rescale.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/rescale.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/rescale.c.s
 .PHONY : util/rescale.c.s
 
 util/sobolseq.o: util/sobolseq.c.o
@@ -820,7 +820,7 @@ util/sobolseq.o: util/sobolseq.c.o
 
 # target to build an object file
 util/sobolseq.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.o
 .PHONY : util/sobolseq.c.o
 
 util/sobolseq.i: util/sobolseq.c.i
@@ -829,7 +829,7 @@ util/sobolseq.i: util/sobolseq.c.i
 
 # target to preprocess a source file
 util/sobolseq.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.i
 .PHONY : util/sobolseq.c.i
 
 util/sobolseq.s: util/sobolseq.c.s
@@ -838,7 +838,7 @@ util/sobolseq.s: util/sobolseq.c.s
 
 # target to generate assembly for a file
 util/sobolseq.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.s
 .PHONY : util/sobolseq.c.s
 
 util/stop.o: util/stop.c.o
@@ -847,7 +847,7 @@ util/stop.o: util/stop.c.o
 
 # target to build an object file
 util/stop.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/stop.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/stop.c.o
 .PHONY : util/stop.c.o
 
 util/stop.i: util/stop.c.i
@@ -856,7 +856,7 @@ util/stop.i: util/stop.c.i
 
 # target to preprocess a source file
 util/stop.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/stop.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/stop.c.i
 .PHONY : util/stop.c.i
 
 util/stop.s: util/stop.c.s
@@ -865,7 +865,7 @@ util/stop.s: util/stop.c.s
 
 # target to generate assembly for a file
 util/stop.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/stop.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/stop.c.s
 .PHONY : util/stop.c.s
 
 util/timer.o: util/timer.c.o
@@ -874,7 +874,7 @@ util/timer.o: util/timer.c.o
 
 # target to build an object file
 util/timer.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/timer.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/timer.c.o
 .PHONY : util/timer.c.o
 
 util/timer.i: util/timer.c.i
@@ -883,7 +883,7 @@ util/timer.i: util/timer.c.i
 
 # target to preprocess a source file
 util/timer.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/timer.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/timer.c.i
 .PHONY : util/timer.c.i
 
 util/timer.s: util/timer.c.s
@@ -892,7 +892,7 @@ util/timer.s: util/timer.c.s
 
 # target to generate assembly for a file
 util/timer.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/timer.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/nlopt/CMakeFiles/nlopt.dir/build.make ext/nlopt/CMakeFiles/nlopt.dir/util/timer.c.s
 .PHONY : util/timer.c.s
 
 # Help Target
@@ -902,13 +902,13 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/strip"
+	@echo "... install/local"
 	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... package_source"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... package_source"
 	@echo "... package"
-	@echo "... install/local"
 	@echo "... nlopt"
 	@echo "... api/deprecated.o"
 	@echo "... api/deprecated.i"
@@ -999,6 +999,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

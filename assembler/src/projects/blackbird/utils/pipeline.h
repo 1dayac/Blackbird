@@ -375,7 +375,7 @@ private:
         std::unordered_map<std::string, int> barcodes_count;
         std::set<std::string> barcodes_count_over_threshold;
         const int threshold = 4;
-        const int number_of_barcodes_to_assemble = 200;
+//        const int number_of_barcodes_to_assemble = 200;
         while(reader.GetNextAlignment(alignment)) {
             if (alignment.IsPrimaryAlignment() && IsGoodAlignment(alignment)) {
                 std::string bx = "";
@@ -385,9 +385,9 @@ private:
                 }
                 if (++barcodes_count[bx] > threshold) {
                     barcodes_count_over_threshold.insert(bx);
-                    if (barcodes_count_over_threshold.size() == number_of_barcodes_to_assemble) {
-                        break;
-                    }
+//                    if (barcodes_count_over_threshold.size() == number_of_barcodes_to_assemble) {
+//                        break;
+//                    }
                 }
             }
         }

@@ -39,102 +39,58 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
+RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird2/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-
-.PHONY : package/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -146,16 +102,60 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+
+.PHONY : package/fast
+
 # The main all target
 all: cmake_check_build_system
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/ext/samtools/CMakeFiles/progress.marks
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/samtools/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/samtools/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/samtools/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/samtools/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/samtools/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/samtools/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/samtools/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/samtools/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/samtools/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 ext/samtools/CMakeFiles/samtools.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/samtools/CMakeFiles/samtools.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/samtools/CMakeFiles/samtools.dir/rule
 .PHONY : ext/samtools/CMakeFiles/samtools.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ samtools: ext/samtools/CMakeFiles/samtools.dir/rule
 
 # fast build rule for target.
 samtools/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/build
 .PHONY : samtools/fast
 
 bam.o: bam.c.o
@@ -199,7 +199,7 @@ bam.o: bam.c.o
 
 # target to build an object file
 bam.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam.c.o
 .PHONY : bam.c.o
 
 bam.i: bam.c.i
@@ -208,7 +208,7 @@ bam.i: bam.c.i
 
 # target to preprocess a source file
 bam.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam.c.i
 .PHONY : bam.c.i
 
 bam.s: bam.c.s
@@ -217,7 +217,7 @@ bam.s: bam.c.s
 
 # target to generate assembly for a file
 bam.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam.c.s
 .PHONY : bam.c.s
 
 bam_aux.o: bam_aux.c.o
@@ -226,7 +226,7 @@ bam_aux.o: bam_aux.c.o
 
 # target to build an object file
 bam_aux.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_aux.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_aux.c.o
 .PHONY : bam_aux.c.o
 
 bam_aux.i: bam_aux.c.i
@@ -235,7 +235,7 @@ bam_aux.i: bam_aux.c.i
 
 # target to preprocess a source file
 bam_aux.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_aux.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_aux.c.i
 .PHONY : bam_aux.c.i
 
 bam_aux.s: bam_aux.c.s
@@ -244,7 +244,7 @@ bam_aux.s: bam_aux.c.s
 
 # target to generate assembly for a file
 bam_aux.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_aux.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_aux.c.s
 .PHONY : bam_aux.c.s
 
 bam_cat.o: bam_cat.c.o
@@ -253,7 +253,7 @@ bam_cat.o: bam_cat.c.o
 
 # target to build an object file
 bam_cat.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_cat.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_cat.c.o
 .PHONY : bam_cat.c.o
 
 bam_cat.i: bam_cat.c.i
@@ -262,7 +262,7 @@ bam_cat.i: bam_cat.c.i
 
 # target to preprocess a source file
 bam_cat.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_cat.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_cat.c.i
 .PHONY : bam_cat.c.i
 
 bam_cat.s: bam_cat.c.s
@@ -271,7 +271,7 @@ bam_cat.s: bam_cat.c.s
 
 # target to generate assembly for a file
 bam_cat.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_cat.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_cat.c.s
 .PHONY : bam_cat.c.s
 
 bam_import.o: bam_import.c.o
@@ -280,7 +280,7 @@ bam_import.o: bam_import.c.o
 
 # target to build an object file
 bam_import.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_import.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_import.c.o
 .PHONY : bam_import.c.o
 
 bam_import.i: bam_import.c.i
@@ -289,7 +289,7 @@ bam_import.i: bam_import.c.i
 
 # target to preprocess a source file
 bam_import.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_import.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_import.c.i
 .PHONY : bam_import.c.i
 
 bam_import.s: bam_import.c.s
@@ -298,7 +298,7 @@ bam_import.s: bam_import.c.s
 
 # target to generate assembly for a file
 bam_import.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_import.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_import.c.s
 .PHONY : bam_import.c.s
 
 bam_index.o: bam_index.c.o
@@ -307,7 +307,7 @@ bam_index.o: bam_index.c.o
 
 # target to build an object file
 bam_index.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_index.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_index.c.o
 .PHONY : bam_index.c.o
 
 bam_index.i: bam_index.c.i
@@ -316,7 +316,7 @@ bam_index.i: bam_index.c.i
 
 # target to preprocess a source file
 bam_index.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_index.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_index.c.i
 .PHONY : bam_index.c.i
 
 bam_index.s: bam_index.c.s
@@ -325,7 +325,7 @@ bam_index.s: bam_index.c.s
 
 # target to generate assembly for a file
 bam_index.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_index.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_index.c.s
 .PHONY : bam_index.c.s
 
 bam_lpileup.o: bam_lpileup.c.o
@@ -334,7 +334,7 @@ bam_lpileup.o: bam_lpileup.c.o
 
 # target to build an object file
 bam_lpileup.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_lpileup.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_lpileup.c.o
 .PHONY : bam_lpileup.c.o
 
 bam_lpileup.i: bam_lpileup.c.i
@@ -343,7 +343,7 @@ bam_lpileup.i: bam_lpileup.c.i
 
 # target to preprocess a source file
 bam_lpileup.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_lpileup.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_lpileup.c.i
 .PHONY : bam_lpileup.c.i
 
 bam_lpileup.s: bam_lpileup.c.s
@@ -352,7 +352,7 @@ bam_lpileup.s: bam_lpileup.c.s
 
 # target to generate assembly for a file
 bam_lpileup.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_lpileup.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_lpileup.c.s
 .PHONY : bam_lpileup.c.s
 
 bam_md.o: bam_md.c.o
@@ -361,7 +361,7 @@ bam_md.o: bam_md.c.o
 
 # target to build an object file
 bam_md.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_md.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_md.c.o
 .PHONY : bam_md.c.o
 
 bam_md.i: bam_md.c.i
@@ -370,7 +370,7 @@ bam_md.i: bam_md.c.i
 
 # target to preprocess a source file
 bam_md.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_md.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_md.c.i
 .PHONY : bam_md.c.i
 
 bam_md.s: bam_md.c.s
@@ -379,7 +379,7 @@ bam_md.s: bam_md.c.s
 
 # target to generate assembly for a file
 bam_md.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_md.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_md.c.s
 .PHONY : bam_md.c.s
 
 bam_pileup.o: bam_pileup.c.o
@@ -388,7 +388,7 @@ bam_pileup.o: bam_pileup.c.o
 
 # target to build an object file
 bam_pileup.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_pileup.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_pileup.c.o
 .PHONY : bam_pileup.c.o
 
 bam_pileup.i: bam_pileup.c.i
@@ -397,7 +397,7 @@ bam_pileup.i: bam_pileup.c.i
 
 # target to preprocess a source file
 bam_pileup.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_pileup.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_pileup.c.i
 .PHONY : bam_pileup.c.i
 
 bam_pileup.s: bam_pileup.c.s
@@ -406,7 +406,7 @@ bam_pileup.s: bam_pileup.c.s
 
 # target to generate assembly for a file
 bam_pileup.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_pileup.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_pileup.c.s
 .PHONY : bam_pileup.c.s
 
 bam_reheader.o: bam_reheader.c.o
@@ -415,7 +415,7 @@ bam_reheader.o: bam_reheader.c.o
 
 # target to build an object file
 bam_reheader.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_reheader.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_reheader.c.o
 .PHONY : bam_reheader.c.o
 
 bam_reheader.i: bam_reheader.c.i
@@ -424,7 +424,7 @@ bam_reheader.i: bam_reheader.c.i
 
 # target to preprocess a source file
 bam_reheader.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_reheader.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_reheader.c.i
 .PHONY : bam_reheader.c.i
 
 bam_reheader.s: bam_reheader.c.s
@@ -433,7 +433,7 @@ bam_reheader.s: bam_reheader.c.s
 
 # target to generate assembly for a file
 bam_reheader.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_reheader.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_reheader.c.s
 .PHONY : bam_reheader.c.s
 
 bam_sort.o: bam_sort.c.o
@@ -442,7 +442,7 @@ bam_sort.o: bam_sort.c.o
 
 # target to build an object file
 bam_sort.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_sort.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_sort.c.o
 .PHONY : bam_sort.c.o
 
 bam_sort.i: bam_sort.c.i
@@ -451,7 +451,7 @@ bam_sort.i: bam_sort.c.i
 
 # target to preprocess a source file
 bam_sort.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_sort.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_sort.c.i
 .PHONY : bam_sort.c.i
 
 bam_sort.s: bam_sort.c.s
@@ -460,7 +460,7 @@ bam_sort.s: bam_sort.c.s
 
 # target to generate assembly for a file
 bam_sort.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_sort.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bam_sort.c.s
 .PHONY : bam_sort.c.s
 
 bedidx.o: bedidx.c.o
@@ -469,7 +469,7 @@ bedidx.o: bedidx.c.o
 
 # target to build an object file
 bedidx.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bedidx.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bedidx.c.o
 .PHONY : bedidx.c.o
 
 bedidx.i: bedidx.c.i
@@ -478,7 +478,7 @@ bedidx.i: bedidx.c.i
 
 # target to preprocess a source file
 bedidx.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bedidx.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bedidx.c.i
 .PHONY : bedidx.c.i
 
 bedidx.s: bedidx.c.s
@@ -487,7 +487,7 @@ bedidx.s: bedidx.c.s
 
 # target to generate assembly for a file
 bedidx.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bedidx.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/bedidx.c.s
 .PHONY : bedidx.c.s
 
 faidx.o: faidx.c.o
@@ -496,7 +496,7 @@ faidx.o: faidx.c.o
 
 # target to build an object file
 faidx.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/faidx.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/faidx.c.o
 .PHONY : faidx.c.o
 
 faidx.i: faidx.c.i
@@ -505,7 +505,7 @@ faidx.i: faidx.c.i
 
 # target to preprocess a source file
 faidx.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/faidx.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/faidx.c.i
 .PHONY : faidx.c.i
 
 faidx.s: faidx.c.s
@@ -514,7 +514,7 @@ faidx.s: faidx.c.s
 
 # target to generate assembly for a file
 faidx.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/faidx.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/faidx.c.s
 .PHONY : faidx.c.s
 
 kprobaln.o: kprobaln.c.o
@@ -523,7 +523,7 @@ kprobaln.o: kprobaln.c.o
 
 # target to build an object file
 kprobaln.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/kprobaln.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/kprobaln.c.o
 .PHONY : kprobaln.c.o
 
 kprobaln.i: kprobaln.c.i
@@ -532,7 +532,7 @@ kprobaln.i: kprobaln.c.i
 
 # target to preprocess a source file
 kprobaln.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/kprobaln.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/kprobaln.c.i
 .PHONY : kprobaln.c.i
 
 kprobaln.s: kprobaln.c.s
@@ -541,7 +541,7 @@ kprobaln.s: kprobaln.c.s
 
 # target to generate assembly for a file
 kprobaln.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/kprobaln.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/kprobaln.c.s
 .PHONY : kprobaln.c.s
 
 kstring.o: kstring.c.o
@@ -550,7 +550,7 @@ kstring.o: kstring.c.o
 
 # target to build an object file
 kstring.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/kstring.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/kstring.c.o
 .PHONY : kstring.c.o
 
 kstring.i: kstring.c.i
@@ -559,7 +559,7 @@ kstring.i: kstring.c.i
 
 # target to preprocess a source file
 kstring.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/kstring.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/kstring.c.i
 .PHONY : kstring.c.i
 
 kstring.s: kstring.c.s
@@ -568,7 +568,7 @@ kstring.s: kstring.c.s
 
 # target to generate assembly for a file
 kstring.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/kstring.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/kstring.c.s
 .PHONY : kstring.c.s
 
 razf.o: razf.c.o
@@ -577,7 +577,7 @@ razf.o: razf.c.o
 
 # target to build an object file
 razf.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/razf.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/razf.c.o
 .PHONY : razf.c.o
 
 razf.i: razf.c.i
@@ -586,7 +586,7 @@ razf.i: razf.c.i
 
 # target to preprocess a source file
 razf.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/razf.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/razf.c.i
 .PHONY : razf.c.i
 
 razf.s: razf.c.s
@@ -595,7 +595,7 @@ razf.s: razf.c.s
 
 # target to generate assembly for a file
 razf.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/razf.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/razf.c.s
 .PHONY : razf.c.s
 
 sam.o: sam.c.o
@@ -604,7 +604,7 @@ sam.o: sam.c.o
 
 # target to build an object file
 sam.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/sam.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/sam.c.o
 .PHONY : sam.c.o
 
 sam.i: sam.c.i
@@ -613,7 +613,7 @@ sam.i: sam.c.i
 
 # target to preprocess a source file
 sam.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/sam.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/sam.c.i
 .PHONY : sam.c.i
 
 sam.s: sam.c.s
@@ -622,7 +622,7 @@ sam.s: sam.c.s
 
 # target to generate assembly for a file
 sam.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/sam.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/sam.c.s
 .PHONY : sam.c.s
 
 sam_header.o: sam_header.c.o
@@ -631,7 +631,7 @@ sam_header.o: sam_header.c.o
 
 # target to build an object file
 sam_header.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/sam_header.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/sam_header.c.o
 .PHONY : sam_header.c.o
 
 sam_header.i: sam_header.c.i
@@ -640,7 +640,7 @@ sam_header.i: sam_header.c.i
 
 # target to preprocess a source file
 sam_header.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/sam_header.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/sam_header.c.i
 .PHONY : sam_header.c.i
 
 sam_header.s: sam_header.c.s
@@ -649,7 +649,7 @@ sam_header.s: sam_header.c.s
 
 # target to generate assembly for a file
 sam_header.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/sam_header.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/samtools/CMakeFiles/samtools.dir/build.make ext/samtools/CMakeFiles/samtools.dir/sam_header.c.s
 .PHONY : sam_header.c.s
 
 # Help Target
@@ -658,14 +658,14 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
 	@echo "... install/strip"
+	@echo "... install/local"
 	@echo "... install"
-	@echo "... package_source"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... package_source"
 	@echo "... package"
-	@echo "... list_install_components"
 	@echo "... samtools"
 	@echo "... bam.o"
 	@echo "... bam.i"
@@ -729,6 +729,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

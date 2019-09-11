@@ -1,4 +1,4 @@
-# Install script for directory: /Users/dima/Desktop/Blackbird2/assembler/ext/src/jemalloc
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/ext/src/jemalloc
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,10 +27,15 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
+# Install shared libraries without execute permission?
+if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  set(CMAKE_INSTALL_SO_NO_EXE "1")
+endif()
+
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/ext/jemalloc/test/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/ext/jemalloc/src/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/jemalloc/test/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/jemalloc/src/cmake_install.cmake")
 
 endif()
 

@@ -39,57 +39,101 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
+RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird2/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+
+.PHONY : package/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target list_install_components
@@ -102,60 +146,16 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-
-.PHONY : package/fast
-
 # The main all target
 all: cmake_check_build_system
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/common/pipeline/CMakeFiles/progress.marks
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/pipeline/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 common/pipeline/CMakeFiles/pipeline.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/CMakeFiles/pipeline.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/CMakeFiles/pipeline.dir/rule
 .PHONY : common/pipeline/CMakeFiles/pipeline.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ pipeline: common/pipeline/CMakeFiles/pipeline.dir/rule
 
 # fast build rule for target.
 pipeline/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/build
 .PHONY : pipeline/fast
 
 config_struct.o: config_struct.cpp.o
@@ -199,7 +199,7 @@ config_struct.o: config_struct.cpp.o
 
 # target to build an object file
 config_struct.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/config_struct.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/config_struct.cpp.o
 .PHONY : config_struct.cpp.o
 
 config_struct.i: config_struct.cpp.i
@@ -208,7 +208,7 @@ config_struct.i: config_struct.cpp.i
 
 # target to preprocess a source file
 config_struct.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/config_struct.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/config_struct.cpp.i
 .PHONY : config_struct.cpp.i
 
 config_struct.s: config_struct.cpp.s
@@ -217,7 +217,7 @@ config_struct.s: config_struct.cpp.s
 
 # target to generate assembly for a file
 config_struct.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/config_struct.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/config_struct.cpp.s
 .PHONY : config_struct.cpp.s
 
 genomic_info_filler.o: genomic_info_filler.cpp.o
@@ -226,7 +226,7 @@ genomic_info_filler.o: genomic_info_filler.cpp.o
 
 # target to build an object file
 genomic_info_filler.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/genomic_info_filler.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/genomic_info_filler.cpp.o
 .PHONY : genomic_info_filler.cpp.o
 
 genomic_info_filler.i: genomic_info_filler.cpp.i
@@ -235,7 +235,7 @@ genomic_info_filler.i: genomic_info_filler.cpp.i
 
 # target to preprocess a source file
 genomic_info_filler.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/genomic_info_filler.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/genomic_info_filler.cpp.i
 .PHONY : genomic_info_filler.cpp.i
 
 genomic_info_filler.s: genomic_info_filler.cpp.s
@@ -244,7 +244,7 @@ genomic_info_filler.s: genomic_info_filler.cpp.s
 
 # target to generate assembly for a file
 genomic_info_filler.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/genomic_info_filler.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/genomic_info_filler.cpp.s
 .PHONY : genomic_info_filler.cpp.s
 
 library.o: library.cpp.o
@@ -253,7 +253,7 @@ library.o: library.cpp.o
 
 # target to build an object file
 library.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library.cpp.o
 .PHONY : library.cpp.o
 
 library.i: library.cpp.i
@@ -262,7 +262,7 @@ library.i: library.cpp.i
 
 # target to preprocess a source file
 library.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library.cpp.i
 .PHONY : library.cpp.i
 
 library.s: library.cpp.s
@@ -271,7 +271,7 @@ library.s: library.cpp.s
 
 # target to generate assembly for a file
 library.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library.cpp.s
 .PHONY : library.cpp.s
 
 library_data.o: library_data.cpp.o
@@ -280,7 +280,7 @@ library_data.o: library_data.cpp.o
 
 # target to build an object file
 library_data.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library_data.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library_data.cpp.o
 .PHONY : library_data.cpp.o
 
 library_data.i: library_data.cpp.i
@@ -289,7 +289,7 @@ library_data.i: library_data.cpp.i
 
 # target to preprocess a source file
 library_data.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library_data.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library_data.cpp.i
 .PHONY : library_data.cpp.i
 
 library_data.s: library_data.cpp.s
@@ -298,7 +298,7 @@ library_data.s: library_data.cpp.s
 
 # target to generate assembly for a file
 library_data.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library_data.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library_data.cpp.s
 .PHONY : library_data.cpp.s
 
 stage.o: stage.cpp.o
@@ -307,7 +307,7 @@ stage.o: stage.cpp.o
 
 # target to build an object file
 stage.cpp.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/stage.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/stage.cpp.o
 .PHONY : stage.cpp.o
 
 stage.i: stage.cpp.i
@@ -316,7 +316,7 @@ stage.i: stage.cpp.i
 
 # target to preprocess a source file
 stage.cpp.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/stage.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/stage.cpp.i
 .PHONY : stage.cpp.i
 
 stage.s: stage.cpp.s
@@ -325,7 +325,7 @@ stage.s: stage.cpp.s
 
 # target to generate assembly for a file
 stage.cpp.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/stage.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/stage.cpp.s
 .PHONY : stage.cpp.s
 
 # Help Target
@@ -334,14 +334,14 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
 	@echo "... install/strip"
-	@echo "... install"
-	@echo "... list_install_components"
-	@echo "... package_source"
+	@echo "... install/local"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... package_source"
 	@echo "... package"
+	@echo "... install"
+	@echo "... list_install_components"
 	@echo "... pipeline"
 	@echo "... config_struct.o"
 	@echo "... config_struct.i"
@@ -369,6 +369,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

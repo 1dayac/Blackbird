@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
+RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird2/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,82 +59,38 @@ CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debu
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
-
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-
-.PHONY : package/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -146,16 +102,60 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+
+.PHONY : package/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/ext/jemalloc/test/unit/CMakeFiles/progress.marks
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/jemalloc/test/unit/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,37 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/rule
-
-# Convenience name for target.
-jemalloc-test-zero: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/rule
-
-.PHONY : jemalloc-test-zero
-
-# fast build rule for target.
-jemalloc-test-zero/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build
-.PHONY : jemalloc-test-zero/fast
-
-# Convenience name for target.
 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/rule
 .PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/rule
 
 # Convenience name for target.
@@ -205,12 +190,12 @@ jemalloc-test-witness: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.d
 
 # fast build rule for target.
 jemalloc-test-witness/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/build
 .PHONY : jemalloc-test-witness/fast
 
 # Convenience name for target.
 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/rule
 .PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/rule
 
 # Convenience name for target.
@@ -220,12 +205,12 @@ jemalloc-test-tsd: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/rule
 
 # fast build rule for target.
 jemalloc-test-tsd/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/build
 .PHONY : jemalloc-test-tsd/fast
 
 # Convenience name for target.
 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/rule
 .PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/rule
 
 # Convenience name for target.
@@ -235,27 +220,12 @@ jemalloc-test-ticker: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir
 
 # fast build rule for target.
 jemalloc-test-ticker/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/build
 .PHONY : jemalloc-test-ticker/fast
 
 # Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/rule
-
-# Convenience name for target.
-jemalloc-test-test_hooks: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/rule
-
-.PHONY : jemalloc-test-test_hooks
-
-# fast build rule for target.
-jemalloc-test-test_hooks/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build
-.PHONY : jemalloc-test-test_hooks/fast
-
-# Convenience name for target.
 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/rule
 .PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/rule
 
 # Convenience name for target.
@@ -265,267 +235,12 @@ jemalloc-test-stats_print: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats
 
 # fast build rule for target.
 jemalloc-test-stats_print/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/build
 .PHONY : jemalloc-test-stats_print/fast
 
 # Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/rule
-
-# Convenience name for target.
-jemalloc-test-smoothstep: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/rule
-
-.PHONY : jemalloc-test-smoothstep
-
-# fast build rule for target.
-jemalloc-test-smoothstep/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/build
-.PHONY : jemalloc-test-smoothstep/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/rule
-
-# Convenience name for target.
-jemalloc-test-slab: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/rule
-
-.PHONY : jemalloc-test-slab
-
-# fast build rule for target.
-jemalloc-test-slab/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/build
-.PHONY : jemalloc-test-slab/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/rule
-
-# Convenience name for target.
-jemalloc-test-size_classes: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/rule
-
-.PHONY : jemalloc-test-size_classes
-
-# fast build rule for target.
-jemalloc-test-size_classes/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/build
-.PHONY : jemalloc-test-size_classes/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rule
-
-# Convenience name for target.
-jemalloc-test-rtree: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rule
-
-.PHONY : jemalloc-test-rtree
-
-# fast build rule for target.
-jemalloc-test-rtree/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build
-.PHONY : jemalloc-test-rtree/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/rule
-
-# Convenience name for target.
-jemalloc-test-prof_reset: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/rule
-
-.PHONY : jemalloc-test-prof_reset
-
-# fast build rule for target.
-jemalloc-test-prof_reset/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build
-.PHONY : jemalloc-test-prof_reset/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/rule
-
-# Convenience name for target.
-jemalloc-test-qr: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/rule
-
-.PHONY : jemalloc-test-qr
-
-# fast build rule for target.
-jemalloc-test-qr/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build
-.PHONY : jemalloc-test-qr/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/rule
-
-# Convenience name for target.
-jemalloc-test-prof_accum: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/rule
-
-.PHONY : jemalloc-test-prof_accum
-
-# fast build rule for target.
-jemalloc-test-prof_accum/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build
-.PHONY : jemalloc-test-prof_accum/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/rule
-
-# Convenience name for target.
-jemalloc-test-prng: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/rule
-
-.PHONY : jemalloc-test-prng
-
-# fast build rule for target.
-jemalloc-test-prng/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build
-.PHONY : jemalloc-test-prng/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/rule
-
-# Convenience name for target.
-jemalloc-test-stats: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/rule
-
-.PHONY : jemalloc-test-stats
-
-# fast build rule for target.
-jemalloc-test-stats/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build
-.PHONY : jemalloc-test-stats/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/rule
-
-# Convenience name for target.
-jemalloc-test-mtx: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/rule
-
-.PHONY : jemalloc-test-mtx
-
-# fast build rule for target.
-jemalloc-test-mtx/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build
-.PHONY : jemalloc-test-mtx/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/rule
-
-# Convenience name for target.
-jemalloc-test-mq: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/rule
-
-.PHONY : jemalloc-test-mq
-
-# fast build rule for target.
-jemalloc-test-mq/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build
-.PHONY : jemalloc-test-mq/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/rule
-
-# Convenience name for target.
-jemalloc-test-math: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/rule
-
-.PHONY : jemalloc-test-math
-
-# fast build rule for target.
-jemalloc-test-math/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build
-.PHONY : jemalloc-test-math/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/rule
-
-# Convenience name for target.
-jemalloc-test-ql: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/rule
-
-.PHONY : jemalloc-test-ql
-
-# fast build rule for target.
-jemalloc-test-ql/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build
-.PHONY : jemalloc-test-ql/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/rule
-
-# Convenience name for target.
-jemalloc-test-prof_gdump: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/rule
-
-.PHONY : jemalloc-test-prof_gdump
-
-# fast build rule for target.
-jemalloc-test-prof_gdump/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build
-.PHONY : jemalloc-test-prof_gdump/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/rule
-
-# Convenience name for target.
-jemalloc-test-malloc_io: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/rule
-
-.PHONY : jemalloc-test-malloc_io
-
-# fast build rule for target.
-jemalloc-test-malloc_io/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build
-.PHONY : jemalloc-test-malloc_io/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/rule
-
-# Convenience name for target.
-jemalloc-test-mallctl: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/rule
-
-.PHONY : jemalloc-test-mallctl
-
-# fast build rule for target.
-jemalloc-test-mallctl/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build
-.PHONY : jemalloc-test-mallctl/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/rule
-
-# Convenience name for target.
-jemalloc-test-junk_free: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/rule
-
-.PHONY : jemalloc-test-junk_free
-
-# fast build rule for target.
-jemalloc-test-junk_free/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build
-.PHONY : jemalloc-test-junk_free/fast
-
-# Convenience name for target.
 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/rule
 .PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/rule
 
 # Convenience name for target.
@@ -535,387 +250,57 @@ jemalloc-test-spin: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/rul
 
 # fast build rule for target.
 jemalloc-test-spin/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build
 .PHONY : jemalloc-test-spin/fast
 
 # Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/rule
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/rule
 
 # Convenience name for target.
-jemalloc-test-retained: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/rule
+jemalloc-test-smoothstep: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/rule
 
-.PHONY : jemalloc-test-retained
+.PHONY : jemalloc-test-smoothstep
 
 # fast build rule for target.
-jemalloc-test-retained/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build
-.PHONY : jemalloc-test-retained/fast
+jemalloc-test-smoothstep/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/build
+.PHONY : jemalloc-test-smoothstep/fast
 
 # Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/rule
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/rule
 
 # Convenience name for target.
-jemalloc-test-prof_active: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/rule
+jemalloc-test-slab: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/rule
 
-.PHONY : jemalloc-test-prof_active
+.PHONY : jemalloc-test-slab
 
 # fast build rule for target.
-jemalloc-test-prof_active/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build
-.PHONY : jemalloc-test-prof_active/fast
+jemalloc-test-slab/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/build
+.PHONY : jemalloc-test-slab/fast
 
 # Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/rule
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/rule
 
 # Convenience name for target.
-jemalloc-test-junk_alloc: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/rule
+jemalloc-test-size_classes: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/rule
 
-.PHONY : jemalloc-test-junk_alloc
+.PHONY : jemalloc-test-size_classes
 
 # fast build rule for target.
-jemalloc-test-junk_alloc/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build
-.PHONY : jemalloc-test-junk_alloc/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/rule
-
-# Convenience name for target.
-jemalloc-test-bitmap: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/rule
-
-.PHONY : jemalloc-test-bitmap
-
-# fast build rule for target.
-jemalloc-test-bitmap/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build
-.PHONY : jemalloc-test-bitmap/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/rule
-
-# Convenience name for target.
-jemalloc-test-junk: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/rule
-
-.PHONY : jemalloc-test-junk
-
-# fast build rule for target.
-jemalloc-test-junk/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/build
-.PHONY : jemalloc-test-junk/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rule
-
-# Convenience name for target.
-jemalloc-test-rb: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rule
-
-.PHONY : jemalloc-test-rb
-
-# fast build rule for target.
-jemalloc-test-rb/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build
-.PHONY : jemalloc-test-rb/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/rule
-
-# Convenience name for target.
-jemalloc-test-arena_reset: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/rule
-
-.PHONY : jemalloc-test-arena_reset
-
-# fast build rule for target.
-jemalloc-test-arena_reset/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build
-.PHONY : jemalloc-test-arena_reset/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/rule
-
-# Convenience name for target.
-jemalloc-test-nstime: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/rule
-
-.PHONY : jemalloc-test-nstime
-
-# fast build rule for target.
-jemalloc-test-nstime/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/build
-.PHONY : jemalloc-test-nstime/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/rule
-
-# Convenience name for target.
-jemalloc-test-huge: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/rule
-
-.PHONY : jemalloc-test-huge
-
-# fast build rule for target.
-jemalloc-test-huge/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build
-.PHONY : jemalloc-test-huge/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/rule
-
-# Convenience name for target.
-jemalloc-test-prof_tctx: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/rule
-
-.PHONY : jemalloc-test-prof_tctx
-
-# fast build rule for target.
-jemalloc-test-prof_tctx/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build
-.PHONY : jemalloc-test-prof_tctx/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/rule
-
-# Convenience name for target.
-jemalloc-test-background_thread: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/rule
-
-.PHONY : jemalloc-test-background_thread
-
-# fast build rule for target.
-jemalloc-test-background_thread/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build
-.PHONY : jemalloc-test-background_thread/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/rule
-
-# Convenience name for target.
-jemalloc-test-decay: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/rule
-
-.PHONY : jemalloc-test-decay
-
-# fast build rule for target.
-jemalloc-test-decay/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/build
-.PHONY : jemalloc-test-decay/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/rule
-
-# Convenience name for target.
-jemalloc-test-hook: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/rule
-
-.PHONY : jemalloc-test-hook
-
-# fast build rule for target.
-jemalloc-test-hook/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build
-.PHONY : jemalloc-test-hook/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/rule
-
-# Convenience name for target.
-jemalloc-test-background_thread_enable: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/rule
-
-.PHONY : jemalloc-test-background_thread_enable
-
-# fast build rule for target.
-jemalloc-test-background_thread_enable/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build
-.PHONY : jemalloc-test-background_thread_enable/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/rule
-
-# Convenience name for target.
-jemalloc-test-prof_log: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/rule
-
-.PHONY : jemalloc-test-prof_log
-
-# fast build rule for target.
-jemalloc-test-prof_log/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build
-.PHONY : jemalloc-test-prof_log/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/rule
-
-# Convenience name for target.
-jemalloc-test-atomic: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/rule
-
-.PHONY : jemalloc-test-atomic
-
-# fast build rule for target.
-jemalloc-test-atomic/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build
-.PHONY : jemalloc-test-atomic/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/rule
-
-# Convenience name for target.
-jemalloc-test-pages: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/rule
-
-.PHONY : jemalloc-test-pages
-
-# fast build rule for target.
-jemalloc-test-pages/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build
-.PHONY : jemalloc-test-pages/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/rule
-
-# Convenience name for target.
-jemalloc-test-fork: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/rule
-
-.PHONY : jemalloc-test-fork
-
-# fast build rule for target.
-jemalloc-test-fork/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build
-.PHONY : jemalloc-test-fork/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/rule
-
-# Convenience name for target.
-jemalloc-test-prof_idump: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/rule
-
-.PHONY : jemalloc-test-prof_idump
-
-# fast build rule for target.
-jemalloc-test-prof_idump/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build
-.PHONY : jemalloc-test-prof_idump/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/rule
-
-# Convenience name for target.
-jemalloc-test-binshard: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/rule
-
-.PHONY : jemalloc-test-binshard
-
-# fast build rule for target.
-jemalloc-test-binshard/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build
-.PHONY : jemalloc-test-binshard/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/rule
-
-# Convenience name for target.
-jemalloc-test-extent_util: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/rule
-
-.PHONY : jemalloc-test-extent_util
-
-# fast build rule for target.
-jemalloc-test-extent_util/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/build
-.PHONY : jemalloc-test-extent_util/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/rule
-
-# Convenience name for target.
-jemalloc-test-arena_reset_prof: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/rule
-
-.PHONY : jemalloc-test-arena_reset_prof
-
-# fast build rule for target.
-jemalloc-test-arena_reset_prof/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/build
-.PHONY : jemalloc-test-arena_reset_prof/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/rule
-
-# Convenience name for target.
-jemalloc-test-extent_quantize: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/rule
-
-.PHONY : jemalloc-test-extent_quantize
-
-# fast build rule for target.
-jemalloc-test-extent_quantize/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build
-.PHONY : jemalloc-test-extent_quantize/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/rule
-
-# Convenience name for target.
-jemalloc-test-ckh: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/rule
-
-.PHONY : jemalloc-test-ckh
-
-# fast build rule for target.
-jemalloc-test-ckh/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build
-.PHONY : jemalloc-test-ckh/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/rule
-
-# Convenience name for target.
-jemalloc-test-ph: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/rule
-
-.PHONY : jemalloc-test-ph
-
-# fast build rule for target.
-jemalloc-test-ph/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build
-.PHONY : jemalloc-test-ph/fast
+jemalloc-test-size_classes/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/build
+.PHONY : jemalloc-test-size_classes/fast
 
 # Convenience name for target.
 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/rule
 .PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/rule
 
 # Convenience name for target.
@@ -925,72 +310,12 @@ jemalloc-test-seq: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/rule
 
 # fast build rule for target.
 jemalloc-test-seq/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build
 .PHONY : jemalloc-test-seq/fast
 
 # Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/rule
-
-# Convenience name for target.
-jemalloc-test-div: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/rule
-
-.PHONY : jemalloc-test-div
-
-# fast build rule for target.
-jemalloc-test-div/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build
-.PHONY : jemalloc-test-div/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/rule
-
-# Convenience name for target.
-jemalloc-test-emitter: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/rule
-
-.PHONY : jemalloc-test-emitter
-
-# fast build rule for target.
-jemalloc-test-emitter/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build
-.PHONY : jemalloc-test-emitter/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/rule
-
-# Convenience name for target.
-jemalloc-test-bit_util: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/rule
-
-.PHONY : jemalloc-test-bit_util
-
-# fast build rule for target.
-jemalloc-test-bit_util/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/build
-.PHONY : jemalloc-test-bit_util/fast
-
-# Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/rule
-
-# Convenience name for target.
-jemalloc-test-log: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/rule
-
-.PHONY : jemalloc-test-log
-
-# fast build rule for target.
-jemalloc-test-log/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build
-.PHONY : jemalloc-test-log/fast
-
-# Convenience name for target.
 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/rule
 .PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/rule
 
 # Convenience name for target.
@@ -1000,42 +325,222 @@ jemalloc-test-sc: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/rule
 
 # fast build rule for target.
 jemalloc-test-sc/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build
 .PHONY : jemalloc-test-sc/fast
 
 # Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/rule
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/rule
 
 # Convenience name for target.
-jemalloc-test-pack: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/rule
+jemalloc-test-junk: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/rule
 
-.PHONY : jemalloc-test-pack
+.PHONY : jemalloc-test-junk
 
 # fast build rule for target.
-jemalloc-test-pack/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build
-.PHONY : jemalloc-test-pack/fast
+jemalloc-test-junk/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/build
+.PHONY : jemalloc-test-junk/fast
 
 # Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/rule
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/rule
 
 # Convenience name for target.
-jemalloc-test-prof_thread_name: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/rule
+jemalloc-test-retained: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/rule
 
-.PHONY : jemalloc-test-prof_thread_name
+.PHONY : jemalloc-test-retained
 
 # fast build rule for target.
-jemalloc-test-prof_thread_name/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build
-.PHONY : jemalloc-test-prof_thread_name/fast
+jemalloc-test-retained/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build
+.PHONY : jemalloc-test-retained/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/rule
+
+# Convenience name for target.
+jemalloc-test-binshard: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/rule
+
+.PHONY : jemalloc-test-binshard
+
+# fast build rule for target.
+jemalloc-test-binshard/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build
+.PHONY : jemalloc-test-binshard/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/rule
+
+# Convenience name for target.
+jemalloc-test-prof_reset: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/rule
+
+.PHONY : jemalloc-test-prof_reset
+
+# fast build rule for target.
+jemalloc-test-prof_reset/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build
+.PHONY : jemalloc-test-prof_reset/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/rule
+
+# Convenience name for target.
+jemalloc-test-extent_quantize: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/rule
+
+.PHONY : jemalloc-test-extent_quantize
+
+# fast build rule for target.
+jemalloc-test-extent_quantize/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build
+.PHONY : jemalloc-test-extent_quantize/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rule
+
+# Convenience name for target.
+jemalloc-test-rtree: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rule
+
+.PHONY : jemalloc-test-rtree
+
+# fast build rule for target.
+jemalloc-test-rtree/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build
+.PHONY : jemalloc-test-rtree/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/rule
+
+# Convenience name for target.
+jemalloc-test-nstime: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/rule
+
+.PHONY : jemalloc-test-nstime
+
+# fast build rule for target.
+jemalloc-test-nstime/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/build
+.PHONY : jemalloc-test-nstime/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rule
+
+# Convenience name for target.
+jemalloc-test-rb: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rule
+
+.PHONY : jemalloc-test-rb
+
+# fast build rule for target.
+jemalloc-test-rb/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build
+.PHONY : jemalloc-test-rb/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/rule
+
+# Convenience name for target.
+jemalloc-test-emitter: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/rule
+
+.PHONY : jemalloc-test-emitter
+
+# fast build rule for target.
+jemalloc-test-emitter/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build
+.PHONY : jemalloc-test-emitter/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/rule
+
+# Convenience name for target.
+jemalloc-test-malloc_io: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/rule
+
+.PHONY : jemalloc-test-malloc_io
+
+# fast build rule for target.
+jemalloc-test-malloc_io/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build
+.PHONY : jemalloc-test-malloc_io/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/rule
+
+# Convenience name for target.
+jemalloc-test-div: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/rule
+
+.PHONY : jemalloc-test-div
+
+# fast build rule for target.
+jemalloc-test-div/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build
+.PHONY : jemalloc-test-div/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/rule
+
+# Convenience name for target.
+jemalloc-test-decay: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/rule
+
+.PHONY : jemalloc-test-decay
+
+# fast build rule for target.
+jemalloc-test-decay/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/build
+.PHONY : jemalloc-test-decay/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/rule
+
+# Convenience name for target.
+jemalloc-test-junk_free: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/rule
+
+.PHONY : jemalloc-test-junk_free
+
+# fast build rule for target.
+jemalloc-test-junk_free/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build
+.PHONY : jemalloc-test-junk_free/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/rule
+
+# Convenience name for target.
+jemalloc-test-math: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/rule
+
+.PHONY : jemalloc-test-math
+
+# fast build rule for target.
+jemalloc-test-math/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build
+.PHONY : jemalloc-test-math/fast
 
 # Convenience name for target.
 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/rule
 .PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/rule
 
 # Convenience name for target.
@@ -1045,27 +550,42 @@ jemalloc-test-base: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/rul
 
 # fast build rule for target.
 jemalloc-test-base/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build
 .PHONY : jemalloc-test-base/fast
 
 # Convenience name for target.
-ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/rule
-.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/rule
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/rule
 
 # Convenience name for target.
-jemalloc-test-hash: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/rule
+jemalloc-test-ckh: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/rule
 
-.PHONY : jemalloc-test-hash
+.PHONY : jemalloc-test-ckh
 
 # fast build rule for target.
-jemalloc-test-hash/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/build
-.PHONY : jemalloc-test-hash/fast
+jemalloc-test-ckh/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build
+.PHONY : jemalloc-test-ckh/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/rule
+
+# Convenience name for target.
+jemalloc-test-bitmap: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/rule
+
+.PHONY : jemalloc-test-bitmap
+
+# fast build rule for target.
+jemalloc-test-bitmap/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build
+.PHONY : jemalloc-test-bitmap/fast
 
 # Convenience name for target.
 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/rule
 .PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/rule
 
 # Convenience name for target.
@@ -1075,12 +595,267 @@ jemalloc-test-a0: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/rule
 
 # fast build rule for target.
 jemalloc-test-a0/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build
 .PHONY : jemalloc-test-a0/fast
 
 # Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/rule
+
+# Convenience name for target.
+jemalloc-test-arena_reset: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/rule
+
+.PHONY : jemalloc-test-arena_reset
+
+# fast build rule for target.
+jemalloc-test-arena_reset/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build
+.PHONY : jemalloc-test-arena_reset/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/rule
+
+# Convenience name for target.
+jemalloc-test-extent_util: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/rule
+
+.PHONY : jemalloc-test-extent_util
+
+# fast build rule for target.
+jemalloc-test-extent_util/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/build
+.PHONY : jemalloc-test-extent_util/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/rule
+
+# Convenience name for target.
+jemalloc-test-arena_reset_prof: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/rule
+
+.PHONY : jemalloc-test-arena_reset_prof
+
+# fast build rule for target.
+jemalloc-test-arena_reset_prof/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/build
+.PHONY : jemalloc-test-arena_reset_prof/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/rule
+
+# Convenience name for target.
+jemalloc-test-pages: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/rule
+
+.PHONY : jemalloc-test-pages
+
+# fast build rule for target.
+jemalloc-test-pages/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build
+.PHONY : jemalloc-test-pages/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/rule
+
+# Convenience name for target.
+jemalloc-test-ql: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/rule
+
+.PHONY : jemalloc-test-ql
+
+# fast build rule for target.
+jemalloc-test-ql/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build
+.PHONY : jemalloc-test-ql/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/rule
+
+# Convenience name for target.
+jemalloc-test-atomic: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/rule
+
+.PHONY : jemalloc-test-atomic
+
+# fast build rule for target.
+jemalloc-test-atomic/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build
+.PHONY : jemalloc-test-atomic/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/rule
+
+# Convenience name for target.
+jemalloc-test-hook: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/rule
+
+.PHONY : jemalloc-test-hook
+
+# fast build rule for target.
+jemalloc-test-hook/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build
+.PHONY : jemalloc-test-hook/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/rule
+
+# Convenience name for target.
+jemalloc-test-bit_util: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/rule
+
+.PHONY : jemalloc-test-bit_util
+
+# fast build rule for target.
+jemalloc-test-bit_util/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/build
+.PHONY : jemalloc-test-bit_util/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/rule
+
+# Convenience name for target.
+jemalloc-test-mallctl: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/rule
+
+.PHONY : jemalloc-test-mallctl
+
+# fast build rule for target.
+jemalloc-test-mallctl/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build
+.PHONY : jemalloc-test-mallctl/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/rule
+
+# Convenience name for target.
+jemalloc-test-hash: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/rule
+
+.PHONY : jemalloc-test-hash
+
+# fast build rule for target.
+jemalloc-test-hash/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/build
+.PHONY : jemalloc-test-hash/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/rule
+
+# Convenience name for target.
+jemalloc-test-ph: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/rule
+
+.PHONY : jemalloc-test-ph
+
+# fast build rule for target.
+jemalloc-test-ph/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build
+.PHONY : jemalloc-test-ph/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/rule
+
+# Convenience name for target.
+jemalloc-test-huge: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/rule
+
+.PHONY : jemalloc-test-huge
+
+# fast build rule for target.
+jemalloc-test-huge/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build
+.PHONY : jemalloc-test-huge/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/rule
+
+# Convenience name for target.
+jemalloc-test-mq: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/rule
+
+.PHONY : jemalloc-test-mq
+
+# fast build rule for target.
+jemalloc-test-mq/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build
+.PHONY : jemalloc-test-mq/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/rule
+
+# Convenience name for target.
+jemalloc-test-prof_idump: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/rule
+
+.PHONY : jemalloc-test-prof_idump
+
+# fast build rule for target.
+jemalloc-test-prof_idump/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build
+.PHONY : jemalloc-test-prof_idump/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/rule
+
+# Convenience name for target.
+jemalloc-test-zero: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/rule
+
+.PHONY : jemalloc-test-zero
+
+# fast build rule for target.
+jemalloc-test-zero/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build
+.PHONY : jemalloc-test-zero/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/rule
+
+# Convenience name for target.
+jemalloc-test-background_thread: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/rule
+
+.PHONY : jemalloc-test-background_thread
+
+# fast build rule for target.
+jemalloc-test-background_thread/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build
+.PHONY : jemalloc-test-background_thread/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/rule
+
+# Convenience name for target.
+jemalloc-test-mtx: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/rule
+
+.PHONY : jemalloc-test-mtx
+
+# fast build rule for target.
+jemalloc-test-mtx/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build
+.PHONY : jemalloc-test-mtx/fast
+
+# Convenience name for target.
 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/rule:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/rule
 .PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/rule
 
 # Convenience name for target.
@@ -1090,8 +865,233 @@ jemalloc-test-SFMT: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/rul
 
 # fast build rule for target.
 jemalloc-test-SFMT/fast:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/build
 .PHONY : jemalloc-test-SFMT/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/rule
+
+# Convenience name for target.
+jemalloc-test-pack: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/rule
+
+.PHONY : jemalloc-test-pack
+
+# fast build rule for target.
+jemalloc-test-pack/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build
+.PHONY : jemalloc-test-pack/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/rule
+
+# Convenience name for target.
+jemalloc-test-prng: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/rule
+
+.PHONY : jemalloc-test-prng
+
+# fast build rule for target.
+jemalloc-test-prng/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build
+.PHONY : jemalloc-test-prng/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/rule
+
+# Convenience name for target.
+jemalloc-test-junk_alloc: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/rule
+
+.PHONY : jemalloc-test-junk_alloc
+
+# fast build rule for target.
+jemalloc-test-junk_alloc/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build
+.PHONY : jemalloc-test-junk_alloc/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/rule
+
+# Convenience name for target.
+jemalloc-test-background_thread_enable: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/rule
+
+.PHONY : jemalloc-test-background_thread_enable
+
+# fast build rule for target.
+jemalloc-test-background_thread_enable/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build
+.PHONY : jemalloc-test-background_thread_enable/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/rule
+
+# Convenience name for target.
+jemalloc-test-prof_accum: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/rule
+
+.PHONY : jemalloc-test-prof_accum
+
+# fast build rule for target.
+jemalloc-test-prof_accum/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build
+.PHONY : jemalloc-test-prof_accum/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/rule
+
+# Convenience name for target.
+jemalloc-test-prof_active: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/rule
+
+.PHONY : jemalloc-test-prof_active
+
+# fast build rule for target.
+jemalloc-test-prof_active/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build
+.PHONY : jemalloc-test-prof_active/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/rule
+
+# Convenience name for target.
+jemalloc-test-stats: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/rule
+
+.PHONY : jemalloc-test-stats
+
+# fast build rule for target.
+jemalloc-test-stats/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build
+.PHONY : jemalloc-test-stats/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/rule
+
+# Convenience name for target.
+jemalloc-test-prof_gdump: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/rule
+
+.PHONY : jemalloc-test-prof_gdump
+
+# fast build rule for target.
+jemalloc-test-prof_gdump/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build
+.PHONY : jemalloc-test-prof_gdump/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/rule
+
+# Convenience name for target.
+jemalloc-test-fork: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/rule
+
+.PHONY : jemalloc-test-fork
+
+# fast build rule for target.
+jemalloc-test-fork/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build
+.PHONY : jemalloc-test-fork/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/rule
+
+# Convenience name for target.
+jemalloc-test-prof_log: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/rule
+
+.PHONY : jemalloc-test-prof_log
+
+# fast build rule for target.
+jemalloc-test-prof_log/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build
+.PHONY : jemalloc-test-prof_log/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/rule
+
+# Convenience name for target.
+jemalloc-test-prof_tctx: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/rule
+
+.PHONY : jemalloc-test-prof_tctx
+
+# fast build rule for target.
+jemalloc-test-prof_tctx/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build
+.PHONY : jemalloc-test-prof_tctx/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/rule
+
+# Convenience name for target.
+jemalloc-test-log: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/rule
+
+.PHONY : jemalloc-test-log
+
+# fast build rule for target.
+jemalloc-test-log/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build
+.PHONY : jemalloc-test-log/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/rule
+
+# Convenience name for target.
+jemalloc-test-prof_thread_name: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/rule
+
+.PHONY : jemalloc-test-prof_thread_name
+
+# fast build rule for target.
+jemalloc-test-prof_thread_name/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build
+.PHONY : jemalloc-test-prof_thread_name/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/rule
+
+# Convenience name for target.
+jemalloc-test-test_hooks: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/rule
+
+.PHONY : jemalloc-test-test_hooks
+
+# fast build rule for target.
+jemalloc-test-test_hooks/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build
+.PHONY : jemalloc-test-test_hooks/fast
+
+# Convenience name for target.
+ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/rule:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/rule
+.PHONY : ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/rule
+
+# Convenience name for target.
+jemalloc-test-qr: ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/rule
+
+.PHONY : jemalloc-test-qr
+
+# fast build rule for target.
+jemalloc-test-qr/fast:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build
+.PHONY : jemalloc-test-qr/fast
 
 SFMT.o: SFMT.c.o
 
@@ -1099,7 +1099,7 @@ SFMT.o: SFMT.c.o
 
 # target to build an object file
 SFMT.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/SFMT.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/SFMT.c.o
 .PHONY : SFMT.c.o
 
 SFMT.i: SFMT.c.i
@@ -1108,7 +1108,7 @@ SFMT.i: SFMT.c.i
 
 # target to preprocess a source file
 SFMT.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/SFMT.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/SFMT.c.i
 .PHONY : SFMT.c.i
 
 SFMT.s: SFMT.c.s
@@ -1117,7 +1117,7 @@ SFMT.s: SFMT.c.s
 
 # target to generate assembly for a file
 SFMT.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/SFMT.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/SFMT.c.s
 .PHONY : SFMT.c.s
 
 a0.o: a0.c.o
@@ -1126,7 +1126,7 @@ a0.o: a0.c.o
 
 # target to build an object file
 a0.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/a0.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/a0.c.o
 .PHONY : a0.c.o
 
 a0.i: a0.c.i
@@ -1135,7 +1135,7 @@ a0.i: a0.c.i
 
 # target to preprocess a source file
 a0.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/a0.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/a0.c.i
 .PHONY : a0.c.i
 
 a0.s: a0.c.s
@@ -1144,7 +1144,7 @@ a0.s: a0.c.s
 
 # target to generate assembly for a file
 a0.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/a0.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/a0.c.s
 .PHONY : a0.c.s
 
 arena_reset.o: arena_reset.c.o
@@ -1153,7 +1153,7 @@ arena_reset.o: arena_reset.c.o
 
 # target to build an object file
 arena_reset.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/arena_reset.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/arena_reset.c.o
 .PHONY : arena_reset.c.o
 
 arena_reset.i: arena_reset.c.i
@@ -1162,7 +1162,7 @@ arena_reset.i: arena_reset.c.i
 
 # target to preprocess a source file
 arena_reset.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/arena_reset.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/arena_reset.c.i
 .PHONY : arena_reset.c.i
 
 arena_reset.s: arena_reset.c.s
@@ -1171,7 +1171,7 @@ arena_reset.s: arena_reset.c.s
 
 # target to generate assembly for a file
 arena_reset.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/arena_reset.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/arena_reset.c.s
 .PHONY : arena_reset.c.s
 
 arena_reset_prof.o: arena_reset_prof.c.o
@@ -1180,7 +1180,7 @@ arena_reset_prof.o: arena_reset_prof.c.o
 
 # target to build an object file
 arena_reset_prof.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/arena_reset_prof.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/arena_reset_prof.c.o
 .PHONY : arena_reset_prof.c.o
 
 arena_reset_prof.i: arena_reset_prof.c.i
@@ -1189,7 +1189,7 @@ arena_reset_prof.i: arena_reset_prof.c.i
 
 # target to preprocess a source file
 arena_reset_prof.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/arena_reset_prof.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/arena_reset_prof.c.i
 .PHONY : arena_reset_prof.c.i
 
 arena_reset_prof.s: arena_reset_prof.c.s
@@ -1198,7 +1198,7 @@ arena_reset_prof.s: arena_reset_prof.c.s
 
 # target to generate assembly for a file
 arena_reset_prof.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/arena_reset_prof.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset_prof.dir/arena_reset_prof.c.s
 .PHONY : arena_reset_prof.c.s
 
 atomic.o: atomic.c.o
@@ -1207,7 +1207,7 @@ atomic.o: atomic.c.o
 
 # target to build an object file
 atomic.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/atomic.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/atomic.c.o
 .PHONY : atomic.c.o
 
 atomic.i: atomic.c.i
@@ -1216,7 +1216,7 @@ atomic.i: atomic.c.i
 
 # target to preprocess a source file
 atomic.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/atomic.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/atomic.c.i
 .PHONY : atomic.c.i
 
 atomic.s: atomic.c.s
@@ -1225,7 +1225,7 @@ atomic.s: atomic.c.s
 
 # target to generate assembly for a file
 atomic.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/atomic.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/atomic.c.s
 .PHONY : atomic.c.s
 
 background_thread.o: background_thread.c.o
@@ -1234,7 +1234,7 @@ background_thread.o: background_thread.c.o
 
 # target to build an object file
 background_thread.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/background_thread.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/background_thread.c.o
 .PHONY : background_thread.c.o
 
 background_thread.i: background_thread.c.i
@@ -1243,7 +1243,7 @@ background_thread.i: background_thread.c.i
 
 # target to preprocess a source file
 background_thread.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/background_thread.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/background_thread.c.i
 .PHONY : background_thread.c.i
 
 background_thread.s: background_thread.c.s
@@ -1252,7 +1252,7 @@ background_thread.s: background_thread.c.s
 
 # target to generate assembly for a file
 background_thread.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/background_thread.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/background_thread.c.s
 .PHONY : background_thread.c.s
 
 background_thread_enable.o: background_thread_enable.c.o
@@ -1261,7 +1261,7 @@ background_thread_enable.o: background_thread_enable.c.o
 
 # target to build an object file
 background_thread_enable.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/background_thread_enable.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/background_thread_enable.c.o
 .PHONY : background_thread_enable.c.o
 
 background_thread_enable.i: background_thread_enable.c.i
@@ -1270,7 +1270,7 @@ background_thread_enable.i: background_thread_enable.c.i
 
 # target to preprocess a source file
 background_thread_enable.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/background_thread_enable.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/background_thread_enable.c.i
 .PHONY : background_thread_enable.c.i
 
 background_thread_enable.s: background_thread_enable.c.s
@@ -1279,7 +1279,7 @@ background_thread_enable.s: background_thread_enable.c.s
 
 # target to generate assembly for a file
 background_thread_enable.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/background_thread_enable.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/background_thread_enable.c.s
 .PHONY : background_thread_enable.c.s
 
 base.o: base.c.o
@@ -1288,7 +1288,7 @@ base.o: base.c.o
 
 # target to build an object file
 base.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/base.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/base.c.o
 .PHONY : base.c.o
 
 base.i: base.c.i
@@ -1297,7 +1297,7 @@ base.i: base.c.i
 
 # target to preprocess a source file
 base.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/base.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/base.c.i
 .PHONY : base.c.i
 
 base.s: base.c.s
@@ -1306,7 +1306,7 @@ base.s: base.c.s
 
 # target to generate assembly for a file
 base.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/base.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/base.c.s
 .PHONY : base.c.s
 
 binshard.o: binshard.c.o
@@ -1315,7 +1315,7 @@ binshard.o: binshard.c.o
 
 # target to build an object file
 binshard.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/binshard.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/binshard.c.o
 .PHONY : binshard.c.o
 
 binshard.i: binshard.c.i
@@ -1324,7 +1324,7 @@ binshard.i: binshard.c.i
 
 # target to preprocess a source file
 binshard.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/binshard.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/binshard.c.i
 .PHONY : binshard.c.i
 
 binshard.s: binshard.c.s
@@ -1333,7 +1333,7 @@ binshard.s: binshard.c.s
 
 # target to generate assembly for a file
 binshard.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/binshard.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/binshard.c.s
 .PHONY : binshard.c.s
 
 bit_util.o: bit_util.c.o
@@ -1342,7 +1342,7 @@ bit_util.o: bit_util.c.o
 
 # target to build an object file
 bit_util.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/bit_util.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/bit_util.c.o
 .PHONY : bit_util.c.o
 
 bit_util.i: bit_util.c.i
@@ -1351,7 +1351,7 @@ bit_util.i: bit_util.c.i
 
 # target to preprocess a source file
 bit_util.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/bit_util.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/bit_util.c.i
 .PHONY : bit_util.c.i
 
 bit_util.s: bit_util.c.s
@@ -1360,7 +1360,7 @@ bit_util.s: bit_util.c.s
 
 # target to generate assembly for a file
 bit_util.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/bit_util.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bit_util.dir/bit_util.c.s
 .PHONY : bit_util.c.s
 
 bitmap.o: bitmap.c.o
@@ -1369,7 +1369,7 @@ bitmap.o: bitmap.c.o
 
 # target to build an object file
 bitmap.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/bitmap.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/bitmap.c.o
 .PHONY : bitmap.c.o
 
 bitmap.i: bitmap.c.i
@@ -1378,7 +1378,7 @@ bitmap.i: bitmap.c.i
 
 # target to preprocess a source file
 bitmap.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/bitmap.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/bitmap.c.i
 .PHONY : bitmap.c.i
 
 bitmap.s: bitmap.c.s
@@ -1387,7 +1387,7 @@ bitmap.s: bitmap.c.s
 
 # target to generate assembly for a file
 bitmap.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/bitmap.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/bitmap.c.s
 .PHONY : bitmap.c.s
 
 ckh.o: ckh.c.o
@@ -1396,7 +1396,7 @@ ckh.o: ckh.c.o
 
 # target to build an object file
 ckh.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/ckh.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/ckh.c.o
 .PHONY : ckh.c.o
 
 ckh.i: ckh.c.i
@@ -1405,7 +1405,7 @@ ckh.i: ckh.c.i
 
 # target to preprocess a source file
 ckh.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/ckh.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/ckh.c.i
 .PHONY : ckh.c.i
 
 ckh.s: ckh.c.s
@@ -1414,7 +1414,7 @@ ckh.s: ckh.c.s
 
 # target to generate assembly for a file
 ckh.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/ckh.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/ckh.c.s
 .PHONY : ckh.c.s
 
 decay.o: decay.c.o
@@ -1423,7 +1423,7 @@ decay.o: decay.c.o
 
 # target to build an object file
 decay.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/decay.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/decay.c.o
 .PHONY : decay.c.o
 
 decay.i: decay.c.i
@@ -1432,7 +1432,7 @@ decay.i: decay.c.i
 
 # target to preprocess a source file
 decay.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/decay.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/decay.c.i
 .PHONY : decay.c.i
 
 decay.s: decay.c.s
@@ -1441,7 +1441,7 @@ decay.s: decay.c.s
 
 # target to generate assembly for a file
 decay.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/decay.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-decay.dir/decay.c.s
 .PHONY : decay.c.s
 
 div.o: div.c.o
@@ -1450,7 +1450,7 @@ div.o: div.c.o
 
 # target to build an object file
 div.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/div.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/div.c.o
 .PHONY : div.c.o
 
 div.i: div.c.i
@@ -1459,7 +1459,7 @@ div.i: div.c.i
 
 # target to preprocess a source file
 div.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/div.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/div.c.i
 .PHONY : div.c.i
 
 div.s: div.c.s
@@ -1468,7 +1468,7 @@ div.s: div.c.s
 
 # target to generate assembly for a file
 div.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/div.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/div.c.s
 .PHONY : div.c.s
 
 emitter.o: emitter.c.o
@@ -1477,7 +1477,7 @@ emitter.o: emitter.c.o
 
 # target to build an object file
 emitter.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/emitter.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/emitter.c.o
 .PHONY : emitter.c.o
 
 emitter.i: emitter.c.i
@@ -1486,7 +1486,7 @@ emitter.i: emitter.c.i
 
 # target to preprocess a source file
 emitter.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/emitter.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/emitter.c.i
 .PHONY : emitter.c.i
 
 emitter.s: emitter.c.s
@@ -1495,7 +1495,7 @@ emitter.s: emitter.c.s
 
 # target to generate assembly for a file
 emitter.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/emitter.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/emitter.c.s
 .PHONY : emitter.c.s
 
 extent_quantize.o: extent_quantize.c.o
@@ -1504,7 +1504,7 @@ extent_quantize.o: extent_quantize.c.o
 
 # target to build an object file
 extent_quantize.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/extent_quantize.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/extent_quantize.c.o
 .PHONY : extent_quantize.c.o
 
 extent_quantize.i: extent_quantize.c.i
@@ -1513,7 +1513,7 @@ extent_quantize.i: extent_quantize.c.i
 
 # target to preprocess a source file
 extent_quantize.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/extent_quantize.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/extent_quantize.c.i
 .PHONY : extent_quantize.c.i
 
 extent_quantize.s: extent_quantize.c.s
@@ -1522,7 +1522,7 @@ extent_quantize.s: extent_quantize.c.s
 
 # target to generate assembly for a file
 extent_quantize.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/extent_quantize.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/extent_quantize.c.s
 .PHONY : extent_quantize.c.s
 
 extent_util.o: extent_util.c.o
@@ -1531,7 +1531,7 @@ extent_util.o: extent_util.c.o
 
 # target to build an object file
 extent_util.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/extent_util.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/extent_util.c.o
 .PHONY : extent_util.c.o
 
 extent_util.i: extent_util.c.i
@@ -1540,7 +1540,7 @@ extent_util.i: extent_util.c.i
 
 # target to preprocess a source file
 extent_util.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/extent_util.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/extent_util.c.i
 .PHONY : extent_util.c.i
 
 extent_util.s: extent_util.c.s
@@ -1549,7 +1549,7 @@ extent_util.s: extent_util.c.s
 
 # target to generate assembly for a file
 extent_util.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/extent_util.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_util.dir/extent_util.c.s
 .PHONY : extent_util.c.s
 
 fork.o: fork.c.o
@@ -1558,7 +1558,7 @@ fork.o: fork.c.o
 
 # target to build an object file
 fork.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/fork.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/fork.c.o
 .PHONY : fork.c.o
 
 fork.i: fork.c.i
@@ -1567,7 +1567,7 @@ fork.i: fork.c.i
 
 # target to preprocess a source file
 fork.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/fork.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/fork.c.i
 .PHONY : fork.c.i
 
 fork.s: fork.c.s
@@ -1576,7 +1576,7 @@ fork.s: fork.c.s
 
 # target to generate assembly for a file
 fork.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/fork.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/fork.c.s
 .PHONY : fork.c.s
 
 hash.o: hash.c.o
@@ -1585,7 +1585,7 @@ hash.o: hash.c.o
 
 # target to build an object file
 hash.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/hash.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/hash.c.o
 .PHONY : hash.c.o
 
 hash.i: hash.c.i
@@ -1594,7 +1594,7 @@ hash.i: hash.c.i
 
 # target to preprocess a source file
 hash.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/hash.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/hash.c.i
 .PHONY : hash.c.i
 
 hash.s: hash.c.s
@@ -1603,7 +1603,7 @@ hash.s: hash.c.s
 
 # target to generate assembly for a file
 hash.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/hash.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hash.dir/hash.c.s
 .PHONY : hash.c.s
 
 hook.o: hook.c.o
@@ -1612,7 +1612,7 @@ hook.o: hook.c.o
 
 # target to build an object file
 hook.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/hook.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/hook.c.o
 .PHONY : hook.c.o
 
 hook.i: hook.c.i
@@ -1621,7 +1621,7 @@ hook.i: hook.c.i
 
 # target to preprocess a source file
 hook.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/hook.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/hook.c.i
 .PHONY : hook.c.i
 
 hook.s: hook.c.s
@@ -1630,7 +1630,7 @@ hook.s: hook.c.s
 
 # target to generate assembly for a file
 hook.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/hook.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/hook.c.s
 .PHONY : hook.c.s
 
 huge.o: huge.c.o
@@ -1639,7 +1639,7 @@ huge.o: huge.c.o
 
 # target to build an object file
 huge.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/huge.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/huge.c.o
 .PHONY : huge.c.o
 
 huge.i: huge.c.i
@@ -1648,7 +1648,7 @@ huge.i: huge.c.i
 
 # target to preprocess a source file
 huge.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/huge.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/huge.c.i
 .PHONY : huge.c.i
 
 huge.s: huge.c.s
@@ -1657,7 +1657,7 @@ huge.s: huge.c.s
 
 # target to generate assembly for a file
 huge.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/huge.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/huge.c.s
 .PHONY : huge.c.s
 
 junk.o: junk.c.o
@@ -1666,7 +1666,7 @@ junk.o: junk.c.o
 
 # target to build an object file
 junk.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/junk.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/junk.c.o
 .PHONY : junk.c.o
 
 junk.i: junk.c.i
@@ -1675,7 +1675,7 @@ junk.i: junk.c.i
 
 # target to preprocess a source file
 junk.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/junk.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/junk.c.i
 .PHONY : junk.c.i
 
 junk.s: junk.c.s
@@ -1684,7 +1684,7 @@ junk.s: junk.c.s
 
 # target to generate assembly for a file
 junk.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/junk.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk.dir/junk.c.s
 .PHONY : junk.c.s
 
 junk_alloc.o: junk_alloc.c.o
@@ -1693,7 +1693,7 @@ junk_alloc.o: junk_alloc.c.o
 
 # target to build an object file
 junk_alloc.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/junk_alloc.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/junk_alloc.c.o
 .PHONY : junk_alloc.c.o
 
 junk_alloc.i: junk_alloc.c.i
@@ -1702,7 +1702,7 @@ junk_alloc.i: junk_alloc.c.i
 
 # target to preprocess a source file
 junk_alloc.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/junk_alloc.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/junk_alloc.c.i
 .PHONY : junk_alloc.c.i
 
 junk_alloc.s: junk_alloc.c.s
@@ -1711,7 +1711,7 @@ junk_alloc.s: junk_alloc.c.s
 
 # target to generate assembly for a file
 junk_alloc.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/junk_alloc.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/junk_alloc.c.s
 .PHONY : junk_alloc.c.s
 
 junk_free.o: junk_free.c.o
@@ -1720,7 +1720,7 @@ junk_free.o: junk_free.c.o
 
 # target to build an object file
 junk_free.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/junk_free.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/junk_free.c.o
 .PHONY : junk_free.c.o
 
 junk_free.i: junk_free.c.i
@@ -1729,7 +1729,7 @@ junk_free.i: junk_free.c.i
 
 # target to preprocess a source file
 junk_free.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/junk_free.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/junk_free.c.i
 .PHONY : junk_free.c.i
 
 junk_free.s: junk_free.c.s
@@ -1738,7 +1738,7 @@ junk_free.s: junk_free.c.s
 
 # target to generate assembly for a file
 junk_free.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/junk_free.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/junk_free.c.s
 .PHONY : junk_free.c.s
 
 log.o: log.c.o
@@ -1747,7 +1747,7 @@ log.o: log.c.o
 
 # target to build an object file
 log.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/log.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/log.c.o
 .PHONY : log.c.o
 
 log.i: log.c.i
@@ -1756,7 +1756,7 @@ log.i: log.c.i
 
 # target to preprocess a source file
 log.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/log.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/log.c.i
 .PHONY : log.c.i
 
 log.s: log.c.s
@@ -1765,7 +1765,7 @@ log.s: log.c.s
 
 # target to generate assembly for a file
 log.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/log.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/log.c.s
 .PHONY : log.c.s
 
 mallctl.o: mallctl.c.o
@@ -1774,7 +1774,7 @@ mallctl.o: mallctl.c.o
 
 # target to build an object file
 mallctl.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/mallctl.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/mallctl.c.o
 .PHONY : mallctl.c.o
 
 mallctl.i: mallctl.c.i
@@ -1783,7 +1783,7 @@ mallctl.i: mallctl.c.i
 
 # target to preprocess a source file
 mallctl.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/mallctl.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/mallctl.c.i
 .PHONY : mallctl.c.i
 
 mallctl.s: mallctl.c.s
@@ -1792,7 +1792,7 @@ mallctl.s: mallctl.c.s
 
 # target to generate assembly for a file
 mallctl.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/mallctl.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/mallctl.c.s
 .PHONY : mallctl.c.s
 
 malloc_io.o: malloc_io.c.o
@@ -1801,7 +1801,7 @@ malloc_io.o: malloc_io.c.o
 
 # target to build an object file
 malloc_io.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/malloc_io.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/malloc_io.c.o
 .PHONY : malloc_io.c.o
 
 malloc_io.i: malloc_io.c.i
@@ -1810,7 +1810,7 @@ malloc_io.i: malloc_io.c.i
 
 # target to preprocess a source file
 malloc_io.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/malloc_io.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/malloc_io.c.i
 .PHONY : malloc_io.c.i
 
 malloc_io.s: malloc_io.c.s
@@ -1819,7 +1819,7 @@ malloc_io.s: malloc_io.c.s
 
 # target to generate assembly for a file
 malloc_io.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/malloc_io.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/malloc_io.c.s
 .PHONY : malloc_io.c.s
 
 math.o: math.c.o
@@ -1828,7 +1828,7 @@ math.o: math.c.o
 
 # target to build an object file
 math.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/math.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/math.c.o
 .PHONY : math.c.o
 
 math.i: math.c.i
@@ -1837,7 +1837,7 @@ math.i: math.c.i
 
 # target to preprocess a source file
 math.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/math.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/math.c.i
 .PHONY : math.c.i
 
 math.s: math.c.s
@@ -1846,7 +1846,7 @@ math.s: math.c.s
 
 # target to generate assembly for a file
 math.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/math.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/math.c.s
 .PHONY : math.c.s
 
 mq.o: mq.c.o
@@ -1855,7 +1855,7 @@ mq.o: mq.c.o
 
 # target to build an object file
 mq.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/mq.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/mq.c.o
 .PHONY : mq.c.o
 
 mq.i: mq.c.i
@@ -1864,7 +1864,7 @@ mq.i: mq.c.i
 
 # target to preprocess a source file
 mq.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/mq.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/mq.c.i
 .PHONY : mq.c.i
 
 mq.s: mq.c.s
@@ -1873,7 +1873,7 @@ mq.s: mq.c.s
 
 # target to generate assembly for a file
 mq.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/mq.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/mq.c.s
 .PHONY : mq.c.s
 
 mtx.o: mtx.c.o
@@ -1882,7 +1882,7 @@ mtx.o: mtx.c.o
 
 # target to build an object file
 mtx.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/mtx.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/mtx.c.o
 .PHONY : mtx.c.o
 
 mtx.i: mtx.c.i
@@ -1891,7 +1891,7 @@ mtx.i: mtx.c.i
 
 # target to preprocess a source file
 mtx.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/mtx.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/mtx.c.i
 .PHONY : mtx.c.i
 
 mtx.s: mtx.c.s
@@ -1900,7 +1900,7 @@ mtx.s: mtx.c.s
 
 # target to generate assembly for a file
 mtx.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/mtx.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/mtx.c.s
 .PHONY : mtx.c.s
 
 nstime.o: nstime.c.o
@@ -1909,7 +1909,7 @@ nstime.o: nstime.c.o
 
 # target to build an object file
 nstime.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/nstime.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/nstime.c.o
 .PHONY : nstime.c.o
 
 nstime.i: nstime.c.i
@@ -1918,7 +1918,7 @@ nstime.i: nstime.c.i
 
 # target to preprocess a source file
 nstime.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/nstime.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/nstime.c.i
 .PHONY : nstime.c.i
 
 nstime.s: nstime.c.s
@@ -1927,7 +1927,7 @@ nstime.s: nstime.c.s
 
 # target to generate assembly for a file
 nstime.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/nstime.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-nstime.dir/nstime.c.s
 .PHONY : nstime.c.s
 
 pack.o: pack.c.o
@@ -1936,7 +1936,7 @@ pack.o: pack.c.o
 
 # target to build an object file
 pack.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/pack.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/pack.c.o
 .PHONY : pack.c.o
 
 pack.i: pack.c.i
@@ -1945,7 +1945,7 @@ pack.i: pack.c.i
 
 # target to preprocess a source file
 pack.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/pack.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/pack.c.i
 .PHONY : pack.c.i
 
 pack.s: pack.c.s
@@ -1954,7 +1954,7 @@ pack.s: pack.c.s
 
 # target to generate assembly for a file
 pack.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/pack.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/pack.c.s
 .PHONY : pack.c.s
 
 pages.o: pages.c.o
@@ -1963,7 +1963,7 @@ pages.o: pages.c.o
 
 # target to build an object file
 pages.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/pages.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/pages.c.o
 .PHONY : pages.c.o
 
 pages.i: pages.c.i
@@ -1972,7 +1972,7 @@ pages.i: pages.c.i
 
 # target to preprocess a source file
 pages.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/pages.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/pages.c.i
 .PHONY : pages.c.i
 
 pages.s: pages.c.s
@@ -1981,7 +1981,7 @@ pages.s: pages.c.s
 
 # target to generate assembly for a file
 pages.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/pages.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/pages.c.s
 .PHONY : pages.c.s
 
 ph.o: ph.c.o
@@ -1990,7 +1990,7 @@ ph.o: ph.c.o
 
 # target to build an object file
 ph.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/ph.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/ph.c.o
 .PHONY : ph.c.o
 
 ph.i: ph.c.i
@@ -1999,7 +1999,7 @@ ph.i: ph.c.i
 
 # target to preprocess a source file
 ph.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/ph.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/ph.c.i
 .PHONY : ph.c.i
 
 ph.s: ph.c.s
@@ -2008,7 +2008,7 @@ ph.s: ph.c.s
 
 # target to generate assembly for a file
 ph.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/ph.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/ph.c.s
 .PHONY : ph.c.s
 
 prng.o: prng.c.o
@@ -2017,7 +2017,7 @@ prng.o: prng.c.o
 
 # target to build an object file
 prng.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/prng.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/prng.c.o
 .PHONY : prng.c.o
 
 prng.i: prng.c.i
@@ -2026,7 +2026,7 @@ prng.i: prng.c.i
 
 # target to preprocess a source file
 prng.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/prng.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/prng.c.i
 .PHONY : prng.c.i
 
 prng.s: prng.c.s
@@ -2035,7 +2035,7 @@ prng.s: prng.c.s
 
 # target to generate assembly for a file
 prng.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/prng.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/prng.c.s
 .PHONY : prng.c.s
 
 prof_accum.o: prof_accum.c.o
@@ -2044,7 +2044,7 @@ prof_accum.o: prof_accum.c.o
 
 # target to build an object file
 prof_accum.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/prof_accum.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/prof_accum.c.o
 .PHONY : prof_accum.c.o
 
 prof_accum.i: prof_accum.c.i
@@ -2053,7 +2053,7 @@ prof_accum.i: prof_accum.c.i
 
 # target to preprocess a source file
 prof_accum.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/prof_accum.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/prof_accum.c.i
 .PHONY : prof_accum.c.i
 
 prof_accum.s: prof_accum.c.s
@@ -2062,7 +2062,7 @@ prof_accum.s: prof_accum.c.s
 
 # target to generate assembly for a file
 prof_accum.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/prof_accum.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/prof_accum.c.s
 .PHONY : prof_accum.c.s
 
 prof_active.o: prof_active.c.o
@@ -2071,7 +2071,7 @@ prof_active.o: prof_active.c.o
 
 # target to build an object file
 prof_active.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/prof_active.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/prof_active.c.o
 .PHONY : prof_active.c.o
 
 prof_active.i: prof_active.c.i
@@ -2080,7 +2080,7 @@ prof_active.i: prof_active.c.i
 
 # target to preprocess a source file
 prof_active.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/prof_active.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/prof_active.c.i
 .PHONY : prof_active.c.i
 
 prof_active.s: prof_active.c.s
@@ -2089,7 +2089,7 @@ prof_active.s: prof_active.c.s
 
 # target to generate assembly for a file
 prof_active.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/prof_active.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/prof_active.c.s
 .PHONY : prof_active.c.s
 
 prof_gdump.o: prof_gdump.c.o
@@ -2098,7 +2098,7 @@ prof_gdump.o: prof_gdump.c.o
 
 # target to build an object file
 prof_gdump.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/prof_gdump.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/prof_gdump.c.o
 .PHONY : prof_gdump.c.o
 
 prof_gdump.i: prof_gdump.c.i
@@ -2107,7 +2107,7 @@ prof_gdump.i: prof_gdump.c.i
 
 # target to preprocess a source file
 prof_gdump.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/prof_gdump.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/prof_gdump.c.i
 .PHONY : prof_gdump.c.i
 
 prof_gdump.s: prof_gdump.c.s
@@ -2116,7 +2116,7 @@ prof_gdump.s: prof_gdump.c.s
 
 # target to generate assembly for a file
 prof_gdump.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/prof_gdump.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/prof_gdump.c.s
 .PHONY : prof_gdump.c.s
 
 prof_idump.o: prof_idump.c.o
@@ -2125,7 +2125,7 @@ prof_idump.o: prof_idump.c.o
 
 # target to build an object file
 prof_idump.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/prof_idump.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/prof_idump.c.o
 .PHONY : prof_idump.c.o
 
 prof_idump.i: prof_idump.c.i
@@ -2134,7 +2134,7 @@ prof_idump.i: prof_idump.c.i
 
 # target to preprocess a source file
 prof_idump.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/prof_idump.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/prof_idump.c.i
 .PHONY : prof_idump.c.i
 
 prof_idump.s: prof_idump.c.s
@@ -2143,7 +2143,7 @@ prof_idump.s: prof_idump.c.s
 
 # target to generate assembly for a file
 prof_idump.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/prof_idump.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/prof_idump.c.s
 .PHONY : prof_idump.c.s
 
 prof_log.o: prof_log.c.o
@@ -2152,7 +2152,7 @@ prof_log.o: prof_log.c.o
 
 # target to build an object file
 prof_log.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/prof_log.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/prof_log.c.o
 .PHONY : prof_log.c.o
 
 prof_log.i: prof_log.c.i
@@ -2161,7 +2161,7 @@ prof_log.i: prof_log.c.i
 
 # target to preprocess a source file
 prof_log.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/prof_log.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/prof_log.c.i
 .PHONY : prof_log.c.i
 
 prof_log.s: prof_log.c.s
@@ -2170,7 +2170,7 @@ prof_log.s: prof_log.c.s
 
 # target to generate assembly for a file
 prof_log.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/prof_log.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/prof_log.c.s
 .PHONY : prof_log.c.s
 
 prof_reset.o: prof_reset.c.o
@@ -2179,7 +2179,7 @@ prof_reset.o: prof_reset.c.o
 
 # target to build an object file
 prof_reset.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/prof_reset.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/prof_reset.c.o
 .PHONY : prof_reset.c.o
 
 prof_reset.i: prof_reset.c.i
@@ -2188,7 +2188,7 @@ prof_reset.i: prof_reset.c.i
 
 # target to preprocess a source file
 prof_reset.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/prof_reset.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/prof_reset.c.i
 .PHONY : prof_reset.c.i
 
 prof_reset.s: prof_reset.c.s
@@ -2197,7 +2197,7 @@ prof_reset.s: prof_reset.c.s
 
 # target to generate assembly for a file
 prof_reset.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/prof_reset.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/prof_reset.c.s
 .PHONY : prof_reset.c.s
 
 prof_tctx.o: prof_tctx.c.o
@@ -2206,7 +2206,7 @@ prof_tctx.o: prof_tctx.c.o
 
 # target to build an object file
 prof_tctx.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/prof_tctx.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/prof_tctx.c.o
 .PHONY : prof_tctx.c.o
 
 prof_tctx.i: prof_tctx.c.i
@@ -2215,7 +2215,7 @@ prof_tctx.i: prof_tctx.c.i
 
 # target to preprocess a source file
 prof_tctx.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/prof_tctx.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/prof_tctx.c.i
 .PHONY : prof_tctx.c.i
 
 prof_tctx.s: prof_tctx.c.s
@@ -2224,7 +2224,7 @@ prof_tctx.s: prof_tctx.c.s
 
 # target to generate assembly for a file
 prof_tctx.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/prof_tctx.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/prof_tctx.c.s
 .PHONY : prof_tctx.c.s
 
 prof_thread_name.o: prof_thread_name.c.o
@@ -2233,7 +2233,7 @@ prof_thread_name.o: prof_thread_name.c.o
 
 # target to build an object file
 prof_thread_name.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/prof_thread_name.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/prof_thread_name.c.o
 .PHONY : prof_thread_name.c.o
 
 prof_thread_name.i: prof_thread_name.c.i
@@ -2242,7 +2242,7 @@ prof_thread_name.i: prof_thread_name.c.i
 
 # target to preprocess a source file
 prof_thread_name.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/prof_thread_name.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/prof_thread_name.c.i
 .PHONY : prof_thread_name.c.i
 
 prof_thread_name.s: prof_thread_name.c.s
@@ -2251,7 +2251,7 @@ prof_thread_name.s: prof_thread_name.c.s
 
 # target to generate assembly for a file
 prof_thread_name.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/prof_thread_name.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/prof_thread_name.c.s
 .PHONY : prof_thread_name.c.s
 
 ql.o: ql.c.o
@@ -2260,7 +2260,7 @@ ql.o: ql.c.o
 
 # target to build an object file
 ql.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/ql.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/ql.c.o
 .PHONY : ql.c.o
 
 ql.i: ql.c.i
@@ -2269,7 +2269,7 @@ ql.i: ql.c.i
 
 # target to preprocess a source file
 ql.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/ql.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/ql.c.i
 .PHONY : ql.c.i
 
 ql.s: ql.c.s
@@ -2278,7 +2278,7 @@ ql.s: ql.c.s
 
 # target to generate assembly for a file
 ql.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/ql.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/ql.c.s
 .PHONY : ql.c.s
 
 qr.o: qr.c.o
@@ -2287,7 +2287,7 @@ qr.o: qr.c.o
 
 # target to build an object file
 qr.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/qr.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/qr.c.o
 .PHONY : qr.c.o
 
 qr.i: qr.c.i
@@ -2296,7 +2296,7 @@ qr.i: qr.c.i
 
 # target to preprocess a source file
 qr.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/qr.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/qr.c.i
 .PHONY : qr.c.i
 
 qr.s: qr.c.s
@@ -2305,7 +2305,7 @@ qr.s: qr.c.s
 
 # target to generate assembly for a file
 qr.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/qr.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/qr.c.s
 .PHONY : qr.c.s
 
 rb.o: rb.c.o
@@ -2314,7 +2314,7 @@ rb.o: rb.c.o
 
 # target to build an object file
 rb.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rb.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rb.c.o
 .PHONY : rb.c.o
 
 rb.i: rb.c.i
@@ -2323,7 +2323,7 @@ rb.i: rb.c.i
 
 # target to preprocess a source file
 rb.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rb.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rb.c.i
 .PHONY : rb.c.i
 
 rb.s: rb.c.s
@@ -2332,7 +2332,7 @@ rb.s: rb.c.s
 
 # target to generate assembly for a file
 rb.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rb.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/rb.c.s
 .PHONY : rb.c.s
 
 retained.o: retained.c.o
@@ -2341,7 +2341,7 @@ retained.o: retained.c.o
 
 # target to build an object file
 retained.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/retained.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/retained.c.o
 .PHONY : retained.c.o
 
 retained.i: retained.c.i
@@ -2350,7 +2350,7 @@ retained.i: retained.c.i
 
 # target to preprocess a source file
 retained.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/retained.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/retained.c.i
 .PHONY : retained.c.i
 
 retained.s: retained.c.s
@@ -2359,7 +2359,7 @@ retained.s: retained.c.s
 
 # target to generate assembly for a file
 retained.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/retained.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/retained.c.s
 .PHONY : retained.c.s
 
 rtree.o: rtree.c.o
@@ -2368,7 +2368,7 @@ rtree.o: rtree.c.o
 
 # target to build an object file
 rtree.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rtree.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rtree.c.o
 .PHONY : rtree.c.o
 
 rtree.i: rtree.c.i
@@ -2377,7 +2377,7 @@ rtree.i: rtree.c.i
 
 # target to preprocess a source file
 rtree.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rtree.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rtree.c.i
 .PHONY : rtree.c.i
 
 rtree.s: rtree.c.s
@@ -2386,7 +2386,7 @@ rtree.s: rtree.c.s
 
 # target to generate assembly for a file
 rtree.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rtree.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/rtree.c.s
 .PHONY : rtree.c.s
 
 sc.o: sc.c.o
@@ -2395,7 +2395,7 @@ sc.o: sc.c.o
 
 # target to build an object file
 sc.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/sc.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/sc.c.o
 .PHONY : sc.c.o
 
 sc.i: sc.c.i
@@ -2404,7 +2404,7 @@ sc.i: sc.c.i
 
 # target to preprocess a source file
 sc.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/sc.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/sc.c.i
 .PHONY : sc.c.i
 
 sc.s: sc.c.s
@@ -2413,7 +2413,7 @@ sc.s: sc.c.s
 
 # target to generate assembly for a file
 sc.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/sc.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/sc.c.s
 .PHONY : sc.c.s
 
 seq.o: seq.c.o
@@ -2422,7 +2422,7 @@ seq.o: seq.c.o
 
 # target to build an object file
 seq.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/seq.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/seq.c.o
 .PHONY : seq.c.o
 
 seq.i: seq.c.i
@@ -2431,7 +2431,7 @@ seq.i: seq.c.i
 
 # target to preprocess a source file
 seq.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/seq.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/seq.c.i
 .PHONY : seq.c.i
 
 seq.s: seq.c.s
@@ -2440,7 +2440,7 @@ seq.s: seq.c.s
 
 # target to generate assembly for a file
 seq.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/seq.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/seq.c.s
 .PHONY : seq.c.s
 
 size_classes.o: size_classes.c.o
@@ -2449,7 +2449,7 @@ size_classes.o: size_classes.c.o
 
 # target to build an object file
 size_classes.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/size_classes.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/size_classes.c.o
 .PHONY : size_classes.c.o
 
 size_classes.i: size_classes.c.i
@@ -2458,7 +2458,7 @@ size_classes.i: size_classes.c.i
 
 # target to preprocess a source file
 size_classes.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/size_classes.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/size_classes.c.i
 .PHONY : size_classes.c.i
 
 size_classes.s: size_classes.c.s
@@ -2467,7 +2467,7 @@ size_classes.s: size_classes.c.s
 
 # target to generate assembly for a file
 size_classes.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/size_classes.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-size_classes.dir/size_classes.c.s
 .PHONY : size_classes.c.s
 
 slab.o: slab.c.o
@@ -2476,7 +2476,7 @@ slab.o: slab.c.o
 
 # target to build an object file
 slab.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/slab.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/slab.c.o
 .PHONY : slab.c.o
 
 slab.i: slab.c.i
@@ -2485,7 +2485,7 @@ slab.i: slab.c.i
 
 # target to preprocess a source file
 slab.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/slab.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/slab.c.i
 .PHONY : slab.c.i
 
 slab.s: slab.c.s
@@ -2494,7 +2494,7 @@ slab.s: slab.c.s
 
 # target to generate assembly for a file
 slab.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/slab.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-slab.dir/slab.c.s
 .PHONY : slab.c.s
 
 smoothstep.o: smoothstep.c.o
@@ -2503,7 +2503,7 @@ smoothstep.o: smoothstep.c.o
 
 # target to build an object file
 smoothstep.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/smoothstep.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/smoothstep.c.o
 .PHONY : smoothstep.c.o
 
 smoothstep.i: smoothstep.c.i
@@ -2512,7 +2512,7 @@ smoothstep.i: smoothstep.c.i
 
 # target to preprocess a source file
 smoothstep.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/smoothstep.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/smoothstep.c.i
 .PHONY : smoothstep.c.i
 
 smoothstep.s: smoothstep.c.s
@@ -2521,7 +2521,7 @@ smoothstep.s: smoothstep.c.s
 
 # target to generate assembly for a file
 smoothstep.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/smoothstep.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-smoothstep.dir/smoothstep.c.s
 .PHONY : smoothstep.c.s
 
 spin.o: spin.c.o
@@ -2530,7 +2530,7 @@ spin.o: spin.c.o
 
 # target to build an object file
 spin.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/spin.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/spin.c.o
 .PHONY : spin.c.o
 
 spin.i: spin.c.i
@@ -2539,7 +2539,7 @@ spin.i: spin.c.i
 
 # target to preprocess a source file
 spin.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/spin.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/spin.c.i
 .PHONY : spin.c.i
 
 spin.s: spin.c.s
@@ -2548,7 +2548,7 @@ spin.s: spin.c.s
 
 # target to generate assembly for a file
 spin.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/spin.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/spin.c.s
 .PHONY : spin.c.s
 
 stats.o: stats.c.o
@@ -2557,7 +2557,7 @@ stats.o: stats.c.o
 
 # target to build an object file
 stats.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/stats.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/stats.c.o
 .PHONY : stats.c.o
 
 stats.i: stats.c.i
@@ -2566,7 +2566,7 @@ stats.i: stats.c.i
 
 # target to preprocess a source file
 stats.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/stats.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/stats.c.i
 .PHONY : stats.c.i
 
 stats.s: stats.c.s
@@ -2575,7 +2575,7 @@ stats.s: stats.c.s
 
 # target to generate assembly for a file
 stats.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/stats.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/stats.c.s
 .PHONY : stats.c.s
 
 stats_print.o: stats_print.c.o
@@ -2584,7 +2584,7 @@ stats_print.o: stats_print.c.o
 
 # target to build an object file
 stats_print.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/stats_print.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/stats_print.c.o
 .PHONY : stats_print.c.o
 
 stats_print.i: stats_print.c.i
@@ -2593,7 +2593,7 @@ stats_print.i: stats_print.c.i
 
 # target to preprocess a source file
 stats_print.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/stats_print.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/stats_print.c.i
 .PHONY : stats_print.c.i
 
 stats_print.s: stats_print.c.s
@@ -2602,7 +2602,7 @@ stats_print.s: stats_print.c.s
 
 # target to generate assembly for a file
 stats_print.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/stats_print.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/stats_print.c.s
 .PHONY : stats_print.c.s
 
 test_hooks.o: test_hooks.c.o
@@ -2611,7 +2611,7 @@ test_hooks.o: test_hooks.c.o
 
 # target to build an object file
 test_hooks.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/test_hooks.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/test_hooks.c.o
 .PHONY : test_hooks.c.o
 
 test_hooks.i: test_hooks.c.i
@@ -2620,7 +2620,7 @@ test_hooks.i: test_hooks.c.i
 
 # target to preprocess a source file
 test_hooks.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/test_hooks.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/test_hooks.c.i
 .PHONY : test_hooks.c.i
 
 test_hooks.s: test_hooks.c.s
@@ -2629,7 +2629,7 @@ test_hooks.s: test_hooks.c.s
 
 # target to generate assembly for a file
 test_hooks.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/test_hooks.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/test_hooks.c.s
 .PHONY : test_hooks.c.s
 
 ticker.o: ticker.c.o
@@ -2638,7 +2638,7 @@ ticker.o: ticker.c.o
 
 # target to build an object file
 ticker.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/ticker.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/ticker.c.o
 .PHONY : ticker.c.o
 
 ticker.i: ticker.c.i
@@ -2647,7 +2647,7 @@ ticker.i: ticker.c.i
 
 # target to preprocess a source file
 ticker.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/ticker.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/ticker.c.i
 .PHONY : ticker.c.i
 
 ticker.s: ticker.c.s
@@ -2656,7 +2656,7 @@ ticker.s: ticker.c.s
 
 # target to generate assembly for a file
 ticker.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/ticker.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ticker.dir/ticker.c.s
 .PHONY : ticker.c.s
 
 tsd.o: tsd.c.o
@@ -2665,7 +2665,7 @@ tsd.o: tsd.c.o
 
 # target to build an object file
 tsd.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/tsd.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/tsd.c.o
 .PHONY : tsd.c.o
 
 tsd.i: tsd.c.i
@@ -2674,7 +2674,7 @@ tsd.i: tsd.c.i
 
 # target to preprocess a source file
 tsd.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/tsd.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/tsd.c.i
 .PHONY : tsd.c.i
 
 tsd.s: tsd.c.s
@@ -2683,7 +2683,7 @@ tsd.s: tsd.c.s
 
 # target to generate assembly for a file
 tsd.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/tsd.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-tsd.dir/tsd.c.s
 .PHONY : tsd.c.s
 
 witness.o: witness.c.o
@@ -2692,7 +2692,7 @@ witness.o: witness.c.o
 
 # target to build an object file
 witness.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/witness.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/witness.c.o
 .PHONY : witness.c.o
 
 witness.i: witness.c.i
@@ -2701,7 +2701,7 @@ witness.i: witness.c.i
 
 # target to preprocess a source file
 witness.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/witness.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/witness.c.i
 .PHONY : witness.c.i
 
 witness.s: witness.c.s
@@ -2710,7 +2710,7 @@ witness.s: witness.c.s
 
 # target to generate assembly for a file
 witness.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/witness.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-witness.dir/witness.c.s
 .PHONY : witness.c.s
 
 zero.o: zero.c.o
@@ -2719,7 +2719,7 @@ zero.o: zero.c.o
 
 # target to build an object file
 zero.c.o:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/zero.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/zero.c.o
 .PHONY : zero.c.o
 
 zero.i: zero.c.i
@@ -2728,7 +2728,7 @@ zero.i: zero.c.i
 
 # target to preprocess a source file
 zero.c.i:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/zero.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/zero.c.i
 .PHONY : zero.c.i
 
 zero.s: zero.c.s
@@ -2737,7 +2737,7 @@ zero.s: zero.c.s
 
 # target to generate assembly for a file
 zero.c.s:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/zero.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/zero.c.s
 .PHONY : zero.c.s
 
 # Help Target
@@ -2748,73 +2748,73 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... rebuild_cache"
-	@echo "... edit_cache"
-	@echo "... package_source"
-	@echo "... jemalloc-test-zero"
+	@echo "... install"
+	@echo "... list_install_components"
+	@echo "... package"
 	@echo "... jemalloc-test-witness"
 	@echo "... jemalloc-test-tsd"
 	@echo "... jemalloc-test-ticker"
-	@echo "... jemalloc-test-test_hooks"
 	@echo "... jemalloc-test-stats_print"
+	@echo "... jemalloc-test-spin"
 	@echo "... jemalloc-test-smoothstep"
 	@echo "... jemalloc-test-slab"
 	@echo "... jemalloc-test-size_classes"
-	@echo "... install"
-	@echo "... jemalloc-test-rtree"
-	@echo "... jemalloc-test-prof_reset"
-	@echo "... jemalloc-test-qr"
-	@echo "... jemalloc-test-prof_accum"
-	@echo "... jemalloc-test-prng"
-	@echo "... jemalloc-test-stats"
-	@echo "... jemalloc-test-mtx"
-	@echo "... jemalloc-test-mq"
-	@echo "... jemalloc-test-math"
-	@echo "... jemalloc-test-ql"
-	@echo "... package"
-	@echo "... jemalloc-test-prof_gdump"
-	@echo "... jemalloc-test-malloc_io"
-	@echo "... jemalloc-test-mallctl"
-	@echo "... jemalloc-test-junk_free"
-	@echo "... jemalloc-test-spin"
-	@echo "... jemalloc-test-retained"
-	@echo "... jemalloc-test-prof_active"
-	@echo "... jemalloc-test-junk_alloc"
-	@echo "... jemalloc-test-bitmap"
+	@echo "... jemalloc-test-seq"
+	@echo "... jemalloc-test-sc"
 	@echo "... jemalloc-test-junk"
-	@echo "... jemalloc-test-rb"
-	@echo "... jemalloc-test-arena_reset"
-	@echo "... jemalloc-test-nstime"
-	@echo "... jemalloc-test-huge"
-	@echo "... jemalloc-test-prof_tctx"
-	@echo "... jemalloc-test-background_thread"
-	@echo "... jemalloc-test-decay"
-	@echo "... jemalloc-test-hook"
-	@echo "... jemalloc-test-background_thread_enable"
-	@echo "... jemalloc-test-prof_log"
-	@echo "... jemalloc-test-atomic"
-	@echo "... jemalloc-test-pages"
-	@echo "... jemalloc-test-fork"
-	@echo "... jemalloc-test-prof_idump"
+	@echo "... jemalloc-test-retained"
 	@echo "... jemalloc-test-binshard"
+	@echo "... edit_cache"
+	@echo "... jemalloc-test-prof_reset"
+	@echo "... jemalloc-test-extent_quantize"
+	@echo "... jemalloc-test-rtree"
+	@echo "... jemalloc-test-nstime"
+	@echo "... package_source"
+	@echo "... jemalloc-test-rb"
+	@echo "... jemalloc-test-emitter"
+	@echo "... jemalloc-test-malloc_io"
+	@echo "... jemalloc-test-div"
+	@echo "... jemalloc-test-decay"
+	@echo "... jemalloc-test-junk_free"
+	@echo "... jemalloc-test-math"
+	@echo "... jemalloc-test-base"
+	@echo "... jemalloc-test-ckh"
+	@echo "... jemalloc-test-bitmap"
+	@echo "... rebuild_cache"
+	@echo "... jemalloc-test-a0"
+	@echo "... jemalloc-test-arena_reset"
 	@echo "... jemalloc-test-extent_util"
 	@echo "... jemalloc-test-arena_reset_prof"
-	@echo "... jemalloc-test-extent_quantize"
-	@echo "... jemalloc-test-ckh"
-	@echo "... jemalloc-test-ph"
-	@echo "... jemalloc-test-seq"
-	@echo "... jemalloc-test-div"
-	@echo "... jemalloc-test-emitter"
-	@echo "... list_install_components"
+	@echo "... jemalloc-test-pages"
+	@echo "... jemalloc-test-ql"
+	@echo "... jemalloc-test-atomic"
+	@echo "... jemalloc-test-hook"
 	@echo "... jemalloc-test-bit_util"
-	@echo "... jemalloc-test-log"
-	@echo "... jemalloc-test-sc"
-	@echo "... jemalloc-test-pack"
-	@echo "... jemalloc-test-prof_thread_name"
-	@echo "... jemalloc-test-base"
+	@echo "... jemalloc-test-mallctl"
 	@echo "... jemalloc-test-hash"
-	@echo "... jemalloc-test-a0"
+	@echo "... jemalloc-test-ph"
+	@echo "... jemalloc-test-huge"
+	@echo "... jemalloc-test-mq"
+	@echo "... jemalloc-test-prof_idump"
+	@echo "... jemalloc-test-zero"
+	@echo "... jemalloc-test-background_thread"
+	@echo "... jemalloc-test-mtx"
 	@echo "... jemalloc-test-SFMT"
+	@echo "... jemalloc-test-pack"
+	@echo "... jemalloc-test-prng"
+	@echo "... jemalloc-test-junk_alloc"
+	@echo "... jemalloc-test-background_thread_enable"
+	@echo "... jemalloc-test-prof_accum"
+	@echo "... jemalloc-test-prof_active"
+	@echo "... jemalloc-test-stats"
+	@echo "... jemalloc-test-prof_gdump"
+	@echo "... jemalloc-test-fork"
+	@echo "... jemalloc-test-prof_log"
+	@echo "... jemalloc-test-prof_tctx"
+	@echo "... jemalloc-test-log"
+	@echo "... jemalloc-test-prof_thread_name"
+	@echo "... jemalloc-test-test_hooks"
+	@echo "... jemalloc-test-qr"
 	@echo "... SFMT.o"
 	@echo "... SFMT.i"
 	@echo "... SFMT.s"
@@ -3009,6 +3009,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/dima/Desktop/Blackbird2/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
