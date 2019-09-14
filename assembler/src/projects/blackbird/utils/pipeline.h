@@ -373,9 +373,11 @@ private:
             return;
         }
         std::unordered_map<std::string, int> barcodes_count;
+        std::vector<std::string> barcodes_count_over_threshold_v;
         std::set<std::string> barcodes_count_over_threshold;
+
         const int threshold = 4;
-//        const int number_of_barcodes_to_assemble = 200;
+        const int number_of_barcodes_to_assemble = 200;
         while(reader.GetNextAlignment(alignment)) {
             if (alignment.IsPrimaryAlignment() && IsGoodAlignment(alignment)) {
                 std::string bx = "";
@@ -384,14 +386,15 @@ private:
                     continue;
                 }
                 if (++barcodes_count[bx] > threshold) {
-                    barcodes_count_over_threshold.insert(bx);
-//                    if (barcodes_count_over_threshold.size() == number_of_barcodes_to_assemble) {
-//                        break;
-//                    }
+                    barcodes_count_over_threshold_v.push_back(bx);
                 }
             }
         }
-//        DEBUG("Taking first " << number_of_barcodes_to_assemble << " barcodes");
+        std::random_shuffle(barcodes_count_over_threshold_v.begin(), barcodes_count_over_threshold_v.end());
+        DEBUG("Taking first " << number_of_barcodes_to_assemble << " barcodes");
+        for (int i = 0; i < number_of_barcodes_to_assemble; ++i) {
+            barcodes_count_over_threshold.insert(barcodes_count_over_threshold_v[i]);
+        }
         reader.SetRegion(region);
         std::string temp_dir = OptionBase::output_folder + "/" + refid_to_ref_name_[region.RightRefID] + "_" + std::to_string(region.LeftPosition) + "_" + std::to_string(region.RightPosition);
         fs::make_dir(temp_dir);
