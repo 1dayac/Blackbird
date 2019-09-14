@@ -373,7 +373,7 @@ private:
             return;
         }
         std::unordered_map<std::string, int> barcodes_count;
-        std::vector<std::string> barcodes_count_over_threshold_v;
+        std::set<std::string> barcodes_count_over_threshold_prelim;
         std::set<std::string> barcodes_count_over_threshold;
 
         const int threshold = 4;
@@ -386,13 +386,15 @@ private:
                     continue;
                 }
                 if (++barcodes_count[bx] > threshold) {
-                    barcodes_count_over_threshold_v.push_back(bx);
+                    barcodes_count_over_threshold_prelim.insert(bx);
                 }
             }
         }
+        std::vector<std::string> barcodes_count_over_threshold_v(barcodes_count_over_threshold_prelim.begin(),
+                                                                 barcodes_count_over_threshold_prelim.end());
         std::random_shuffle(barcodes_count_over_threshold_v.begin(), barcodes_count_over_threshold_v.end());
         DEBUG("Taking first " << number_of_barcodes_to_assemble << " barcodes");
-        for (int i = 0; i < number_of_barcodes_to_assemble; ++i) {
+        for (int i = 0; i < number_of_barcodes_to_assemble && i < barcodes_count_over_threshold_v.size(); ++i) {
             barcodes_count_over_threshold.insert(barcodes_count_over_threshold_v[i]);
         }
         reader.SetRegion(region);
