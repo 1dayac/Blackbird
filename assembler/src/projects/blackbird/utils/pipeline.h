@@ -454,7 +454,7 @@ private:
         }
         std::string spades_command = OptionBase::path_to_spades + " --cov-cutoff 5 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
         std::system(spades_command.c_str());
-        RunAndProcessMinimap(temp_dir + "/assembly/K77/before_rr.fasta", reference_map_[refid_to_ref_name_[region.RightRefID]].substr(region.LeftPosition, region.RightPosition - region.LeftPosition), window.RefName.RefName, region.LeftPosition);
+        RunAndProcessMinimap(temp_dir + "/assembly/scaffolds.fasta", reference_map_[refid_to_ref_name_[region.RightRefID]].substr(region.LeftPosition, region.RightPosition - region.LeftPosition), window.RefName.RefName, region.LeftPosition);
         fs::remove_dir(temp_dir.c_str());
     }
 
@@ -515,16 +515,20 @@ private:
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
                             Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4));
-                            if (ins.Size() >= 50) {
-                                #pragma omp critical
-                                {
-                                    vector_of_ins_.push_back(ins);
+                            std::string ins_seq = query.substr(query_start, r->p->cigar[i]>>4);
+                            if (ins_seq.find("N") != std::string::npos) {
+                                if (ins.Size() >= 50) {
+                                    #pragma omp critical
+                                    {
+                                        vector_of_ins_.push_back(ins);
+                                    }
+                                } else {
+                                    #pragma omp critical
+                                    {
+                                        vector_of_small_ins_.push_back(ins);
+                                    }
                                 }
-                            } else {
-                                #pragma omp critical
-                                {
-                                    vector_of_small_ins_.push_back(ins);
-                                }
+
                             }
 
                             query_start += r->p->cigar[i]>>4;
@@ -558,19 +562,37 @@ private:
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
 
                             Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
-                            if (ins.Size() >= 50) {
-                                vector_of_ins_.push_back(ins);
+                            std::string ins_seq = ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4);
+                            if (ins_seq.find("N") != std::string::npos) {
+
+                                if (ins.Size() >= 50) {
+                                    #pragma omp critical
+                                    {
+                                        vector_of_ins_.push_back(ins);
+                                    }
                             } else {
-                                vector_of_small_ins_.push_back(ins);
+                                    #pragma omp critical
+                                    {
+                                        vector_of_small_ins_.push_back(ins);
+                                    }
+                            }
                             }
                             query_start += r->p->cigar[i]>>4;
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
                             if (del.Size() >= 50) {
-                                vector_of_del_.push_back(del);
+                                #pragma omp critical
+                                {
+
+                                    vector_of_del_.push_back(del);
+                                }
                             } else {
-                                vector_of_small_del_.push_back(del);
+                                #pragma omp critical
+                                {
+
+                                    vector_of_small_del_.push_back(del);
+                                }
                             }
                             reference_start += r->p->cigar[i]>>4;
                         }
