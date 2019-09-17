@@ -521,7 +521,7 @@ private:
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
                             Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4));
                             std::string ins_seq = query.substr(query_start, r->p->cigar[i]>>4);
-                            if (ins_seq.find("N") != std::string::npos) {
+                            if (ins_seq.find("N") == std::string::npos) {
                                 if (ins.Size() >= 50) {
                                     #pragma omp critical
                                     {
@@ -568,7 +568,7 @@ private:
 
                             Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
                             std::string ins_seq = ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4);
-                            if (ins_seq.find("N") != std::string::npos) {
+                            if (ins_seq.find("N") == std::string::npos) {
 
                                 if (ins.Size() >= 50) {
                                     #pragma omp critical
