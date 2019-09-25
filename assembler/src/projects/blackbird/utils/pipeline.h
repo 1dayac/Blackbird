@@ -271,32 +271,31 @@ public:
 
         //BamTools::BamRegion target_region(reader.GetReferenceID("chr1"), 0, reader.GetReferenceID("chr1"), 300000000);
         INFO("Create reference windows");
-        std::vector<std::vector<RefWindow>> reference_windows;
-        reference_windows.resize(OptionBase::threads);
-        int number_of_windows = 0;
-        for (auto reference : ref_data) {
-            //if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
-            //    continue;
-            //}
-            if (!IsGoodRef(reference.RefName) || !reference_map_.count(reference.RefName)) {
-                continue;
-            }
-            int window_width = 50000;
-            int overlap = 10000;
-            for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
-                //if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr1") {
-                //    continue;
-                //}
-                RefWindow r(reference.RefName, start_pos, start_pos + window_width);
-                reference_windows[number_of_windows % OptionBase::threads].push_back(r);
-                ++number_of_windows;
-            }
-        }
-        INFO(number_of_windows << " totally created.");
 
-#pragma omp parallel for num_threads(OptionBase::threads)
+
+        std::vector<RefWindow> reference_windows;
+        CreateReferenceWindows(reference_windows, ref_data);
+
+        std::vector<BamTools::BamReader> readers(OptionBase::threads);
+        std::vector<BamTools::BamReader> mate_readers(OptionBase::threads);
+        for (auto &r : readers) {
+            r.Open(OptionBase::bam.c_str());
+            if (r.OpenIndex((OptionBase::bam + ".bai").c_str())) {
+                INFO("Index located at " << OptionBase::bam << ".bai");
+            } else {
+                FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
+            }
+
+        }
+
+        for (auto &r : mate_readers) {
+            r.Open(OptionBase::bam.c_str());
+            r.OpenIndex((OptionBase::bam + ".bai").c_str())
+        }
+
+#pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
         for (int i = 0; i < reference_windows.size(); ++i) {
-            ProcessWindows(reference_windows[omp_get_thread_num()]);
+            ProcessWindow(reference_windows[i], readers[omp_get_thread_num()], mate_readers[omp_get_thread_num()]);
             INFO(i << " " << omp_get_thread_num());
         }
 
@@ -363,6 +362,30 @@ private:
                 }
             }
         }
+    }
+
+
+    void CreateReferenceWindows(std::vector<RefWindow> &reference_windows, BamTools::RefVector& ref_data) {
+        int number_of_windows = 0;
+        for (auto reference : ref_data) {
+            //if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
+            //    continue;
+            //}
+            if (!IsGoodRef(reference.RefName) || !reference_map_.count(reference.RefName)) {
+                continue;
+            }
+            int window_width = 50000;
+            int overlap = 10000;
+            for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
+                //if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr1") {
+                //    continue;
+                //}
+                RefWindow r(reference.RefName, start_pos, start_pos + window_width);
+                reference_windows.push_back(r);
+                ++number_of_windows;
+            }
+        }
+        INFO(number_of_windows << " totally created.");
     }
 
     void ProcessWindow(const RefWindow &window,  BamTools::BamReader &reader, BamTools::BamReader &mate_reader) {
@@ -461,24 +484,6 @@ private:
         std::system(spades_command.c_str());
         RunAndProcessMinimap(temp_dir + "/assembly/scaffolds.fasta", reference_map_[refid_to_ref_name_[region.RightRefID]].substr(region.LeftPosition, region.RightPosition - region.LeftPosition), window.RefName.RefName, region.LeftPosition);
         fs::remove_dir(temp_dir.c_str());
-    }
-
-    void ProcessWindows(const std::vector<RefWindow> &windows) {
-
-        BamTools::BamReader reader;
-        BamTools::BamReader mate_reader;
-        reader.Open(OptionBase::bam.c_str());
-        mate_reader.Open(OptionBase::bam.c_str());
-        if (reader.OpenIndex((OptionBase::bam + ".bai").c_str())) {
-            INFO("Index located at " << OptionBase::bam << ".bai");
-        } else {
-            FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
-        }
-        mate_reader.OpenIndex((OptionBase::bam + ".bai").c_str());
-
-        for (auto w : windows) {
-            ProcessWindow(w, reader, mate_reader);
-        }
     }
 
     void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
