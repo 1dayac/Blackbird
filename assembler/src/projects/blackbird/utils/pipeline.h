@@ -367,22 +367,43 @@ private:
 
     void CreateReferenceWindows(std::vector<RefWindow> &reference_windows, BamTools::RefVector& ref_data) {
         int number_of_windows = 0;
-        for (auto reference : ref_data) {
-            //if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
-            //    continue;
-            //}
-            if (!IsGoodRef(reference.RefName) || !reference_map_.count(reference.RefName)) {
-                continue;
-            }
-            int window_width = 50000;
-            int overlap = 10000;
-            for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
-                //if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr1") {
+        int window_width = 50000;
+        int overlap = 10000;
+        if (OptionBase::region_file == "") {
+            for (auto reference : ref_data) {
+                //if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
                 //    continue;
                 //}
-                RefWindow r(reference.RefName, start_pos, start_pos + window_width);
-                reference_windows.push_back(r);
-                ++number_of_windows;
+                if (!IsGoodRef(reference.RefName) || !reference_map_.count(reference.RefName)) {
+                    continue;
+                }
+                for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
+                    //if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr1") {
+                    //    continue;
+                    //}
+                    RefWindow r(reference.RefName, start_pos, start_pos + window_width);
+                    reference_windows.push_back(r);
+                    ++number_of_windows;
+                }
+            }
+        } else {
+            std::ifstream region_file(OptionBase::region_file);
+            while(!region_file.eof()) {
+                std::string line = "";
+                region_file >> line;
+                int first_delim = line.find(" ");
+                int second_delim = line.find(" ", first_delim + 1);
+                std::string chrom = line.substr(0, first_delim);
+                int start = std::atoi(line.substr(first_delim + 1, second_delim - first_delim - 1).c_str());
+                int end = std::atoi(line.substr(second_delim + 1, line.size() - second_delim - 1).c_str());
+                if (!IsGoodRef(chrom) || !reference_map_.count(chrom)) {
+                    continue;
+                }
+                for (int start_pos = start; start_pos < end; start_pos += window_width - overlap) {
+                    RefWindow r(chrom, start_pos, start_pos + window_width);
+                    reference_windows.push_back(r);
+                    ++number_of_windows;
+                }
             }
         }
         INFO(number_of_windows << " totally created.");

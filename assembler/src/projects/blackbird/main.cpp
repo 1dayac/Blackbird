@@ -26,6 +26,7 @@ static const char *BLACKBIRD_USAGE_MESSAGE =
                 "           output_folder  Folder where results will be stored.\n"
                 "           spades         Path to spades.py (not needed if spades.py is in path).\n"
                 "           threads        Number of threads - more the better.\n"
+                "           regions        File with chromosomes and coordinates.\n"
                 "           verbose        Print additional output (for debug purposes).\n"
                 "           help           Print this message.\n"
                 "\nReport bugs to dmm2017@med.cornell.edu \n\n";
@@ -33,10 +34,11 @@ static const char *BLACKBIRD_USAGE_MESSAGE =
 
 
 
-static const char* shortopts = "b:s:r:o:t:hv";
+static const char* shortopts = "b:s:r:o:g:t:hv";
 static const struct option longopts[] = {
         {"bam",        required_argument, 0, 'b' },
         {"reference",  required_argument, 0, 'r' },
+        {"regions",    optional_argument, 0, 'g' },
         {"output",     required_argument, 0, 'o' },
         {"verbose",    no_argument,       0, 'v' },
         {"spades",     optional_argument, 0, 's' },
@@ -54,6 +56,7 @@ bool getOptions(int argc, char **argv) {
         switch (c) {
             case 'b' : arg >> OptionBase::bam; break;
             case 'r' : arg >> OptionBase::reference; break;
+            case 'g' : arg >> OptionBase::region_file; break;
             case 't' : arg >> OptionBase::threads; break;
             case 'o' : arg >> OptionBase::output_folder; break;
             case 's' : arg >> OptionBase::path_to_spades; break;
