@@ -290,7 +290,7 @@ public:
 
         for (auto &r : mate_readers) {
             r.Open(OptionBase::bam.c_str());
-            r.OpenIndex((OptionBase::bam + ".bai").c_str())
+            r.OpenIndex((OptionBase::bam + ".bai").c_str());
         }
 
 #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
