@@ -220,6 +220,7 @@ public:
         io::SingleRead chrom;
         while (!reference_reader.eof()) {
             reference_reader >> chrom;
+            INFO("Adding " << chrom.name() << " to the map");
             reference_map_[chrom.name()] = chrom.GetSequenceString();
         }
 
