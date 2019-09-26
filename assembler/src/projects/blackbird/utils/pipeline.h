@@ -224,8 +224,6 @@ public:
         }
 
 
-        INFO("Filter poorly aligned reads");
-
         BamTools::BamReader reader;
         BamTools::BamReader mate_reader;
 
@@ -241,33 +239,36 @@ public:
 
         //test_minimap();
         //return 0;
+        if (!OptionBase::dont_collect_reads) {
+            BamTools::BamAlignment alignment;
+            size_t alignment_count = 0;
+            size_t alignments_stored = 0;
+            int current_refid = -1;
+            int current_size = 0;
+            INFO("Filter poorly aligned reads");
+            while(reader.GetNextAlignment(alignment)) {
+                std::string bx;
+                VERBOSE_POWER(++alignment_count, " alignments processed");
+                alignment.GetTag("BX", bx);
+                if (bx == "") {
+                    continue;
+                }
+                if (alignment.RefID != current_refid) {
+                    current_refid = alignment.RefID;
+                    DEBUG("Processing chromosome " << refid_to_ref_name_[current_refid]);
+                }
 
-        BamTools::BamAlignment alignment;
-        size_t alignment_count = 0;
-        size_t alignments_stored = 0;
-        int current_refid = -1;
-        int current_size = 0;
-
-        while(reader.GetNextAlignment(alignment)) {
-            std::string bx;
-            VERBOSE_POWER(++alignment_count, " alignments processed");
-            alignment.GetTag("BX", bx);
-            if (bx == "") {
-                continue;
+                if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
+                    map_of_bad_reads_[bx].push_back(io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::PhredOffset));
+                    VERBOSE_POWER(++alignments_stored, " alignments stored");
+                }
             }
-            if (alignment.RefID != current_refid) {
-                current_refid = alignment.RefID;
-                DEBUG("Processing chromosome " << refid_to_ref_name_[current_refid]);
-            }
-
-            if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
-                map_of_bad_reads_[bx].push_back(io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::PhredOffset));
-                VERBOSE_POWER(++alignments_stored, " alignments stored");
-            }
+            INFO("Total " << alignment_count << " alignments processed");
+            INFO("Total " << alignments_stored << " alignments stored");
+            reader.Close();
+        } else {
+            INFO("Read collection is disabled. Use for debug purposes only!");
         }
-        INFO("Total " << alignment_count << " alignments processed");
-        INFO("Total " << alignments_stored << " alignments stored");
-        reader.Close();
 
         //BamTools::BamRegion target_region(reader.GetReferenceID("chr1"), 0, reader.GetReferenceID("chr1"), 300000000);
         INFO("Create reference windows");

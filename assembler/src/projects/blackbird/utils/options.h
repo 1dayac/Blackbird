@@ -12,6 +12,7 @@ public:
     static std::string reference; // file with list of tags to be extracted
     static std::string region_file; // call regions from file
     static std::string output_folder;
+    static bool dont_collect_reads;
     static int threads;
     static bool verbose;
     static std::string path_to_spades;

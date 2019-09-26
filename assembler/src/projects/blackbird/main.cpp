@@ -34,13 +34,14 @@ static const char *BLACKBIRD_USAGE_MESSAGE =
 
 
 
-static const char* shortopts = "b:s:r:o:g:t:hv";
+static const char* shortopts = "b:s:r:o:g:t:hvn";
 static const struct option longopts[] = {
         {"bam",        required_argument, 0, 'b' },
         {"reference",  required_argument, 0, 'r' },
         {"regions",    optional_argument, 0, 'g' },
         {"output",     required_argument, 0, 'o' },
         {"verbose",    no_argument,       0, 'v' },
+        {"no-collect", no_argument,       0, 'n' },
         {"spades",     optional_argument, 0, 's' },
         {"threads",    optional_argument, 0, 't' },
         {"help",       no_argument,       0, 'h' },
@@ -61,6 +62,7 @@ bool getOptions(int argc, char **argv) {
             case 'o' : arg >> OptionBase::output_folder; break;
             case 's' : arg >> OptionBase::path_to_spades; break;
             case 'v' : OptionBase::verbose = true; break;
+            case 'n' : OptionBase::dont_collect_reads = true; break;
             case 'h' : help = true; break;
         }
     }
