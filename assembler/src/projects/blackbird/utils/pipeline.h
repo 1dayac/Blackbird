@@ -395,7 +395,7 @@ private:
                 int start = 0;
                 int end = 0;
                 region_file >> chrom >> start >> end;
-                end = std::min(end, reference_map_[chrom].size());
+                end = std::min<unsigned long>(end, reference_map_[chrom].size());
                 INFO("Chromosome " << chrom << ":" << start << "-" << end);
                 if (!IsGoodRef(chrom) || !reference_map_.count(chrom)) {
                     continue;
