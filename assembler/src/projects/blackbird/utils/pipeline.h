@@ -391,16 +391,11 @@ private:
         } else {
             std::ifstream region_file(OptionBase::region_file);
             while(!region_file.eof()) {
-                std::string line = "";
-                region_file >> line;
-                int first_delim = line.find(" ");
-                int second_delim = line.find(" ", first_delim + 1);
-                std::string chrom = line.substr(0, first_delim);
-                INFO("Chromosome " << chrom);
-                int start = std::atoi(line.substr(first_delim + 1, second_delim - first_delim - 1).c_str());
-                int end = std::atoi(line.substr(second_delim + 1, line.size() - second_delim - 1).c_str());
+                std::string chrom = "";
+                int start = 0;
+                int end = 0;
+                region_file >> chrom >> start >> end;
                 INFO("Chromosome " << chrom << ":" << start << "-" << end);
-
                 if (!IsGoodRef(chrom) || !reference_map_.count(chrom)) {
                     continue;
                 }
