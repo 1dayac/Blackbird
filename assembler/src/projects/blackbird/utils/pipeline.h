@@ -220,8 +220,9 @@ public:
         io::SingleRead chrom;
         while (!reference_reader.eof()) {
             reference_reader >> chrom;
-            INFO("Adding " << chrom.name() << " to the map");
-            reference_map_[chrom.name()] = chrom.GetSequenceString();
+            std::string name = chrom.name().find(" ") == std::string::npos ? chrom.name() : chrom.name().substr(0, chrom.name().find(" "));
+            INFO("Adding " << name << " to the map");
+            reference_map_[name] = chrom.GetSequenceString();
         }
 
 
