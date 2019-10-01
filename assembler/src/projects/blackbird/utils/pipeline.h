@@ -505,8 +505,10 @@ private:
         }
 
         for (auto barcode : barcodes_count_over_threshold) {
-            for (auto read : map_of_bad_reads_.at(barcode)) {
-                single_out_stream << read;
+            if (map_of_bad_reads_.count(barcode)) {
+                for (auto read : map_of_bad_reads_.at(barcode)) {
+                    single_out_stream << read;
+                }
             }
         }
         std::string spades_command = OptionBase::path_to_spades + " --cov-cutoff 5 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
