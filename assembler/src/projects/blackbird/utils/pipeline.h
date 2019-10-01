@@ -477,7 +477,6 @@ private:
                     OutputSingleRead(p.second[0], single_out_stream);
                 } else {
                     if (p.second[0].RefID == p.second[0].MateRefID && abs((int)p.second[0].Position - (int)p.second[0].MatePosition) < 500) {
-                        INFO("Here");
                         OutputSingleRead(p.second[0], single_out_stream);
                         continue;
                     }
