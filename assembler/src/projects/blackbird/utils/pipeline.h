@@ -6,6 +6,7 @@
 #define BLACKBIRD_PIPELINE_H
 #include<algorithm>
 #include <list>
+#include <unordered_set>
 #include "utils/logger/log_writers.hpp"
 #include "options.h"
 #include "io/sam/bam_reader.hpp"
@@ -420,7 +421,7 @@ private:
         }
         std::unordered_map<std::string, int> barcodes_count;
         std::set<std::string> barcodes_count_over_threshold_prelim;
-        std::set<std::string> barcodes_count_over_threshold;
+        std::unordered_set<std::string> barcodes_count_over_threshold;
 
         const int threshold = 4;
         const int number_of_barcodes_to_assemble = 200;
@@ -444,7 +445,7 @@ private:
             barcodes_count_over_threshold.insert(barcodes_count_over_threshold_v[i]);
         }
         reader.SetRegion(region);
-        std::string temp_dir = OptionBase::output_folder + "/" + refid_to_ref_name_[region.RightRefID] + "_" + std::to_string(region.LeftPosition) + "_" + std::to_string(region.RightPosition);
+        std::string temp_dir = OptionBase::output_folder + "/" + refid_to_ref_name_.at(region.RightRefID) + "_" + std::to_string(region.LeftPosition) + "_" + std::to_string(region.RightPosition);
         fs::make_dir(temp_dir);
         io::OPairedReadStream<std::ofstream, io::FastqWriter> out_stream(temp_dir + "/R1.fastq", temp_dir + "/R2.fastq");
         io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
@@ -475,6 +476,10 @@ private:
                 if (alignment.MateRefID == -1) {
                     OutputSingleRead(p.second[0], single_out_stream);
                 } else {
+                    if (p.second[0].RefID == p.second[0].MateRefID && abs((int)p.second[0].Position - (int)p.second[0].MatePosition) < 500) {
+                        INFO("Here");
+                        continue;
+                    }
                     OutputPairedRead(p.second[0], out_stream, mate_reader);
                 }
             }
@@ -499,7 +504,7 @@ private:
         }
 
         for (auto barcode : barcodes_count_over_threshold) {
-            for (auto read : map_of_bad_reads_[barcode]) {
+            for (auto read : map_of_bad_reads_.at(barcode)) {
                 single_out_stream << read;
             }
         }
@@ -508,6 +513,14 @@ private:
         std::string subreference = reference_map_.at(refid_to_ref_name_.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
         RunAndProcessMinimap(temp_dir + "/assembly/scaffolds.fasta", subreference, window.RefName.RefName, region.LeftPosition);
         fs::remove_dir(temp_dir.c_str());
+    }
+
+    template<class T>
+    void WriteCritical(std::vector<T> &v, const T& t) {
+        #pragma omp critical
+        {
+            v.push_back(t);
+        }
     }
 
     void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
@@ -552,15 +565,9 @@ private:
                             std::string ins_seq = query.substr(query_start, r->p->cigar[i]>>4);
                             if (ins_seq.find("N") == std::string::npos) {
                                 if (ins.Size() >= 50) {
-                                    #pragma omp critical
-                                    {
-                                        vector_of_ins_.push_back(ins);
-                                    }
+                                    WriteCritical(vector_of_ins_, ins);
                                 } else {
-                                    #pragma omp critical
-                                    {
-                                        vector_of_small_ins_.push_back(ins);
-                                    }
+                                    WriteCritical(vector_of_small_ins_, ins);
                                 }
 
                             }
@@ -570,16 +577,9 @@ private:
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
                             if (del.Size() >= 50) {
-                                #pragma omp critical
-                                {
-                                    vector_of_del_.push_back(del);
-                                }
+                                WriteCritical(vector_of_del_, del);
                             } else {
-                                #pragma omp critical
-                                {
-
-                                    vector_of_small_del_.push_back(del);
-                                }
+                                WriteCritical(vector_of_small_del_, del);
                             }
                             reference_start += r->p->cigar[i]>>4;
                         }
@@ -700,7 +700,6 @@ private:
         io::SingleRead second;
 
         if (alignment.IsFirstMate()) {
-
             std::string read_name = alignment.Name;
             first = CreateRead(alignment);
             reader.Jump(alignment.MateRefID, alignment.MatePosition);
@@ -708,7 +707,7 @@ private:
             int jump_num = 0;
             while(mate_alignment.Position < alignment.MatePosition) {
                 ++jump_num;
-                if (jump_num > 100000) {
+                if (jump_num > 10000) {
                     return;
                 }
                 if(!reader.GetNextAlignmentCore(mate_alignment) || mate_alignment.RefID != alignment.MateRefID) {
@@ -733,7 +732,7 @@ private:
             int jump_num = 0;
             while(mate_alignment.Position < alignment.MatePosition) {
                 ++jump_num;
-                if (jump_num > 100000) {
+                if (jump_num > 10000) {
                     return;
                 }
                 if(!reader.GetNextAlignmentCore(mate_alignment) || mate_alignment.RefID != alignment.MateRefID) {
