@@ -572,9 +572,7 @@ private:
                                 } else {
                                     WriteCritical(vector_of_small_ins_, ins);
                                 }
-
                             }
-
                             query_start += r->p->cigar[i]>>4;
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
@@ -603,42 +601,24 @@ private:
                             if (ins_seq.find("N") == std::string::npos) {
 
                                 if (ins.Size() >= 50) {
-                                    #pragma omp critical
-                                    {
-                                        vector_of_ins_.push_back(ins);
-                                    }
-                            } else {
-                                    #pragma omp critical
-                                    {
-                                        vector_of_small_ins_.push_back(ins);
-                                    }
-                            }
+                                        WriteCritical(vector_of_ins_, ins);
+                                } else {
+                                        WriteCritical(vector_of_small_ins_, ins);
+                                }
                             }
                             query_start += r->p->cigar[i]>>4;
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
                             if (del.Size() >= 50) {
-                                #pragma omp critical
-                                {
-
-                                    vector_of_del_.push_back(del);
-                                }
+                                    WriteCritical(vector_of_del_, del);
                             } else {
-                                #pragma omp critical
-                                {
-
-                                    vector_of_small_del_.push_back(del);
-                                }
+                                    WriteCritical(vector_of_small_del_, del);
                             }
                             reference_start += r->p->cigar[i]>>4;
                         }
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
                 }
-
-                //assert(r->p); // with MM_F_CIGAR, this should not be NULL
-                //printf("%s\t%d\t%d\t%d\t%c\t\n", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
-                //printf("%s\t%d\t%d\t%d\t%d\t%d\t%d\tcg:Z:\n", index->seq[r->rid].name, index->seq[r->rid].len, r->rs, r->re, r->mlen, r->blen, r->mapq);
                 free(r->p);
             }
             free(hit_array);
