@@ -15,6 +15,7 @@ public:
     static bool dont_collect_reads;
     static int threads;
     static bool verbose;
+    static bool keep_assembly_folders;
     static std::string path_to_spades;
 };
 

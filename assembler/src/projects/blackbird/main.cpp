@@ -34,13 +34,14 @@ static const char *BLACKBIRD_USAGE_MESSAGE =
 
 
 
-static const char* shortopts = "b:s:r:o:g:t:hvn";
+static const char* shortopts = "b:s:r:o:g:t:hvnd";
 static const struct option longopts[] = {
         {"bam",        required_argument, 0, 'b' },
         {"reference",  required_argument, 0, 'r' },
         {"regions",    optional_argument, 0, 'g' },
         {"output",     required_argument, 0, 'o' },
         {"verbose",    no_argument,       0, 'v' },
+        {"delete",     no_argument,       0, 'd' },
         {"no-collect", no_argument,       0, 'n' },
         {"spades",     optional_argument, 0, 's' },
         {"threads",    optional_argument, 0, 't' },
@@ -56,6 +57,7 @@ bool getOptions(int argc, char **argv) {
         std::istringstream arg(optarg != NULL ? optarg : "");
         switch (c) {
             case 'b' : arg >> OptionBase::bam; break;
+            case 'd' : OptionBase::keep_assembly_folders = true; break;
             case 'r' : arg >> OptionBase::reference; break;
             case 'g' : arg >> OptionBase::region_file; break;
             case 't' : arg >> OptionBase::threads; break;

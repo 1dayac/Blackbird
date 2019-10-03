@@ -514,7 +514,8 @@ private:
         std::system(spades_command.c_str());
         std::string subreference = reference_map_.at(refid_to_ref_name_.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
         RunAndProcessMinimap(temp_dir + "/assembly/scaffolds.fasta", subreference, window.RefName.RefName, region.LeftPosition);
-        fs::remove_dir(temp_dir.c_str());
+        if (!OptionBase::keep_assembly_folders)
+            fs::remove_dir(temp_dir.c_str());
     }
 
     template<class T>
