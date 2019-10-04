@@ -424,7 +424,7 @@ private:
         std::unordered_set<std::string> barcodes_count_over_threshold;
 
         const int threshold = 4;
-        const int number_of_barcodes_to_assemble = 200000000;
+        const int number_of_barcodes_to_assemble = 200;
         while(reader.GetNextAlignment(alignment)) {
             if (alignment.IsPrimaryAlignment() && IsGoodAlignment(alignment)) {
                 std::string bx = "";
