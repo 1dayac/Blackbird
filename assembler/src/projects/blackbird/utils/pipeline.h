@@ -517,6 +517,7 @@ private:
 
     template<class T>
     void WriteCritical(std::vector<T> &v, const T& t) {
+        INFO(t.ToString());
         #pragma omp critical
         {
             v.push_back(t);
@@ -524,11 +525,9 @@ private:
     }
 
     void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
-        INFO("Here we will run minimap");
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
         mm_idx_t *index = mm_idx_str(10, 19, 0, 8, 1, reference_array, NULL);
-        INFO("Index built");
         io::FastaFastqGzParser reference_reader(path_to_scaffolds);
         io::SingleRead contig;
         while (!reference_reader.eof()) {
@@ -545,9 +544,6 @@ private:
             mopt.flag |= MM_F_CIGAR;
             mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
-            INFO(contig.name().c_str());
-            //INFO(hit_array->score);
-
             for (int j = 0; j < number_of_hits; ++j) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[j];
                 //printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
