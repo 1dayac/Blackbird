@@ -494,9 +494,6 @@ private:
             }
         }
 
-
-
-
         std::string barcode_file = temp_dir + "/barcodes.txt";
         std::ofstream barcode_output(barcode_file.c_str(), std::ofstream::out);
         for (auto barcode : barcodes_count_over_threshold) {
@@ -599,11 +596,10 @@ private:
                             Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
                             std::string ins_seq = ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4);
                             if (ins_seq.find("N") == std::string::npos) {
-
                                 if (ins.Size() >= 50) {
-                                        WriteCritical(vector_of_ins_, ins);
+                                    WriteCritical(vector_of_ins_, ins);
                                 } else {
-                                        WriteCritical(vector_of_small_ins_, ins);
+                                    WriteCritical(vector_of_small_ins_, ins);
                                 }
                             }
                             query_start += r->p->cigar[i]>>4;
@@ -624,7 +620,6 @@ private:
             free(hit_array);
             mm_tbuf_destroy(tbuf);
         }
-
         mm_idx_destroy(index);
     }
 
@@ -737,13 +732,11 @@ private:
         }
         io::PairedRead pair(first, second, 0);
         out_stream << pair;
-
     }
 
     io::SingleRead CreateRead(BamTools::BamAlignment &alignment) {
         std::string bases = alignment.IsReverseStrand() ?  ReverseComplement(alignment.QueryBases) : alignment.QueryBases;
         std::string qualities = alignment.Qualities;
-
         if (alignment.IsReverseStrand()) {
             std::reverse(qualities.begin(), qualities.end());
         }
