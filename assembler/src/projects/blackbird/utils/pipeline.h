@@ -496,13 +496,14 @@ private:
 
         std::string barcode_file = temp_dir + "/barcodes.txt";
         std::ofstream barcode_output(barcode_file.c_str(), std::ofstream::out);
-        for (auto barcode : barcodes_count_over_threshold) {
+        for (auto const& barcode : barcodes_count_over_threshold) {
             barcode_output << barcode << "\n";
         }
 
+        auto const& const_map_of_bad_reads = map_of_bad_reads_;
         for (auto barcode : barcodes_count_over_threshold) {
-            if (map_of_bad_reads_.count(barcode)) {
-                for (auto read : map_of_bad_reads_.at(barcode)) {
+            if (const_map_of_bad_reads.count(barcode)) {
+                for (auto const &read : const_map_of_bad_reads.at(barcode)) {
                     single_out_stream << read;
                 }
             }
