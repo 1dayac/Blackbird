@@ -323,7 +323,7 @@ public:
 
 private:
 
-    phmap::parallel_flat_hash_map<std::string, std::vector<io::SingleRead>,
+    phmap::parallel_flat_hash_map<std::string, std::list<io::SingleRead>,
             phmap::container_internal::hash_default_hash<std::string>,
             phmap::container_internal::hash_default_eq<std::string>,
             phmap::container_internal::Allocator<
