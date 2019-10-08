@@ -12,6 +12,7 @@
 #include "io/sam/bam_reader.hpp"
 #include "common/io/reads/osequencestream.hpp"
 #include "parallel_hashmap/phmap.h"
+#include "parallel_hashmap/phmap_fwd_decl.h"
 #include <boost/circular_buffer.hpp>
 #include <minimap2/minimap.h>
 #include "minimap2/minimap.h"
@@ -321,7 +322,16 @@ public:
     }
 
 private:
-    std::unordered_map<std::string, std::list<io::SingleRead>> map_of_bad_reads_;
+    template <class K, class V,
+            class Hash  = phmap::container_internal::hash_default_hash<K>,
+            class Eq    = phmap::container_internal::hash_default_eq<K>,
+            class Alloc = phmap::container_internal::Allocator<
+                    phmap::container_internal::Pair<const K, V>>, // alias for std::allocator
+            size_t N    = 4,                  // 2**N submaps
+            class Mutex = phmap::NullMutex>   // use std::mutex to enable internal locks
+    class parallel_flat_hash_map;
+
+    parallel_flat_hash_map<std::string, std::vector<io::SingleRead>> map_of_bad_reads_;
     VCFWriter writer_;
     VCFWriter writer_small_;
     std::vector<Insertion> vector_of_small_ins_;
