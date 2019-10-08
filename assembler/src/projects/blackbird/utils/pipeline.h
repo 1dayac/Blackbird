@@ -11,6 +11,7 @@
 #include "options.h"
 #include "io/sam/bam_reader.hpp"
 #include "common/io/reads/osequencestream.hpp"
+#include "parallel_hashmap/phmap.h"
 #include <boost/circular_buffer.hpp>
 #include <minimap2/minimap.h>
 #include "minimap2/minimap.h"
