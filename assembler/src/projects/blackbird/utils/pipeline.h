@@ -509,11 +509,14 @@ private:
             barcode_output << barcode << "\n";
         }
 
-        auto const& const_map_of_bad_reads = map_of_bad_reads_;
-        for (auto barcode : barcodes_count_over_threshold) {
-            if (const_map_of_bad_reads.count(barcode)) {
-                for (auto const &read : const_map_of_bad_reads.at(barcode)) {
-                    single_out_stream << read;
+        #pragma omp critical
+        {
+            auto const &const_map_of_bad_reads = map_of_bad_reads_;
+            for (auto barcode : barcodes_count_over_threshold) {
+                if (const_map_of_bad_reads.count(barcode)) {
+                    for (auto const &read : const_map_of_bad_reads.at(barcode)) {
+                        single_out_stream << read;
+                    }
                 }
             }
         }
