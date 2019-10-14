@@ -6,7 +6,9 @@
 #define BLACKBIRD_PIPELINE_H
 #include<algorithm>
 #include <list>
+#include <cassert>
 #include <utility>
+#include <type_traits>
 #include <unordered_set>
 #include "utils/logger/log_writers.hpp"
 #include "options.h"
