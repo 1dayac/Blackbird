@@ -517,7 +517,7 @@ private:
             auto const &const_map_of_bad_reads = map_of_bad_reads_;
             for (auto barcode : barcodes_count_over_threshold) {
                 if (const_map_of_bad_reads.count(barcode)) {
-                    for (auto const &read : const_cast<std::list>(const_map_of_bad_reads.at(barcode))) {
+                    for (auto const &read : const_cast<std::list<io::SingleRead>>(const_map_of_bad_reads.at(barcode))) {
                         single_out_stream << read;
                     }
                 }
