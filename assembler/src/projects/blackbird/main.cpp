@@ -86,6 +86,12 @@ int main(int argc, char **argv) {
         std::cerr << BLACKBIRD_USAGE_MESSAGE << std::endl;
         return 1;
     } else {
+        std::cout << "Command line: ";
+        for (int i = 0; i < argc; ++i) {
+            std::cout << argv[i] << " ";
+        }
+        std::cout << std::endl;
+
         runBlackbird();
     }
     return 0;
