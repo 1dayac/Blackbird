@@ -39,57 +39,57 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
+CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
+RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
+CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target list_install_components
@@ -102,32 +102,10 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -138,7 +116,7 @@ package/fast: package
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -146,16 +124,38 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/jemalloc/test/stress/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/stress/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/jemalloc/test/stress/CMakeFiles/progress.marks
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/stress/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/stress/clean
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/stress/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/stress/preinstall
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/stress/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/stress/preinstall
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/stress/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/rule:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/rule
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/rule
 .PHONY : ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/rule
 
 # Convenience name for target.
@@ -190,12 +190,12 @@ jemalloc-test-microbench: ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-micr
 
 # fast build rule for target.
 jemalloc-test-microbench/fast:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/build
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/build
 .PHONY : jemalloc-test-microbench/fast
 
 # Convenience name for target.
 ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/rule:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/rule
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/rule
 .PHONY : ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/rule
 
 # Convenience name for target.
@@ -205,7 +205,7 @@ jemalloc-test-hookbench: ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookb
 
 # fast build rule for target.
 jemalloc-test-hookbench/fast:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/build
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/build
 .PHONY : jemalloc-test-hookbench/fast
 
 hookbench.o: hookbench.c.o
@@ -214,7 +214,7 @@ hookbench.o: hookbench.c.o
 
 # target to build an object file
 hookbench.c.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/hookbench.c.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/hookbench.c.o
 .PHONY : hookbench.c.o
 
 hookbench.i: hookbench.c.i
@@ -223,7 +223,7 @@ hookbench.i: hookbench.c.i
 
 # target to preprocess a source file
 hookbench.c.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/hookbench.c.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/hookbench.c.i
 .PHONY : hookbench.c.i
 
 hookbench.s: hookbench.c.s
@@ -232,7 +232,7 @@ hookbench.s: hookbench.c.s
 
 # target to generate assembly for a file
 hookbench.c.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/hookbench.c.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-hookbench.dir/hookbench.c.s
 .PHONY : hookbench.c.s
 
 microbench.o: microbench.c.o
@@ -241,7 +241,7 @@ microbench.o: microbench.c.o
 
 # target to build an object file
 microbench.c.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/microbench.c.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/microbench.c.o
 .PHONY : microbench.c.o
 
 microbench.i: microbench.c.i
@@ -250,7 +250,7 @@ microbench.i: microbench.c.i
 
 # target to preprocess a source file
 microbench.c.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/microbench.c.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/microbench.c.i
 .PHONY : microbench.c.i
 
 microbench.s: microbench.c.s
@@ -259,7 +259,7 @@ microbench.s: microbench.c.s
 
 # target to generate assembly for a file
 microbench.c.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/microbench.c.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/build.make ext/jemalloc/test/stress/CMakeFiles/jemalloc-test-microbench.dir/microbench.c.s
 .PHONY : microbench.c.s
 
 # Help Target
@@ -268,15 +268,15 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
 	@echo "... install/local"
+	@echo "... install/strip"
 	@echo "... install"
 	@echo "... list_install_components"
+	@echo "... package"
+	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... package_source"
-	@echo "... package"
 	@echo "... jemalloc-test-microbench"
-	@echo "... edit_cache"
 	@echo "... jemalloc-test-hookbench"
 	@echo "... hookbench.o"
 	@echo "... hookbench.i"
@@ -295,6 +295,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

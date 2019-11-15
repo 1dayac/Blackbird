@@ -39,61 +39,39 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
+CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
+RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
+CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-
-.PHONY : package/fast
-
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
 
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -104,7 +82,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -112,17 +90,51 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+
+.PHONY : package/fast
+
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -134,28 +146,16 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/spaligner/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/spaligner/CMakeFiles/progress.marks
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/clean
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,37 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/preinstall
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/preinstall
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
-projects/spaligner/CMakeFiles/spaligner.dir/rule:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/CMakeFiles/spaligner.dir/rule
-.PHONY : projects/spaligner/CMakeFiles/spaligner.dir/rule
-
-# Convenience name for target.
-spaligner: projects/spaligner/CMakeFiles/spaligner.dir/rule
-
-.PHONY : spaligner
-
-# fast build rule for target.
-spaligner/fast:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/spaligner.dir/build.make projects/spaligner/CMakeFiles/spaligner.dir/build
-.PHONY : spaligner/fast
-
-# Convenience name for target.
 projects/spaligner/CMakeFiles/form_truealignments.dir/rule:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/CMakeFiles/form_truealignments.dir/rule
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/CMakeFiles/form_truealignments.dir/rule
 .PHONY : projects/spaligner/CMakeFiles/form_truealignments.dir/rule
 
 # Convenience name for target.
@@ -205,12 +190,27 @@ form_truealignments: projects/spaligner/CMakeFiles/form_truealignments.dir/rule
 
 # fast build rule for target.
 form_truealignments/fast:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/form_truealignments.dir/build.make projects/spaligner/CMakeFiles/form_truealignments.dir/build
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/form_truealignments.dir/build.make projects/spaligner/CMakeFiles/form_truealignments.dir/build
 .PHONY : form_truealignments/fast
 
 # Convenience name for target.
+projects/spaligner/CMakeFiles/spaligner.dir/rule:
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/CMakeFiles/spaligner.dir/rule
+.PHONY : projects/spaligner/CMakeFiles/spaligner.dir/rule
+
+# Convenience name for target.
+spaligner: projects/spaligner/CMakeFiles/spaligner.dir/rule
+
+.PHONY : spaligner
+
+# fast build rule for target.
+spaligner/fast:
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/spaligner.dir/build.make projects/spaligner/CMakeFiles/spaligner.dir/build
+.PHONY : spaligner/fast
+
+# Convenience name for target.
 projects/spaligner/CMakeFiles/mapping_printer.dir/rule:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/CMakeFiles/mapping_printer.dir/rule
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/spaligner/CMakeFiles/mapping_printer.dir/rule
 .PHONY : projects/spaligner/CMakeFiles/mapping_printer.dir/rule
 
 # Convenience name for target.
@@ -220,7 +220,7 @@ mapping_printer: projects/spaligner/CMakeFiles/mapping_printer.dir/rule
 
 # fast build rule for target.
 mapping_printer/fast:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/mapping_printer.dir/build.make projects/spaligner/CMakeFiles/mapping_printer.dir/build
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/mapping_printer.dir/build.make projects/spaligner/CMakeFiles/mapping_printer.dir/build
 .PHONY : mapping_printer/fast
 
 align_longreads.o: align_longreads.cpp.o
@@ -229,7 +229,7 @@ align_longreads.o: align_longreads.cpp.o
 
 # target to build an object file
 align_longreads.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/spaligner.dir/build.make projects/spaligner/CMakeFiles/spaligner.dir/align_longreads.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/spaligner.dir/build.make projects/spaligner/CMakeFiles/spaligner.dir/align_longreads.cpp.o
 .PHONY : align_longreads.cpp.o
 
 align_longreads.i: align_longreads.cpp.i
@@ -238,7 +238,7 @@ align_longreads.i: align_longreads.cpp.i
 
 # target to preprocess a source file
 align_longreads.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/spaligner.dir/build.make projects/spaligner/CMakeFiles/spaligner.dir/align_longreads.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/spaligner.dir/build.make projects/spaligner/CMakeFiles/spaligner.dir/align_longreads.cpp.i
 .PHONY : align_longreads.cpp.i
 
 align_longreads.s: align_longreads.cpp.s
@@ -247,7 +247,7 @@ align_longreads.s: align_longreads.cpp.s
 
 # target to generate assembly for a file
 align_longreads.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/spaligner.dir/build.make projects/spaligner/CMakeFiles/spaligner.dir/align_longreads.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/spaligner.dir/build.make projects/spaligner/CMakeFiles/spaligner.dir/align_longreads.cpp.s
 .PHONY : align_longreads.cpp.s
 
 form_truealignments.o: form_truealignments.cpp.o
@@ -256,7 +256,7 @@ form_truealignments.o: form_truealignments.cpp.o
 
 # target to build an object file
 form_truealignments.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/form_truealignments.dir/build.make projects/spaligner/CMakeFiles/form_truealignments.dir/form_truealignments.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/form_truealignments.dir/build.make projects/spaligner/CMakeFiles/form_truealignments.dir/form_truealignments.cpp.o
 .PHONY : form_truealignments.cpp.o
 
 form_truealignments.i: form_truealignments.cpp.i
@@ -265,7 +265,7 @@ form_truealignments.i: form_truealignments.cpp.i
 
 # target to preprocess a source file
 form_truealignments.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/form_truealignments.dir/build.make projects/spaligner/CMakeFiles/form_truealignments.dir/form_truealignments.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/form_truealignments.dir/build.make projects/spaligner/CMakeFiles/form_truealignments.dir/form_truealignments.cpp.i
 .PHONY : form_truealignments.cpp.i
 
 form_truealignments.s: form_truealignments.cpp.s
@@ -274,7 +274,7 @@ form_truealignments.s: form_truealignments.cpp.s
 
 # target to generate assembly for a file
 form_truealignments.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/form_truealignments.dir/build.make projects/spaligner/CMakeFiles/form_truealignments.dir/form_truealignments.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/form_truealignments.dir/build.make projects/spaligner/CMakeFiles/form_truealignments.dir/form_truealignments.cpp.s
 .PHONY : form_truealignments.cpp.s
 
 mapping_printer.o: mapping_printer.cpp.o
@@ -283,7 +283,7 @@ mapping_printer.o: mapping_printer.cpp.o
 
 # target to build an object file
 mapping_printer.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/mapping_printer.dir/build.make projects/spaligner/CMakeFiles/mapping_printer.dir/mapping_printer.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/mapping_printer.dir/build.make projects/spaligner/CMakeFiles/mapping_printer.dir/mapping_printer.cpp.o
 .PHONY : mapping_printer.cpp.o
 
 mapping_printer.i: mapping_printer.cpp.i
@@ -292,7 +292,7 @@ mapping_printer.i: mapping_printer.cpp.i
 
 # target to preprocess a source file
 mapping_printer.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/mapping_printer.dir/build.make projects/spaligner/CMakeFiles/mapping_printer.dir/mapping_printer.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/mapping_printer.dir/build.make projects/spaligner/CMakeFiles/mapping_printer.dir/mapping_printer.cpp.i
 .PHONY : mapping_printer.cpp.i
 
 mapping_printer.s: mapping_printer.cpp.s
@@ -301,7 +301,7 @@ mapping_printer.s: mapping_printer.cpp.s
 
 # target to generate assembly for a file
 mapping_printer.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/mapping_printer.dir/build.make projects/spaligner/CMakeFiles/mapping_printer.dir/mapping_printer.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/spaligner/CMakeFiles/mapping_printer.dir/build.make projects/spaligner/CMakeFiles/mapping_printer.dir/mapping_printer.cpp.s
 .PHONY : mapping_printer.cpp.s
 
 # Help Target
@@ -310,17 +310,17 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... spaligner"
-	@echo "... package"
 	@echo "... install/local"
-	@echo "... package_source"
-	@echo "... form_truealignments"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... package_source"
+	@echo "... package"
+	@echo "... form_truealignments"
 	@echo "... install/strip"
-	@echo "... mapping_printer"
-	@echo "... list_install_components"
 	@echo "... install"
+	@echo "... spaligner"
+	@echo "... list_install_components"
+	@echo "... mapping_printer"
 	@echo "... align_longreads.o"
 	@echo "... align_longreads.i"
 	@echo "... align_longreads.s"
@@ -341,6 +341,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

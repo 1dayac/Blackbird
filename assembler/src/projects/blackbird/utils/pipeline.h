@@ -436,7 +436,7 @@ private:
         std::unordered_set<std::string> barcodes_count_over_threshold;
 
         const int threshold = 4;
-        const int number_of_barcodes_to_assemble = 200;
+        const int number_of_barcodes_to_assemble = 200000;
         while(reader.GetNextAlignment(alignment)) {
             if (alignment.IsPrimaryAlignment() && IsGoodAlignment(alignment)) {
                 std::string bx = "";
@@ -526,10 +526,10 @@ private:
         auto const& const_reference_map = reference_map_;
         auto const& const_refid_to_ref_name = refid_to_ref_name_;
 
-        std::string spades_command = OptionBase::path_to_spades + " --cov-cutoff 5 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
+        std::string spades_command = OptionBase::path_to_spades + " --only-assembler -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
         std::system(spades_command.c_str());
         std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
-        RunAndProcessMinimap(temp_dir + "/assembly/scaffolds.fasta", subreference, window.RefName.RefName, region.LeftPosition);
+        RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
         if (!OptionBase::keep_assembly_folders)
             fs::remove_dir(temp_dir.c_str());
     }
@@ -552,7 +552,7 @@ private:
         while (!reference_reader.eof()) {
             reference_reader >> contig;
             std::string query = contig.GetSequenceString();
-            if (query.size() < 300) {
+            if (query.size() < 500) {
                 continue;
             }
             int number_of_hits;
@@ -563,8 +563,8 @@ private:
             mopt.flag |= MM_F_CIGAR;
             mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
-            for (int j = 0; j < number_of_hits; ++j) { // traverse hits and print them out
-                mm_reg1_t *r = &hit_array[j];
+            if (number_of_hits > 0) { // traverse hits and print them out
+                mm_reg1_t *r = &hit_array[0];
                 //printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 if (!r->rev) {
                     int query_start = r->qs;

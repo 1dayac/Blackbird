@@ -8,10 +8,10 @@
 #define HAVE_EXECINFO_H 1
 
 /* Define to 1 if you have the <link.h> header file. */
-#define HAVE_LINK_H 1
+/* #undef HAVE_LINK_H */
 
 /* Define to 1 if you have the <mach/mach.h> header file. */
-/* #undef HAVE_MACH_MACH_H */
+#define HAVE_MACH_MACH_H 1
 
 /* Define to 1 if you have the <signal.h> header file. */
 #define HAVE_SIGNAL_H 1
@@ -23,7 +23,7 @@
 #define HAVE_BACKTRACE 1
 
 /* Define to 1 if you have the <cxxabi.h> header file. */
-/* #undef HAVE_CXXABI_H */
+#define HAVE_CXXABI_H 1
 
 /* Define as the return type of signal handlers (`int' or `void'). */
 #define RETSIGTYPE void
