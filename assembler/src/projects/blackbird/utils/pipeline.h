@@ -267,7 +267,7 @@ public:
                 }
 
                 if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
-                    map_of_bad_reads_[bx].push_back(io::SingleRead(alignment.Name, alignment.QueryBases, alignment.Qualities, io::PhredOffset));
+                    map_of_bad_reads_[bx].push_back(Sequence(alignment.QueryBases));
                     VERBOSE_POWER(++alignments_stored, " alignments stored");
                 }
             }
@@ -326,11 +326,11 @@ public:
 
 private:
 
-    phmap::parallel_flat_hash_map<std::string, std::list<io::SingleRead>,
+    phmap::parallel_flat_hash_map<std::string, std::list<Sequence>,
             phmap::container_internal::hash_default_hash<std::string>,
             phmap::container_internal::hash_default_eq<std::string>,
             phmap::container_internal::Allocator<
-            phmap::container_internal::Pair<const std::string, std::vector<io::SingleRead>>>,
+            phmap::container_internal::Pair<const std::string, std::vector<Sequence>>>,
             4, phmap::NullMutex> map_of_bad_reads_;
 
     VCFWriter writer_;
@@ -342,7 +342,7 @@ private:
 
     std::unordered_map<std::string, std::string> reference_map_;
     std::unordered_map<int, std::string> refid_to_ref_name_;
-
+    static int uniq_number;
     void Print(const std::vector<Insertion> &vector_of_ins, const std::vector<Deletion> &vector_of_del, VCFWriter &writer) {
         int i = 0;
         int j = 0;
@@ -517,8 +517,8 @@ private:
             auto const &const_map_of_bad_reads = map_of_bad_reads_;
             for (auto barcode : barcodes_count_over_threshold) {
                 if (const_map_of_bad_reads.count(barcode)) {
-                    for (auto const &read : const_cast<std::list<io::SingleRead>&>(const_map_of_bad_reads.at(barcode))) {
-                        single_out_stream << read;
+                    for (auto const &read : const_cast<std::list<Sequence>&>(const_map_of_bad_reads.at(barcode))) {
+                        single_out_stream << CreateReadFromSeq(read);
                     }
                 }
             }
@@ -541,6 +541,11 @@ private:
         {
             v.push_back(t);
         }
+    }
+
+    io::SingleRead CreateReadFromSeq(const Sequence &seq) {
+        uniq_number++;
+        return io::SingleRead(std::to_string(uniq_number), seq.str());
     }
 
     void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
@@ -765,5 +770,6 @@ private:
 
 };
 
+int BlackBirdLauncher::uniq_number = 1;
 #endif //BLACKBIRD_PIPELINE_H
 
