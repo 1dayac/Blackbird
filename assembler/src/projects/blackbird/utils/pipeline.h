@@ -435,6 +435,10 @@ private:
         std::set<std::string> barcodes_count_over_threshold_prelim;
         std::unordered_set<std::string> barcodes_count_over_threshold;
 
+        auto const& const_reference_map = reference_map_;
+        auto const& const_refid_to_ref_name = refid_to_ref_name_;
+
+
         const int threshold = 4;
         const int number_of_barcodes_to_assemble = 200000;
         while(reader.GetNextAlignment(alignment)) {
@@ -457,7 +461,7 @@ private:
             barcodes_count_over_threshold.insert(barcodes_count_over_threshold_v[i]);
         }
         reader.SetRegion(region);
-        std::string temp_dir = OptionBase::output_folder + "/" + refid_to_ref_name_.at(region.RightRefID) + "_" + std::to_string(region.LeftPosition) + "_" + std::to_string(region.RightPosition);
+        std::string temp_dir = OptionBase::output_folder + "/" + const_refid_to_ref_name.at(region.RightRefID) + "_" + std::to_string(region.LeftPosition) + "_" + std::to_string(region.RightPosition);
         fs::make_dir(temp_dir);
         io::OPairedReadStream<std::ofstream, io::FastqWriter> out_stream(temp_dir + "/R1.fastq", temp_dir + "/R2.fastq");
         io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
@@ -512,6 +516,7 @@ private:
             barcode_output << barcode << "\n";
         }
 
+
         #pragma omp critical
         {
             auto const &const_map_of_bad_reads = map_of_bad_reads_;
@@ -523,8 +528,6 @@ private:
                 }
             }
         }
-        auto const& const_reference_map = reference_map_;
-        auto const& const_refid_to_ref_name = refid_to_ref_name_;
 
         std::string spades_command = OptionBase::path_to_spades + " --only-assembler -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
         std::system(spades_command.c_str());
