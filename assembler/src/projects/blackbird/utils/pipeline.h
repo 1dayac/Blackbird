@@ -267,10 +267,12 @@ public:
                 }
 
                 //if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
-                map_of_bad_reads_[bx].push_back(Sequence(alignment.QueryBases));
-                VERBOSE_POWER(++alignments_stored, " alignments stored");
-                if (alignments_stored > 41624052) {
-                    break;
+                if (alignment.QueryBases.find("N") == alignment.QueryBases.end()) {
+                    map_of_bad_reads_[bx].push_back(Sequence(alignment.QueryBases));
+                    VERBOSE_POWER(++alignments_stored, " alignments stored");
+                    if (alignments_stored > 41624052) {
+                        break;
+                    }
                 }
                 //}
             }
