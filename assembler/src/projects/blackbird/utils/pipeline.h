@@ -266,10 +266,13 @@ public:
                     DEBUG("Processing chromosome " << refid_to_ref_name_[current_refid]);
                 }
 
-                if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
-                    map_of_bad_reads_[bx].push_back(Sequence(alignment.QueryBases));
-                    VERBOSE_POWER(++alignments_stored, " alignments stored");
+                //if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
+                map_of_bad_reads_[bx].push_back(Sequence(alignment.QueryBases));
+                VERBOSE_POWER(++alignments_stored, " alignments stored");
+                if (alignments_stored > 41624052) {
+                    break;
                 }
+                //}
             }
             INFO("Total " << alignment_count << " alignments processed");
             INFO("Total " << alignments_stored << " alignments stored");
@@ -529,10 +532,10 @@ private:
             }
         }
 
-        std::string spades_command = OptionBase::path_to_spades + " --only-assembler -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
-        std::system(spades_command.c_str());
-        std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
-        RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
+        //std::string spades_command = OptionBase::path_to_spades + " --only-assembler -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
+        //std::system(spades_command.c_str());
+        //std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
+        //RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
         if (!OptionBase::keep_assembly_folders)
             fs::remove_dir(temp_dir.c_str());
     }
