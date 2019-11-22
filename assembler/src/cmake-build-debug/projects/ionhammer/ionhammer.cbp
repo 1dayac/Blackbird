@@ -421,7 +421,7 @@
 		<Unit filename="/Users/dima/Desktop/Blackbird/assembler/src/../../.git/HEAD">
 			<Option virtualFolder="CMake Files\..\..\.git\"/>
 		</Unit>
-		<Unit filename="/Users/dima/Desktop/Blackbird/assembler/src/../../.git/refs/heads/master">
+		<Unit filename="/Users/dima/Desktop/Blackbird/assembler/src/../../.git/refs/heads/debug_multithread">
 			<Option virtualFolder="CMake Files\..\..\.git\refs\heads\"/>
 		</Unit>
 		<Unit filename="/Users/dima/Desktop/Blackbird/assembler/src/cmake/options.cmake">

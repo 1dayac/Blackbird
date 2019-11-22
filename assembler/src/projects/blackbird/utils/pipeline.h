@@ -270,7 +270,7 @@ public:
                 if (alignment.QueryBases.find("N") == std::string::npos) {
                     map_of_bad_reads_[bx].push_back(Sequence(alignment.QueryBases));
                     VERBOSE_POWER(++alignments_stored, " alignments stored");
-                    if (alignments_stored > 41624052) {
+                    if (alignments_stored > 416240) {
                         break;
                     }
                 }
@@ -307,7 +307,7 @@ public:
             r.OpenIndex((OptionBase::bam + ".bai").c_str());
         }
 
-#pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
+        #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
         for (int i = 0; i < reference_windows.size(); ++i) {
             ProcessWindow(reference_windows[i], readers[omp_get_thread_num()], mate_readers[omp_get_thread_num()]);
             INFO(i << " " << omp_get_thread_num());
@@ -524,8 +524,10 @@ private:
 
         #pragma omp critical
         {
+
             auto const &const_map_of_bad_reads = map_of_bad_reads_;
             for (auto barcode : barcodes_count_over_threshold) {
+                INFO(omp_get_thread_num());
                 if (const_map_of_bad_reads.count(barcode)) {
                     for (auto const &read : const_cast<std::vector<Sequence>&>(const_map_of_bad_reads.at(barcode))) {
                         single_out_stream << CreateReadFromSeq(read);
