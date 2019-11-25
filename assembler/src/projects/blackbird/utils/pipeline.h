@@ -331,7 +331,7 @@ public:
 
 private:
 
-    phmap::parallel_flat_hash_map<std::string, std::list<Sequence>,
+    phmap::parallel_flat_hash_map<std::string, std::vector<Sequence>,
             phmap::container_internal::hash_default_hash<std::string>,
             phmap::container_internal::hash_default_eq<std::string>,
             phmap::container_internal::Allocator<
@@ -475,6 +475,7 @@ private:
         std::unordered_map<std::string, std::vector<BamTools::BamAlignment>> filtered_reads;
 
         while (reader.GetNextAlignment(alignment)) {
+            break;
             if (alignment.Position > region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
                 break;
             }
@@ -493,6 +494,7 @@ private:
         }
 
         for (auto p : filtered_reads) {
+            break;
             if (p.second.size() == 1) {
                 if (alignment.MateRefID == -1) {
                     OutputSingleRead(p.second[0], single_out_stream);
@@ -529,7 +531,7 @@ private:
             for (auto barcode : barcodes_count_over_threshold) {
                 INFO(omp_get_thread_num());
                 if (const_map_of_bad_reads.count(barcode)) {
-                    for (auto const &read : const_cast<std::list<Sequence>&>(const_map_of_bad_reads.at(barcode))) {
+                    for (auto const &read : const_cast<std::vector<Sequence>&>(const_map_of_bad_reads.at(barcode))) {
                         single_out_stream << CreateReadFromSeq(read);
                     }
                 }
