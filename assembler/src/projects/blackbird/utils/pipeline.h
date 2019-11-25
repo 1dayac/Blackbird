@@ -475,6 +475,7 @@ private:
         std::unordered_map<std::string, std::vector<BamTools::BamAlignment>> filtered_reads;
 
         while (reader.GetNextAlignment(alignment)) {
+            break;
             if (alignment.Position > region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
                 break;
             }
@@ -493,6 +494,7 @@ private:
         }
 
         for (auto p : filtered_reads) {
+            break;
             if (p.second.size() == 1) {
                 if (alignment.MateRefID == -1) {
                     OutputSingleRead(p.second[0], single_out_stream);
