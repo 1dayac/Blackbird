@@ -228,7 +228,7 @@ public:
             reference_reader >> chrom;
             std::string name = chrom.name().find(" ") == std::string::npos ? chrom.name() : chrom.name().substr(0, chrom.name().find(" "));
             INFO("Adding " << name << " to the map");
-            reference_map_[name] = chrom.GetSequenceString();
+            //reference_map_[name] = chrom.GetSequenceString();
         }
 
 
