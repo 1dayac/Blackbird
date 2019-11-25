@@ -2,6 +2,6 @@
 #define __SPADES_VERSION_HPP__
 
 #define SPADES_GIT_REFSPEC "refs/heads/debug_multithread"
-#define SPADES_GIT_SHA1 "f2eb63155c4032933040bd62bc50155656de2f1f"
+#define SPADES_GIT_SHA1 "c7e9d42ea5f979667b1a472b7ef9ae3b6c24d41c"
 
 #endif // __SPADES_VERSION_HPP__

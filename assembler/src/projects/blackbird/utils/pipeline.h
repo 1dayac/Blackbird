@@ -446,8 +446,8 @@ private:
         std::set<std::string> barcodes_count_over_threshold_prelim;
         std::unordered_set<std::string> barcodes_count_over_threshold;
 
-        auto const& const_reference_map = reference_map_;
-        auto const& const_refid_to_ref_name = refid_to_ref_name_;
+        //auto const& const_reference_map = reference_map_;
+        //auto const& const_refid_to_ref_name = refid_to_ref_name_;
 
 
         const int threshold = 4;
@@ -472,7 +472,8 @@ private:
             barcodes_count_over_threshold.insert(barcodes_count_over_threshold_v[i]);
         }
         reader.SetRegion(region);
-        std::string temp_dir = OptionBase::output_folder + "/" + const_refid_to_ref_name.at(region.RightRefID) + "_" + std::to_string(region.LeftPosition) + "_" + std::to_string(region.RightPosition);
+        std::string temp_dir = OptionBase::output_folder + "/" +
+                const_cast<std::unordered_map<int, std::string>&>(refid_to_ref_name_).at(region.RightRefID) + "_" + std::to_string(region.LeftPosition) + "_" + std::to_string(region.RightPosition);
         fs::make_dir(temp_dir);
         io::OPairedReadStream<std::ofstream, io::FastqWriter> out_stream(temp_dir + "/R1.fastq", temp_dir + "/R2.fastq");
         io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
