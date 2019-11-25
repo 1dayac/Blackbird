@@ -13,6 +13,14 @@ Blackbird assembles the genome into segments and calls insertions and deletions 
 
 ## Installation
 
+Run 
+
+```
+./spades_compile.sh -DSPADES_USE_JEMALLOC=OFF
+```
+
+Use blackbird binary from the bin folder.
+
 ## Commands Options
 
 ## Output Formats

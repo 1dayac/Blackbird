@@ -326,11 +326,11 @@ public:
 
 private:
 
-    phmap::parallel_flat_hash_map<std::string, std::list<Sequence>,
+    phmap::parallel_flat_hash_map<std::string, std::vector<Sequence>,
             phmap::container_internal::hash_default_hash<std::string>,
             phmap::container_internal::hash_default_eq<std::string>,
             phmap::container_internal::Allocator<
-            phmap::container_internal::Pair<const std::string, std::list<Sequence>>>,
+            phmap::container_internal::Pair<const std::string, std::vector<Sequence>>>,
             4, phmap::NullMutex> map_of_bad_reads_;
 
     VCFWriter writer_;
