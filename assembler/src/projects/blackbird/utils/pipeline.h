@@ -324,6 +324,12 @@ public:
         Print(vector_of_small_ins_, vector_of_small_del_, writer_small_);
 
         //test_minimap();
+        for (auto &r : readers) {
+            r.Close();
+        }
+        for (auto &r : mate_readers) {
+            r.Close();
+        }
 
         INFO("Blackbird finished");
         return 0;
