@@ -446,8 +446,8 @@ private:
         std::set<std::string> barcodes_count_over_threshold_prelim;
         std::unordered_set<std::string> barcodes_count_over_threshold;
 
-        //auto const& const_reference_map = reference_map_;
-        //auto const& const_refid_to_ref_name = refid_to_ref_name_;
+        auto const& const_reference_map = reference_map_;
+        auto const& const_refid_to_ref_name = refid_to_ref_name_;
 
 
         const int threshold = 4;
