@@ -482,7 +482,6 @@ private:
         std::unordered_map<std::string, std::vector<BamTools::BamAlignment>> filtered_reads;
 
         while (reader.GetNextAlignment(alignment)) {
-            break;
             if (alignment.Position > region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
                 break;
             }
@@ -545,7 +544,7 @@ private:
             }
         }
 
-        //std::string spades_command = OptionBase::path_to_spades + " --only-assembler -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
+        std::string spades_command = OptionBase::path_to_spades + " --only-assembler -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
         //std::system(spades_command.c_str());
         //std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
         //RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
