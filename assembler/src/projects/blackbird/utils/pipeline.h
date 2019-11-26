@@ -266,14 +266,14 @@ public:
                     DEBUG("Processing chromosome " << refid_to_ref_name_[current_refid]);
                 }
 
-                //if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
-                if (alignment.QueryBases.find("N") == std::string::npos) {
-                    map_of_bad_reads_[bx].push_back(Sequence(alignment.QueryBases));
-                    VERBOSE_POWER(++alignments_stored, " alignments stored");
-                    if (alignments_stored > 416240) {
-                        break;
+                if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
+                    if (alignment.QueryBases.find("N") == std::string::npos) {
+                        map_of_bad_reads_[bx].push_back(Sequence(alignment.QueryBases));
+                        VERBOSE_POWER(++alignments_stored, " alignments stored");
+                        if (alignments_stored > 41624) {
+                            break;
+                        }
                     }
-                }
                 //}
             }
             INFO("Total " << alignment_count << " alignments processed");
