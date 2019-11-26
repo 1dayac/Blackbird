@@ -274,7 +274,7 @@ public:
                             break;
                         }
                     }
-                //}
+                }
             }
             INFO("Total " << alignment_count << " alignments processed");
             INFO("Total " << alignments_stored << " alignments stored");
