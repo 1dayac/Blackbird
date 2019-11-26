@@ -500,7 +500,6 @@ private:
         }
 
         for (auto p : filtered_reads) {
-            break;
             if (p.second.size() == 1) {
                 if (alignment.MateRefID == -1) {
                     OutputSingleRead(p.second[0], single_out_stream);
@@ -545,9 +544,9 @@ private:
         }
 
         std::string spades_command = OptionBase::path_to_spades + " --only-assembler -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
-        //std::system(spades_command.c_str());
-        //std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
-        //RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
+        std::system(spades_command.c_str());
+        std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
+        RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
         if (!OptionBase::keep_assembly_folders)
             fs::remove_dir(temp_dir.c_str());
     }
