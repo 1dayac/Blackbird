@@ -270,9 +270,6 @@ public:
                     if (alignment.QueryBases.find("N") == std::string::npos) {
                         map_of_bad_reads_[bx].push_back(Sequence(alignment.QueryBases));
                         VERBOSE_POWER(++alignments_stored, " alignments stored");
-                        if (alignments_stored > 41624) {
-                            break;
-                        }
                     }
                 }
             }
@@ -451,7 +448,7 @@ private:
 
 
         const int threshold = 4;
-        const int number_of_barcodes_to_assemble = 200000;
+        const int number_of_barcodes_to_assemble = 200;
         while(reader.GetNextAlignment(alignment)) {
             if (alignment.IsPrimaryAlignment() && IsGoodAlignment(alignment)) {
                 std::string bx = "";
