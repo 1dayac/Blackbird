@@ -39,57 +39,57 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
+RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target list_install_components
@@ -102,21 +102,10 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -127,7 +116,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -135,10 +124,21 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -148,9 +148,9 @@ package/fast: package
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -190,6 +190,32 @@ all_clion: cmake_check_build_system
 all_clion/fast:
 	$(MAKE) -f CMakeFiles/all_clion.dir/build.make CMakeFiles/all_clion.dir/build
 .PHONY : all_clion/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-check
+
+# Build rule for target.
+jemalloc-check: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-check
+.PHONY : jemalloc-check
+
+# fast build rule for target.
+jemalloc-check/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/jemalloc-check.dir/build.make ext/jemalloc/CMakeFiles/jemalloc-check.dir/build
+.PHONY : jemalloc-check/fast
+
+#=============================================================================
+# Target rules for targets named ContinuousSubmit
+
+# Build rule for target.
+ContinuousSubmit: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ContinuousSubmit
+.PHONY : ContinuousSubmit
+
+# fast build rule for target.
+ContinuousSubmit/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/ContinuousSubmit.dir/build.make ext/jemalloc/CMakeFiles/ContinuousSubmit.dir/build
+.PHONY : ContinuousSubmit/fast
 
 #=============================================================================
 # Target rules for targets named ContinuousCoverage
@@ -257,147 +283,17 @@ ContinuousStart/fast:
 .PHONY : ContinuousStart/fast
 
 #=============================================================================
-# Target rules for targets named ExperimentalBuild
+# Target rules for targets named NightlyUpdate
 
 # Build rule for target.
-ExperimentalBuild: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalBuild
-.PHONY : ExperimentalBuild
+NightlyUpdate: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 NightlyUpdate
+.PHONY : NightlyUpdate
 
 # fast build rule for target.
-ExperimentalBuild/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalBuild.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalBuild.dir/build
-.PHONY : ExperimentalBuild/fast
-
-#=============================================================================
-# Target rules for targets named ExperimentalSubmit
-
-# Build rule for target.
-ExperimentalSubmit: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalSubmit
-.PHONY : ExperimentalSubmit
-
-# fast build rule for target.
-ExperimentalSubmit/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalSubmit.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalSubmit.dir/build
-.PHONY : ExperimentalSubmit/fast
-
-#=============================================================================
-# Target rules for targets named ExperimentalCoverage
-
-# Build rule for target.
-ExperimentalCoverage: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalCoverage
-.PHONY : ExperimentalCoverage
-
-# fast build rule for target.
-ExperimentalCoverage/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalCoverage.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalCoverage.dir/build
-.PHONY : ExperimentalCoverage/fast
-
-#=============================================================================
-# Target rules for targets named ExperimentalUpdate
-
-# Build rule for target.
-ExperimentalUpdate: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalUpdate
-.PHONY : ExperimentalUpdate
-
-# fast build rule for target.
-ExperimentalUpdate/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalUpdate.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalUpdate.dir/build
-.PHONY : ExperimentalUpdate/fast
-
-#=============================================================================
-# Target rules for targets named ExperimentalStart
-
-# Build rule for target.
-ExperimentalStart: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalStart
-.PHONY : ExperimentalStart
-
-# fast build rule for target.
-ExperimentalStart/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalStart.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalStart.dir/build
-.PHONY : ExperimentalStart/fast
-
-#=============================================================================
-# Target rules for targets named NightlyMemCheck
-
-# Build rule for target.
-NightlyMemCheck: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 NightlyMemCheck
-.PHONY : NightlyMemCheck
-
-# fast build rule for target.
-NightlyMemCheck/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyMemCheck.dir/build.make ext/jemalloc/CMakeFiles/NightlyMemCheck.dir/build
-.PHONY : NightlyMemCheck/fast
-
-#=============================================================================
-# Target rules for targets named ExperimentalConfigure
-
-# Build rule for target.
-ExperimentalConfigure: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalConfigure
-.PHONY : ExperimentalConfigure
-
-# fast build rule for target.
-ExperimentalConfigure/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalConfigure.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalConfigure.dir/build
-.PHONY : ExperimentalConfigure/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-check
-
-# Build rule for target.
-jemalloc-check: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-check
-.PHONY : jemalloc-check
-
-# fast build rule for target.
-jemalloc-check/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/jemalloc-check.dir/build.make ext/jemalloc/CMakeFiles/jemalloc-check.dir/build
-.PHONY : jemalloc-check/fast
-
-#=============================================================================
-# Target rules for targets named NightlyCoverage
-
-# Build rule for target.
-NightlyCoverage: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 NightlyCoverage
-.PHONY : NightlyCoverage
-
-# fast build rule for target.
-NightlyCoverage/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyCoverage.dir/build.make ext/jemalloc/CMakeFiles/NightlyCoverage.dir/build
-.PHONY : NightlyCoverage/fast
-
-#=============================================================================
-# Target rules for targets named NightlyTest
-
-# Build rule for target.
-NightlyTest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 NightlyTest
-.PHONY : NightlyTest
-
-# fast build rule for target.
-NightlyTest/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyTest.dir/build.make ext/jemalloc/CMakeFiles/NightlyTest.dir/build
-.PHONY : NightlyTest/fast
-
-#=============================================================================
-# Target rules for targets named ContinuousMemCheck
-
-# Build rule for target.
-ContinuousMemCheck: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ContinuousMemCheck
-.PHONY : ContinuousMemCheck
-
-# fast build rule for target.
-ContinuousMemCheck/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/ContinuousMemCheck.dir/build.make ext/jemalloc/CMakeFiles/ContinuousMemCheck.dir/build
-.PHONY : ContinuousMemCheck/fast
+NightlyUpdate/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyUpdate.dir/build.make ext/jemalloc/CMakeFiles/NightlyUpdate.dir/build
+.PHONY : NightlyUpdate/fast
 
 #=============================================================================
 # Target rules for targets named NightlyBuild
@@ -413,95 +309,30 @@ NightlyBuild/fast:
 .PHONY : NightlyBuild/fast
 
 #=============================================================================
-# Target rules for targets named NightlyConfigure
+# Target rules for targets named Continuous
 
 # Build rule for target.
-NightlyConfigure: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 NightlyConfigure
-.PHONY : NightlyConfigure
+Continuous: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Continuous
+.PHONY : Continuous
 
 # fast build rule for target.
-NightlyConfigure/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyConfigure.dir/build.make ext/jemalloc/CMakeFiles/NightlyConfigure.dir/build
-.PHONY : NightlyConfigure/fast
+Continuous/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/Continuous.dir/build.make ext/jemalloc/CMakeFiles/Continuous.dir/build
+.PHONY : Continuous/fast
 
 #=============================================================================
-# Target rules for targets named NightlyUpdate
+# Target rules for targets named ContinuousMemCheck
 
 # Build rule for target.
-NightlyUpdate: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 NightlyUpdate
-.PHONY : NightlyUpdate
+ContinuousMemCheck: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ContinuousMemCheck
+.PHONY : ContinuousMemCheck
 
 # fast build rule for target.
-NightlyUpdate/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyUpdate.dir/build.make ext/jemalloc/CMakeFiles/NightlyUpdate.dir/build
-.PHONY : NightlyUpdate/fast
-
-#=============================================================================
-# Target rules for targets named ExperimentalMemCheck
-
-# Build rule for target.
-ExperimentalMemCheck: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalMemCheck
-.PHONY : ExperimentalMemCheck
-
-# fast build rule for target.
-ExperimentalMemCheck/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalMemCheck.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalMemCheck.dir/build
-.PHONY : ExperimentalMemCheck/fast
-
-#=============================================================================
-# Target rules for targets named ContinuousConfigure
-
-# Build rule for target.
-ContinuousConfigure: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ContinuousConfigure
-.PHONY : ContinuousConfigure
-
-# fast build rule for target.
-ContinuousConfigure/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/ContinuousConfigure.dir/build.make ext/jemalloc/CMakeFiles/ContinuousConfigure.dir/build
-.PHONY : ContinuousConfigure/fast
-
-#=============================================================================
-# Target rules for targets named NightlyMemoryCheck
-
-# Build rule for target.
-NightlyMemoryCheck: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 NightlyMemoryCheck
-.PHONY : NightlyMemoryCheck
-
-# fast build rule for target.
-NightlyMemoryCheck/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyMemoryCheck.dir/build.make ext/jemalloc/CMakeFiles/NightlyMemoryCheck.dir/build
-.PHONY : NightlyMemoryCheck/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-private-symbols-awk-jet
-
-# Build rule for target.
-jemalloc-private-symbols-awk-jet: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-private-symbols-awk-jet
-.PHONY : jemalloc-private-symbols-awk-jet
-
-# fast build rule for target.
-jemalloc-private-symbols-awk-jet/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/jemalloc-private-symbols-awk-jet.dir/build.make ext/jemalloc/CMakeFiles/jemalloc-private-symbols-awk-jet.dir/build
-.PHONY : jemalloc-private-symbols-awk-jet/fast
-
-#=============================================================================
-# Target rules for targets named NightlyStart
-
-# Build rule for target.
-NightlyStart: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 NightlyStart
-.PHONY : NightlyStart
-
-# fast build rule for target.
-NightlyStart/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyStart.dir/build.make ext/jemalloc/CMakeFiles/NightlyStart.dir/build
-.PHONY : NightlyStart/fast
+ContinuousMemCheck/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/ContinuousMemCheck.dir/build.make ext/jemalloc/CMakeFiles/ContinuousMemCheck.dir/build
+.PHONY : ContinuousMemCheck/fast
 
 #=============================================================================
 # Target rules for targets named Nightly
@@ -517,17 +348,173 @@ Nightly/fast:
 .PHONY : Nightly/fast
 
 #=============================================================================
-# Target rules for targets named ContinuousSubmit
+# Target rules for targets named jemalloc-private-symbols-awk-jet
 
 # Build rule for target.
-ContinuousSubmit: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ContinuousSubmit
-.PHONY : ContinuousSubmit
+jemalloc-private-symbols-awk-jet: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-private-symbols-awk-jet
+.PHONY : jemalloc-private-symbols-awk-jet
 
 # fast build rule for target.
-ContinuousSubmit/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/ContinuousSubmit.dir/build.make ext/jemalloc/CMakeFiles/ContinuousSubmit.dir/build
-.PHONY : ContinuousSubmit/fast
+jemalloc-private-symbols-awk-jet/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/jemalloc-private-symbols-awk-jet.dir/build.make ext/jemalloc/CMakeFiles/jemalloc-private-symbols-awk-jet.dir/build
+.PHONY : jemalloc-private-symbols-awk-jet/fast
+
+#=============================================================================
+# Target rules for targets named NightlyTest
+
+# Build rule for target.
+NightlyTest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 NightlyTest
+.PHONY : NightlyTest
+
+# fast build rule for target.
+NightlyTest/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyTest.dir/build.make ext/jemalloc/CMakeFiles/NightlyTest.dir/build
+.PHONY : NightlyTest/fast
+
+#=============================================================================
+# Target rules for targets named NightlyStart
+
+# Build rule for target.
+NightlyStart: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 NightlyStart
+.PHONY : NightlyStart
+
+# fast build rule for target.
+NightlyStart/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyStart.dir/build.make ext/jemalloc/CMakeFiles/NightlyStart.dir/build
+.PHONY : NightlyStart/fast
+
+#=============================================================================
+# Target rules for targets named NightlyMemoryCheck
+
+# Build rule for target.
+NightlyMemoryCheck: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 NightlyMemoryCheck
+.PHONY : NightlyMemoryCheck
+
+# fast build rule for target.
+NightlyMemoryCheck/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyMemoryCheck.dir/build.make ext/jemalloc/CMakeFiles/NightlyMemoryCheck.dir/build
+.PHONY : NightlyMemoryCheck/fast
+
+#=============================================================================
+# Target rules for targets named NightlyMemCheck
+
+# Build rule for target.
+NightlyMemCheck: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 NightlyMemCheck
+.PHONY : NightlyMemCheck
+
+# fast build rule for target.
+NightlyMemCheck/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyMemCheck.dir/build.make ext/jemalloc/CMakeFiles/NightlyMemCheck.dir/build
+.PHONY : NightlyMemCheck/fast
+
+#=============================================================================
+# Target rules for targets named ExperimentalStart
+
+# Build rule for target.
+ExperimentalStart: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalStart
+.PHONY : ExperimentalStart
+
+# fast build rule for target.
+ExperimentalStart/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalStart.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalStart.dir/build
+.PHONY : ExperimentalStart/fast
+
+#=============================================================================
+# Target rules for targets named ContinuousConfigure
+
+# Build rule for target.
+ContinuousConfigure: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ContinuousConfigure
+.PHONY : ContinuousConfigure
+
+# fast build rule for target.
+ContinuousConfigure/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/ContinuousConfigure.dir/build.make ext/jemalloc/CMakeFiles/ContinuousConfigure.dir/build
+.PHONY : ContinuousConfigure/fast
+
+#=============================================================================
+# Target rules for targets named NightlyCoverage
+
+# Build rule for target.
+NightlyCoverage: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 NightlyCoverage
+.PHONY : NightlyCoverage
+
+# fast build rule for target.
+NightlyCoverage/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyCoverage.dir/build.make ext/jemalloc/CMakeFiles/NightlyCoverage.dir/build
+.PHONY : NightlyCoverage/fast
+
+#=============================================================================
+# Target rules for targets named ExperimentalUpdate
+
+# Build rule for target.
+ExperimentalUpdate: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalUpdate
+.PHONY : ExperimentalUpdate
+
+# fast build rule for target.
+ExperimentalUpdate/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalUpdate.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalUpdate.dir/build
+.PHONY : ExperimentalUpdate/fast
+
+#=============================================================================
+# Target rules for targets named ExperimentalConfigure
+
+# Build rule for target.
+ExperimentalConfigure: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalConfigure
+.PHONY : ExperimentalConfigure
+
+# fast build rule for target.
+ExperimentalConfigure/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalConfigure.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalConfigure.dir/build
+.PHONY : ExperimentalConfigure/fast
+
+#=============================================================================
+# Target rules for targets named ExperimentalCoverage
+
+# Build rule for target.
+ExperimentalCoverage: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalCoverage
+.PHONY : ExperimentalCoverage
+
+# fast build rule for target.
+ExperimentalCoverage/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalCoverage.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalCoverage.dir/build
+.PHONY : ExperimentalCoverage/fast
+
+#=============================================================================
+# Target rules for targets named ExperimentalBuild
+
+# Build rule for target.
+ExperimentalBuild: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalBuild
+.PHONY : ExperimentalBuild
+
+# fast build rule for target.
+ExperimentalBuild/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalBuild.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalBuild.dir/build
+.PHONY : ExperimentalBuild/fast
+
+#=============================================================================
+# Target rules for targets named NightlyConfigure
+
+# Build rule for target.
+NightlyConfigure: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 NightlyConfigure
+.PHONY : NightlyConfigure
+
+# fast build rule for target.
+NightlyConfigure/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlyConfigure.dir/build.make ext/jemalloc/CMakeFiles/NightlyConfigure.dir/build
+.PHONY : NightlyConfigure/fast
 
 #=============================================================================
 # Target rules for targets named ExperimentalTest
@@ -543,30 +530,30 @@ ExperimentalTest/fast:
 .PHONY : ExperimentalTest/fast
 
 #=============================================================================
-# Target rules for targets named NightlySubmit
+# Target rules for targets named ExperimentalMemCheck
 
 # Build rule for target.
-NightlySubmit: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 NightlySubmit
-.PHONY : NightlySubmit
+ExperimentalMemCheck: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalMemCheck
+.PHONY : ExperimentalMemCheck
 
 # fast build rule for target.
-NightlySubmit/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlySubmit.dir/build.make ext/jemalloc/CMakeFiles/NightlySubmit.dir/build
-.PHONY : NightlySubmit/fast
+ExperimentalMemCheck/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalMemCheck.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalMemCheck.dir/build
+.PHONY : ExperimentalMemCheck/fast
 
 #=============================================================================
-# Target rules for targets named Continuous
+# Target rules for targets named jemalloc-private-symbols-awk
 
 # Build rule for target.
-Continuous: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Continuous
-.PHONY : Continuous
+jemalloc-private-symbols-awk: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-private-symbols-awk
+.PHONY : jemalloc-private-symbols-awk
 
 # fast build rule for target.
-Continuous/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/Continuous.dir/build.make ext/jemalloc/CMakeFiles/Continuous.dir/build
-.PHONY : Continuous/fast
+jemalloc-private-symbols-awk/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/jemalloc-private-symbols-awk.dir/build.make ext/jemalloc/CMakeFiles/jemalloc-private-symbols-awk.dir/build
+.PHONY : jemalloc-private-symbols-awk/fast
 
 #=============================================================================
 # Target rules for targets named Experimental
@@ -582,17 +569,30 @@ Experimental/fast:
 .PHONY : Experimental/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-private-symbols-awk
+# Target rules for targets named NightlySubmit
 
 # Build rule for target.
-jemalloc-private-symbols-awk: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-private-symbols-awk
-.PHONY : jemalloc-private-symbols-awk
+NightlySubmit: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 NightlySubmit
+.PHONY : NightlySubmit
 
 # fast build rule for target.
-jemalloc-private-symbols-awk/fast:
-	$(MAKE) -f ext/jemalloc/CMakeFiles/jemalloc-private-symbols-awk.dir/build.make ext/jemalloc/CMakeFiles/jemalloc-private-symbols-awk.dir/build
-.PHONY : jemalloc-private-symbols-awk/fast
+NightlySubmit/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/NightlySubmit.dir/build.make ext/jemalloc/CMakeFiles/NightlySubmit.dir/build
+.PHONY : NightlySubmit/fast
+
+#=============================================================================
+# Target rules for targets named ExperimentalSubmit
+
+# Build rule for target.
+ExperimentalSubmit: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ExperimentalSubmit
+.PHONY : ExperimentalSubmit
+
+# fast build rule for target.
+ExperimentalSubmit/fast:
+	$(MAKE) -f ext/jemalloc/CMakeFiles/ExperimentalSubmit.dir/build.make ext/jemalloc/CMakeFiles/ExperimentalSubmit.dir/build
+.PHONY : ExperimentalSubmit/fast
 
 #=============================================================================
 # Target rules for targets named jemallocIntegrationTest
@@ -634,32 +634,6 @@ jemallocUnitTest/fast:
 .PHONY : jemallocUnitTest/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-smallocx
-
-# Build rule for target.
-jemalloc-test-smallocx: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-smallocx
-.PHONY : jemalloc-test-smallocx
-
-# fast build rule for target.
-jemalloc-test-smallocx/fast:
-	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-smallocx.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-smallocx.dir/build
-.PHONY : jemalloc-test-smallocx/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-thread_arena
-
-# Build rule for target.
-jemalloc-test-thread_arena: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-thread_arena
-.PHONY : jemalloc-test-thread_arena
-
-# fast build rule for target.
-jemalloc-test-thread_arena/fast:
-	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-thread_arena.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-thread_arena.dir/build
-.PHONY : jemalloc-test-thread_arena/fast
-
-#=============================================================================
 # Target rules for targets named jemalloc-test-sdallocx
 
 # Build rule for target.
@@ -671,123 +645,6 @@ jemalloc-test-sdallocx: cmake_check_build_system
 jemalloc-test-sdallocx/fast:
 	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-sdallocx.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-sdallocx.dir/build
 .PHONY : jemalloc-test-sdallocx/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-xallocx
-
-# Build rule for target.
-jemalloc-test-xallocx: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-xallocx
-.PHONY : jemalloc-test-xallocx
-
-# fast build rule for target.
-jemalloc-test-xallocx/fast:
-	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-xallocx.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-xallocx.dir/build
-.PHONY : jemalloc-test-xallocx/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-thread_tcache_enabled
-
-# Build rule for target.
-jemalloc-test-thread_tcache_enabled: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-thread_tcache_enabled
-.PHONY : jemalloc-test-thread_tcache_enabled
-
-# fast build rule for target.
-jemalloc-test-thread_tcache_enabled/fast:
-	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-thread_tcache_enabled.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-thread_tcache_enabled.dir/build
-.PHONY : jemalloc-test-thread_tcache_enabled/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-rallocx
-
-# Build rule for target.
-jemalloc-test-rallocx: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-rallocx
-.PHONY : jemalloc-test-rallocx
-
-# fast build rule for target.
-jemalloc-test-rallocx/fast:
-	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-rallocx.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-rallocx.dir/build
-.PHONY : jemalloc-test-rallocx/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-overflow
-
-# Build rule for target.
-jemalloc-test-overflow: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-overflow
-.PHONY : jemalloc-test-overflow
-
-# fast build rule for target.
-jemalloc-test-overflow/fast:
-	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-overflow.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-overflow.dir/build
-.PHONY : jemalloc-test-overflow/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-mallocx
-
-# Build rule for target.
-jemalloc-test-mallocx: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-mallocx
-.PHONY : jemalloc-test-mallocx
-
-# fast build rule for target.
-jemalloc-test-mallocx/fast:
-	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-mallocx.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-mallocx.dir/build
-.PHONY : jemalloc-test-mallocx/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-malloc
-
-# Build rule for target.
-jemalloc-test-malloc: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-malloc
-.PHONY : jemalloc-test-malloc
-
-# fast build rule for target.
-jemalloc-test-malloc/fast:
-	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-malloc.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-malloc.dir/build
-.PHONY : jemalloc-test-malloc/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-posix_memalign
-
-# Build rule for target.
-jemalloc-test-posix_memalign: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-posix_memalign
-.PHONY : jemalloc-test-posix_memalign
-
-# fast build rule for target.
-jemalloc-test-posix_memalign/fast:
-	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-posix_memalign.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-posix_memalign.dir/build
-.PHONY : jemalloc-test-posix_memalign/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-extent
-
-# Build rule for target.
-jemalloc-test-extent: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-extent
-.PHONY : jemalloc-test-extent
-
-# fast build rule for target.
-jemalloc-test-extent/fast:
-	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-extent.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-extent.dir/build
-.PHONY : jemalloc-test-extent/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-allocated
-
-# Build rule for target.
-jemalloc-test-allocated: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-allocated
-.PHONY : jemalloc-test-allocated
-
-# fast build rule for target.
-jemalloc-test-allocated/fast:
-	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-allocated.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-allocated.dir/build
-.PHONY : jemalloc-test-allocated/fast
 
 #=============================================================================
 # Target rules for targets named jemalloc-test-slab_sizes
@@ -803,17 +660,95 @@ jemalloc-test-slab_sizes/fast:
 .PHONY : jemalloc-test-slab_sizes/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-aligned_alloc
+# Target rules for targets named jemalloc-test-malloc
 
 # Build rule for target.
-jemalloc-test-aligned_alloc: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-aligned_alloc
-.PHONY : jemalloc-test-aligned_alloc
+jemalloc-test-malloc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-malloc
+.PHONY : jemalloc-test-malloc
 
 # fast build rule for target.
-jemalloc-test-aligned_alloc/fast:
-	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-aligned_alloc.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-aligned_alloc.dir/build
-.PHONY : jemalloc-test-aligned_alloc/fast
+jemalloc-test-malloc/fast:
+	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-malloc.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-malloc.dir/build
+.PHONY : jemalloc-test-malloc/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-allocated
+
+# Build rule for target.
+jemalloc-test-allocated: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-allocated
+.PHONY : jemalloc-test-allocated
+
+# fast build rule for target.
+jemalloc-test-allocated/fast:
+	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-allocated.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-allocated.dir/build
+.PHONY : jemalloc-test-allocated/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-rallocx
+
+# Build rule for target.
+jemalloc-test-rallocx: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-rallocx
+.PHONY : jemalloc-test-rallocx
+
+# fast build rule for target.
+jemalloc-test-rallocx/fast:
+	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-rallocx.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-rallocx.dir/build
+.PHONY : jemalloc-test-rallocx/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-extent
+
+# Build rule for target.
+jemalloc-test-extent: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-extent
+.PHONY : jemalloc-test-extent
+
+# fast build rule for target.
+jemalloc-test-extent/fast:
+	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-extent.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-extent.dir/build
+.PHONY : jemalloc-test-extent/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-posix_memalign
+
+# Build rule for target.
+jemalloc-test-posix_memalign: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-posix_memalign
+.PHONY : jemalloc-test-posix_memalign
+
+# fast build rule for target.
+jemalloc-test-posix_memalign/fast:
+	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-posix_memalign.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-posix_memalign.dir/build
+.PHONY : jemalloc-test-posix_memalign/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-overflow
+
+# Build rule for target.
+jemalloc-test-overflow: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-overflow
+.PHONY : jemalloc-test-overflow
+
+# fast build rule for target.
+jemalloc-test-overflow/fast:
+	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-overflow.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-overflow.dir/build
+.PHONY : jemalloc-test-overflow/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-xallocx
+
+# Build rule for target.
+jemalloc-test-xallocx: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-xallocx
+.PHONY : jemalloc-test-xallocx
+
+# fast build rule for target.
+jemalloc-test-xallocx/fast:
+	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-xallocx.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-xallocx.dir/build
+.PHONY : jemalloc-test-xallocx/fast
 
 #=============================================================================
 # Target rules for targets named jemalloc-test-MALLOCX_ARENA
@@ -829,17 +764,69 @@ jemalloc-test-MALLOCX_ARENA/fast:
 .PHONY : jemalloc-test-MALLOCX_ARENA/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-zero
+# Target rules for targets named jemalloc-test-thread_arena
 
 # Build rule for target.
-jemalloc-test-zero: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-zero
-.PHONY : jemalloc-test-zero
+jemalloc-test-thread_arena: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-thread_arena
+.PHONY : jemalloc-test-thread_arena
 
 # fast build rule for target.
-jemalloc-test-zero/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build
-.PHONY : jemalloc-test-zero/fast
+jemalloc-test-thread_arena/fast:
+	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-thread_arena.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-thread_arena.dir/build
+.PHONY : jemalloc-test-thread_arena/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-aligned_alloc
+
+# Build rule for target.
+jemalloc-test-aligned_alloc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-aligned_alloc
+.PHONY : jemalloc-test-aligned_alloc
+
+# fast build rule for target.
+jemalloc-test-aligned_alloc/fast:
+	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-aligned_alloc.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-aligned_alloc.dir/build
+.PHONY : jemalloc-test-aligned_alloc/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-smallocx
+
+# Build rule for target.
+jemalloc-test-smallocx: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-smallocx
+.PHONY : jemalloc-test-smallocx
+
+# fast build rule for target.
+jemalloc-test-smallocx/fast:
+	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-smallocx.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-smallocx.dir/build
+.PHONY : jemalloc-test-smallocx/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-mallocx
+
+# Build rule for target.
+jemalloc-test-mallocx: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-mallocx
+.PHONY : jemalloc-test-mallocx
+
+# fast build rule for target.
+jemalloc-test-mallocx/fast:
+	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-mallocx.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-mallocx.dir/build
+.PHONY : jemalloc-test-mallocx/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-thread_tcache_enabled
+
+# Build rule for target.
+jemalloc-test-thread_tcache_enabled: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-thread_tcache_enabled
+.PHONY : jemalloc-test-thread_tcache_enabled
+
+# fast build rule for target.
+jemalloc-test-thread_tcache_enabled/fast:
+	$(MAKE) -f ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-thread_tcache_enabled.dir/build.make ext/jemalloc/test/integration/CMakeFiles/jemalloc-test-thread_tcache_enabled.dir/build
+.PHONY : jemalloc-test-thread_tcache_enabled/fast
 
 #=============================================================================
 # Target rules for targets named jemalloc-test-witness
@@ -881,19 +868,6 @@ jemalloc-test-ticker/fast:
 .PHONY : jemalloc-test-ticker/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-test_hooks
-
-# Build rule for target.
-jemalloc-test-test_hooks: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-test_hooks
-.PHONY : jemalloc-test-test_hooks
-
-# fast build rule for target.
-jemalloc-test-test_hooks/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build
-.PHONY : jemalloc-test-test_hooks/fast
-
-#=============================================================================
 # Target rules for targets named jemalloc-test-stats_print
 
 # Build rule for target.
@@ -905,6 +879,19 @@ jemalloc-test-stats_print: cmake_check_build_system
 jemalloc-test-stats_print/fast:
 	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats_print.dir/build
 .PHONY : jemalloc-test-stats_print/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-spin
+
+# Build rule for target.
+jemalloc-test-spin: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-spin
+.PHONY : jemalloc-test-spin
+
+# fast build rule for target.
+jemalloc-test-spin/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build
+.PHONY : jemalloc-test-spin/fast
 
 #=============================================================================
 # Target rules for targets named jemalloc-test-smoothstep
@@ -946,251 +933,30 @@ jemalloc-test-size_classes/fast:
 .PHONY : jemalloc-test-size_classes/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-rtree
+# Target rules for targets named jemalloc-test-seq
 
 # Build rule for target.
-jemalloc-test-rtree: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-rtree
-.PHONY : jemalloc-test-rtree
+jemalloc-test-seq: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-seq
+.PHONY : jemalloc-test-seq
 
 # fast build rule for target.
-jemalloc-test-rtree/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build
-.PHONY : jemalloc-test-rtree/fast
+jemalloc-test-seq/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build
+.PHONY : jemalloc-test-seq/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-prof_reset
+# Target rules for targets named jemalloc-test-sc
 
 # Build rule for target.
-jemalloc-test-prof_reset: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_reset
-.PHONY : jemalloc-test-prof_reset
+jemalloc-test-sc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-sc
+.PHONY : jemalloc-test-sc
 
 # fast build rule for target.
-jemalloc-test-prof_reset/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build
-.PHONY : jemalloc-test-prof_reset/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-qr
-
-# Build rule for target.
-jemalloc-test-qr: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-qr
-.PHONY : jemalloc-test-qr
-
-# fast build rule for target.
-jemalloc-test-qr/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build
-.PHONY : jemalloc-test-qr/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-prof_accum
-
-# Build rule for target.
-jemalloc-test-prof_accum: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_accum
-.PHONY : jemalloc-test-prof_accum
-
-# fast build rule for target.
-jemalloc-test-prof_accum/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build
-.PHONY : jemalloc-test-prof_accum/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-prng
-
-# Build rule for target.
-jemalloc-test-prng: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prng
-.PHONY : jemalloc-test-prng
-
-# fast build rule for target.
-jemalloc-test-prng/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build
-.PHONY : jemalloc-test-prng/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-stats
-
-# Build rule for target.
-jemalloc-test-stats: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-stats
-.PHONY : jemalloc-test-stats
-
-# fast build rule for target.
-jemalloc-test-stats/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build
-.PHONY : jemalloc-test-stats/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-mtx
-
-# Build rule for target.
-jemalloc-test-mtx: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-mtx
-.PHONY : jemalloc-test-mtx
-
-# fast build rule for target.
-jemalloc-test-mtx/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build
-.PHONY : jemalloc-test-mtx/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-mq
-
-# Build rule for target.
-jemalloc-test-mq: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-mq
-.PHONY : jemalloc-test-mq
-
-# fast build rule for target.
-jemalloc-test-mq/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build
-.PHONY : jemalloc-test-mq/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-math
-
-# Build rule for target.
-jemalloc-test-math: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-math
-.PHONY : jemalloc-test-math
-
-# fast build rule for target.
-jemalloc-test-math/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build
-.PHONY : jemalloc-test-math/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-ql
-
-# Build rule for target.
-jemalloc-test-ql: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-ql
-.PHONY : jemalloc-test-ql
-
-# fast build rule for target.
-jemalloc-test-ql/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build
-.PHONY : jemalloc-test-ql/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-prof_gdump
-
-# Build rule for target.
-jemalloc-test-prof_gdump: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_gdump
-.PHONY : jemalloc-test-prof_gdump
-
-# fast build rule for target.
-jemalloc-test-prof_gdump/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build
-.PHONY : jemalloc-test-prof_gdump/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-malloc_io
-
-# Build rule for target.
-jemalloc-test-malloc_io: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-malloc_io
-.PHONY : jemalloc-test-malloc_io
-
-# fast build rule for target.
-jemalloc-test-malloc_io/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build
-.PHONY : jemalloc-test-malloc_io/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-mallctl
-
-# Build rule for target.
-jemalloc-test-mallctl: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-mallctl
-.PHONY : jemalloc-test-mallctl
-
-# fast build rule for target.
-jemalloc-test-mallctl/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build
-.PHONY : jemalloc-test-mallctl/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-junk_free
-
-# Build rule for target.
-jemalloc-test-junk_free: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-junk_free
-.PHONY : jemalloc-test-junk_free
-
-# fast build rule for target.
-jemalloc-test-junk_free/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build
-.PHONY : jemalloc-test-junk_free/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-spin
-
-# Build rule for target.
-jemalloc-test-spin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-spin
-.PHONY : jemalloc-test-spin
-
-# fast build rule for target.
-jemalloc-test-spin/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-spin.dir/build
-.PHONY : jemalloc-test-spin/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-retained
-
-# Build rule for target.
-jemalloc-test-retained: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-retained
-.PHONY : jemalloc-test-retained
-
-# fast build rule for target.
-jemalloc-test-retained/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build
-.PHONY : jemalloc-test-retained/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-prof_active
-
-# Build rule for target.
-jemalloc-test-prof_active: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_active
-.PHONY : jemalloc-test-prof_active
-
-# fast build rule for target.
-jemalloc-test-prof_active/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build
-.PHONY : jemalloc-test-prof_active/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-junk_alloc
-
-# Build rule for target.
-jemalloc-test-junk_alloc: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-junk_alloc
-.PHONY : jemalloc-test-junk_alloc
-
-# fast build rule for target.
-jemalloc-test-junk_alloc/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build
-.PHONY : jemalloc-test-junk_alloc/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-bitmap
-
-# Build rule for target.
-jemalloc-test-bitmap: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-bitmap
-.PHONY : jemalloc-test-bitmap
-
-# fast build rule for target.
-jemalloc-test-bitmap/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build
-.PHONY : jemalloc-test-bitmap/fast
+jemalloc-test-sc/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build
+.PHONY : jemalloc-test-sc/fast
 
 #=============================================================================
 # Target rules for targets named jemalloc-test-junk
@@ -1206,30 +972,69 @@ jemalloc-test-junk/fast:
 .PHONY : jemalloc-test-junk/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-rb
+# Target rules for targets named jemalloc-test-retained
 
 # Build rule for target.
-jemalloc-test-rb: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-rb
-.PHONY : jemalloc-test-rb
+jemalloc-test-retained: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-retained
+.PHONY : jemalloc-test-retained
 
 # fast build rule for target.
-jemalloc-test-rb/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build
-.PHONY : jemalloc-test-rb/fast
+jemalloc-test-retained/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-retained.dir/build
+.PHONY : jemalloc-test-retained/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-arena_reset
+# Target rules for targets named jemalloc-test-binshard
 
 # Build rule for target.
-jemalloc-test-arena_reset: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-arena_reset
-.PHONY : jemalloc-test-arena_reset
+jemalloc-test-binshard: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-binshard
+.PHONY : jemalloc-test-binshard
 
 # fast build rule for target.
-jemalloc-test-arena_reset/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build
-.PHONY : jemalloc-test-arena_reset/fast
+jemalloc-test-binshard/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build
+.PHONY : jemalloc-test-binshard/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-prof_reset
+
+# Build rule for target.
+jemalloc-test-prof_reset: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_reset
+.PHONY : jemalloc-test-prof_reset
+
+# fast build rule for target.
+jemalloc-test-prof_reset/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_reset.dir/build
+.PHONY : jemalloc-test-prof_reset/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-extent_quantize
+
+# Build rule for target.
+jemalloc-test-extent_quantize: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-extent_quantize
+.PHONY : jemalloc-test-extent_quantize
+
+# fast build rule for target.
+jemalloc-test-extent_quantize/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build
+.PHONY : jemalloc-test-extent_quantize/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-rtree
+
+# Build rule for target.
+jemalloc-test-rtree: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-rtree
+.PHONY : jemalloc-test-rtree
+
+# fast build rule for target.
+jemalloc-test-rtree/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rtree.dir/build
+.PHONY : jemalloc-test-rtree/fast
 
 #=============================================================================
 # Target rules for targets named jemalloc-test-nstime
@@ -1245,43 +1050,56 @@ jemalloc-test-nstime/fast:
 .PHONY : jemalloc-test-nstime/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-huge
+# Target rules for targets named jemalloc-test-rb
 
 # Build rule for target.
-jemalloc-test-huge: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-huge
-.PHONY : jemalloc-test-huge
+jemalloc-test-rb: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-rb
+.PHONY : jemalloc-test-rb
 
 # fast build rule for target.
-jemalloc-test-huge/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build
-.PHONY : jemalloc-test-huge/fast
+jemalloc-test-rb/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-rb.dir/build
+.PHONY : jemalloc-test-rb/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-prof_tctx
+# Target rules for targets named jemalloc-test-emitter
 
 # Build rule for target.
-jemalloc-test-prof_tctx: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_tctx
-.PHONY : jemalloc-test-prof_tctx
+jemalloc-test-emitter: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-emitter
+.PHONY : jemalloc-test-emitter
 
 # fast build rule for target.
-jemalloc-test-prof_tctx/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build
-.PHONY : jemalloc-test-prof_tctx/fast
+jemalloc-test-emitter/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build
+.PHONY : jemalloc-test-emitter/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-background_thread
+# Target rules for targets named jemalloc-test-malloc_io
 
 # Build rule for target.
-jemalloc-test-background_thread: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-background_thread
-.PHONY : jemalloc-test-background_thread
+jemalloc-test-malloc_io: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-malloc_io
+.PHONY : jemalloc-test-malloc_io
 
 # fast build rule for target.
-jemalloc-test-background_thread/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build
-.PHONY : jemalloc-test-background_thread/fast
+jemalloc-test-malloc_io/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-malloc_io.dir/build
+.PHONY : jemalloc-test-malloc_io/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-div
+
+# Build rule for target.
+jemalloc-test-div: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-div
+.PHONY : jemalloc-test-div
+
+# fast build rule for target.
+jemalloc-test-div/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build
+.PHONY : jemalloc-test-div/fast
 
 #=============================================================================
 # Target rules for targets named jemalloc-test-decay
@@ -1297,108 +1115,95 @@ jemalloc-test-decay/fast:
 .PHONY : jemalloc-test-decay/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-hook
+# Target rules for targets named jemalloc-test-junk_free
 
 # Build rule for target.
-jemalloc-test-hook: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-hook
-.PHONY : jemalloc-test-hook
+jemalloc-test-junk_free: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-junk_free
+.PHONY : jemalloc-test-junk_free
 
 # fast build rule for target.
-jemalloc-test-hook/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build
-.PHONY : jemalloc-test-hook/fast
+jemalloc-test-junk_free/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_free.dir/build
+.PHONY : jemalloc-test-junk_free/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-background_thread_enable
+# Target rules for targets named jemalloc-test-math
 
 # Build rule for target.
-jemalloc-test-background_thread_enable: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-background_thread_enable
-.PHONY : jemalloc-test-background_thread_enable
+jemalloc-test-math: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-math
+.PHONY : jemalloc-test-math
 
 # fast build rule for target.
-jemalloc-test-background_thread_enable/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build
-.PHONY : jemalloc-test-background_thread_enable/fast
+jemalloc-test-math/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-math.dir/build
+.PHONY : jemalloc-test-math/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-prof_log
+# Target rules for targets named jemalloc-test-base
 
 # Build rule for target.
-jemalloc-test-prof_log: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_log
-.PHONY : jemalloc-test-prof_log
+jemalloc-test-base: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-base
+.PHONY : jemalloc-test-base
 
 # fast build rule for target.
-jemalloc-test-prof_log/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build
-.PHONY : jemalloc-test-prof_log/fast
+jemalloc-test-base/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build
+.PHONY : jemalloc-test-base/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-atomic
+# Target rules for targets named jemalloc-test-ckh
 
 # Build rule for target.
-jemalloc-test-atomic: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-atomic
-.PHONY : jemalloc-test-atomic
+jemalloc-test-ckh: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-ckh
+.PHONY : jemalloc-test-ckh
 
 # fast build rule for target.
-jemalloc-test-atomic/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build
-.PHONY : jemalloc-test-atomic/fast
+jemalloc-test-ckh/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build
+.PHONY : jemalloc-test-ckh/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-pages
+# Target rules for targets named jemalloc-test-bitmap
 
 # Build rule for target.
-jemalloc-test-pages: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-pages
-.PHONY : jemalloc-test-pages
+jemalloc-test-bitmap: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-bitmap
+.PHONY : jemalloc-test-bitmap
 
 # fast build rule for target.
-jemalloc-test-pages/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build
-.PHONY : jemalloc-test-pages/fast
+jemalloc-test-bitmap/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-bitmap.dir/build
+.PHONY : jemalloc-test-bitmap/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-fork
+# Target rules for targets named jemalloc-test-a0
 
 # Build rule for target.
-jemalloc-test-fork: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-fork
-.PHONY : jemalloc-test-fork
+jemalloc-test-a0: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-a0
+.PHONY : jemalloc-test-a0
 
 # fast build rule for target.
-jemalloc-test-fork/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build
-.PHONY : jemalloc-test-fork/fast
+jemalloc-test-a0/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build
+.PHONY : jemalloc-test-a0/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-prof_idump
+# Target rules for targets named jemalloc-test-arena_reset
 
 # Build rule for target.
-jemalloc-test-prof_idump: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_idump
-.PHONY : jemalloc-test-prof_idump
+jemalloc-test-arena_reset: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-arena_reset
+.PHONY : jemalloc-test-arena_reset
 
 # fast build rule for target.
-jemalloc-test-prof_idump/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build
-.PHONY : jemalloc-test-prof_idump/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-binshard
-
-# Build rule for target.
-jemalloc-test-binshard: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-binshard
-.PHONY : jemalloc-test-binshard
-
-# fast build rule for target.
-jemalloc-test-binshard/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-binshard.dir/build
-.PHONY : jemalloc-test-binshard/fast
+jemalloc-test-arena_reset/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-arena_reset.dir/build
+.PHONY : jemalloc-test-arena_reset/fast
 
 #=============================================================================
 # Target rules for targets named jemalloc-test-extent_util
@@ -1427,82 +1232,56 @@ jemalloc-test-arena_reset_prof/fast:
 .PHONY : jemalloc-test-arena_reset_prof/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-extent_quantize
+# Target rules for targets named jemalloc-test-pages
 
 # Build rule for target.
-jemalloc-test-extent_quantize: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-extent_quantize
-.PHONY : jemalloc-test-extent_quantize
+jemalloc-test-pages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-pages
+.PHONY : jemalloc-test-pages
 
 # fast build rule for target.
-jemalloc-test-extent_quantize/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-extent_quantize.dir/build
-.PHONY : jemalloc-test-extent_quantize/fast
+jemalloc-test-pages/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pages.dir/build
+.PHONY : jemalloc-test-pages/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-ckh
+# Target rules for targets named jemalloc-test-ql
 
 # Build rule for target.
-jemalloc-test-ckh: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-ckh
-.PHONY : jemalloc-test-ckh
+jemalloc-test-ql: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-ql
+.PHONY : jemalloc-test-ql
 
 # fast build rule for target.
-jemalloc-test-ckh/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ckh.dir/build
-.PHONY : jemalloc-test-ckh/fast
+jemalloc-test-ql/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ql.dir/build
+.PHONY : jemalloc-test-ql/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-ph
+# Target rules for targets named jemalloc-test-atomic
 
 # Build rule for target.
-jemalloc-test-ph: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-ph
-.PHONY : jemalloc-test-ph
+jemalloc-test-atomic: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-atomic
+.PHONY : jemalloc-test-atomic
 
 # fast build rule for target.
-jemalloc-test-ph/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build
-.PHONY : jemalloc-test-ph/fast
+jemalloc-test-atomic/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-atomic.dir/build
+.PHONY : jemalloc-test-atomic/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-seq
+# Target rules for targets named jemalloc-test-hook
 
 # Build rule for target.
-jemalloc-test-seq: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-seq
-.PHONY : jemalloc-test-seq
+jemalloc-test-hook: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-hook
+.PHONY : jemalloc-test-hook
 
 # fast build rule for target.
-jemalloc-test-seq/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-seq.dir/build
-.PHONY : jemalloc-test-seq/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-div
-
-# Build rule for target.
-jemalloc-test-div: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-div
-.PHONY : jemalloc-test-div
-
-# fast build rule for target.
-jemalloc-test-div/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-div.dir/build
-.PHONY : jemalloc-test-div/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-emitter
-
-# Build rule for target.
-jemalloc-test-emitter: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-emitter
-.PHONY : jemalloc-test-emitter
-
-# fast build rule for target.
-jemalloc-test-emitter/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-emitter.dir/build
-.PHONY : jemalloc-test-emitter/fast
+jemalloc-test-hook/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-hook.dir/build
+.PHONY : jemalloc-test-hook/fast
 
 #=============================================================================
 # Target rules for targets named jemalloc-test-bit_util
@@ -1518,69 +1297,17 @@ jemalloc-test-bit_util/fast:
 .PHONY : jemalloc-test-bit_util/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-log
+# Target rules for targets named jemalloc-test-mallctl
 
 # Build rule for target.
-jemalloc-test-log: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-log
-.PHONY : jemalloc-test-log
+jemalloc-test-mallctl: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-mallctl
+.PHONY : jemalloc-test-mallctl
 
 # fast build rule for target.
-jemalloc-test-log/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build
-.PHONY : jemalloc-test-log/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-sc
-
-# Build rule for target.
-jemalloc-test-sc: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-sc
-.PHONY : jemalloc-test-sc
-
-# fast build rule for target.
-jemalloc-test-sc/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-sc.dir/build
-.PHONY : jemalloc-test-sc/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-pack
-
-# Build rule for target.
-jemalloc-test-pack: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-pack
-.PHONY : jemalloc-test-pack
-
-# fast build rule for target.
-jemalloc-test-pack/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build
-.PHONY : jemalloc-test-pack/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-prof_thread_name
-
-# Build rule for target.
-jemalloc-test-prof_thread_name: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_thread_name
-.PHONY : jemalloc-test-prof_thread_name
-
-# fast build rule for target.
-jemalloc-test-prof_thread_name/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build
-.PHONY : jemalloc-test-prof_thread_name/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-test-base
-
-# Build rule for target.
-jemalloc-test-base: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-base
-.PHONY : jemalloc-test-base
-
-# fast build rule for target.
-jemalloc-test-base/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-base.dir/build
-.PHONY : jemalloc-test-base/fast
+jemalloc-test-mallctl/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mallctl.dir/build
+.PHONY : jemalloc-test-mallctl/fast
 
 #=============================================================================
 # Target rules for targets named jemalloc-test-hash
@@ -1596,17 +1323,95 @@ jemalloc-test-hash/fast:
 .PHONY : jemalloc-test-hash/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-test-a0
+# Target rules for targets named jemalloc-test-ph
 
 # Build rule for target.
-jemalloc-test-a0: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-a0
-.PHONY : jemalloc-test-a0
+jemalloc-test-ph: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-ph
+.PHONY : jemalloc-test-ph
 
 # fast build rule for target.
-jemalloc-test-a0/fast:
-	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-a0.dir/build
-.PHONY : jemalloc-test-a0/fast
+jemalloc-test-ph/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-ph.dir/build
+.PHONY : jemalloc-test-ph/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-huge
+
+# Build rule for target.
+jemalloc-test-huge: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-huge
+.PHONY : jemalloc-test-huge
+
+# fast build rule for target.
+jemalloc-test-huge/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-huge.dir/build
+.PHONY : jemalloc-test-huge/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-mq
+
+# Build rule for target.
+jemalloc-test-mq: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-mq
+.PHONY : jemalloc-test-mq
+
+# fast build rule for target.
+jemalloc-test-mq/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mq.dir/build
+.PHONY : jemalloc-test-mq/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-prof_idump
+
+# Build rule for target.
+jemalloc-test-prof_idump: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_idump
+.PHONY : jemalloc-test-prof_idump
+
+# fast build rule for target.
+jemalloc-test-prof_idump/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_idump.dir/build
+.PHONY : jemalloc-test-prof_idump/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-zero
+
+# Build rule for target.
+jemalloc-test-zero: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-zero
+.PHONY : jemalloc-test-zero
+
+# fast build rule for target.
+jemalloc-test-zero/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-zero.dir/build
+.PHONY : jemalloc-test-zero/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-background_thread
+
+# Build rule for target.
+jemalloc-test-background_thread: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-background_thread
+.PHONY : jemalloc-test-background_thread
+
+# fast build rule for target.
+jemalloc-test-background_thread/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread.dir/build
+.PHONY : jemalloc-test-background_thread/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-mtx
+
+# Build rule for target.
+jemalloc-test-mtx: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-mtx
+.PHONY : jemalloc-test-mtx
+
+# fast build rule for target.
+jemalloc-test-mtx/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-mtx.dir/build
+.PHONY : jemalloc-test-mtx/fast
 
 #=============================================================================
 # Target rules for targets named jemalloc-test-SFMT
@@ -1620,6 +1425,201 @@ jemalloc-test-SFMT: cmake_check_build_system
 jemalloc-test-SFMT/fast:
 	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-SFMT.dir/build
 .PHONY : jemalloc-test-SFMT/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-pack
+
+# Build rule for target.
+jemalloc-test-pack: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-pack
+.PHONY : jemalloc-test-pack
+
+# fast build rule for target.
+jemalloc-test-pack/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-pack.dir/build
+.PHONY : jemalloc-test-pack/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-prng
+
+# Build rule for target.
+jemalloc-test-prng: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prng
+.PHONY : jemalloc-test-prng
+
+# fast build rule for target.
+jemalloc-test-prng/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prng.dir/build
+.PHONY : jemalloc-test-prng/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-junk_alloc
+
+# Build rule for target.
+jemalloc-test-junk_alloc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-junk_alloc
+.PHONY : jemalloc-test-junk_alloc
+
+# fast build rule for target.
+jemalloc-test-junk_alloc/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-junk_alloc.dir/build
+.PHONY : jemalloc-test-junk_alloc/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-background_thread_enable
+
+# Build rule for target.
+jemalloc-test-background_thread_enable: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-background_thread_enable
+.PHONY : jemalloc-test-background_thread_enable
+
+# fast build rule for target.
+jemalloc-test-background_thread_enable/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-background_thread_enable.dir/build
+.PHONY : jemalloc-test-background_thread_enable/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-prof_accum
+
+# Build rule for target.
+jemalloc-test-prof_accum: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_accum
+.PHONY : jemalloc-test-prof_accum
+
+# fast build rule for target.
+jemalloc-test-prof_accum/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_accum.dir/build
+.PHONY : jemalloc-test-prof_accum/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-prof_active
+
+# Build rule for target.
+jemalloc-test-prof_active: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_active
+.PHONY : jemalloc-test-prof_active
+
+# fast build rule for target.
+jemalloc-test-prof_active/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_active.dir/build
+.PHONY : jemalloc-test-prof_active/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-stats
+
+# Build rule for target.
+jemalloc-test-stats: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-stats
+.PHONY : jemalloc-test-stats
+
+# fast build rule for target.
+jemalloc-test-stats/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-stats.dir/build
+.PHONY : jemalloc-test-stats/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-prof_gdump
+
+# Build rule for target.
+jemalloc-test-prof_gdump: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_gdump
+.PHONY : jemalloc-test-prof_gdump
+
+# fast build rule for target.
+jemalloc-test-prof_gdump/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_gdump.dir/build
+.PHONY : jemalloc-test-prof_gdump/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-fork
+
+# Build rule for target.
+jemalloc-test-fork: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-fork
+.PHONY : jemalloc-test-fork
+
+# fast build rule for target.
+jemalloc-test-fork/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-fork.dir/build
+.PHONY : jemalloc-test-fork/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-prof_log
+
+# Build rule for target.
+jemalloc-test-prof_log: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_log
+.PHONY : jemalloc-test-prof_log
+
+# fast build rule for target.
+jemalloc-test-prof_log/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_log.dir/build
+.PHONY : jemalloc-test-prof_log/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-prof_tctx
+
+# Build rule for target.
+jemalloc-test-prof_tctx: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_tctx
+.PHONY : jemalloc-test-prof_tctx
+
+# fast build rule for target.
+jemalloc-test-prof_tctx/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_tctx.dir/build
+.PHONY : jemalloc-test-prof_tctx/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-log
+
+# Build rule for target.
+jemalloc-test-log: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-log
+.PHONY : jemalloc-test-log
+
+# fast build rule for target.
+jemalloc-test-log/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-log.dir/build
+.PHONY : jemalloc-test-log/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-prof_thread_name
+
+# Build rule for target.
+jemalloc-test-prof_thread_name: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-prof_thread_name
+.PHONY : jemalloc-test-prof_thread_name
+
+# fast build rule for target.
+jemalloc-test-prof_thread_name/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-prof_thread_name.dir/build
+.PHONY : jemalloc-test-prof_thread_name/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-test_hooks
+
+# Build rule for target.
+jemalloc-test-test_hooks: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-test_hooks
+.PHONY : jemalloc-test-test_hooks
+
+# fast build rule for target.
+jemalloc-test-test_hooks/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-test_hooks.dir/build
+.PHONY : jemalloc-test-test_hooks/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-test-qr
+
+# Build rule for target.
+jemalloc-test-qr: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-test-qr
+.PHONY : jemalloc-test-qr
+
+# fast build rule for target.
+jemalloc-test-qr/fast:
+	$(MAKE) -f ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build.make ext/jemalloc/test/unit/CMakeFiles/jemalloc-test-qr.dir/build
+.PHONY : jemalloc-test-qr/fast
 
 #=============================================================================
 # Target rules for targets named jemalloc-test-microbench
@@ -1648,6 +1648,19 @@ jemalloc-test-hookbench/fast:
 .PHONY : jemalloc-test-hookbench/fast
 
 #=============================================================================
+# Target rules for targets named jemalloc-syms
+
+# Build rule for target.
+jemalloc-syms: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-syms
+.PHONY : jemalloc-syms
+
+# fast build rule for target.
+jemalloc-syms/fast:
+	$(MAKE) -f ext/jemalloc/src/CMakeFiles/jemalloc-syms.dir/build.make ext/jemalloc/src/CMakeFiles/jemalloc-syms.dir/build
+.PHONY : jemalloc-syms/fast
+
+#=============================================================================
 # Target rules for targets named jemalloc-jet-syms-internal
 
 # Build rule for target.
@@ -1659,32 +1672,6 @@ jemalloc-jet-syms-internal: cmake_check_build_system
 jemalloc-jet-syms-internal/fast:
 	$(MAKE) -f ext/jemalloc/src/CMakeFiles/jemalloc-jet-syms-internal.dir/build.make ext/jemalloc/src/CMakeFiles/jemalloc-jet-syms-internal.dir/build
 .PHONY : jemalloc-jet-syms-internal/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-jet
-
-# Build rule for target.
-jemalloc-jet: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-jet
-.PHONY : jemalloc-jet
-
-# fast build rule for target.
-jemalloc-jet/fast:
-	$(MAKE) -f ext/jemalloc/src/CMakeFiles/jemalloc-jet.dir/build.make ext/jemalloc/src/CMakeFiles/jemalloc-jet.dir/build
-.PHONY : jemalloc-jet/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-static
-
-# Build rule for target.
-jemalloc-static: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-static
-.PHONY : jemalloc-static
-
-# fast build rule for target.
-jemalloc-static/fast:
-	$(MAKE) -f ext/jemalloc/src/CMakeFiles/jemalloc-static.dir/build.make ext/jemalloc/src/CMakeFiles/jemalloc-static.dir/build
-.PHONY : jemalloc-static/fast
 
 #=============================================================================
 # Target rules for targets named jemalloc
@@ -1700,32 +1687,6 @@ jemalloc/fast:
 .PHONY : jemalloc/fast
 
 #=============================================================================
-# Target rules for targets named jemalloc-syms
-
-# Build rule for target.
-jemalloc-syms: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-syms
-.PHONY : jemalloc-syms
-
-# fast build rule for target.
-jemalloc-syms/fast:
-	$(MAKE) -f ext/jemalloc/src/CMakeFiles/jemalloc-syms.dir/build.make ext/jemalloc/src/CMakeFiles/jemalloc-syms.dir/build
-.PHONY : jemalloc-syms/fast
-
-#=============================================================================
-# Target rules for targets named jemalloc-jet-syms
-
-# Build rule for target.
-jemalloc-jet-syms: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-jet-syms
-.PHONY : jemalloc-jet-syms
-
-# fast build rule for target.
-jemalloc-jet-syms/fast:
-	$(MAKE) -f ext/jemalloc/src/CMakeFiles/jemalloc-jet-syms.dir/build.make ext/jemalloc/src/CMakeFiles/jemalloc-jet-syms.dir/build
-.PHONY : jemalloc-jet-syms/fast
-
-#=============================================================================
 # Target rules for targets named jemalloc-jet-static
 
 # Build rule for target.
@@ -1739,6 +1700,32 @@ jemalloc-jet-static/fast:
 .PHONY : jemalloc-jet-static/fast
 
 #=============================================================================
+# Target rules for targets named jemalloc-static
+
+# Build rule for target.
+jemalloc-static: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-static
+.PHONY : jemalloc-static
+
+# fast build rule for target.
+jemalloc-static/fast:
+	$(MAKE) -f ext/jemalloc/src/CMakeFiles/jemalloc-static.dir/build.make ext/jemalloc/src/CMakeFiles/jemalloc-static.dir/build
+.PHONY : jemalloc-static/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-jet
+
+# Build rule for target.
+jemalloc-jet: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-jet
+.PHONY : jemalloc-jet
+
+# fast build rule for target.
+jemalloc-jet/fast:
+	$(MAKE) -f ext/jemalloc/src/CMakeFiles/jemalloc-jet.dir/build.make ext/jemalloc/src/CMakeFiles/jemalloc-jet.dir/build
+.PHONY : jemalloc-jet/fast
+
+#=============================================================================
 # Target rules for targets named jemalloc-syms-internal
 
 # Build rule for target.
@@ -1750,6 +1737,19 @@ jemalloc-syms-internal: cmake_check_build_system
 jemalloc-syms-internal/fast:
 	$(MAKE) -f ext/jemalloc/src/CMakeFiles/jemalloc-syms-internal.dir/build.make ext/jemalloc/src/CMakeFiles/jemalloc-syms-internal.dir/build
 .PHONY : jemalloc-syms-internal/fast
+
+#=============================================================================
+# Target rules for targets named jemalloc-jet-syms
+
+# Build rule for target.
+jemalloc-jet-syms: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 jemalloc-jet-syms
+.PHONY : jemalloc-jet-syms
+
+# fast build rule for target.
+jemalloc-jet-syms/fast:
+	$(MAKE) -f ext/jemalloc/src/CMakeFiles/jemalloc-jet-syms.dir/build.make ext/jemalloc/src/CMakeFiles/jemalloc-jet-syms.dir/build
+.PHONY : jemalloc-jet-syms/fast
 
 #=============================================================================
 # Target rules for targets named nlopt
@@ -2259,19 +2259,6 @@ spades-edge-profiles/fast:
 .PHONY : spades-edge-profiles/fast
 
 #=============================================================================
-# Target rules for targets named form_truealignments
-
-# Build rule for target.
-form_truealignments: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 form_truealignments
-.PHONY : form_truealignments
-
-# fast build rule for target.
-form_truealignments/fast:
-	$(MAKE) -f projects/spaligner/CMakeFiles/form_truealignments.dir/build.make projects/spaligner/CMakeFiles/form_truealignments.dir/build
-.PHONY : form_truealignments/fast
-
-#=============================================================================
 # Target rules for targets named spaligner
 
 # Build rule for target.
@@ -2283,6 +2270,19 @@ spaligner: cmake_check_build_system
 spaligner/fast:
 	$(MAKE) -f projects/spaligner/CMakeFiles/spaligner.dir/build.make projects/spaligner/CMakeFiles/spaligner.dir/build
 .PHONY : spaligner/fast
+
+#=============================================================================
+# Target rules for targets named form_truealignments
+
+# Build rule for target.
+form_truealignments: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 form_truealignments
+.PHONY : form_truealignments
+
+# fast build rule for target.
+form_truealignments/fast:
+	$(MAKE) -f projects/spaligner/CMakeFiles/form_truealignments.dir/build.make projects/spaligner/CMakeFiles/form_truealignments.dir/build
+.PHONY : form_truealignments/fast
 
 #=============================================================================
 # Target rules for targets named mapping_printer
@@ -2337,30 +2337,17 @@ spades-truseq-analysis/fast:
 .PHONY : spades-truseq-analysis/fast
 
 #=============================================================================
-# Target rules for targets named contig_abundance_counter
+# Target rules for targets named kmer_multiplicity_counter
 
 # Build rule for target.
-contig_abundance_counter: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 contig_abundance_counter
-.PHONY : contig_abundance_counter
+kmer_multiplicity_counter: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 kmer_multiplicity_counter
+.PHONY : kmer_multiplicity_counter
 
 # fast build rule for target.
-contig_abundance_counter/fast:
-	$(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/build
-.PHONY : contig_abundance_counter/fast
-
-#=============================================================================
-# Target rules for targets named prop_binning
-
-# Build rule for target.
-prop_binning: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 prop_binning
-.PHONY : prop_binning
-
-# fast build rule for target.
-prop_binning/fast:
-	$(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/build
-.PHONY : prop_binning/fast
+kmer_multiplicity_counter/fast:
+	$(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build
+.PHONY : kmer_multiplicity_counter/fast
 
 #=============================================================================
 # Target rules for targets named stats
@@ -2376,17 +2363,30 @@ stats/fast:
 .PHONY : stats/fast
 
 #=============================================================================
-# Target rules for targets named kmer_multiplicity_counter
+# Target rules for targets named prop_binning
 
 # Build rule for target.
-kmer_multiplicity_counter: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 kmer_multiplicity_counter
-.PHONY : kmer_multiplicity_counter
+prop_binning: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 prop_binning
+.PHONY : prop_binning
 
 # fast build rule for target.
-kmer_multiplicity_counter/fast:
-	$(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build
-.PHONY : kmer_multiplicity_counter/fast
+prop_binning/fast:
+	$(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/build
+.PHONY : prop_binning/fast
+
+#=============================================================================
+# Target rules for targets named contig_abundance_counter
+
+# Build rule for target.
+contig_abundance_counter: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 contig_abundance_counter
+.PHONY : contig_abundance_counter
+
+# fast build rule for target.
+contig_abundance_counter/fast:
+	$(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/build
+.PHONY : contig_abundance_counter/fast
 
 #=============================================================================
 # Target rules for targets named include_test
@@ -2413,19 +2413,6 @@ debruijn_test: cmake_check_build_system
 debruijn_test/fast:
 	$(MAKE) -f test/debruijn/CMakeFiles/debruijn_test.dir/build.make test/debruijn/CMakeFiles/debruijn_test.dir/build
 .PHONY : debruijn_test/fast
-
-#=============================================================================
-# Target rules for targets named sequence_threader
-
-# Build rule for target.
-sequence_threader: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sequence_threader
-.PHONY : sequence_threader
-
-# fast build rule for target.
-sequence_threader/fast:
-	$(MAKE) -f test/debruijn/CMakeFiles/sequence_threader.dir/build.make test/debruijn/CMakeFiles/sequence_threader.dir/build
-.PHONY : sequence_threader/fast
 
 #=============================================================================
 # Target rules for targets named reference_fixer
@@ -2467,6 +2454,19 @@ component_generator/fast:
 .PHONY : component_generator/fast
 
 #=============================================================================
+# Target rules for targets named sequence_threader
+
+# Build rule for target.
+sequence_threader: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sequence_threader
+.PHONY : sequence_threader
+
+# fast build rule for target.
+sequence_threader/fast:
+	$(MAKE) -f test/debruijn/CMakeFiles/sequence_threader.dir/build.make test/debruijn/CMakeFiles/sequence_threader.dir/build
+.PHONY : sequence_threader/fast
+
+#=============================================================================
 # Target rules for targets named cgce
 
 # Build rule for target.
@@ -2498,135 +2498,135 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
 	@echo "... install/strip"
+	@echo "... install/local"
 	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... package_source"
 	@echo "... rebuild_cache"
-	@echo "... all_clion"
 	@echo "... edit_cache"
+	@echo "... package_source"
 	@echo "... package"
+	@echo "... all_clion"
+	@echo "... jemalloc-check"
+	@echo "... ContinuousSubmit"
 	@echo "... ContinuousCoverage"
 	@echo "... ContinuousTest"
 	@echo "... ContinuousBuild"
 	@echo "... ContinuousUpdate"
 	@echo "... ContinuousStart"
-	@echo "... ExperimentalBuild"
-	@echo "... ExperimentalSubmit"
-	@echo "... ExperimentalCoverage"
-	@echo "... ExperimentalUpdate"
-	@echo "... ExperimentalStart"
-	@echo "... NightlyMemCheck"
-	@echo "... ExperimentalConfigure"
-	@echo "... jemalloc-check"
-	@echo "... NightlyCoverage"
-	@echo "... NightlyTest"
-	@echo "... ContinuousMemCheck"
-	@echo "... NightlyBuild"
-	@echo "... NightlyConfigure"
 	@echo "... NightlyUpdate"
-	@echo "... ExperimentalMemCheck"
-	@echo "... ContinuousConfigure"
-	@echo "... NightlyMemoryCheck"
-	@echo "... jemalloc-private-symbols-awk-jet"
-	@echo "... NightlyStart"
-	@echo "... Nightly"
-	@echo "... ContinuousSubmit"
-	@echo "... ExperimentalTest"
-	@echo "... NightlySubmit"
+	@echo "... NightlyBuild"
 	@echo "... Continuous"
-	@echo "... Experimental"
+	@echo "... ContinuousMemCheck"
+	@echo "... Nightly"
+	@echo "... jemalloc-private-symbols-awk-jet"
+	@echo "... NightlyTest"
+	@echo "... NightlyStart"
+	@echo "... NightlyMemoryCheck"
+	@echo "... NightlyMemCheck"
+	@echo "... ExperimentalStart"
+	@echo "... ContinuousConfigure"
+	@echo "... NightlyCoverage"
+	@echo "... ExperimentalUpdate"
+	@echo "... ExperimentalConfigure"
+	@echo "... ExperimentalCoverage"
+	@echo "... ExperimentalBuild"
+	@echo "... NightlyConfigure"
+	@echo "... ExperimentalTest"
+	@echo "... ExperimentalMemCheck"
 	@echo "... jemalloc-private-symbols-awk"
+	@echo "... Experimental"
+	@echo "... NightlySubmit"
+	@echo "... ExperimentalSubmit"
 	@echo "... jemallocIntegrationTest"
 	@echo "... jemallocTestStress"
 	@echo "... jemallocUnitTest"
-	@echo "... jemalloc-test-smallocx"
-	@echo "... jemalloc-test-thread_arena"
 	@echo "... jemalloc-test-sdallocx"
-	@echo "... jemalloc-test-xallocx"
-	@echo "... jemalloc-test-thread_tcache_enabled"
-	@echo "... jemalloc-test-rallocx"
-	@echo "... jemalloc-test-overflow"
-	@echo "... jemalloc-test-mallocx"
-	@echo "... jemalloc-test-malloc"
-	@echo "... jemalloc-test-posix_memalign"
-	@echo "... jemalloc-test-extent"
-	@echo "... jemalloc-test-allocated"
 	@echo "... jemalloc-test-slab_sizes"
-	@echo "... jemalloc-test-aligned_alloc"
+	@echo "... jemalloc-test-malloc"
+	@echo "... jemalloc-test-allocated"
+	@echo "... jemalloc-test-rallocx"
+	@echo "... jemalloc-test-extent"
+	@echo "... jemalloc-test-posix_memalign"
+	@echo "... jemalloc-test-overflow"
+	@echo "... jemalloc-test-xallocx"
 	@echo "... jemalloc-test-MALLOCX_ARENA"
-	@echo "... jemalloc-test-zero"
+	@echo "... jemalloc-test-thread_arena"
+	@echo "... jemalloc-test-aligned_alloc"
+	@echo "... jemalloc-test-smallocx"
+	@echo "... jemalloc-test-mallocx"
+	@echo "... jemalloc-test-thread_tcache_enabled"
 	@echo "... jemalloc-test-witness"
 	@echo "... jemalloc-test-tsd"
 	@echo "... jemalloc-test-ticker"
-	@echo "... jemalloc-test-test_hooks"
 	@echo "... jemalloc-test-stats_print"
+	@echo "... jemalloc-test-spin"
 	@echo "... jemalloc-test-smoothstep"
 	@echo "... jemalloc-test-slab"
 	@echo "... jemalloc-test-size_classes"
-	@echo "... jemalloc-test-rtree"
-	@echo "... jemalloc-test-prof_reset"
-	@echo "... jemalloc-test-qr"
-	@echo "... jemalloc-test-prof_accum"
-	@echo "... jemalloc-test-prng"
-	@echo "... jemalloc-test-stats"
-	@echo "... jemalloc-test-mtx"
-	@echo "... jemalloc-test-mq"
-	@echo "... jemalloc-test-math"
-	@echo "... jemalloc-test-ql"
-	@echo "... jemalloc-test-prof_gdump"
-	@echo "... jemalloc-test-malloc_io"
-	@echo "... jemalloc-test-mallctl"
-	@echo "... jemalloc-test-junk_free"
-	@echo "... jemalloc-test-spin"
-	@echo "... jemalloc-test-retained"
-	@echo "... jemalloc-test-prof_active"
-	@echo "... jemalloc-test-junk_alloc"
-	@echo "... jemalloc-test-bitmap"
+	@echo "... jemalloc-test-seq"
+	@echo "... jemalloc-test-sc"
 	@echo "... jemalloc-test-junk"
-	@echo "... jemalloc-test-rb"
-	@echo "... jemalloc-test-arena_reset"
-	@echo "... jemalloc-test-nstime"
-	@echo "... jemalloc-test-huge"
-	@echo "... jemalloc-test-prof_tctx"
-	@echo "... jemalloc-test-background_thread"
-	@echo "... jemalloc-test-decay"
-	@echo "... jemalloc-test-hook"
-	@echo "... jemalloc-test-background_thread_enable"
-	@echo "... jemalloc-test-prof_log"
-	@echo "... jemalloc-test-atomic"
-	@echo "... jemalloc-test-pages"
-	@echo "... jemalloc-test-fork"
-	@echo "... jemalloc-test-prof_idump"
+	@echo "... jemalloc-test-retained"
 	@echo "... jemalloc-test-binshard"
+	@echo "... jemalloc-test-prof_reset"
+	@echo "... jemalloc-test-extent_quantize"
+	@echo "... jemalloc-test-rtree"
+	@echo "... jemalloc-test-nstime"
+	@echo "... jemalloc-test-rb"
+	@echo "... jemalloc-test-emitter"
+	@echo "... jemalloc-test-malloc_io"
+	@echo "... jemalloc-test-div"
+	@echo "... jemalloc-test-decay"
+	@echo "... jemalloc-test-junk_free"
+	@echo "... jemalloc-test-math"
+	@echo "... jemalloc-test-base"
+	@echo "... jemalloc-test-ckh"
+	@echo "... jemalloc-test-bitmap"
+	@echo "... jemalloc-test-a0"
+	@echo "... jemalloc-test-arena_reset"
 	@echo "... jemalloc-test-extent_util"
 	@echo "... jemalloc-test-arena_reset_prof"
-	@echo "... jemalloc-test-extent_quantize"
-	@echo "... jemalloc-test-ckh"
-	@echo "... jemalloc-test-ph"
-	@echo "... jemalloc-test-seq"
-	@echo "... jemalloc-test-div"
-	@echo "... jemalloc-test-emitter"
+	@echo "... jemalloc-test-pages"
+	@echo "... jemalloc-test-ql"
+	@echo "... jemalloc-test-atomic"
+	@echo "... jemalloc-test-hook"
 	@echo "... jemalloc-test-bit_util"
-	@echo "... jemalloc-test-log"
-	@echo "... jemalloc-test-sc"
-	@echo "... jemalloc-test-pack"
-	@echo "... jemalloc-test-prof_thread_name"
-	@echo "... jemalloc-test-base"
+	@echo "... jemalloc-test-mallctl"
 	@echo "... jemalloc-test-hash"
-	@echo "... jemalloc-test-a0"
+	@echo "... jemalloc-test-ph"
+	@echo "... jemalloc-test-huge"
+	@echo "... jemalloc-test-mq"
+	@echo "... jemalloc-test-prof_idump"
+	@echo "... jemalloc-test-zero"
+	@echo "... jemalloc-test-background_thread"
+	@echo "... jemalloc-test-mtx"
 	@echo "... jemalloc-test-SFMT"
+	@echo "... jemalloc-test-pack"
+	@echo "... jemalloc-test-prng"
+	@echo "... jemalloc-test-junk_alloc"
+	@echo "... jemalloc-test-background_thread_enable"
+	@echo "... jemalloc-test-prof_accum"
+	@echo "... jemalloc-test-prof_active"
+	@echo "... jemalloc-test-stats"
+	@echo "... jemalloc-test-prof_gdump"
+	@echo "... jemalloc-test-fork"
+	@echo "... jemalloc-test-prof_log"
+	@echo "... jemalloc-test-prof_tctx"
+	@echo "... jemalloc-test-log"
+	@echo "... jemalloc-test-prof_thread_name"
+	@echo "... jemalloc-test-test_hooks"
+	@echo "... jemalloc-test-qr"
 	@echo "... jemalloc-test-microbench"
 	@echo "... jemalloc-test-hookbench"
-	@echo "... jemalloc-jet-syms-internal"
-	@echo "... jemalloc-jet"
-	@echo "... jemalloc-static"
-	@echo "... jemalloc"
 	@echo "... jemalloc-syms"
-	@echo "... jemalloc-jet-syms"
+	@echo "... jemalloc-jet-syms-internal"
+	@echo "... jemalloc"
 	@echo "... jemalloc-jet-static"
+	@echo "... jemalloc-static"
+	@echo "... jemalloc-jet"
 	@echo "... jemalloc-syms-internal"
+	@echo "... jemalloc-jet-syms"
 	@echo "... nlopt"
 	@echo "... ConsensusCore"
 	@echo "... BamTools"
@@ -2666,22 +2666,22 @@ help:
 	@echo "... spades-gbuilder"
 	@echo "... spades-gmapper"
 	@echo "... spades-edge-profiles"
-	@echo "... form_truealignments"
 	@echo "... spaligner"
+	@echo "... form_truealignments"
 	@echo "... mapping_printer"
 	@echo "... blackbird"
 	@echo "... online_vis"
 	@echo "... spades-truseq-analysis"
-	@echo "... contig_abundance_counter"
-	@echo "... prop_binning"
-	@echo "... stats"
 	@echo "... kmer_multiplicity_counter"
+	@echo "... stats"
+	@echo "... prop_binning"
+	@echo "... contig_abundance_counter"
 	@echo "... include_test"
 	@echo "... debruijn_test"
-	@echo "... sequence_threader"
 	@echo "... reference_fixer"
 	@echo "... short_edge_contractor"
 	@echo "... component_generator"
+	@echo "... sequence_threader"
 	@echo "... cgce"
 	@echo "... pack_demo"
 .PHONY : help

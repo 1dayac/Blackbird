@@ -1,4 +1,4 @@
-# Install script for directory: /Users/dima/Desktop/Blackbird/assembler/src/common/io
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/src/common/io
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,9 +27,14 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
+# Install shared libraries without execute permission?
+if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  set(CMAKE_INSTALL_SO_NO_EXE "1")
+endif()
+
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/common/io/graph/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/io/graph/cmake_install.cmake")
 
 endif()
 

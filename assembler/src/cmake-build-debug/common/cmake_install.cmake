@@ -1,4 +1,4 @@
-# Install script for directory: /Users/dima/Desktop/Blackbird/assembler/src/common
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/src/common
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,19 +27,24 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
+# Install shared libraries without execute permission?
+if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  set(CMAKE_INSTALL_SO_NO_EXE "1")
+endif()
+
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/common/pipeline/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/common/sequence/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/common/assembly_graph/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/common/modules/path_extend/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/common/modules/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/common/paired_info/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/common/stages/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/common/utils/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/common/io/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/common/utils/kmer_mph/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/common/modules/coverage_model/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/pipeline/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/sequence/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/assembly_graph/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/modules/path_extend/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/modules/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/paired_info/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/stages/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/utils/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/io/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/utils/kmer_mph/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/modules/coverage_model/cmake_install.cmake")
 
 endif()
 
