@@ -1,4 +1,4 @@
-# Install script for directory: /Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,25 +27,30 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
+# Install shared libraries without execute permission?
+if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  set(CMAKE_INSTALL_SO_NO_EXE "1")
+endif()
+
 if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "runtime" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/spades/pyyaml2" TYPE FILE FILES
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/__init__.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/composer.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/constructor.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/cyaml.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/dumper.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/emitter.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/error.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/events.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/loader.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/nodes.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/parser.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/reader.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/representer.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/resolver.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/scanner.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/serializer.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/tokens.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/__init__.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/composer.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/constructor.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/cyaml.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/dumper.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/emitter.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/error.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/events.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/loader.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/nodes.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/parser.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/reader.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/representer.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/resolver.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/scanner.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/serializer.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml2/tokens.py"
     )
 endif()
 

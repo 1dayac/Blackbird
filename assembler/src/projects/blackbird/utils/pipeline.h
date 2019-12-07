@@ -531,7 +531,6 @@ private:
 
             auto const &const_map_of_bad_reads = map_of_bad_reads_;
             for (auto barcode : barcodes_count_over_threshold) {
-                INFO(omp_get_thread_num());
                 if (const_map_of_bad_reads.count(barcode)) {
                     for (auto const &read : const_cast<std::vector<Sequence>&>(const_map_of_bad_reads.at(barcode))) {
                         single_out_stream << CreateReadFromSeq(read);

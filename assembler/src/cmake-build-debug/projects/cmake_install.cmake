@@ -1,4 +1,4 @@
-# Install script for directory: /Users/dima/Desktop/Blackbird/assembler/src/projects
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/src/projects
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,19 +27,24 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
+# Install shared libraries without execute permission?
+if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  set(CMAKE_INSTALL_SO_NO_EXE "1")
+endif()
+
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/spades/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/hammer/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/ionhammer/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/corrector/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/scaffold_correction/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/kmercount/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/gbuilder/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/gmapper/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/edge_profiles/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/spaligner/cmake_install.cmake")
-  include("/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/blackbird/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/spades/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/hammer/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/ionhammer/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/corrector/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/scaffold_correction/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/kmercount/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/gbuilder/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/gmapper/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/edge_profiles/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/spaligner/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/blackbird/cmake_install.cmake")
 
 endif()
 

@@ -1,4 +1,4 @@
-# Install script for directory: /Users/dima/Desktop/Blackbird/assembler/src/projects/spaligner
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/src/projects/spaligner
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,17 +27,28 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
+# Install shared libraries without execute permission?
+if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  set(CMAKE_INSTALL_SO_NO_EXE "1")
+endif()
+
 if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "spaligner" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/bin/spaligner")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spaligner" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spaligner")
+    file(RPATH_CHECK
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spaligner"
+         RPATH "")
+  endif()
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin/spaligner")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spaligner" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spaligner")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/Library/Developer/CommandLineTools/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spaligner")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spaligner")
     endif()
   endif()
 endif()
 
 if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/spaligner" TYPE FILE FILES "/Users/dima/Desktop/Blackbird/assembler/src/projects/spaligner/spaligner_config.yaml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/spaligner" TYPE FILE FILES "/home/dmm2017/Desktop/Blackbird/assembler/src/projects/spaligner/spaligner_config.yaml")
 endif()
 

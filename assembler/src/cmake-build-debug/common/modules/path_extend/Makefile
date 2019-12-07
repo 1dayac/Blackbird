@@ -39,102 +39,58 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
+RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
-
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-
-.PHONY : package/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -146,16 +102,60 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+
+.PHONY : package/fast
+
 # The main all target
 all: cmake_check_build_system
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/common/modules/path_extend/CMakeFiles/progress.marks
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/path_extend/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/modules/path_extend/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/path_extend/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/path_extend/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/path_extend/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/path_extend/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/path_extend/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/path_extend/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/path_extend/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 common/modules/path_extend/CMakeFiles/path_extend.dir/rule:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/path_extend/CMakeFiles/path_extend.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/path_extend/CMakeFiles/path_extend.dir/rule
 .PHONY : common/modules/path_extend/CMakeFiles/path_extend.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ path_extend: common/modules/path_extend/CMakeFiles/path_extend.dir/rule
 
 # fast build rule for target.
 path_extend/fast:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/build
 .PHONY : path_extend/fast
 
 pe_config_struct.o: pe_config_struct.cpp.o
@@ -199,7 +199,7 @@ pe_config_struct.o: pe_config_struct.cpp.o
 
 # target to build an object file
 pe_config_struct.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pe_config_struct.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pe_config_struct.cpp.o
 .PHONY : pe_config_struct.cpp.o
 
 pe_config_struct.i: pe_config_struct.cpp.i
@@ -208,7 +208,7 @@ pe_config_struct.i: pe_config_struct.cpp.i
 
 # target to preprocess a source file
 pe_config_struct.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pe_config_struct.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pe_config_struct.cpp.i
 .PHONY : pe_config_struct.cpp.i
 
 pe_config_struct.s: pe_config_struct.cpp.s
@@ -217,7 +217,7 @@ pe_config_struct.s: pe_config_struct.cpp.s
 
 # target to generate assembly for a file
 pe_config_struct.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pe_config_struct.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pe_config_struct.cpp.s
 .PHONY : pe_config_struct.cpp.s
 
 pipeline/extenders_logic.o: pipeline/extenders_logic.cpp.o
@@ -226,7 +226,7 @@ pipeline/extenders_logic.o: pipeline/extenders_logic.cpp.o
 
 # target to build an object file
 pipeline/extenders_logic.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/extenders_logic.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/extenders_logic.cpp.o
 .PHONY : pipeline/extenders_logic.cpp.o
 
 pipeline/extenders_logic.i: pipeline/extenders_logic.cpp.i
@@ -235,7 +235,7 @@ pipeline/extenders_logic.i: pipeline/extenders_logic.cpp.i
 
 # target to preprocess a source file
 pipeline/extenders_logic.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/extenders_logic.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/extenders_logic.cpp.i
 .PHONY : pipeline/extenders_logic.cpp.i
 
 pipeline/extenders_logic.s: pipeline/extenders_logic.cpp.s
@@ -244,7 +244,7 @@ pipeline/extenders_logic.s: pipeline/extenders_logic.cpp.s
 
 # target to generate assembly for a file
 pipeline/extenders_logic.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/extenders_logic.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/extenders_logic.cpp.s
 .PHONY : pipeline/extenders_logic.cpp.s
 
 pipeline/launch_support.o: pipeline/launch_support.cpp.o
@@ -253,7 +253,7 @@ pipeline/launch_support.o: pipeline/launch_support.cpp.o
 
 # target to build an object file
 pipeline/launch_support.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/launch_support.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/launch_support.cpp.o
 .PHONY : pipeline/launch_support.cpp.o
 
 pipeline/launch_support.i: pipeline/launch_support.cpp.i
@@ -262,7 +262,7 @@ pipeline/launch_support.i: pipeline/launch_support.cpp.i
 
 # target to preprocess a source file
 pipeline/launch_support.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/launch_support.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/launch_support.cpp.i
 .PHONY : pipeline/launch_support.cpp.i
 
 pipeline/launch_support.s: pipeline/launch_support.cpp.s
@@ -271,7 +271,7 @@ pipeline/launch_support.s: pipeline/launch_support.cpp.s
 
 # target to generate assembly for a file
 pipeline/launch_support.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/launch_support.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/launch_support.cpp.s
 .PHONY : pipeline/launch_support.cpp.s
 
 pipeline/launcher.o: pipeline/launcher.cpp.o
@@ -280,7 +280,7 @@ pipeline/launcher.o: pipeline/launcher.cpp.o
 
 # target to build an object file
 pipeline/launcher.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/launcher.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/launcher.cpp.o
 .PHONY : pipeline/launcher.cpp.o
 
 pipeline/launcher.i: pipeline/launcher.cpp.i
@@ -289,7 +289,7 @@ pipeline/launcher.i: pipeline/launcher.cpp.i
 
 # target to preprocess a source file
 pipeline/launcher.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/launcher.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/launcher.cpp.i
 .PHONY : pipeline/launcher.cpp.i
 
 pipeline/launcher.s: pipeline/launcher.cpp.s
@@ -298,7 +298,7 @@ pipeline/launcher.s: pipeline/launcher.cpp.s
 
 # target to generate assembly for a file
 pipeline/launcher.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/launcher.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/pipeline/launcher.cpp.s
 .PHONY : pipeline/launcher.cpp.s
 
 scaffolder2015/connection_condition2015.o: scaffolder2015/connection_condition2015.cpp.o
@@ -307,7 +307,7 @@ scaffolder2015/connection_condition2015.o: scaffolder2015/connection_condition20
 
 # target to build an object file
 scaffolder2015/connection_condition2015.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/connection_condition2015.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/connection_condition2015.cpp.o
 .PHONY : scaffolder2015/connection_condition2015.cpp.o
 
 scaffolder2015/connection_condition2015.i: scaffolder2015/connection_condition2015.cpp.i
@@ -316,7 +316,7 @@ scaffolder2015/connection_condition2015.i: scaffolder2015/connection_condition20
 
 # target to preprocess a source file
 scaffolder2015/connection_condition2015.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/connection_condition2015.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/connection_condition2015.cpp.i
 .PHONY : scaffolder2015/connection_condition2015.cpp.i
 
 scaffolder2015/connection_condition2015.s: scaffolder2015/connection_condition2015.cpp.s
@@ -325,7 +325,7 @@ scaffolder2015/connection_condition2015.s: scaffolder2015/connection_condition20
 
 # target to generate assembly for a file
 scaffolder2015/connection_condition2015.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/connection_condition2015.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/connection_condition2015.cpp.s
 .PHONY : scaffolder2015/connection_condition2015.cpp.s
 
 scaffolder2015/extension_chooser2015.o: scaffolder2015/extension_chooser2015.cpp.o
@@ -334,7 +334,7 @@ scaffolder2015/extension_chooser2015.o: scaffolder2015/extension_chooser2015.cpp
 
 # target to build an object file
 scaffolder2015/extension_chooser2015.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/extension_chooser2015.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/extension_chooser2015.cpp.o
 .PHONY : scaffolder2015/extension_chooser2015.cpp.o
 
 scaffolder2015/extension_chooser2015.i: scaffolder2015/extension_chooser2015.cpp.i
@@ -343,7 +343,7 @@ scaffolder2015/extension_chooser2015.i: scaffolder2015/extension_chooser2015.cpp
 
 # target to preprocess a source file
 scaffolder2015/extension_chooser2015.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/extension_chooser2015.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/extension_chooser2015.cpp.i
 .PHONY : scaffolder2015/extension_chooser2015.cpp.i
 
 scaffolder2015/extension_chooser2015.s: scaffolder2015/extension_chooser2015.cpp.s
@@ -352,7 +352,7 @@ scaffolder2015/extension_chooser2015.s: scaffolder2015/extension_chooser2015.cpp
 
 # target to generate assembly for a file
 scaffolder2015/extension_chooser2015.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/extension_chooser2015.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/extension_chooser2015.cpp.s
 .PHONY : scaffolder2015/extension_chooser2015.cpp.s
 
 scaffolder2015/path_polisher.o: scaffolder2015/path_polisher.cpp.o
@@ -361,7 +361,7 @@ scaffolder2015/path_polisher.o: scaffolder2015/path_polisher.cpp.o
 
 # target to build an object file
 scaffolder2015/path_polisher.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/path_polisher.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/path_polisher.cpp.o
 .PHONY : scaffolder2015/path_polisher.cpp.o
 
 scaffolder2015/path_polisher.i: scaffolder2015/path_polisher.cpp.i
@@ -370,7 +370,7 @@ scaffolder2015/path_polisher.i: scaffolder2015/path_polisher.cpp.i
 
 # target to preprocess a source file
 scaffolder2015/path_polisher.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/path_polisher.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/path_polisher.cpp.i
 .PHONY : scaffolder2015/path_polisher.cpp.i
 
 scaffolder2015/path_polisher.s: scaffolder2015/path_polisher.cpp.s
@@ -379,7 +379,7 @@ scaffolder2015/path_polisher.s: scaffolder2015/path_polisher.cpp.s
 
 # target to generate assembly for a file
 scaffolder2015/path_polisher.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/path_polisher.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/path_polisher.cpp.s
 .PHONY : scaffolder2015/path_polisher.cpp.s
 
 scaffolder2015/scaffold_graph.o: scaffolder2015/scaffold_graph.cpp.o
@@ -388,7 +388,7 @@ scaffolder2015/scaffold_graph.o: scaffolder2015/scaffold_graph.cpp.o
 
 # target to build an object file
 scaffolder2015/scaffold_graph.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph.cpp.o
 .PHONY : scaffolder2015/scaffold_graph.cpp.o
 
 scaffolder2015/scaffold_graph.i: scaffolder2015/scaffold_graph.cpp.i
@@ -397,7 +397,7 @@ scaffolder2015/scaffold_graph.i: scaffolder2015/scaffold_graph.cpp.i
 
 # target to preprocess a source file
 scaffolder2015/scaffold_graph.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph.cpp.i
 .PHONY : scaffolder2015/scaffold_graph.cpp.i
 
 scaffolder2015/scaffold_graph.s: scaffolder2015/scaffold_graph.cpp.s
@@ -406,7 +406,7 @@ scaffolder2015/scaffold_graph.s: scaffolder2015/scaffold_graph.cpp.s
 
 # target to generate assembly for a file
 scaffolder2015/scaffold_graph.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph.cpp.s
 .PHONY : scaffolder2015/scaffold_graph.cpp.s
 
 scaffolder2015/scaffold_graph_constructor.o: scaffolder2015/scaffold_graph_constructor.cpp.o
@@ -415,7 +415,7 @@ scaffolder2015/scaffold_graph_constructor.o: scaffolder2015/scaffold_graph_const
 
 # target to build an object file
 scaffolder2015/scaffold_graph_constructor.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph_constructor.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph_constructor.cpp.o
 .PHONY : scaffolder2015/scaffold_graph_constructor.cpp.o
 
 scaffolder2015/scaffold_graph_constructor.i: scaffolder2015/scaffold_graph_constructor.cpp.i
@@ -424,7 +424,7 @@ scaffolder2015/scaffold_graph_constructor.i: scaffolder2015/scaffold_graph_const
 
 # target to preprocess a source file
 scaffolder2015/scaffold_graph_constructor.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph_constructor.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph_constructor.cpp.i
 .PHONY : scaffolder2015/scaffold_graph_constructor.cpp.i
 
 scaffolder2015/scaffold_graph_constructor.s: scaffolder2015/scaffold_graph_constructor.cpp.s
@@ -433,7 +433,7 @@ scaffolder2015/scaffold_graph_constructor.s: scaffolder2015/scaffold_graph_const
 
 # target to generate assembly for a file
 scaffolder2015/scaffold_graph_constructor.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph_constructor.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph_constructor.cpp.s
 .PHONY : scaffolder2015/scaffold_graph_constructor.cpp.s
 
 scaffolder2015/scaffold_graph_visualizer.o: scaffolder2015/scaffold_graph_visualizer.cpp.o
@@ -442,7 +442,7 @@ scaffolder2015/scaffold_graph_visualizer.o: scaffolder2015/scaffold_graph_visual
 
 # target to build an object file
 scaffolder2015/scaffold_graph_visualizer.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph_visualizer.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph_visualizer.cpp.o
 .PHONY : scaffolder2015/scaffold_graph_visualizer.cpp.o
 
 scaffolder2015/scaffold_graph_visualizer.i: scaffolder2015/scaffold_graph_visualizer.cpp.i
@@ -451,7 +451,7 @@ scaffolder2015/scaffold_graph_visualizer.i: scaffolder2015/scaffold_graph_visual
 
 # target to preprocess a source file
 scaffolder2015/scaffold_graph_visualizer.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph_visualizer.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph_visualizer.cpp.i
 .PHONY : scaffolder2015/scaffold_graph_visualizer.cpp.i
 
 scaffolder2015/scaffold_graph_visualizer.s: scaffolder2015/scaffold_graph_visualizer.cpp.s
@@ -460,7 +460,7 @@ scaffolder2015/scaffold_graph_visualizer.s: scaffolder2015/scaffold_graph_visual
 
 # target to generate assembly for a file
 scaffolder2015/scaffold_graph_visualizer.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph_visualizer.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/path_extend/CMakeFiles/path_extend.dir/build.make common/modules/path_extend/CMakeFiles/path_extend.dir/scaffolder2015/scaffold_graph_visualizer.cpp.s
 .PHONY : scaffolder2015/scaffold_graph_visualizer.cpp.s
 
 # Help Target
@@ -469,14 +469,14 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
 	@echo "... install/strip"
+	@echo "... install/local"
 	@echo "... install"
-	@echo "... package"
-	@echo "... package_source"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... list_install_components"
+	@echo "... package_source"
+	@echo "... package"
 	@echo "... path_extend"
 	@echo "... pe_config_struct.o"
 	@echo "... pe_config_struct.i"
@@ -519,6 +519,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

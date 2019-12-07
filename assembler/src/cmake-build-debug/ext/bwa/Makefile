@@ -39,57 +39,57 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
+RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target list_install_components
@@ -102,21 +102,10 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -124,21 +113,21 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
 
-# Special rule for the target package_source
-package_source/fast: package_source
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
 
-.PHONY : package_source/fast
+.PHONY : edit_cache/fast
 
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -146,16 +135,27 @@ package/fast: package
 
 .PHONY : package/fast
 
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
 # The main all target
 all: cmake_check_build_system
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/bwa/CMakeFiles/progress.marks
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/bwa/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/bwa/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/bwa/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/bwa/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/bwa/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/bwa/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/bwa/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/bwa/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/bwa/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 ext/bwa/CMakeFiles/spades-bwa.dir/rule:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/bwa/CMakeFiles/spades-bwa.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/bwa/CMakeFiles/spades-bwa.dir/rule
 .PHONY : ext/bwa/CMakeFiles/spades-bwa.dir/rule
 
 # Convenience name for target.
@@ -190,12 +190,12 @@ spades-bwa: ext/bwa/CMakeFiles/spades-bwa.dir/rule
 
 # fast build rule for target.
 spades-bwa/fast:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/build
 .PHONY : spades-bwa/fast
 
 # Convenience name for target.
 ext/bwa/CMakeFiles/bwa.dir/rule:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/bwa/CMakeFiles/bwa.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/bwa/CMakeFiles/bwa.dir/rule
 .PHONY : ext/bwa/CMakeFiles/bwa.dir/rule
 
 # Convenience name for target.
@@ -205,7 +205,7 @@ bwa: ext/bwa/CMakeFiles/bwa.dir/rule
 
 # fast build rule for target.
 bwa/fast:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/build
 .PHONY : bwa/fast
 
 bamlite.o: bamlite.c.o
@@ -214,7 +214,7 @@ bamlite.o: bamlite.c.o
 
 # target to build an object file
 bamlite.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bamlite.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bamlite.c.o
 .PHONY : bamlite.c.o
 
 bamlite.i: bamlite.c.i
@@ -223,7 +223,7 @@ bamlite.i: bamlite.c.i
 
 # target to preprocess a source file
 bamlite.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bamlite.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bamlite.c.i
 .PHONY : bamlite.c.i
 
 bamlite.s: bamlite.c.s
@@ -232,7 +232,7 @@ bamlite.s: bamlite.c.s
 
 # target to generate assembly for a file
 bamlite.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bamlite.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bamlite.c.s
 .PHONY : bamlite.c.s
 
 bntseq.o: bntseq.c.o
@@ -241,7 +241,7 @@ bntseq.o: bntseq.c.o
 
 # target to build an object file
 bntseq.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bntseq.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bntseq.c.o
 .PHONY : bntseq.c.o
 
 bntseq.i: bntseq.c.i
@@ -250,7 +250,7 @@ bntseq.i: bntseq.c.i
 
 # target to preprocess a source file
 bntseq.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bntseq.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bntseq.c.i
 .PHONY : bntseq.c.i
 
 bntseq.s: bntseq.c.s
@@ -259,7 +259,7 @@ bntseq.s: bntseq.c.s
 
 # target to generate assembly for a file
 bntseq.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bntseq.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bntseq.c.s
 .PHONY : bntseq.c.s
 
 bwa.o: bwa.c.o
@@ -268,7 +268,7 @@ bwa.o: bwa.c.o
 
 # target to build an object file
 bwa.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwa.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwa.c.o
 .PHONY : bwa.c.o
 
 bwa.i: bwa.c.i
@@ -277,7 +277,7 @@ bwa.i: bwa.c.i
 
 # target to preprocess a source file
 bwa.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwa.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwa.c.i
 .PHONY : bwa.c.i
 
 bwa.s: bwa.c.s
@@ -286,7 +286,7 @@ bwa.s: bwa.c.s
 
 # target to generate assembly for a file
 bwa.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwa.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwa.c.s
 .PHONY : bwa.c.s
 
 bwamem.o: bwamem.c.o
@@ -295,7 +295,7 @@ bwamem.o: bwamem.c.o
 
 # target to build an object file
 bwamem.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem.c.o
 .PHONY : bwamem.c.o
 
 bwamem.i: bwamem.c.i
@@ -304,7 +304,7 @@ bwamem.i: bwamem.c.i
 
 # target to preprocess a source file
 bwamem.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem.c.i
 .PHONY : bwamem.c.i
 
 bwamem.s: bwamem.c.s
@@ -313,7 +313,7 @@ bwamem.s: bwamem.c.s
 
 # target to generate assembly for a file
 bwamem.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem.c.s
 .PHONY : bwamem.c.s
 
 bwamem_extra.o: bwamem_extra.c.o
@@ -322,7 +322,7 @@ bwamem_extra.o: bwamem_extra.c.o
 
 # target to build an object file
 bwamem_extra.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem_extra.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem_extra.c.o
 .PHONY : bwamem_extra.c.o
 
 bwamem_extra.i: bwamem_extra.c.i
@@ -331,7 +331,7 @@ bwamem_extra.i: bwamem_extra.c.i
 
 # target to preprocess a source file
 bwamem_extra.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem_extra.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem_extra.c.i
 .PHONY : bwamem_extra.c.i
 
 bwamem_extra.s: bwamem_extra.c.s
@@ -340,7 +340,7 @@ bwamem_extra.s: bwamem_extra.c.s
 
 # target to generate assembly for a file
 bwamem_extra.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem_extra.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem_extra.c.s
 .PHONY : bwamem_extra.c.s
 
 bwamem_pair.o: bwamem_pair.c.o
@@ -349,7 +349,7 @@ bwamem_pair.o: bwamem_pair.c.o
 
 # target to build an object file
 bwamem_pair.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem_pair.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem_pair.c.o
 .PHONY : bwamem_pair.c.o
 
 bwamem_pair.i: bwamem_pair.c.i
@@ -358,7 +358,7 @@ bwamem_pair.i: bwamem_pair.c.i
 
 # target to preprocess a source file
 bwamem_pair.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem_pair.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem_pair.c.i
 .PHONY : bwamem_pair.c.i
 
 bwamem_pair.s: bwamem_pair.c.s
@@ -367,7 +367,7 @@ bwamem_pair.s: bwamem_pair.c.s
 
 # target to generate assembly for a file
 bwamem_pair.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem_pair.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwamem_pair.c.s
 .PHONY : bwamem_pair.c.s
 
 bwape.o: bwape.c.o
@@ -376,7 +376,7 @@ bwape.o: bwape.c.o
 
 # target to build an object file
 bwape.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwape.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwape.c.o
 .PHONY : bwape.c.o
 
 bwape.i: bwape.c.i
@@ -385,7 +385,7 @@ bwape.i: bwape.c.i
 
 # target to preprocess a source file
 bwape.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwape.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwape.c.i
 .PHONY : bwape.c.i
 
 bwape.s: bwape.c.s
@@ -394,7 +394,7 @@ bwape.s: bwape.c.s
 
 # target to generate assembly for a file
 bwape.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwape.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwape.c.s
 .PHONY : bwape.c.s
 
 bwase.o: bwase.c.o
@@ -403,7 +403,7 @@ bwase.o: bwase.c.o
 
 # target to build an object file
 bwase.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwase.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwase.c.o
 .PHONY : bwase.c.o
 
 bwase.i: bwase.c.i
@@ -412,7 +412,7 @@ bwase.i: bwase.c.i
 
 # target to preprocess a source file
 bwase.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwase.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwase.c.i
 .PHONY : bwase.c.i
 
 bwase.s: bwase.c.s
@@ -421,7 +421,7 @@ bwase.s: bwase.c.s
 
 # target to generate assembly for a file
 bwase.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwase.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwase.c.s
 .PHONY : bwase.c.s
 
 bwaseqio.o: bwaseqio.c.o
@@ -430,7 +430,7 @@ bwaseqio.o: bwaseqio.c.o
 
 # target to build an object file
 bwaseqio.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwaseqio.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwaseqio.c.o
 .PHONY : bwaseqio.c.o
 
 bwaseqio.i: bwaseqio.c.i
@@ -439,7 +439,7 @@ bwaseqio.i: bwaseqio.c.i
 
 # target to preprocess a source file
 bwaseqio.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwaseqio.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwaseqio.c.i
 .PHONY : bwaseqio.c.i
 
 bwaseqio.s: bwaseqio.c.s
@@ -448,7 +448,7 @@ bwaseqio.s: bwaseqio.c.s
 
 # target to generate assembly for a file
 bwaseqio.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwaseqio.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwaseqio.c.s
 .PHONY : bwaseqio.c.s
 
 bwashm.o: bwashm.c.o
@@ -457,7 +457,7 @@ bwashm.o: bwashm.c.o
 
 # target to build an object file
 bwashm.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwashm.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwashm.c.o
 .PHONY : bwashm.c.o
 
 bwashm.i: bwashm.c.i
@@ -466,7 +466,7 @@ bwashm.i: bwashm.c.i
 
 # target to preprocess a source file
 bwashm.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwashm.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwashm.c.i
 .PHONY : bwashm.c.i
 
 bwashm.s: bwashm.c.s
@@ -475,7 +475,7 @@ bwashm.s: bwashm.c.s
 
 # target to generate assembly for a file
 bwashm.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwashm.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwashm.c.s
 .PHONY : bwashm.c.s
 
 bwt.o: bwt.c.o
@@ -484,7 +484,7 @@ bwt.o: bwt.c.o
 
 # target to build an object file
 bwt.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwt.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwt.c.o
 .PHONY : bwt.c.o
 
 bwt.i: bwt.c.i
@@ -493,7 +493,7 @@ bwt.i: bwt.c.i
 
 # target to preprocess a source file
 bwt.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwt.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwt.c.i
 .PHONY : bwt.c.i
 
 bwt.s: bwt.c.s
@@ -502,7 +502,7 @@ bwt.s: bwt.c.s
 
 # target to generate assembly for a file
 bwt.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwt.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwt.c.s
 .PHONY : bwt.c.s
 
 bwt_lite.o: bwt_lite.c.o
@@ -511,7 +511,7 @@ bwt_lite.o: bwt_lite.c.o
 
 # target to build an object file
 bwt_lite.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwt_lite.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwt_lite.c.o
 .PHONY : bwt_lite.c.o
 
 bwt_lite.i: bwt_lite.c.i
@@ -520,7 +520,7 @@ bwt_lite.i: bwt_lite.c.i
 
 # target to preprocess a source file
 bwt_lite.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwt_lite.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwt_lite.c.i
 .PHONY : bwt_lite.c.i
 
 bwt_lite.s: bwt_lite.c.s
@@ -529,7 +529,7 @@ bwt_lite.s: bwt_lite.c.s
 
 # target to generate assembly for a file
 bwt_lite.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwt_lite.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwt_lite.c.s
 .PHONY : bwt_lite.c.s
 
 bwtaln.o: bwtaln.c.o
@@ -538,7 +538,7 @@ bwtaln.o: bwtaln.c.o
 
 # target to build an object file
 bwtaln.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtaln.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtaln.c.o
 .PHONY : bwtaln.c.o
 
 bwtaln.i: bwtaln.c.i
@@ -547,7 +547,7 @@ bwtaln.i: bwtaln.c.i
 
 # target to preprocess a source file
 bwtaln.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtaln.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtaln.c.i
 .PHONY : bwtaln.c.i
 
 bwtaln.s: bwtaln.c.s
@@ -556,7 +556,7 @@ bwtaln.s: bwtaln.c.s
 
 # target to generate assembly for a file
 bwtaln.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtaln.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtaln.c.s
 .PHONY : bwtaln.c.s
 
 bwtgap.o: bwtgap.c.o
@@ -565,7 +565,7 @@ bwtgap.o: bwtgap.c.o
 
 # target to build an object file
 bwtgap.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtgap.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtgap.c.o
 .PHONY : bwtgap.c.o
 
 bwtgap.i: bwtgap.c.i
@@ -574,7 +574,7 @@ bwtgap.i: bwtgap.c.i
 
 # target to preprocess a source file
 bwtgap.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtgap.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtgap.c.i
 .PHONY : bwtgap.c.i
 
 bwtgap.s: bwtgap.c.s
@@ -583,7 +583,7 @@ bwtgap.s: bwtgap.c.s
 
 # target to generate assembly for a file
 bwtgap.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtgap.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtgap.c.s
 .PHONY : bwtgap.c.s
 
 bwtindex.o: bwtindex.c.o
@@ -592,7 +592,7 @@ bwtindex.o: bwtindex.c.o
 
 # target to build an object file
 bwtindex.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwtindex.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwtindex.c.o
 .PHONY : bwtindex.c.o
 
 bwtindex.i: bwtindex.c.i
@@ -601,7 +601,7 @@ bwtindex.i: bwtindex.c.i
 
 # target to preprocess a source file
 bwtindex.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwtindex.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwtindex.c.i
 .PHONY : bwtindex.c.i
 
 bwtindex.s: bwtindex.c.s
@@ -610,7 +610,7 @@ bwtindex.s: bwtindex.c.s
 
 # target to generate assembly for a file
 bwtindex.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwtindex.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/bwtindex.c.s
 .PHONY : bwtindex.c.s
 
 bwtsw2_aux.o: bwtsw2_aux.c.o
@@ -619,7 +619,7 @@ bwtsw2_aux.o: bwtsw2_aux.c.o
 
 # target to build an object file
 bwtsw2_aux.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_aux.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_aux.c.o
 .PHONY : bwtsw2_aux.c.o
 
 bwtsw2_aux.i: bwtsw2_aux.c.i
@@ -628,7 +628,7 @@ bwtsw2_aux.i: bwtsw2_aux.c.i
 
 # target to preprocess a source file
 bwtsw2_aux.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_aux.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_aux.c.i
 .PHONY : bwtsw2_aux.c.i
 
 bwtsw2_aux.s: bwtsw2_aux.c.s
@@ -637,7 +637,7 @@ bwtsw2_aux.s: bwtsw2_aux.c.s
 
 # target to generate assembly for a file
 bwtsw2_aux.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_aux.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_aux.c.s
 .PHONY : bwtsw2_aux.c.s
 
 bwtsw2_chain.o: bwtsw2_chain.c.o
@@ -646,7 +646,7 @@ bwtsw2_chain.o: bwtsw2_chain.c.o
 
 # target to build an object file
 bwtsw2_chain.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_chain.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_chain.c.o
 .PHONY : bwtsw2_chain.c.o
 
 bwtsw2_chain.i: bwtsw2_chain.c.i
@@ -655,7 +655,7 @@ bwtsw2_chain.i: bwtsw2_chain.c.i
 
 # target to preprocess a source file
 bwtsw2_chain.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_chain.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_chain.c.i
 .PHONY : bwtsw2_chain.c.i
 
 bwtsw2_chain.s: bwtsw2_chain.c.s
@@ -664,7 +664,7 @@ bwtsw2_chain.s: bwtsw2_chain.c.s
 
 # target to generate assembly for a file
 bwtsw2_chain.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_chain.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_chain.c.s
 .PHONY : bwtsw2_chain.c.s
 
 bwtsw2_core.o: bwtsw2_core.c.o
@@ -673,7 +673,7 @@ bwtsw2_core.o: bwtsw2_core.c.o
 
 # target to build an object file
 bwtsw2_core.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_core.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_core.c.o
 .PHONY : bwtsw2_core.c.o
 
 bwtsw2_core.i: bwtsw2_core.c.i
@@ -682,7 +682,7 @@ bwtsw2_core.i: bwtsw2_core.c.i
 
 # target to preprocess a source file
 bwtsw2_core.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_core.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_core.c.i
 .PHONY : bwtsw2_core.c.i
 
 bwtsw2_core.s: bwtsw2_core.c.s
@@ -691,7 +691,7 @@ bwtsw2_core.s: bwtsw2_core.c.s
 
 # target to generate assembly for a file
 bwtsw2_core.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_core.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_core.c.s
 .PHONY : bwtsw2_core.c.s
 
 bwtsw2_main.o: bwtsw2_main.c.o
@@ -700,7 +700,7 @@ bwtsw2_main.o: bwtsw2_main.c.o
 
 # target to build an object file
 bwtsw2_main.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_main.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_main.c.o
 .PHONY : bwtsw2_main.c.o
 
 bwtsw2_main.i: bwtsw2_main.c.i
@@ -709,7 +709,7 @@ bwtsw2_main.i: bwtsw2_main.c.i
 
 # target to preprocess a source file
 bwtsw2_main.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_main.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_main.c.i
 .PHONY : bwtsw2_main.c.i
 
 bwtsw2_main.s: bwtsw2_main.c.s
@@ -718,7 +718,7 @@ bwtsw2_main.s: bwtsw2_main.c.s
 
 # target to generate assembly for a file
 bwtsw2_main.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_main.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_main.c.s
 .PHONY : bwtsw2_main.c.s
 
 bwtsw2_pair.o: bwtsw2_pair.c.o
@@ -727,7 +727,7 @@ bwtsw2_pair.o: bwtsw2_pair.c.o
 
 # target to build an object file
 bwtsw2_pair.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_pair.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_pair.c.o
 .PHONY : bwtsw2_pair.c.o
 
 bwtsw2_pair.i: bwtsw2_pair.c.i
@@ -736,7 +736,7 @@ bwtsw2_pair.i: bwtsw2_pair.c.i
 
 # target to preprocess a source file
 bwtsw2_pair.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_pair.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_pair.c.i
 .PHONY : bwtsw2_pair.c.i
 
 bwtsw2_pair.s: bwtsw2_pair.c.s
@@ -745,7 +745,7 @@ bwtsw2_pair.s: bwtsw2_pair.c.s
 
 # target to generate assembly for a file
 bwtsw2_pair.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_pair.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/bwtsw2_pair.c.s
 .PHONY : bwtsw2_pair.c.s
 
 fastmap.o: fastmap.c.o
@@ -754,7 +754,7 @@ fastmap.o: fastmap.c.o
 
 # target to build an object file
 fastmap.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/fastmap.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/fastmap.c.o
 .PHONY : fastmap.c.o
 
 fastmap.i: fastmap.c.i
@@ -763,7 +763,7 @@ fastmap.i: fastmap.c.i
 
 # target to preprocess a source file
 fastmap.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/fastmap.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/fastmap.c.i
 .PHONY : fastmap.c.i
 
 fastmap.s: fastmap.c.s
@@ -772,7 +772,7 @@ fastmap.s: fastmap.c.s
 
 # target to generate assembly for a file
 fastmap.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/fastmap.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/fastmap.c.s
 .PHONY : fastmap.c.s
 
 is.o: is.c.o
@@ -781,7 +781,7 @@ is.o: is.c.o
 
 # target to build an object file
 is.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/is.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/is.c.o
 .PHONY : is.c.o
 
 is.i: is.c.i
@@ -790,7 +790,7 @@ is.i: is.c.i
 
 # target to preprocess a source file
 is.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/is.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/is.c.i
 .PHONY : is.c.i
 
 is.s: is.c.s
@@ -799,7 +799,7 @@ is.s: is.c.s
 
 # target to generate assembly for a file
 is.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/is.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/is.c.s
 .PHONY : is.c.s
 
 kopen.o: kopen.c.o
@@ -808,7 +808,7 @@ kopen.o: kopen.c.o
 
 # target to build an object file
 kopen.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/kopen.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/kopen.c.o
 .PHONY : kopen.c.o
 
 kopen.i: kopen.c.i
@@ -817,7 +817,7 @@ kopen.i: kopen.c.i
 
 # target to preprocess a source file
 kopen.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/kopen.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/kopen.c.i
 .PHONY : kopen.c.i
 
 kopen.s: kopen.c.s
@@ -826,7 +826,7 @@ kopen.s: kopen.c.s
 
 # target to generate assembly for a file
 kopen.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/kopen.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/kopen.c.s
 .PHONY : kopen.c.s
 
 kstring.o: kstring.c.o
@@ -835,7 +835,7 @@ kstring.o: kstring.c.o
 
 # target to build an object file
 kstring.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/kstring.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/kstring.c.o
 .PHONY : kstring.c.o
 
 kstring.i: kstring.c.i
@@ -844,7 +844,7 @@ kstring.i: kstring.c.i
 
 # target to preprocess a source file
 kstring.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/kstring.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/kstring.c.i
 .PHONY : kstring.c.i
 
 kstring.s: kstring.c.s
@@ -853,7 +853,7 @@ kstring.s: kstring.c.s
 
 # target to generate assembly for a file
 kstring.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/kstring.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/kstring.c.s
 .PHONY : kstring.c.s
 
 ksw.o: ksw.c.o
@@ -862,7 +862,7 @@ ksw.o: ksw.c.o
 
 # target to build an object file
 ksw.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/ksw.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/ksw.c.o
 .PHONY : ksw.c.o
 
 ksw.i: ksw.c.i
@@ -871,7 +871,7 @@ ksw.i: ksw.c.i
 
 # target to preprocess a source file
 ksw.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/ksw.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/ksw.c.i
 .PHONY : ksw.c.i
 
 ksw.s: ksw.c.s
@@ -880,7 +880,7 @@ ksw.s: ksw.c.s
 
 # target to generate assembly for a file
 ksw.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/ksw.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/ksw.c.s
 .PHONY : ksw.c.s
 
 kthread.o: kthread.c.o
@@ -889,7 +889,7 @@ kthread.o: kthread.c.o
 
 # target to build an object file
 kthread.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/kthread.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/kthread.c.o
 .PHONY : kthread.c.o
 
 kthread.i: kthread.c.i
@@ -898,7 +898,7 @@ kthread.i: kthread.c.i
 
 # target to preprocess a source file
 kthread.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/kthread.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/kthread.c.i
 .PHONY : kthread.c.i
 
 kthread.s: kthread.c.s
@@ -907,7 +907,7 @@ kthread.s: kthread.c.s
 
 # target to generate assembly for a file
 kthread.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/kthread.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/kthread.c.s
 .PHONY : kthread.c.s
 
 main.o: main.c.o
@@ -916,7 +916,7 @@ main.o: main.c.o
 
 # target to build an object file
 main.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/main.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/main.c.o
 .PHONY : main.c.o
 
 main.i: main.c.i
@@ -925,7 +925,7 @@ main.i: main.c.i
 
 # target to preprocess a source file
 main.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/main.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/main.c.i
 .PHONY : main.c.i
 
 main.s: main.c.s
@@ -934,7 +934,7 @@ main.s: main.c.s
 
 # target to generate assembly for a file
 main.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/main.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/main.c.s
 .PHONY : main.c.s
 
 malloc_wrap.o: malloc_wrap.c.o
@@ -943,7 +943,7 @@ malloc_wrap.o: malloc_wrap.c.o
 
 # target to build an object file
 malloc_wrap.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/malloc_wrap.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/malloc_wrap.c.o
 .PHONY : malloc_wrap.c.o
 
 malloc_wrap.i: malloc_wrap.c.i
@@ -952,7 +952,7 @@ malloc_wrap.i: malloc_wrap.c.i
 
 # target to preprocess a source file
 malloc_wrap.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/malloc_wrap.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/malloc_wrap.c.i
 .PHONY : malloc_wrap.c.i
 
 malloc_wrap.s: malloc_wrap.c.s
@@ -961,7 +961,7 @@ malloc_wrap.s: malloc_wrap.c.s
 
 # target to generate assembly for a file
 malloc_wrap.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/malloc_wrap.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/malloc_wrap.c.s
 .PHONY : malloc_wrap.c.s
 
 maxk.o: maxk.c.o
@@ -970,7 +970,7 @@ maxk.o: maxk.c.o
 
 # target to build an object file
 maxk.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/maxk.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/maxk.c.o
 .PHONY : maxk.c.o
 
 maxk.i: maxk.c.i
@@ -979,7 +979,7 @@ maxk.i: maxk.c.i
 
 # target to preprocess a source file
 maxk.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/maxk.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/maxk.c.i
 .PHONY : maxk.c.i
 
 maxk.s: maxk.c.s
@@ -988,7 +988,7 @@ maxk.s: maxk.c.s
 
 # target to generate assembly for a file
 maxk.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/maxk.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/maxk.c.s
 .PHONY : maxk.c.s
 
 pemerge.o: pemerge.c.o
@@ -997,7 +997,7 @@ pemerge.o: pemerge.c.o
 
 # target to build an object file
 pemerge.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/pemerge.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/pemerge.c.o
 .PHONY : pemerge.c.o
 
 pemerge.i: pemerge.c.i
@@ -1006,7 +1006,7 @@ pemerge.i: pemerge.c.i
 
 # target to preprocess a source file
 pemerge.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/pemerge.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/pemerge.c.i
 .PHONY : pemerge.c.i
 
 pemerge.s: pemerge.c.s
@@ -1015,7 +1015,7 @@ pemerge.s: pemerge.c.s
 
 # target to generate assembly for a file
 pemerge.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/pemerge.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/spades-bwa.dir/build.make ext/bwa/CMakeFiles/spades-bwa.dir/pemerge.c.s
 .PHONY : pemerge.c.s
 
 rle.o: rle.c.o
@@ -1024,7 +1024,7 @@ rle.o: rle.c.o
 
 # target to build an object file
 rle.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/rle.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/rle.c.o
 .PHONY : rle.c.o
 
 rle.i: rle.c.i
@@ -1033,7 +1033,7 @@ rle.i: rle.c.i
 
 # target to preprocess a source file
 rle.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/rle.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/rle.c.i
 .PHONY : rle.c.i
 
 rle.s: rle.c.s
@@ -1042,7 +1042,7 @@ rle.s: rle.c.s
 
 # target to generate assembly for a file
 rle.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/rle.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/rle.c.s
 .PHONY : rle.c.s
 
 rope.o: rope.c.o
@@ -1051,7 +1051,7 @@ rope.o: rope.c.o
 
 # target to build an object file
 rope.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/rope.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/rope.c.o
 .PHONY : rope.c.o
 
 rope.i: rope.c.i
@@ -1060,7 +1060,7 @@ rope.i: rope.c.i
 
 # target to preprocess a source file
 rope.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/rope.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/rope.c.i
 .PHONY : rope.c.i
 
 rope.s: rope.c.s
@@ -1069,7 +1069,7 @@ rope.s: rope.c.s
 
 # target to generate assembly for a file
 rope.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/rope.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/rope.c.s
 .PHONY : rope.c.s
 
 utils.o: utils.c.o
@@ -1078,7 +1078,7 @@ utils.o: utils.c.o
 
 # target to build an object file
 utils.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/utils.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/utils.c.o
 .PHONY : utils.c.o
 
 utils.i: utils.c.i
@@ -1087,7 +1087,7 @@ utils.i: utils.c.i
 
 # target to preprocess a source file
 utils.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/utils.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/utils.c.i
 .PHONY : utils.c.i
 
 utils.s: utils.c.s
@@ -1096,7 +1096,7 @@ utils.s: utils.c.s
 
 # target to generate assembly for a file
 utils.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/utils.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/bwa/CMakeFiles/bwa.dir/build.make ext/bwa/CMakeFiles/bwa.dir/utils.c.s
 .PHONY : utils.c.s
 
 # Help Target
@@ -1105,15 +1105,15 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
 	@echo "... install/strip"
+	@echo "... install/local"
 	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... package_source"
+	@echo "... edit_cache"
 	@echo "... package"
 	@echo "... spades-bwa"
+	@echo "... package_source"
 	@echo "... bwa"
 	@echo "... bamlite.o"
 	@echo "... bamlite.i"
@@ -1225,6 +1225,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

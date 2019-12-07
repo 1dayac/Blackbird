@@ -39,57 +39,57 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
+CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
+RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target list_install_components
@@ -102,21 +102,10 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -124,21 +113,21 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
+# Special rule for the target package_source
+package_source/fast: package_source
 
-.PHONY : edit_cache/fast
+.PHONY : package_source/fast
 
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -146,16 +135,27 @@ package/fast: package
 
 .PHONY : package/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/llvm/CMakeFiles/progress.marks
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/llvm/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 ext/llvm/CMakeFiles/llvm-support.dir/rule:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/CMakeFiles/llvm-support.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/CMakeFiles/llvm-support.dir/rule
 .PHONY : ext/llvm/CMakeFiles/llvm-support.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ llvm-support: ext/llvm/CMakeFiles/llvm-support.dir/rule
 
 # fast build rule for target.
 llvm-support/fast:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/build
 .PHONY : llvm-support/fast
 
 Atomic.o: Atomic.cpp.o
@@ -199,7 +199,7 @@ Atomic.o: Atomic.cpp.o
 
 # target to build an object file
 Atomic.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Atomic.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Atomic.cpp.o
 .PHONY : Atomic.cpp.o
 
 Atomic.i: Atomic.cpp.i
@@ -208,7 +208,7 @@ Atomic.i: Atomic.cpp.i
 
 # target to preprocess a source file
 Atomic.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Atomic.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Atomic.cpp.i
 .PHONY : Atomic.cpp.i
 
 Atomic.s: Atomic.cpp.s
@@ -217,7 +217,7 @@ Atomic.s: Atomic.cpp.s
 
 # target to generate assembly for a file
 Atomic.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Atomic.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Atomic.cpp.s
 .PHONY : Atomic.cpp.s
 
 ConvertUTF.o: ConvertUTF.cpp.o
@@ -226,7 +226,7 @@ ConvertUTF.o: ConvertUTF.cpp.o
 
 # target to build an object file
 ConvertUTF.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ConvertUTF.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ConvertUTF.cpp.o
 .PHONY : ConvertUTF.cpp.o
 
 ConvertUTF.i: ConvertUTF.cpp.i
@@ -235,7 +235,7 @@ ConvertUTF.i: ConvertUTF.cpp.i
 
 # target to preprocess a source file
 ConvertUTF.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ConvertUTF.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ConvertUTF.cpp.i
 .PHONY : ConvertUTF.cpp.i
 
 ConvertUTF.s: ConvertUTF.cpp.s
@@ -244,7 +244,7 @@ ConvertUTF.s: ConvertUTF.cpp.s
 
 # target to generate assembly for a file
 ConvertUTF.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ConvertUTF.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ConvertUTF.cpp.s
 .PHONY : ConvertUTF.cpp.s
 
 ErrorHandling.o: ErrorHandling.cpp.o
@@ -253,7 +253,7 @@ ErrorHandling.o: ErrorHandling.cpp.o
 
 # target to build an object file
 ErrorHandling.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ErrorHandling.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ErrorHandling.cpp.o
 .PHONY : ErrorHandling.cpp.o
 
 ErrorHandling.i: ErrorHandling.cpp.i
@@ -262,7 +262,7 @@ ErrorHandling.i: ErrorHandling.cpp.i
 
 # target to preprocess a source file
 ErrorHandling.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ErrorHandling.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ErrorHandling.cpp.i
 .PHONY : ErrorHandling.cpp.i
 
 ErrorHandling.s: ErrorHandling.cpp.s
@@ -271,7 +271,7 @@ ErrorHandling.s: ErrorHandling.cpp.s
 
 # target to generate assembly for a file
 ErrorHandling.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ErrorHandling.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ErrorHandling.cpp.s
 .PHONY : ErrorHandling.cpp.s
 
 Hashing.o: Hashing.cpp.o
@@ -280,7 +280,7 @@ Hashing.o: Hashing.cpp.o
 
 # target to build an object file
 Hashing.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Hashing.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Hashing.cpp.o
 .PHONY : Hashing.cpp.o
 
 Hashing.i: Hashing.cpp.i
@@ -289,7 +289,7 @@ Hashing.i: Hashing.cpp.i
 
 # target to preprocess a source file
 Hashing.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Hashing.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Hashing.cpp.i
 .PHONY : Hashing.cpp.i
 
 Hashing.s: Hashing.cpp.s
@@ -298,7 +298,7 @@ Hashing.s: Hashing.cpp.s
 
 # target to generate assembly for a file
 Hashing.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Hashing.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Hashing.cpp.s
 .PHONY : Hashing.cpp.s
 
 LEB128.o: LEB128.cpp.o
@@ -307,7 +307,7 @@ LEB128.o: LEB128.cpp.o
 
 # target to build an object file
 LEB128.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LEB128.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LEB128.cpp.o
 .PHONY : LEB128.cpp.o
 
 LEB128.i: LEB128.cpp.i
@@ -316,7 +316,7 @@ LEB128.i: LEB128.cpp.i
 
 # target to preprocess a source file
 LEB128.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LEB128.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LEB128.cpp.i
 .PHONY : LEB128.cpp.i
 
 LEB128.s: LEB128.cpp.s
@@ -325,7 +325,7 @@ LEB128.s: LEB128.cpp.s
 
 # target to generate assembly for a file
 LEB128.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LEB128.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LEB128.cpp.s
 .PHONY : LEB128.cpp.s
 
 LineIterator.o: LineIterator.cpp.o
@@ -334,7 +334,7 @@ LineIterator.o: LineIterator.cpp.o
 
 # target to build an object file
 LineIterator.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LineIterator.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LineIterator.cpp.o
 .PHONY : LineIterator.cpp.o
 
 LineIterator.i: LineIterator.cpp.i
@@ -343,7 +343,7 @@ LineIterator.i: LineIterator.cpp.i
 
 # target to preprocess a source file
 LineIterator.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LineIterator.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LineIterator.cpp.i
 .PHONY : LineIterator.cpp.i
 
 LineIterator.s: LineIterator.cpp.s
@@ -352,7 +352,7 @@ LineIterator.s: LineIterator.cpp.s
 
 # target to generate assembly for a file
 LineIterator.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LineIterator.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LineIterator.cpp.s
 .PHONY : LineIterator.cpp.s
 
 MemoryBuffer.o: MemoryBuffer.cpp.o
@@ -361,7 +361,7 @@ MemoryBuffer.o: MemoryBuffer.cpp.o
 
 # target to build an object file
 MemoryBuffer.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemoryBuffer.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemoryBuffer.cpp.o
 .PHONY : MemoryBuffer.cpp.o
 
 MemoryBuffer.i: MemoryBuffer.cpp.i
@@ -370,7 +370,7 @@ MemoryBuffer.i: MemoryBuffer.cpp.i
 
 # target to preprocess a source file
 MemoryBuffer.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemoryBuffer.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemoryBuffer.cpp.i
 .PHONY : MemoryBuffer.cpp.i
 
 MemoryBuffer.s: MemoryBuffer.cpp.s
@@ -379,7 +379,7 @@ MemoryBuffer.s: MemoryBuffer.cpp.s
 
 # target to generate assembly for a file
 MemoryBuffer.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemoryBuffer.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemoryBuffer.cpp.s
 .PHONY : MemoryBuffer.cpp.s
 
 Mutex.o: Mutex.cpp.o
@@ -388,7 +388,7 @@ Mutex.o: Mutex.cpp.o
 
 # target to build an object file
 Mutex.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Mutex.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Mutex.cpp.o
 .PHONY : Mutex.cpp.o
 
 Mutex.i: Mutex.cpp.i
@@ -397,7 +397,7 @@ Mutex.i: Mutex.cpp.i
 
 # target to preprocess a source file
 Mutex.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Mutex.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Mutex.cpp.i
 .PHONY : Mutex.cpp.i
 
 Mutex.s: Mutex.cpp.s
@@ -406,7 +406,7 @@ Mutex.s: Mutex.cpp.s
 
 # target to generate assembly for a file
 Mutex.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Mutex.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Mutex.cpp.s
 .PHONY : Mutex.cpp.s
 
 Path.o: Path.cpp.o
@@ -415,7 +415,7 @@ Path.o: Path.cpp.o
 
 # target to build an object file
 Path.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Path.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Path.cpp.o
 .PHONY : Path.cpp.o
 
 Path.i: Path.cpp.i
@@ -424,7 +424,7 @@ Path.i: Path.cpp.i
 
 # target to preprocess a source file
 Path.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Path.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Path.cpp.i
 .PHONY : Path.cpp.i
 
 Path.s: Path.cpp.s
@@ -433,7 +433,7 @@ Path.s: Path.cpp.s
 
 # target to generate assembly for a file
 Path.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Path.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Path.cpp.s
 .PHONY : Path.cpp.s
 
 Regex.o: Regex.cpp.o
@@ -442,7 +442,7 @@ Regex.o: Regex.cpp.o
 
 # target to build an object file
 Regex.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Regex.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Regex.cpp.o
 .PHONY : Regex.cpp.o
 
 Regex.i: Regex.cpp.i
@@ -451,7 +451,7 @@ Regex.i: Regex.cpp.i
 
 # target to preprocess a source file
 Regex.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Regex.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Regex.cpp.i
 .PHONY : Regex.cpp.i
 
 Regex.s: Regex.cpp.s
@@ -460,7 +460,7 @@ Regex.s: Regex.cpp.s
 
 # target to generate assembly for a file
 Regex.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Regex.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Regex.cpp.s
 .PHONY : Regex.cpp.s
 
 Signals.o: Signals.cpp.o
@@ -469,7 +469,7 @@ Signals.o: Signals.cpp.o
 
 # target to build an object file
 Signals.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Signals.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Signals.cpp.o
 .PHONY : Signals.cpp.o
 
 Signals.i: Signals.cpp.i
@@ -478,7 +478,7 @@ Signals.i: Signals.cpp.i
 
 # target to preprocess a source file
 Signals.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Signals.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Signals.cpp.i
 .PHONY : Signals.cpp.i
 
 Signals.s: Signals.cpp.s
@@ -487,7 +487,7 @@ Signals.s: Signals.cpp.s
 
 # target to generate assembly for a file
 Signals.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Signals.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Signals.cpp.s
 .PHONY : Signals.cpp.s
 
 SmallVector.o: SmallVector.cpp.o
@@ -496,7 +496,7 @@ SmallVector.o: SmallVector.cpp.o
 
 # target to build an object file
 SmallVector.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SmallVector.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SmallVector.cpp.o
 .PHONY : SmallVector.cpp.o
 
 SmallVector.i: SmallVector.cpp.i
@@ -505,7 +505,7 @@ SmallVector.i: SmallVector.cpp.i
 
 # target to preprocess a source file
 SmallVector.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SmallVector.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SmallVector.cpp.i
 .PHONY : SmallVector.cpp.i
 
 SmallVector.s: SmallVector.cpp.s
@@ -514,7 +514,7 @@ SmallVector.s: SmallVector.cpp.s
 
 # target to generate assembly for a file
 SmallVector.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SmallVector.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SmallVector.cpp.s
 .PHONY : SmallVector.cpp.s
 
 SourceMgr.o: SourceMgr.cpp.o
@@ -523,7 +523,7 @@ SourceMgr.o: SourceMgr.cpp.o
 
 # target to build an object file
 SourceMgr.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SourceMgr.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SourceMgr.cpp.o
 .PHONY : SourceMgr.cpp.o
 
 SourceMgr.i: SourceMgr.cpp.i
@@ -532,7 +532,7 @@ SourceMgr.i: SourceMgr.cpp.i
 
 # target to preprocess a source file
 SourceMgr.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SourceMgr.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SourceMgr.cpp.i
 .PHONY : SourceMgr.cpp.i
 
 SourceMgr.s: SourceMgr.cpp.s
@@ -541,7 +541,7 @@ SourceMgr.s: SourceMgr.cpp.s
 
 # target to generate assembly for a file
 SourceMgr.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SourceMgr.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SourceMgr.cpp.s
 .PHONY : SourceMgr.cpp.s
 
 StringMap.o: StringMap.cpp.o
@@ -550,7 +550,7 @@ StringMap.o: StringMap.cpp.o
 
 # target to build an object file
 StringMap.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringMap.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringMap.cpp.o
 .PHONY : StringMap.cpp.o
 
 StringMap.i: StringMap.cpp.i
@@ -559,7 +559,7 @@ StringMap.i: StringMap.cpp.i
 
 # target to preprocess a source file
 StringMap.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringMap.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringMap.cpp.i
 .PHONY : StringMap.cpp.i
 
 StringMap.s: StringMap.cpp.s
@@ -568,7 +568,7 @@ StringMap.s: StringMap.cpp.s
 
 # target to generate assembly for a file
 StringMap.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringMap.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringMap.cpp.s
 .PHONY : StringMap.cpp.s
 
 StringRef.o: StringRef.cpp.o
@@ -577,7 +577,7 @@ StringRef.o: StringRef.cpp.o
 
 # target to build an object file
 StringRef.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringRef.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringRef.cpp.o
 .PHONY : StringRef.cpp.o
 
 StringRef.i: StringRef.cpp.i
@@ -586,7 +586,7 @@ StringRef.i: StringRef.cpp.i
 
 # target to preprocess a source file
 StringRef.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringRef.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringRef.cpp.i
 .PHONY : StringRef.cpp.i
 
 StringRef.s: StringRef.cpp.s
@@ -595,7 +595,7 @@ StringRef.s: StringRef.cpp.s
 
 # target to generate assembly for a file
 StringRef.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringRef.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringRef.cpp.s
 .PHONY : StringRef.cpp.s
 
 Twine.o: Twine.cpp.o
@@ -604,7 +604,7 @@ Twine.o: Twine.cpp.o
 
 # target to build an object file
 Twine.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Twine.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Twine.cpp.o
 .PHONY : Twine.cpp.o
 
 Twine.i: Twine.cpp.i
@@ -613,7 +613,7 @@ Twine.i: Twine.cpp.i
 
 # target to preprocess a source file
 Twine.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Twine.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Twine.cpp.i
 .PHONY : Twine.cpp.i
 
 Twine.s: Twine.cpp.s
@@ -622,7 +622,7 @@ Twine.s: Twine.cpp.s
 
 # target to generate assembly for a file
 Twine.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Twine.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Twine.cpp.s
 .PHONY : Twine.cpp.s
 
 Unicode.o: Unicode.cpp.o
@@ -631,7 +631,7 @@ Unicode.o: Unicode.cpp.o
 
 # target to build an object file
 Unicode.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Unicode.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Unicode.cpp.o
 .PHONY : Unicode.cpp.o
 
 Unicode.i: Unicode.cpp.i
@@ -640,7 +640,7 @@ Unicode.i: Unicode.cpp.i
 
 # target to preprocess a source file
 Unicode.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Unicode.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Unicode.cpp.i
 .PHONY : Unicode.cpp.i
 
 Unicode.s: Unicode.cpp.s
@@ -649,7 +649,7 @@ Unicode.s: Unicode.cpp.s
 
 # target to generate assembly for a file
 Unicode.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Unicode.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Unicode.cpp.s
 .PHONY : Unicode.cpp.s
 
 YAMLParser.o: YAMLParser.cpp.o
@@ -658,7 +658,7 @@ YAMLParser.o: YAMLParser.cpp.o
 
 # target to build an object file
 YAMLParser.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLParser.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLParser.cpp.o
 .PHONY : YAMLParser.cpp.o
 
 YAMLParser.i: YAMLParser.cpp.i
@@ -667,7 +667,7 @@ YAMLParser.i: YAMLParser.cpp.i
 
 # target to preprocess a source file
 YAMLParser.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLParser.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLParser.cpp.i
 .PHONY : YAMLParser.cpp.i
 
 YAMLParser.s: YAMLParser.cpp.s
@@ -676,7 +676,7 @@ YAMLParser.s: YAMLParser.cpp.s
 
 # target to generate assembly for a file
 YAMLParser.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLParser.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLParser.cpp.s
 .PHONY : YAMLParser.cpp.s
 
 YAMLTraits.o: YAMLTraits.cpp.o
@@ -685,7 +685,7 @@ YAMLTraits.o: YAMLTraits.cpp.o
 
 # target to build an object file
 YAMLTraits.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLTraits.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLTraits.cpp.o
 .PHONY : YAMLTraits.cpp.o
 
 YAMLTraits.i: YAMLTraits.cpp.i
@@ -694,7 +694,7 @@ YAMLTraits.i: YAMLTraits.cpp.i
 
 # target to preprocess a source file
 YAMLTraits.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLTraits.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLTraits.cpp.i
 .PHONY : YAMLTraits.cpp.i
 
 YAMLTraits.s: YAMLTraits.cpp.s
@@ -703,7 +703,7 @@ YAMLTraits.s: YAMLTraits.cpp.s
 
 # target to generate assembly for a file
 YAMLTraits.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLTraits.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLTraits.cpp.s
 .PHONY : YAMLTraits.cpp.s
 
 raw_ostream.o: raw_ostream.cpp.o
@@ -712,7 +712,7 @@ raw_ostream.o: raw_ostream.cpp.o
 
 # target to build an object file
 raw_ostream.cpp.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_ostream.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_ostream.cpp.o
 .PHONY : raw_ostream.cpp.o
 
 raw_ostream.i: raw_ostream.cpp.i
@@ -721,7 +721,7 @@ raw_ostream.i: raw_ostream.cpp.i
 
 # target to preprocess a source file
 raw_ostream.cpp.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_ostream.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_ostream.cpp.i
 .PHONY : raw_ostream.cpp.i
 
 raw_ostream.s: raw_ostream.cpp.s
@@ -730,7 +730,7 @@ raw_ostream.s: raw_ostream.cpp.s
 
 # target to generate assembly for a file
 raw_ostream.cpp.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_ostream.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_ostream.cpp.s
 .PHONY : raw_ostream.cpp.s
 
 regcomp.o: regcomp.c.o
@@ -739,7 +739,7 @@ regcomp.o: regcomp.c.o
 
 # target to build an object file
 regcomp.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regcomp.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regcomp.c.o
 .PHONY : regcomp.c.o
 
 regcomp.i: regcomp.c.i
@@ -748,7 +748,7 @@ regcomp.i: regcomp.c.i
 
 # target to preprocess a source file
 regcomp.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regcomp.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regcomp.c.i
 .PHONY : regcomp.c.i
 
 regcomp.s: regcomp.c.s
@@ -757,7 +757,7 @@ regcomp.s: regcomp.c.s
 
 # target to generate assembly for a file
 regcomp.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regcomp.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regcomp.c.s
 .PHONY : regcomp.c.s
 
 regerror.o: regerror.c.o
@@ -766,7 +766,7 @@ regerror.o: regerror.c.o
 
 # target to build an object file
 regerror.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regerror.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regerror.c.o
 .PHONY : regerror.c.o
 
 regerror.i: regerror.c.i
@@ -775,7 +775,7 @@ regerror.i: regerror.c.i
 
 # target to preprocess a source file
 regerror.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regerror.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regerror.c.i
 .PHONY : regerror.c.i
 
 regerror.s: regerror.c.s
@@ -784,7 +784,7 @@ regerror.s: regerror.c.s
 
 # target to generate assembly for a file
 regerror.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regerror.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regerror.c.s
 .PHONY : regerror.c.s
 
 regexec.o: regexec.c.o
@@ -793,7 +793,7 @@ regexec.o: regexec.c.o
 
 # target to build an object file
 regexec.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regexec.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regexec.c.o
 .PHONY : regexec.c.o
 
 regexec.i: regexec.c.i
@@ -802,7 +802,7 @@ regexec.i: regexec.c.i
 
 # target to preprocess a source file
 regexec.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regexec.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regexec.c.i
 .PHONY : regexec.c.i
 
 regexec.s: regexec.c.s
@@ -811,7 +811,7 @@ regexec.s: regexec.c.s
 
 # target to generate assembly for a file
 regexec.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regexec.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regexec.c.s
 .PHONY : regexec.c.s
 
 regfree.o: regfree.c.o
@@ -820,7 +820,7 @@ regfree.o: regfree.c.o
 
 # target to build an object file
 regfree.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regfree.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regfree.c.o
 .PHONY : regfree.c.o
 
 regfree.i: regfree.c.i
@@ -829,7 +829,7 @@ regfree.i: regfree.c.i
 
 # target to preprocess a source file
 regfree.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regfree.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regfree.c.i
 .PHONY : regfree.c.i
 
 regfree.s: regfree.c.s
@@ -838,7 +838,7 @@ regfree.s: regfree.c.s
 
 # target to generate assembly for a file
 regfree.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regfree.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regfree.c.s
 .PHONY : regfree.c.s
 
 regstrlcpy.o: regstrlcpy.c.o
@@ -847,7 +847,7 @@ regstrlcpy.o: regstrlcpy.c.o
 
 # target to build an object file
 regstrlcpy.c.o:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regstrlcpy.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regstrlcpy.c.o
 .PHONY : regstrlcpy.c.o
 
 regstrlcpy.i: regstrlcpy.c.i
@@ -856,7 +856,7 @@ regstrlcpy.i: regstrlcpy.c.i
 
 # target to preprocess a source file
 regstrlcpy.c.i:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regstrlcpy.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regstrlcpy.c.i
 .PHONY : regstrlcpy.c.i
 
 regstrlcpy.s: regstrlcpy.c.s
@@ -865,7 +865,7 @@ regstrlcpy.s: regstrlcpy.c.s
 
 # target to generate assembly for a file
 regstrlcpy.c.s:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regstrlcpy.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regstrlcpy.c.s
 .PHONY : regstrlcpy.c.s
 
 # Help Target
@@ -874,15 +874,15 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
 	@echo "... install/strip"
+	@echo "... install/local"
 	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... package_source"
 	@echo "... rebuild_cache"
-	@echo "... llvm-support"
-	@echo "... edit_cache"
+	@echo "... package_source"
 	@echo "... package"
+	@echo "... edit_cache"
+	@echo "... llvm-support"
 	@echo "... Atomic.o"
 	@echo "... Atomic.i"
 	@echo "... Atomic.s"
@@ -969,6 +969,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
