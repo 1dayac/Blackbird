@@ -448,7 +448,7 @@ private:
 
 
         const int threshold = 4;
-        const int number_of_barcodes_to_assemble = 200;
+        const int number_of_barcodes_to_assemble = 2000;
         while(reader.GetNextAlignment(alignment)) {
             if (alignment.IsPrimaryAlignment() && IsGoodAlignment(alignment)) {
                 std::string bx = "";
