@@ -39,57 +39,57 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
+CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
+RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
+CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target list_install_components
@@ -102,10 +102,21 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -116,7 +127,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -127,7 +138,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -135,27 +146,16 @@ package/fast: package
 
 .PHONY : package/fast
 
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/ConsensusCore/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ConsensusCore/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/ConsensusCore/CMakeFiles/progress.marks
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ConsensusCore/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ConsensusCore/clean
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ConsensusCore/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ConsensusCore/preinstall
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ConsensusCore/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ConsensusCore/preinstall
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ConsensusCore/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/rule:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/rule
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/rule
 .PHONY : ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ ConsensusCore: ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/rule
 
 # fast build rule for target.
 ConsensusCore/fast:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build
 .PHONY : ConsensusCore/fast
 
 AffineAlignment.o: AffineAlignment.cpp.o
@@ -199,7 +199,7 @@ AffineAlignment.o: AffineAlignment.cpp.o
 
 # target to build an object file
 AffineAlignment.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/AffineAlignment.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/AffineAlignment.cpp.o
 .PHONY : AffineAlignment.cpp.o
 
 AffineAlignment.i: AffineAlignment.cpp.i
@@ -208,7 +208,7 @@ AffineAlignment.i: AffineAlignment.cpp.i
 
 # target to preprocess a source file
 AffineAlignment.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/AffineAlignment.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/AffineAlignment.cpp.i
 .PHONY : AffineAlignment.cpp.i
 
 AffineAlignment.s: AffineAlignment.cpp.s
@@ -217,7 +217,7 @@ AffineAlignment.s: AffineAlignment.cpp.s
 
 # target to generate assembly for a file
 AffineAlignment.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/AffineAlignment.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/AffineAlignment.cpp.s
 .PHONY : AffineAlignment.cpp.s
 
 Coverage.o: Coverage.cpp.o
@@ -226,7 +226,7 @@ Coverage.o: Coverage.cpp.o
 
 # target to build an object file
 Coverage.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Coverage.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Coverage.cpp.o
 .PHONY : Coverage.cpp.o
 
 Coverage.i: Coverage.cpp.i
@@ -235,7 +235,7 @@ Coverage.i: Coverage.cpp.i
 
 # target to preprocess a source file
 Coverage.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Coverage.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Coverage.cpp.i
 .PHONY : Coverage.cpp.i
 
 Coverage.s: Coverage.cpp.s
@@ -244,7 +244,7 @@ Coverage.s: Coverage.cpp.s
 
 # target to generate assembly for a file
 Coverage.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Coverage.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Coverage.cpp.s
 .PHONY : Coverage.cpp.s
 
 Matrix/DenseMatrix.o: Matrix/DenseMatrix.cpp.o
@@ -253,7 +253,7 @@ Matrix/DenseMatrix.o: Matrix/DenseMatrix.cpp.o
 
 # target to build an object file
 Matrix/DenseMatrix.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Matrix/DenseMatrix.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Matrix/DenseMatrix.cpp.o
 .PHONY : Matrix/DenseMatrix.cpp.o
 
 Matrix/DenseMatrix.i: Matrix/DenseMatrix.cpp.i
@@ -262,7 +262,7 @@ Matrix/DenseMatrix.i: Matrix/DenseMatrix.cpp.i
 
 # target to preprocess a source file
 Matrix/DenseMatrix.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Matrix/DenseMatrix.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Matrix/DenseMatrix.cpp.i
 .PHONY : Matrix/DenseMatrix.cpp.i
 
 Matrix/DenseMatrix.s: Matrix/DenseMatrix.cpp.s
@@ -271,7 +271,7 @@ Matrix/DenseMatrix.s: Matrix/DenseMatrix.cpp.s
 
 # target to generate assembly for a file
 Matrix/DenseMatrix.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Matrix/DenseMatrix.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Matrix/DenseMatrix.cpp.s
 .PHONY : Matrix/DenseMatrix.cpp.s
 
 Matrix/SparseMatrix.o: Matrix/SparseMatrix.cpp.o
@@ -280,7 +280,7 @@ Matrix/SparseMatrix.o: Matrix/SparseMatrix.cpp.o
 
 # target to build an object file
 Matrix/SparseMatrix.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Matrix/SparseMatrix.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Matrix/SparseMatrix.cpp.o
 .PHONY : Matrix/SparseMatrix.cpp.o
 
 Matrix/SparseMatrix.i: Matrix/SparseMatrix.cpp.i
@@ -289,7 +289,7 @@ Matrix/SparseMatrix.i: Matrix/SparseMatrix.cpp.i
 
 # target to preprocess a source file
 Matrix/SparseMatrix.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Matrix/SparseMatrix.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Matrix/SparseMatrix.cpp.i
 .PHONY : Matrix/SparseMatrix.cpp.i
 
 Matrix/SparseMatrix.s: Matrix/SparseMatrix.cpp.s
@@ -298,7 +298,7 @@ Matrix/SparseMatrix.s: Matrix/SparseMatrix.cpp.s
 
 # target to generate assembly for a file
 Matrix/SparseMatrix.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Matrix/SparseMatrix.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Matrix/SparseMatrix.cpp.s
 .PHONY : Matrix/SparseMatrix.cpp.s
 
 Mutation.o: Mutation.cpp.o
@@ -307,7 +307,7 @@ Mutation.o: Mutation.cpp.o
 
 # target to build an object file
 Mutation.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Mutation.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Mutation.cpp.o
 .PHONY : Mutation.cpp.o
 
 Mutation.i: Mutation.cpp.i
@@ -316,7 +316,7 @@ Mutation.i: Mutation.cpp.i
 
 # target to preprocess a source file
 Mutation.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Mutation.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Mutation.cpp.i
 .PHONY : Mutation.cpp.i
 
 Mutation.s: Mutation.cpp.s
@@ -325,7 +325,7 @@ Mutation.s: Mutation.cpp.s
 
 # target to generate assembly for a file
 Mutation.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Mutation.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Mutation.cpp.s
 .PHONY : Mutation.cpp.s
 
 PairwiseAlignment.o: PairwiseAlignment.cpp.o
@@ -334,7 +334,7 @@ PairwiseAlignment.o: PairwiseAlignment.cpp.o
 
 # target to build an object file
 PairwiseAlignment.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/PairwiseAlignment.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/PairwiseAlignment.cpp.o
 .PHONY : PairwiseAlignment.cpp.o
 
 PairwiseAlignment.i: PairwiseAlignment.cpp.i
@@ -343,7 +343,7 @@ PairwiseAlignment.i: PairwiseAlignment.cpp.i
 
 # target to preprocess a source file
 PairwiseAlignment.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/PairwiseAlignment.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/PairwiseAlignment.cpp.i
 .PHONY : PairwiseAlignment.cpp.i
 
 PairwiseAlignment.s: PairwiseAlignment.cpp.s
@@ -352,7 +352,7 @@ PairwiseAlignment.s: PairwiseAlignment.cpp.s
 
 # target to generate assembly for a file
 PairwiseAlignment.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/PairwiseAlignment.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/PairwiseAlignment.cpp.s
 .PHONY : PairwiseAlignment.cpp.s
 
 Poa/PoaConfig.o: Poa/PoaConfig.cpp.o
@@ -361,7 +361,7 @@ Poa/PoaConfig.o: Poa/PoaConfig.cpp.o
 
 # target to build an object file
 Poa/PoaConfig.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaConfig.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaConfig.cpp.o
 .PHONY : Poa/PoaConfig.cpp.o
 
 Poa/PoaConfig.i: Poa/PoaConfig.cpp.i
@@ -370,7 +370,7 @@ Poa/PoaConfig.i: Poa/PoaConfig.cpp.i
 
 # target to preprocess a source file
 Poa/PoaConfig.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaConfig.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaConfig.cpp.i
 .PHONY : Poa/PoaConfig.cpp.i
 
 Poa/PoaConfig.s: Poa/PoaConfig.cpp.s
@@ -379,7 +379,7 @@ Poa/PoaConfig.s: Poa/PoaConfig.cpp.s
 
 # target to generate assembly for a file
 Poa/PoaConfig.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaConfig.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaConfig.cpp.s
 .PHONY : Poa/PoaConfig.cpp.s
 
 Poa/PoaConsensus.o: Poa/PoaConsensus.cpp.o
@@ -388,7 +388,7 @@ Poa/PoaConsensus.o: Poa/PoaConsensus.cpp.o
 
 # target to build an object file
 Poa/PoaConsensus.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaConsensus.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaConsensus.cpp.o
 .PHONY : Poa/PoaConsensus.cpp.o
 
 Poa/PoaConsensus.i: Poa/PoaConsensus.cpp.i
@@ -397,7 +397,7 @@ Poa/PoaConsensus.i: Poa/PoaConsensus.cpp.i
 
 # target to preprocess a source file
 Poa/PoaConsensus.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaConsensus.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaConsensus.cpp.i
 .PHONY : Poa/PoaConsensus.cpp.i
 
 Poa/PoaConsensus.s: Poa/PoaConsensus.cpp.s
@@ -406,7 +406,7 @@ Poa/PoaConsensus.s: Poa/PoaConsensus.cpp.s
 
 # target to generate assembly for a file
 Poa/PoaConsensus.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaConsensus.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaConsensus.cpp.s
 .PHONY : Poa/PoaConsensus.cpp.s
 
 Poa/PoaGraph.o: Poa/PoaGraph.cpp.o
@@ -415,7 +415,7 @@ Poa/PoaGraph.o: Poa/PoaGraph.cpp.o
 
 # target to build an object file
 Poa/PoaGraph.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaGraph.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaGraph.cpp.o
 .PHONY : Poa/PoaGraph.cpp.o
 
 Poa/PoaGraph.i: Poa/PoaGraph.cpp.i
@@ -424,7 +424,7 @@ Poa/PoaGraph.i: Poa/PoaGraph.cpp.i
 
 # target to preprocess a source file
 Poa/PoaGraph.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaGraph.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaGraph.cpp.i
 .PHONY : Poa/PoaGraph.cpp.i
 
 Poa/PoaGraph.s: Poa/PoaGraph.cpp.s
@@ -433,7 +433,7 @@ Poa/PoaGraph.s: Poa/PoaGraph.cpp.s
 
 # target to generate assembly for a file
 Poa/PoaGraph.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaGraph.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Poa/PoaGraph.cpp.s
 .PHONY : Poa/PoaGraph.cpp.s
 
 Sequence.o: Sequence.cpp.o
@@ -442,7 +442,7 @@ Sequence.o: Sequence.cpp.o
 
 # target to build an object file
 Sequence.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Sequence.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Sequence.cpp.o
 .PHONY : Sequence.cpp.o
 
 Sequence.i: Sequence.cpp.i
@@ -451,7 +451,7 @@ Sequence.i: Sequence.cpp.i
 
 # target to preprocess a source file
 Sequence.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Sequence.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Sequence.cpp.i
 .PHONY : Sequence.cpp.i
 
 Sequence.s: Sequence.cpp.s
@@ -460,7 +460,7 @@ Sequence.s: Sequence.cpp.s
 
 # target to generate assembly for a file
 Sequence.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Sequence.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Sequence.cpp.s
 .PHONY : Sequence.cpp.s
 
 Utils.o: Utils.cpp.o
@@ -469,7 +469,7 @@ Utils.o: Utils.cpp.o
 
 # target to build an object file
 Utils.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Utils.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Utils.cpp.o
 .PHONY : Utils.cpp.o
 
 Utils.i: Utils.cpp.i
@@ -478,7 +478,7 @@ Utils.i: Utils.cpp.i
 
 # target to preprocess a source file
 Utils.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Utils.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Utils.cpp.i
 .PHONY : Utils.cpp.i
 
 Utils.s: Utils.cpp.s
@@ -487,7 +487,7 @@ Utils.s: Utils.cpp.s
 
 # target to generate assembly for a file
 Utils.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Utils.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Utils.cpp.s
 .PHONY : Utils.cpp.s
 
 Version.o: Version.cpp.o
@@ -496,7 +496,7 @@ Version.o: Version.cpp.o
 
 # target to build an object file
 Version.cpp.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Version.cpp.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Version.cpp.o
 .PHONY : Version.cpp.o
 
 Version.i: Version.cpp.i
@@ -505,7 +505,7 @@ Version.i: Version.cpp.i
 
 # target to preprocess a source file
 Version.cpp.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Version.cpp.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Version.cpp.i
 .PHONY : Version.cpp.i
 
 Version.s: Version.cpp.s
@@ -514,7 +514,7 @@ Version.s: Version.cpp.s
 
 # target to generate assembly for a file
 Version.cpp.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Version.cpp.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/build.make ext/ConsensusCore/CMakeFiles/ConsensusCore.dir/Version.cpp.s
 .PHONY : Version.cpp.s
 
 # Help Target
@@ -523,14 +523,14 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
 	@echo "... install/local"
+	@echo "... install/strip"
 	@echo "... install"
 	@echo "... list_install_components"
+	@echo "... package_source"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... package"
-	@echo "... package_source"
 	@echo "... ConsensusCore"
 	@echo "... AffineAlignment.o"
 	@echo "... AffineAlignment.i"
@@ -579,6 +579,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

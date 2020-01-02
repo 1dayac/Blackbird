@@ -39,58 +39,102 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake
+CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/bin/cmake
 
 # The command to remove a file.
-RM = /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
+RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
+CMAKE_SOURCE_DIR = /Users/dima/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -P cmake_install.cmake
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
+
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/Applications/CLion.app/Contents/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+
+.PHONY : package/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -102,60 +146,16 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-
-.PHONY : package/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/htrie/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/htrie/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/htrie/CMakeFiles/progress.marks
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/htrie/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/htrie/clean
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/htrie/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/htrie/preinstall
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/htrie/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/htrie/preinstall
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/htrie/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 ext/htrie/CMakeFiles/hattrie.dir/rule:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/htrie/CMakeFiles/hattrie.dir/rule
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/htrie/CMakeFiles/hattrie.dir/rule
 .PHONY : ext/htrie/CMakeFiles/hattrie.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ hattrie: ext/htrie/CMakeFiles/hattrie.dir/rule
 
 # fast build rule for target.
 hattrie/fast:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/build
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/build
 .PHONY : hattrie/fast
 
 ahtable.o: ahtable.c.o
@@ -199,7 +199,7 @@ ahtable.o: ahtable.c.o
 
 # target to build an object file
 ahtable.c.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/ahtable.c.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/ahtable.c.o
 .PHONY : ahtable.c.o
 
 ahtable.i: ahtable.c.i
@@ -208,7 +208,7 @@ ahtable.i: ahtable.c.i
 
 # target to preprocess a source file
 ahtable.c.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/ahtable.c.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/ahtable.c.i
 .PHONY : ahtable.c.i
 
 ahtable.s: ahtable.c.s
@@ -217,7 +217,7 @@ ahtable.s: ahtable.c.s
 
 # target to generate assembly for a file
 ahtable.c.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/ahtable.c.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/ahtable.c.s
 .PHONY : ahtable.c.s
 
 hat-trie.o: hat-trie.c.o
@@ -226,7 +226,7 @@ hat-trie.o: hat-trie.c.o
 
 # target to build an object file
 hat-trie.c.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/hat-trie.c.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/hat-trie.c.o
 .PHONY : hat-trie.c.o
 
 hat-trie.i: hat-trie.c.i
@@ -235,7 +235,7 @@ hat-trie.i: hat-trie.c.i
 
 # target to preprocess a source file
 hat-trie.c.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/hat-trie.c.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/hat-trie.c.i
 .PHONY : hat-trie.c.i
 
 hat-trie.s: hat-trie.c.s
@@ -244,7 +244,7 @@ hat-trie.s: hat-trie.c.s
 
 # target to generate assembly for a file
 hat-trie.c.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/hat-trie.c.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/hat-trie.c.s
 .PHONY : hat-trie.c.s
 
 misc.o: misc.c.o
@@ -253,7 +253,7 @@ misc.o: misc.c.o
 
 # target to build an object file
 misc.c.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/misc.c.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/misc.c.o
 .PHONY : misc.c.o
 
 misc.i: misc.c.i
@@ -262,7 +262,7 @@ misc.i: misc.c.i
 
 # target to preprocess a source file
 misc.c.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/misc.c.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/misc.c.i
 .PHONY : misc.c.i
 
 misc.s: misc.c.s
@@ -271,7 +271,7 @@ misc.s: misc.c.s
 
 # target to generate assembly for a file
 misc.c.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/misc.c.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/misc.c.s
 .PHONY : misc.c.s
 
 murmurhash3.o: murmurhash3.c.o
@@ -280,7 +280,7 @@ murmurhash3.o: murmurhash3.c.o
 
 # target to build an object file
 murmurhash3.c.o:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/murmurhash3.c.o
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/murmurhash3.c.o
 .PHONY : murmurhash3.c.o
 
 murmurhash3.i: murmurhash3.c.i
@@ -289,7 +289,7 @@ murmurhash3.i: murmurhash3.c.i
 
 # target to preprocess a source file
 murmurhash3.c.i:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/murmurhash3.c.i
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/murmurhash3.c.i
 .PHONY : murmurhash3.c.i
 
 murmurhash3.s: murmurhash3.c.s
@@ -298,7 +298,7 @@ murmurhash3.s: murmurhash3.c.s
 
 # target to generate assembly for a file
 murmurhash3.c.s:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/murmurhash3.c.s
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/htrie/CMakeFiles/hattrie.dir/build.make ext/htrie/CMakeFiles/hattrie.dir/murmurhash3.c.s
 .PHONY : murmurhash3.c.s
 
 # Help Target
@@ -307,14 +307,14 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
 	@echo "... install/local"
+	@echo "... install/strip"
 	@echo "... install"
-	@echo "... list_install_components"
-	@echo "... edit_cache"
 	@echo "... package_source"
-	@echo "... package"
 	@echo "... rebuild_cache"
+	@echo "... edit_cache"
+	@echo "... package"
+	@echo "... list_install_components"
 	@echo "... hattrie"
 	@echo "... ahtable.o"
 	@echo "... ahtable.i"
@@ -339,6 +339,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
