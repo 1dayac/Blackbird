@@ -4,17 +4,17 @@
 
 
 # Configuration directories and files
-SourceDirectory: /home/dmm2017/Desktop/Blackbird/assembler/ext/src/jemalloc
-BuildDirectory: /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/jemalloc
+SourceDirectory: /Users/dima/Desktop/Blackbird/assembler/ext/src/jemalloc
+BuildDirectory: /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/jemalloc
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: dmm2017-ThinkPad-E475
+Site: mac178124.local
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
-BuildName: Linux-c++
+BuildName: Darwin-c++
 
 # Submission information
 IsCDash: 
@@ -33,8 +33,8 @@ ScpCommand: /usr/bin/scp
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake" "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/jemalloc"
-MakeCommand: /home/dmm2017/Downloads/clion-2017.2.3/bin/cmake/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
+ConfigureCommand: "/Applications/CLion.app/Contents/bin/cmake/bin/cmake" "/Users/dima/Desktop/Blackbird/assembler/ext/src/jemalloc"
+MakeCommand: /Applications/CLion.app/Contents/bin/cmake/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
 DefaultCTestConfigurationType: Release
 
 # version control
@@ -46,7 +46,7 @@ CVSCommand: CVSCOMMAND-NOTFOUND
 CVSUpdateOptions: -d -A -P
 
 # Subversion options
-SVNCommand: SVNCOMMAND-NOTFOUND
+SVNCommand: /usr/bin/svn
 SVNOptions: 
 SVNUpdateOptions: 
 
@@ -69,8 +69,8 @@ UpdateOptions:
 UpdateType: 
 
 # Compiler info
-Compiler: /usr/bin/c++
-CompilerVersion: 5.4.0
+Compiler: /Library/Developer/CommandLineTools/usr/bin/c++
+CompilerVersion: 9.0.0.9000039
 
 # Dynamic analysis (MemCheck)
 PurifyCommand: 
@@ -83,7 +83,7 @@ MemoryCheckCommandOptions:
 MemoryCheckSuppressionFile: 
 
 # Coverage
-CoverageCommand: /usr/bin/gcov
+CoverageCommand: /opt/local/bin/gcov
 CoverageExtraFlags: -l
 
 # Cluster commands

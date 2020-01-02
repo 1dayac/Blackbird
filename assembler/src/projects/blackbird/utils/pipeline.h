@@ -158,15 +158,91 @@ public:
 class BlackBirdLauncher {
 
 
+    void test_minimap(const std::string &path_to_query, const std::string &path_to_reference) {
+        io::FastaFastqGzParser reference_reader(path_to_reference);
+        std::string reference = "";
+        io::SingleRead chrom;
+        reference_reader >> chrom;
+        reference = chrom.GetSequenceString();
+        io::FastaFastqGzParser query_reader(path_to_query);
+        while (!query_reader.eof()) {
+            query_reader >> chrom;
+            std::string query = chrom.GetSequenceString();
+            const char *reference_cstyle = reference.c_str();
+            const char **reference_array = &reference_cstyle;
+            mm_idx_t *index = mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
+            mm_idx_stat(index);
+            mm_tbuf_t *tbuf = mm_tbuf_init();
+            mm_idxopt_t iopt;
+            mm_mapopt_t mopt;
+            int number_of_hits;
+            mm_set_opt(0, &iopt, &mopt);
+            mm_mapopt_update(&mopt, index);
+            mopt.flag |= MM_F_CIGAR;
+            std::string name = "123";
+            mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
+            INFO(hit_array->score);
+            if (number_of_hits > 0) { // traverse hits and print them out
+                mm_reg1_t *r = &hit_array[0];
+                //printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
+                if (!r->rev) {
+                    int query_start = r->qs;
+                    int reference_start = r->rs;
+                    for (int i = 0; i < r->p->n_cigar; ++i) {
+                        //printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
+                            query_start += r->p->cigar[i]>>4;
+                            reference_start += r->p->cigar[i]>>4;
+                        }
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
+                            std::string ins_seq = query.substr(query_start, r->p->cigar[i]>>4);
+                            auto t = r->p->cigar[i]>>4;
+                            INFO(t);
+                            query_start += r->p->cigar[i]>>4;
+                        }
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
+                            auto t = r->p->cigar[i]>>4;
+                            INFO(t);
+                            reference_start += r->p->cigar[i]>>4;
+                        }
+                    }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
+                } else {
+                    int query_start = r->qs;
+                    int reference_start = r->rs;
+                    for (int i = 0; i < r->p->n_cigar; ++i) {
+                        //printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
+                            query_start += r->p->cigar[i]>>4;
+                            reference_start += r->p->cigar[i]>>4;
+                        }
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
+                            auto t = r->p->cigar[i]>>4;
+                            INFO(t);
+                            std::string ins_seq = ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4);
+                            query_start += r->p->cigar[i]>>4;
+                        }
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
+                            auto t = r->p->cigar[i]>>4;
+                            INFO(t);
+                            reference_start += r->p->cigar[i]>>4;
+                        }
+                    }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
+                }
+                free(r->p);
+            }
+            free(hit_array);
+            mm_tbuf_destroy(tbuf);
+        }
+    }
 
     void test_minimap() {
 
         BamTools::BamReader reader;
         reader.Open(OptionBase::bam.c_str());
-        BamTools::BamRegion region(reader.GetReferenceID("chr13"), 84880000, reader.GetReferenceID("chr13"), 84930000);
+        BamTools::BamRegion region(reader.GetReferenceID("chr1"), 80000, reader.GetReferenceID("chr1"), 84930000);
 
         INFO(reference_map_[refid_to_ref_name_[region.RightRefID]].substr(region.LeftPosition, region.RightPosition - region.LeftPosition));
-        RunAndProcessMinimap("before_rr.fasta", reference_map_[refid_to_ref_name_[region.RightRefID]].substr(region.LeftPosition, region.RightPosition - region.LeftPosition), "chr13", region.LeftPosition);
+        RunAndProcessMinimap("contigs.fasta", reference_map_[refid_to_ref_name_[region.RightRefID]].substr(region.LeftPosition, region.RightPosition - region.LeftPosition), "chr13", region.LeftPosition);
 
 
         std::string reference = "ACAGAGTTTTCCGATATAGCGTTCTTCTGGCCTCCCCTAATGTTAACATCTTATATAACTACGGTACACTGATCAAAACTAAGAACTTAATATTGAGATGAAGCTATTAACTACTTTACTCAGATTTCACCGGTTTTCCAATGATGTCCTTTTTCTGTTTCAGAATGCAATCCAAGATACCACACTGCATTTAGCTGTACTGTATATGAACACTTTTTAATACATCACTGGCTACAGAATAATAAATTAGTATCGAATCCTATTCTTAAGGATGAGGAACCTGAGTACTGGAGAAGCTAAAGGACTCATCCAGAAGCTCAGTATAAATGAACAATCAGAGTCAGGCCTGTGGTCCTAAAT";
@@ -207,6 +283,12 @@ public:
         INFO("Starting Blackbird");
 
 
+
+        //test_minimap("/Users/dima/Desktop/debug_blackbird/before_rr.fasta", "/Users/dima/Desktop/debug_blackbird/chr1_840000_890000.fasta");
+        //return 0;
+
+
+
         int max_treads = omp_get_max_threads();
 
 
@@ -245,8 +327,6 @@ public:
             refid_to_ref_name_[reader.GetReferenceID(reference.RefName)] = reference.RefName;
         }
 
-        //test_minimap();
-        //return 0;
         if (!OptionBase::dont_collect_reads) {
             BamTools::BamAlignment alignment;
             size_t alignment_count = 0;
@@ -542,7 +622,7 @@ private:
         std::string spades_command = OptionBase::path_to_spades + " --only-assembler -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
         std::system(spades_command.c_str());
         std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
-        RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
+        RunAndProcessMinimap(temp_dir + "/assembly/before_rr.fasta", subreference, window.RefName.RefName, region.LeftPosition);
         if (!OptionBase::keep_assembly_folders)
             fs::remove_dir(temp_dir.c_str());
     }
