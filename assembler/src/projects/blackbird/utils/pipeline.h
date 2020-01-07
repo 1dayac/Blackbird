@@ -54,6 +54,46 @@ struct RefWindow {
 
 
 
+class Inversion {
+public:
+    Inversion(const std::string &chrom, int ref_position, int second_ref_position, const std::string &inversion_seq)
+            : chrom_(chrom), ref_position_(ref_position), inversion_seq_(inversion_seq), second_ref_position_(second_ref_position) {    }
+    std::string chrom_;
+    int ref_position_;
+    int second_ref_position_;
+    std::string inversion_seq_;
+
+    int Size() const {
+        return second_ref_position_ - ref_position_;
+    }
+
+    template <class T>
+    bool operator < (const T& op2) const
+    {
+        if (chrom_ < op2.chrom_)
+        {
+            return true;
+        }
+        if (chrom_ > op2.chrom_)
+        {
+            return false;
+        }
+        if (ref_position_ < op2.ref_position_) {
+            return true;
+        }
+        return false;
+    }
+
+    bool operator ==(const Inversion& op2) const {
+        return chrom_ == op2.chrom_ && ref_position_ == op2.ref_position_;
+    }
+
+    std::string ToString() const {
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<INV>\t"  + "SEQ=" + inversion_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_) + ";SVTYPE=INV";
+    }
+
+};
+
 class Deletion {
 public:
     Deletion(const std::string &chrom, int ref_position, int second_ref_position, const std::string &deletion_seq)
@@ -157,6 +197,9 @@ public:
 
 class BlackBirdLauncher {
 
+    void ProcessInversion(mm_reg1_t *r) {
+        INFO("Inversion");
+    }
 
     void test_minimap(const std::string &path_to_query, const std::string &path_to_reference) {
         io::FastaFastqGzParser reference_reader(path_to_reference);
@@ -185,7 +228,10 @@ class BlackBirdLauncher {
             if (number_of_hits > 0) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[0];
                 //printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
-                if (!r->rev) {
+                if (r->inv) {
+                    ProcessInversion(r);
+                }
+                else if (!r->rev) {
                     int query_start = r->qs;
                     int reference_start = r->rs;
                     for (int i = 0; i < r->p->n_cigar; ++i) {
@@ -284,8 +330,8 @@ public:
 
 
 
-        //test_minimap("/Users/dima/Desktop/debug_blackbird/before_rr.fasta", "/Users/dima/Desktop/debug_blackbird/chr1_840000_890000.fasta");
-        //return 0;
+        test_minimap("/Users/dima/Desktop/debug_blackbird/before_rr.fasta", "/Users/dima/Desktop/debug_blackbird/chr1_2040000_2090000.fasta");
+        return 0;
 
 
 
@@ -396,6 +442,7 @@ public:
         std::sort(vector_of_small_ins_.begin(), vector_of_small_ins_.end());
         std::sort(vector_of_small_del_.begin(), vector_of_small_del_.end());
 
+        std::sort(vector_of_inv_.begin(), vector_of_inv_.end());
 
         Print(vector_of_ins_, vector_of_del_, writer_);
         Print(vector_of_small_ins_, vector_of_small_del_, writer_small_);
@@ -427,6 +474,7 @@ private:
     std::vector<Deletion> vector_of_small_del_;
     std::vector<Insertion> vector_of_ins_;
     std::vector<Deletion> vector_of_del_;
+    std::vector<Inversion> vector_of_inv_;
 
     std::unordered_map<std::string, std::string> reference_map_;
     std::unordered_map<int, std::string> refid_to_ref_name_;
