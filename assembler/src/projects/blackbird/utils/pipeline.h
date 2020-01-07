@@ -89,7 +89,7 @@ public:
     }
 
     std::string ToString() const {
-        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<INV>\t"  + "SEQ=" + inversion_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_) + ";SVTYPE=INV";
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<INV>\t"  + "SEQ=" + inversion_seq_ + ";SVLEN=" + std::to_string(inversion_seq_.length()) + ";SVTYPE=INV;ENDPOS=" + std::to_string(second_ref_position_);
     }
 
 };
@@ -193,12 +193,53 @@ public:
         file_ << sv.ToString() << std::endl;
     }
 
+    void Write(const Inversion &sv) {
+        file_ << sv.ToString() << std::endl;
+    }
 };
 
 class BlackBirdLauncher {
 
-    void ProcessInversion(mm_reg1_t *r) {
+    void ProcessInversion(mm_reg1_t *r, const std::string &query, const std::string &ref_name, int start_pos) {
+        std::string inversion_seq = "";
         INFO("Inversion");
+        int query_start = r->qs;
+        int reference_start = r->rs;
+        if (!r->rev) {
+            for (int i = 0; i < r->p->n_cigar; ++i) {
+                //printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
+                if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
+                    inversion_seq = query.substr(query_start, r->p->cigar[i]>>4);
+                    query_start += r->p->cigar[i]>>4;
+                    reference_start += r->p->cigar[i]>>4;
+                }
+                if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
+                    inversion_seq += query.substr(query_start, r->p->cigar[i]>>4);
+                    query_start += r->p->cigar[i]>>4;
+                }
+                if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
+                    reference_start += r->p->cigar[i]>>4;
+                }
+            }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
+        } else {
+            for (int i = 0; i < r->p->n_cigar; ++i) {
+                //printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
+                if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
+                    inversion_seq = ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4) + inversion_seq;
+                    query_start += r->p->cigar[i]>>4;
+                    reference_start += r->p->cigar[i]>>4;
+                }
+                if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
+                    inversion_seq = ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4) + inversion_seq;
+                    query_start += r->p->cigar[i]>>4;
+                }
+                if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
+                    reference_start += r->p->cigar[i]>>4;
+                }
+            }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
+        }
+        Inversion inv(ref_name, start_pos + r->rs, start_pos + query_start, inversion_seq);
+        WriteCritical(vector_of_inv_, inv);
     }
 
     void test_minimap(const std::string &path_to_query, const std::string &path_to_reference) {
@@ -228,10 +269,7 @@ class BlackBirdLauncher {
             if (number_of_hits > 0) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[0];
                 //printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
-                if (r->inv) {
-                    ProcessInversion(r);
-                }
-                else if (!r->rev) {
+                if (!r->rev) {
                     int query_start = r->qs;
                     int reference_start = r->rs;
                     for (int i = 0; i < r->p->n_cigar; ++i) {
@@ -323,7 +361,7 @@ public:
 
         writer_ = VCFWriter(OptionBase::output_folder + "/out_50.vcf");
         writer_small_ = VCFWriter(OptionBase::output_folder + "/out.vcf");
-
+        writer_inversion_ = VCFWriter(OptionBase::output_folder + "/out_inversions.vcf");
 
         create_console_logger(log_filename);
         INFO("Starting Blackbird");
@@ -446,7 +484,7 @@ public:
 
         Print(vector_of_ins_, vector_of_del_, writer_);
         Print(vector_of_small_ins_, vector_of_small_del_, writer_small_);
-
+        PrintInversions(vector_of_inv_, writer_inversion_);
         //test_minimap();
         for (auto &r : readers) {
             r.Close();
@@ -470,6 +508,7 @@ private:
 
     VCFWriter writer_;
     VCFWriter writer_small_;
+    VCFWriter writer_inversion_;
     std::vector<Insertion> vector_of_small_ins_;
     std::vector<Deletion> vector_of_small_del_;
     std::vector<Insertion> vector_of_ins_;
@@ -479,6 +518,13 @@ private:
     std::unordered_map<std::string, std::string> reference_map_;
     std::unordered_map<int, std::string> refid_to_ref_name_;
     static int uniq_number;
+
+    void PrintInversions(const std::vector<Inversion> &vector_of_inv, VCFWriter &writer) {
+        for (auto inv : vector_of_inv) {
+            writer.Write(inv);
+        }
+    }
+
     void Print(const std::vector<Insertion> &vector_of_ins, const std::vector<Deletion> &vector_of_del, VCFWriter &writer) {
         int i = 0;
         int j = 0;
@@ -712,7 +758,10 @@ private:
             if (number_of_hits > 0) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[0];
                 //printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
-                if (!r->rev) {
+                if (r->inv) {
+                    ProcessInversion(r, query, ref_name, start_pos);
+                }
+                else if (!r->rev) {
                     int query_start = r->qs;
                     int reference_start = r->rs;
                     for (int i = 0; i < r->p->n_cigar; ++i) {
