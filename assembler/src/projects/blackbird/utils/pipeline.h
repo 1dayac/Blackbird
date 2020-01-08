@@ -368,8 +368,8 @@ public:
 
 
 
-        test_minimap("/Users/dima/Desktop/debug_blackbird/before_rr.fasta", "/Users/dima/Desktop/debug_blackbird/chr1_2040000_2090000.fasta");
-        return 0;
+//        test_minimap("/Users/dima/Desktop/debug_blackbird/before_rr.fasta", "/Users/dima/Desktop/debug_blackbird/chr1_2040000_2090000.fasta");
+//        return 0;
 
 
 
