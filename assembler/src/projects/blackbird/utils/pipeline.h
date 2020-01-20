@@ -622,7 +622,7 @@ private:
 
 
         const int threshold = 4;
-        const int number_of_barcodes_to_assemble = 2000;
+        const int number_of_barcodes_to_assemble = 500;
         while(reader.GetNextAlignment(alignment)) {
             if (alignment.IsPrimaryAlignment() && IsGoodAlignment(alignment)) {
                 std::string bx = "";
@@ -700,15 +700,11 @@ private:
         }
 
 
-        #pragma omp critical
-        {
-
-            auto const &const_map_of_bad_reads = map_of_bad_reads_;
-            for (auto barcode : barcodes_count_over_threshold) {
-                if (const_map_of_bad_reads.count(barcode)) {
-                    for (auto const &read : const_cast<std::vector<Sequence>&>(const_map_of_bad_reads.at(barcode))) {
-                        single_out_stream << CreateReadFromSeq(read);
-                    }
+        auto const &const_map_of_bad_reads = map_of_bad_reads_;
+        for (auto barcode : barcodes_count_over_threshold) {
+            if (const_map_of_bad_reads.count(barcode)) {
+                for (auto const &read : const_cast<std::vector<Sequence>&>(const_map_of_bad_reads.at(barcode))) {
+                    single_out_stream << CreateReadFromSeq(read);
                 }
             }
         }
