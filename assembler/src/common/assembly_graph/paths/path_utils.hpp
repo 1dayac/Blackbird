@@ -16,9 +16,9 @@
 #include "path_processor.hpp"
 #include "mapping_path.hpp"
 #include "assembly_graph/dijkstra/dijkstra_algorithm.hpp"
+#include "assembly_graph/core/basic_graph_stats.hpp"
 
 namespace debruijn_graph {
-
 
     template<class Graph>
     std::vector<typename Graph::EdgeId> GetCommonPathsEnd(
@@ -127,5 +127,15 @@ namespace debruijn_graph {
         return path_sequence.Subseq(start, end);
     }
 
+    template<class Graph>
+    size_t PathLength(const Graph &g, const omnigraph::Path<typename Graph::EdgeId> &p) {
+        if (p.size() == 0)
+            return 0;
+        const auto &edges = p.sequence();
+        size_t len = omnigraph::CumulativeLength(g, edges);
+        len -= p.start_pos();
+        len -= g.length(edges.back()) - p.end_pos();
+        return len;
+    }
 
 }

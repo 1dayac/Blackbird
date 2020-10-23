@@ -9,8 +9,10 @@
 #define __HAMMER_READ_PROCESSOR_HPP__
 
 #include "io/reads/mpmc_bounded.hpp"
-
 #include "utils/parallel/openmp_wrapper.h"
+
+#include <memory>
+#include <sched.h>
 
 #pragma GCC diagnostic push
 #ifdef __clang__

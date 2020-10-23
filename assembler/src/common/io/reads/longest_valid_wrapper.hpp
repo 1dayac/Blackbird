@@ -5,8 +5,10 @@
 //* See file LICENSE for details.
 //***************************************************************************
 #pragma once
+
 #include "filtering_reader_wrapper.hpp"
-#include "pipeline/library.hpp"
+#include "single_read.hpp"
+#include "paired_read.hpp"
 
 namespace io {
 
@@ -16,12 +18,12 @@ inline std::pair<size_t, size_t> LongestValidCoords(const SingleRead& r) {
     size_t best_len = 0;
     size_t best_pos = none;
     size_t pos = none;
-    std::string seq = r.GetSequenceString();
-    for (size_t i = 0; i <= seq.size(); ++i) {
-        if (i < seq.size() && is_nucl(seq[i])) {
-            if (pos == none) {
+    const std::string &seq = r.GetSequenceString();
+    size_t sz = seq.length();
+    for (size_t i = 0; i <= sz; ++i) {
+        if (i < sz && is_nucl(seq[i])) {
+            if (pos == none)
                 pos = i;
-            }
         } else {
             if (pos != none) {
                 size_t len = i - pos;
@@ -39,50 +41,47 @@ inline std::pair<size_t, size_t> LongestValidCoords(const SingleRead& r) {
     return std::make_pair(best_pos, best_pos + best_len);
 }
 
-inline SingleRead LongestValid(const SingleRead& r) {
-    std::pair<size_t, size_t> p = LongestValidCoords(r);
-    if (p.first == p.second)
-        return SingleRead();
-    return r.Substr(p.first, p.second);
+inline void LongestValid(SingleRead& r) {
+    size_t from, to;
+    std::tie(from, to) = LongestValidCoords(r);
+    size_t newsize = to - from;
+    if (newsize == 0)
+        r = SingleRead();
+    else if (newsize < r.size())
+        r = r.Substr(from, to, /* validate */ false); // FIXME: do inplace
 }
 
-inline PairedRead LongestValid(const PairedRead& r) {
-    auto c1 = LongestValidCoords(r.first());
-    auto c2 = LongestValidCoords(r.second());
-
-    return PairedRead(r.first().Substr(c1.first, c1.second),
-                      r.second().Substr(c2.first, c2.second),
-                      r.orig_insert_size());
+inline void LongestValid(PairedRead& r) {
+    LongestValid(r.first());
+    LongestValid(r.second());
 }
-
 
 template<typename ReadType>
 class LongestValidRetainingWrapper : public DelegatingWrapper<ReadType> {
     typedef DelegatingWrapper<ReadType> base;
 public:
-    LongestValidRetainingWrapper(typename base::ReadStreamPtrT reader_ptr) :
-                base(reader_ptr) {
-    }
+    LongestValidRetainingWrapper(typename base::ReadStreamT reader_ptr) :
+            base(std::move(reader_ptr)) {}
 
-    LongestValidRetainingWrapper& operator>>(ReadType& read) override {
+    LongestValidRetainingWrapper& operator>>(ReadType& read) {
         this->reader() >> read;
-        read = LongestValid(read);
+        LongestValid(read);
         return *this;
     }
 };
 
 template<class ReadType>
-std::shared_ptr<ReadStream<ReadType>> LongestValidWrap(std::shared_ptr<ReadStream<ReadType>> reader_ptr) {
-    return FilteringWrap<ReadType>(std::make_shared<LongestValidRetainingWrapper<ReadType>>(reader_ptr));
+ReadStream<ReadType> LongestValidWrap(ReadStream<ReadType> reader_ptr) {
+    return LongestValidRetainingWrapper<ReadType>(std::move(reader_ptr));
 }
 
 template<class ReadType>
-ReadStreamList<ReadType> LongestValidWrap(const ReadStreamList<ReadType> &readers) {
+ReadStreamList<ReadType> LongestValidWrap(ReadStreamList<ReadType> readers) {
     ReadStreamList<ReadType> answer;
-    for (size_t i = 0; i < readers.size(); ++i) {
-        answer.push_back(LongestValidWrap<ReadType>(readers.ptr_at(i)));
-    }
-    return FilteringWrap<ReadType>(answer);
+    for (auto &reader : readers)
+        answer.push_back(LongestValidWrap<ReadType>(reader));
+
+    return answer;
 }
 
 }

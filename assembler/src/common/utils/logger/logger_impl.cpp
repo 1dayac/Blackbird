@@ -15,6 +15,7 @@
 #include "utils/logger/logger.hpp"
 #include "utils/perf/memory.hpp"
 #include "utils/memory_limit.hpp"
+#include "utils/parallel/openmp_wrapper.h"
 
 #include "config.hpp"
 
@@ -99,13 +100,19 @@ bool logger::need_log(level desired_level, const char* source) const {
     return desired_level >= source_level;
 }
 
+extern "C" {
+    void mi_stats_print(void*);
+    void mi_stats_merge(void);
+    void mi_collect(bool);
+    size_t mi_stats_total_mem();
+};
 
 void logger::log(level desired_level, const char* file, size_t line_num, const char* source, const char* msg) {
   double time = timer_.time();
   size_t mem = -1ull;
   size_t max_rss;
 
-#ifdef SPADES_USE_JEMALLOC
+#if defined(SPADES_USE_JEMALLOC)
   // Cannot use FATAL_ERROR here, we're inside logger
 
   // Update statisitcs cached by mallctl
@@ -132,18 +139,26 @@ void logger::log(level desired_level, const char* file, size_t line_num, const c
   max_rss = utils::get_max_rss();
   if (mem > max_rss)
       max_rss = mem;
+#elif defined(SPADES_USE_MIMALLOC)
+  if (omp_get_thread_num() > 0) {
+      mi_stats_merge();
+  } else {
+    unsigned nthreads = omp_get_max_threads();
+#   pragma omp parallel for
+    for (unsigned i = 0; i < 2*nthreads; ++i) {
+        mi_collect(true); // FIXME: hack-hack-hack
+        mi_stats_merge();
+    }
+  }
+
+  mem = (mi_stats_total_mem() + 1023) / 1024;
+  max_rss = utils::get_max_rss();  
 #else
   max_rss = utils::get_max_rss();
 #endif
 
   for (auto it = writers_.begin(); it != writers_.end(); ++it)
     (*it)->write_msg(time, mem, max_rss, desired_level, file, line_num, source, msg);
-}
-
-//
-void logger::add_writer(writer_ptr ptr)
-{
-    writers_.push_back(ptr);
 }
 
 ////////////////////////////////////////////////////

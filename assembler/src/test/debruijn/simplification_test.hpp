@@ -133,12 +133,16 @@ void PrintGraph(const Graph & g) {
     std::cout << std::endl;
 }
 
+int trivial_false(EdgeId, const std::vector<EdgeId>&){
+    return 0;
+};
+
 void DefaultClipTips(Graph& graph) {
     debruijn::simplification::TipClipperInstance(graph, standard_tc_config(), standard_simplif_relevant_info())->Run();
 }
 
 void DefaultRemoveBulges(Graph& graph) {
-    debruijn::simplification::BRInstance(graph, standard_br_config(), standard_simplif_relevant_info())->Run();
+    debruijn::simplification::BRInstance(graph, standard_br_config(), standard_simplif_relevant_info(), trivial_false)->Run();
 }
 
 BOOST_AUTO_TEST_CASE( SimpleTipClipperTest ) {
@@ -268,9 +272,7 @@ BOOST_AUTO_TEST_CASE( MFUniquePath ) {
 BOOST_AUTO_TEST_CASE( ComplexBulgeRemoverOnSimpleBulge ) {
        Graph g(55);
        graphio::ScanBasicGraph("./src/test/debruijn/graph_fragments/simpliest_bulge/simpliest_bulge", g);
-//       OppositionLicvidator<Graph> licvidator(gp.g, gp.g.k() * 5, 5);
-//       licvidator.Licvidate();
-       omnigraph::complex_br::ComplexBulgeRemover<Graph> remover(g, g.k() * 5, 5, 1);
+       omnigraph::complex_br::ComplexBulgeRemover<Graph> remover(g, g.k() * 5, 5, nullptr, 1);
        remover.Run();
        INFO("Done");
 
@@ -279,61 +281,38 @@ BOOST_AUTO_TEST_CASE( ComplexBulgeRemoverOnSimpleBulge ) {
 }
 
 BOOST_AUTO_TEST_CASE( ComplexBulge ) {
-    conj_graph_pack gp(55, "tmp", 0);
-       graphio::ScanGraphPack("./src/test/debruijn/graph_fragments/complex_bulge/complex_bulge", gp);
-//       OppositionLicvidator<Graph> licvidator(gp.g, gp.g.k() * 5, 5);
-//       licvidator.Licvidate();
-
-       omnigraph::complex_br::ComplexBulgeRemover<Graph> remover(gp.g, gp.g.k() * 5, 5, 1);
-       remover.Run();
-
-//       WriteGraphPack(gp, string("./src/test/debruijn/graph_fragments/complex_bulge/complex_bulge_res.dot"));
-       BOOST_CHECK_EQUAL(gp.g.size(), 8u);
+    GraphPack gp(55, "tmp", 0);
+    graphio::ScanGraphPack("./src/test/debruijn/graph_fragments/complex_bulge/complex_bulge", gp);
+    auto &graph = gp.get_mutable<Graph>();
+    omnigraph::complex_br::ComplexBulgeRemover<Graph> remover(graph, graph.k() * 5, 5, nullptr, 1);
+    remover.Run();
+    BOOST_CHECK_EQUAL(graph.size(), 8u);
 }
 
 BOOST_AUTO_TEST_CASE( BigComplexBulge ) {
-    conj_graph_pack gp(55, "tmp", 0);
-       graphio::ScanGraphPack("./src/test/debruijn/graph_fragments/big_complex_bulge/big_complex_bulge", gp);
-//       OppositionLicvidator<Graph> licvidator(gp.g, gp.g.k() * 5, 5);
-//       licvidator.Licvidate();
-       omnigraph::complex_br::ComplexBulgeRemover<Graph> remover(gp.g, gp.g.k() * 5, 5, 1);
-       remover.Run();
-//       WriteGraphPack(gp, string("./src/test/debruijn/graph_fragments/big_complex_bulge/big_complex_bulge_res.dot"));
-       BOOST_CHECK_EQUAL(gp.g.size(), 66u);
-}
-
-// TODO: Remove this hack. We really need to save flcvr!
-template<class Graph, class InnerIndex>
-void FillKmerCoverageWithAvg(const Graph& g, InnerIndex& idx) {
-    for (auto it = g.SmartEdgeBegin(); !it.IsEnd(); ++it) {
-        EdgeId e = *it;
-        Sequence nucls = g.EdgeNucls(e);
-        double cov = g.coverage(e);
-        auto kpomer = idx.ConstructKWH(RtSeq(g.k() + 1, nucls));
-        kpomer >>= 0;
-        for (size_t i = 0; i < g.length(e); ++i) {
-            kpomer <<= nucls[i + g.k()];
-            idx.get_raw_value_reference(kpomer).count = unsigned(math::floor(cov)) / 2;
-        }
-    }
+    GraphPack gp(55, "tmp", 0);
+    graphio::ScanGraphPack("./src/test/debruijn/graph_fragments/big_complex_bulge/big_complex_bulge", gp);
+    auto &graph = gp.get_mutable<Graph>();
+    omnigraph::complex_br::ComplexBulgeRemover<Graph> remover(graph, graph.k() * 5, 5, nullptr, 1);
+    remover.Run();
+    BOOST_CHECK_EQUAL(graph.size(), 66u);
 }
 
 //Relative coverage removal tests
 
 void TestRelativeCoverageRemover(const std::string &path, size_t graph_size) {
-    typedef graph_pack<ConjugateDeBruijnGraph> gp_t;
-    gp_t gp(55, "tmp", 0);
+    GraphPack gp(55, "tmp", 0);
     graphio::ScanGraphPack(path, gp);
     INFO("Relative coverage component removal:");
-    if (!fs::FileExists(path + ".flcvr") && !fs::FileExists(path + ".kmidx")) {
-        FillKmerCoverageWithAvg(gp.g, gp.index.inner_index());
-        gp.flanking_cov.Fill(gp.index.inner_index());
-    }
-    auto algo = debruijn::simplification::RelativeCoverageComponentRemoverInstance(gp.g, gp.flanking_cov,
+    auto &graph = gp.get_mutable<Graph>();
+    auto &index = gp.get_mutable<EdgeIndex<Graph>>();
+    auto &flanking_cov = gp.get_mutable<omnigraph::FlankingCoverage<Graph>>();
+
+    auto algo = debruijn::simplification::RelativeCoverageComponentRemoverInstance(graph, flanking_cov,
                                                                                    standard_rcc_config(),
                                                                                    standard_simplif_relevant_info());
     algo->Run();
-    BOOST_CHECK_EQUAL(gp.g.size(), graph_size);
+    BOOST_CHECK_EQUAL(graph.size(), graph_size);
 }
 
 //todo review
@@ -363,69 +342,75 @@ BOOST_AUTO_TEST_CASE( RelativeCoverageRemover4 ) {
 BOOST_AUTO_TEST_CASE( CompressorTest ) {
     std::string path = "./src/test/debruijn/graph_fragments/compression/graph";
     size_t graph_size = 12;
-    conj_graph_pack gp(55, "tmp", 0);
+    GraphPack gp(55, "tmp", 0);
     graphio::ScanGraphPack(path, gp);
-    CompressAllVertices(gp.g, standard_simplif_relevant_info().chunk_cnt());
-    BOOST_CHECK_EQUAL(gp.g.size(), graph_size);
+    auto &graph = gp.get_mutable<Graph>();
+    CompressAllVertices(graph, standard_simplif_relevant_info().chunk_cnt());
+    BOOST_CHECK_EQUAL(graph.size(), graph_size);
 }
 
 #if 0
 BOOST_AUTO_TEST_CASE( ParallelCompressor1 ) {
     std::string path = "./src/test/debruijn/graph_fragments/compression/graph";
     size_t graph_size = 12;
-    conj_graph_pack gp(55, "tmp", 0);
+    GraphPack gp(55, "tmp", 0);
     graphio::ScanGraphPack(path, gp);
-    debruijn::simplification::ParallelCompress(gp.g, standard_simplif_relevant_info().chunk_cnt(), false);
-    BOOST_CHECK_EQUAL(gp.g.size(), graph_size);
+    auto &graph = gp.get_mutable<Graph>();
+    debruijn::simplification::ParallelCompress(graph, standard_simplif_relevant_info().chunk_cnt(), false);
+    BOOST_CHECK_EQUAL(graph.size(), graph_size);
 }
 
 BOOST_AUTO_TEST_CASE( ParallelTipClipper1 ) {
     std::string path = "./src/test/debruijn/graph_fragments/tips/graph";
     size_t graph_size = 12;
-    conj_graph_pack gp(55, "tmp", 0);
+    GraphPack gp(55, "tmp", 0);
     graphio::ScanGraphPack(path, gp);
-    debruijn::simplification::ConditionParser<Graph> parser(gp.g, standard_tc_config().condition, standard_simplif_relevant_info());
+    auto &graph = gp.get_mutable<Graph>();
+    debruijn::simplification::ConditionParser<Graph> parser(graph, standard_tc_config().condition, standard_simplif_relevant_info());
     parser();
-    debruijn::simplification::ParallelClipTips(gp.g, parser.max_length_bound(), parser.max_coverage_bound(), standard_simplif_relevant_info().chunk_cnt());
-    BOOST_CHECK_EQUAL(gp.g.size(), graph_size);
+    debruijn::simplification::ParallelClipTips(graph, parser.max_length_bound(), parser.max_coverage_bound(), standard_simplif_relevant_info().chunk_cnt());
+    BOOST_CHECK_EQUAL(graph.size(), graph_size);
 }
 
 BOOST_AUTO_TEST_CASE( ParallelECRemover ) {
     std::string path = graph_fragment_root() + "complex_bulge/complex_bulge";
-    conj_graph_pack gp(55, "tmp", 0);
+    GraphPack gp(55, "tmp", 0);
     graphio::ScanGraphPack(path, gp);
     std::string condition = "{ cb 1000 , ec_lb 20 }";
-    debruijn::simplification::ConditionParser<Graph> parser(gp.g, condition, standard_simplif_relevant_info());
+    auto &graph = gp.get_mutable<Graph>();
+    debruijn::simplification::ConditionParser<Graph> parser(graph, condition, standard_simplif_relevant_info());
     parser();
-    debruijn::simplification::ParallelEC(gp.g, parser.max_length_bound(), parser.max_coverage_bound(), standard_simplif_relevant_info().chunk_cnt());
-    BOOST_CHECK_EQUAL(gp.g.size(), 16u);
-    debruijn::simplification::ParallelEC(gp.g, parser.max_length_bound(), parser.max_coverage_bound(), standard_simplif_relevant_info().chunk_cnt());
-    BOOST_CHECK_EQUAL(gp.g.size(), 12u);
+    debruijn::simplification::ParallelEC(graph, parser.max_length_bound(), parser.max_coverage_bound(), standard_simplif_relevant_info().chunk_cnt());
+    BOOST_CHECK_EQUAL(graph.size(), 16u);
+    debruijn::simplification::ParallelEC(graph, parser.max_length_bound(), parser.max_coverage_bound(), standard_simplif_relevant_info().chunk_cnt());
+    BOOST_CHECK_EQUAL(graph.size(), 12u);
 }
 
 BOOST_AUTO_TEST_CASE( ParallelECRemover1 ) {
     std::string path = graph_fragment_root() + "complex_bulge_2/graph";
     std::string condition = "{ cb 100 , ec_lb 20 }";
-    conj_graph_pack gp(55, "tmp", 0);
+    GraphPack gp(55, "tmp", 0);
     graphio::ScanGraphPack(path, gp);
-    debruijn::simplification::ConditionParser<Graph> parser(gp.g, condition, standard_simplif_relevant_info());
+    auto &graph = gp.get_mutable<Graph>();
+    debruijn::simplification::ConditionParser<Graph> parser(graph, condition, standard_simplif_relevant_info());
     parser();
-    debruijn::simplification::ParallelEC(gp.g, parser.max_length_bound(), parser.max_coverage_bound(), standard_simplif_relevant_info().chunk_cnt());
-    BOOST_CHECK_EQUAL(gp.g.size(), 20u);
-    debruijn::simplification::ParallelEC(gp.g, parser.max_length_bound(), parser.max_coverage_bound(), standard_simplif_relevant_info().chunk_cnt());
-    BOOST_CHECK_EQUAL(gp.g.size(), 4u);
-    BOOST_CHECK_EQUAL(GraphComponent<Graph>::WholeGraph(gp.g).e_size(), 2u);
+    debruijn::simplification::ParallelEC(graph, parser.max_length_bound(), parser.max_coverage_bound(), standard_simplif_relevant_info().chunk_cnt());
+    BOOST_CHECK_EQUAL(graph.size(), 20u);
+    debruijn::simplification::ParallelEC(graph, parser.max_length_bound(), parser.max_coverage_bound(), standard_simplif_relevant_info().chunk_cnt());
+    BOOST_CHECK_EQUAL(graph.size(), 4u);
+    BOOST_CHECK_EQUAL(GraphComponent<Graph>::WholeGraph(graph).e_size(), 2u);
 }
 
 BOOST_AUTO_TEST_CASE( ParallelECRemover2 ) {
     std::string path = graph_fragment_root() + "rel_cov_ec/constructed_graph";
     std::string condition = "{ cb 100 , ec_lb 20 }";
-    conj_graph_pack gp(55, "tmp", 0);
+    GraphPack gp(55, "tmp", 0);
     graphio::ScanGraphPack(path, gp);
-    debruijn::simplification::ConditionParser<Graph> parser(gp.g, condition, standard_simplif_relevant_info());
+    auto &graph = gp.get_mutable<Graph>();
+    debruijn::simplification::ConditionParser<Graph> parser(graph, condition, standard_simplif_relevant_info());
     parser();
-    debruijn::simplification::ParallelEC(gp.g, parser.max_length_bound(), parser.max_coverage_bound(), standard_simplif_relevant_info().chunk_cnt());
-    BOOST_CHECK_EQUAL(gp.g.size(), 20u);
+    debruijn::simplification::ParallelEC(graph, parser.max_length_bound(), parser.max_coverage_bound(), standard_simplif_relevant_info().chunk_cnt());
+    BOOST_CHECK_EQUAL(graph.size(), 20u);
 }
 #endif
 

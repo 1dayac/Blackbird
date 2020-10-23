@@ -53,10 +53,10 @@ class EdgeProcessingAlgorithm {
 //        return conjugate_symmetry_;
 //    }
 
-    template<class Comparator = std::less<EdgeId>>
-    bool Run(const Comparator& comp = Comparator(), ProceedConditionT proceed_condition = func::AlwaysTrue<EdgeId>()) {
+    template<class Priority = adt::identity>
+    bool Run(const Priority& priority = Priority(), ProceedConditionT proceed_condition = func::AlwaysTrue<EdgeId>()) {
         bool triggered = false;
-        for (auto it = g_.SmartEdgeBegin(comp, conjugate_symmetry_); !it.IsEnd(); ++it) {
+        for (auto it = g_.SmartEdgeBegin(priority, conjugate_symmetry_); !it.IsEnd(); ++it) {
             EdgeId e = *it;
             TRACE("Current edge " << g_.str(e));
             if (!proceed_condition(e)) {
@@ -102,6 +102,14 @@ public:
 private:
     DECL_LOGGER("CountingCallback");
 };
+
+
+template<class Graph>
+std::function<void(typename Graph::EdgeId)> AddCountingCallback(CountingCallback<Graph>& cnt_callback, std::function<void(typename Graph::EdgeId)> handler) {
+    std::function<void(typename Graph::EdgeId)> cnt_handler = std::bind(&CountingCallback<Graph>::HandleDelete, std::ref(cnt_callback), std::placeholders::_1);
+    return func::CombineCallbacks<typename Graph::EdgeId>(handler, cnt_handler);
+}
+
 
 template<class Graph>
 class EdgeRemovingAlgorithm : public EdgeProcessingAlgorithm<Graph> {

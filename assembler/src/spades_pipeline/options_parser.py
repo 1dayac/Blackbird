@@ -17,24 +17,32 @@ import support
 import options_storage
 from process_cfg import empty_config
 
-
 def get_mode():
     mode = None
     script_basename = basename(options_storage.first_command_line[0])
     options = options_storage.first_command_line
 
     mode_parser = argparse.ArgumentParser(add_help=False)
+    mode_parser.add_argument("--isolate", dest="isolate", action="store_true")
     mode_parser.add_argument("--rna", dest="rna", action="store_true")
     mode_parser.add_argument("--plasmid", dest="plasmid", action="store_true")
     mode_parser.add_argument("--meta", dest="meta", action="store_true")
+    mode_parser.add_argument("--bio", dest="bio", action="store_true")
+    mode_parser.add_argument("--rnaviral", dest="rnaviral", action="store_true")
     nargs, unknown_args = mode_parser.parse_known_args(options)
 
     if script_basename == "rnaspades.py" or nargs.rna:
         mode = "rna"
+    elif script_basename == "rnaviralspades.py" or nargs.rnaviral or script_basename == "coronaspades.py":
+        mode = "rnaviral"
     elif script_basename == "plasmidspades.py" or nargs.plasmid:
         mode = "plasmid"
+    elif nargs.bio:
+        mode = "bgc"
     elif script_basename == "metaspades.py" or nargs.meta:
         mode = "meta"
+    if script_basename == "metaplasmidspades.py" or (nargs.plasmid and nargs.meta):
+        mode = "metaplasmid"
     return mode
 
 
@@ -44,8 +52,17 @@ def add_mode_to_args(args):
         args.rna = True
     elif mode == "plasmid":
         args.plasmid = True
+    elif mode == "bgc":
+        args.meta = True
+        args.bio = True
     elif mode == "meta":
         args.meta = True
+    elif mode == "metaplasmid":
+        args.meta = True
+        args.plasmid = True
+    elif mode == "rnaviral":
+        args.meta = True
+        args.rnaviral = True
 
 
 def version():
@@ -86,7 +103,7 @@ class AddToDatasetAction(argparse.Action):
             support.only_old_style_options = False
 
         # create dataset_data if don't exsist
-        if not "dataset_data" in namespace:
+        if (not "dataset_data" in namespace) or (namespace.dataset_data is None):
             dataset_data = init_dataset_data()
             setattr(namespace, "dataset_data", dataset_data)
 
@@ -271,6 +288,11 @@ def add_basic_args(pgroup_basic):
                               action=StoreUniqueAction)
 
     help_hidden = (mode is not None)
+    pgroup_basic.add_argument("--isolate",
+                              dest="isolate",
+                              help="this flag is highly recommended for high-coverage isolate and multi-cell data"
+                              if not help_hidden else argparse.SUPPRESS,
+                              action="store_true")
     pgroup_basic.add_argument("--sc",
                               dest="single_cell",
                               help="this flag is required for MDA (single-cell) data"
@@ -281,6 +303,11 @@ def add_basic_args(pgroup_basic):
                               help="this flag is required for metagenomic sample data"
                               if not help_hidden else argparse.SUPPRESS,
                               action="store_true")
+    pgroup_basic.add_argument("--bio",
+                              dest="bio",
+                              help="this flag is required for biosyntheticSPAdes mode"
+                              if not help_hidden else argparse.SUPPRESS,
+                              action="store_true")
     pgroup_basic.add_argument("--rna",
                               dest="rna",
                               help="this flag is required for RNA-Seq data"
@@ -289,6 +316,11 @@ def add_basic_args(pgroup_basic):
     pgroup_basic.add_argument("--plasmid",
                               dest="plasmid",
                               help="runs plasmidSPAdes pipeline for plasmid detection"
+                              if not help_hidden else argparse.SUPPRESS,
+                              action="store_true")
+    pgroup_basic.add_argument("--rnaviral",
+                              dest="rnaviral",
+                              help="this flag enables virus assembly module from RNA-Seq data"
                               if not help_hidden else argparse.SUPPRESS,
                               action="store_true")
     pgroup_basic.add_argument("--iontorrent",
@@ -415,15 +447,15 @@ def add_input_data_args(pgroup_input_data):
     pgroup_input_data.add_argument("--pacbio",
                                    metavar="<filename>",
                                    nargs=1,
-                                   help="file with PacBio reads"
-                                   if not help_hidden else argparse.SUPPRESS,
+                                   help="file with PacBio reads",
                                    action=AddToDatasetAction)
     pgroup_input_data.add_argument("--nanopore",
                                    metavar="<filename>",
                                    nargs=1,
-                                   help="file with Nanopore reads"
-                                   if not help_hidden else argparse.SUPPRESS,
+                                   help="file with Nanopore reads",
                                    action=AddToDatasetAction)
+
+    help_hidden = (mode == "rna")
     pgroup_input_data.add_argument("--tslr",
                                    metavar="<filename>",
                                    nargs=1,
@@ -447,6 +479,12 @@ def add_input_data_args(pgroup_input_data):
                                    action=AddToDatasetAction)
 
     help_hidden = (mode != "rna")
+    pgroup_input_data.add_argument("--fl-rna",
+                                   metavar="<filename>",
+                                   nargs=1,
+                                   help="file with PacBio/Nanopore/contigs that capture full-length transcripts"
+                                   if not help_hidden else argparse.SUPPRESS,
+                                   action=AddToDatasetAction)
     pgroup_input_data.add_argument("--ss",
                                    metavar="<type>",
                                    dest="strand_specificity",
@@ -469,22 +507,31 @@ def add_input_data_args(pgroup_input_data):
                                    help=argparse.SUPPRESS,
                                    action="store_const")
 
-
+    help_hidden = (mode != "plasmid" and mode != "bgc" and mode != "metaplasmid")
+    pgroup_input_data.add_argument("--assembly-graph",
+                                   metavar="<filename>",
+                                   nargs=1,
+                                   help="file with assembly graph"
+                                   if not help_hidden else argparse.SUPPRESS,
+                                   action=AddToDatasetAction)
+    
 def add_pipeline_args(pgroup_pipeline):
     mode = get_mode()
-    help_hidden = (mode == "rna")
+    help_hidden = (mode == "rna" or mode == "rnaviral")
     pgroup_pipeline.add_argument("--only-error-correction",
                                  dest="only_error_correction",
+                                 default=None,
                                  help="runs only read error correction (without assembling)"
                                  if not help_hidden else argparse.SUPPRESS,
                                  action="store_true")
     pgroup_pipeline.add_argument("--only-assembler",
                                  dest="only_assembler",
+                                 default=None,
                                  help="runs only assembling (without read error correction)"
                                  if not help_hidden else argparse.SUPPRESS,
                                  action="store_true")
 
-    help_hidden = (mode in ["rna", "meta"])
+    help_hidden = (mode in ["rna", "meta", "rnaviral"])
     careful_group = pgroup_pipeline.add_mutually_exclusive_group()
     careful_group.add_argument("--careful",
                                dest="careful",
@@ -504,12 +551,12 @@ def add_pipeline_args(pgroup_pipeline):
                                  action="store")
     pgroup_pipeline.add_argument("--continue",
                                  dest="continue_mode",
-                                 help="continue run from the last available check-point",
+                                 help="continue run from the last available check-point (only -o should be specified)",
                                  action="store_true")
 
     restart_from_help = "restart run with updated options and from the specified check-point\n" \
                         "('ec', 'as', 'k<int>', 'mc', '%s')" % options_storage.LAST_STAGE
-    if mode == "rna":
+    if mode in ["rna", "rnaviral"]:
         restart_from_help = "restart run with updated options and from the specified check-point\n" \
                             "('as', 'k<int>', '%s')" % options_storage.LAST_STAGE
     pgroup_pipeline.add_argument("--restart-from",
@@ -582,11 +629,11 @@ def add_advanced_args(pgroup_advanced):
                                       "[default: 'auto']" % (options_storage.MAX_K + 1),
                                  action=ConcatenationAction)
 
-    help_hidden = (mode in ["rna", "meta"])
+    help_hidden = (mode in ["rna", "meta", "rnaviral"])
     pgroup_advanced.add_argument("--cov-cutoff",
                                  metavar="<float>",
                                  type=cov_cutoff,
-                                 default="off",
+                                 default=None,
                                  dest="cov_cutoff",
                                  help="coverage cutoff value (a positive float number, "
                                       "or 'auto', or 'off')\n[default: 'off']"
@@ -599,6 +646,13 @@ def add_advanced_args(pgroup_advanced):
                                  type=qvoffset,
                                  help="PHRED quality offset in the input reads (33 or 64),\n"
                                       "[default: auto-detect]",
+                                 action="store")
+
+    pgroup_advanced.add_argument("--custom-hmms",
+                                 metavar="<dirname>",
+                                 dest="custom_hmms",
+                                 help="directory with custom hmms that replace default ones. Only for BiosyntheticSPAdes mode,\n"
+                                      "[default: None]",
                                  action="store")
 
 
@@ -617,6 +671,12 @@ def add_hidden_args(pgroup_hidden):
                              default=None,
                              help=argparse.SUPPRESS,
                              action="store_false")
+    debug_group.add_argument("--trace-time",
+                             dest="time_tracer",
+                             default=None,
+                             help="enable time tracker"
+                             if show_help_hidden else argparse.SUPPRESS,
+                             action="store_true")
 
     pgroup_hidden.add_argument("--stop-after",
                                metavar="<cp>",
@@ -627,6 +687,7 @@ def add_hidden_args(pgroup_hidden):
                                action="store")
     pgroup_hidden.add_argument("--truseq",
                                dest="truseq_mode",
+                               default=None,
                                help="runs SPAdes in TruSeq mode"
                                if show_help_hidden else argparse.SUPPRESS,
                                action="store_true")
@@ -674,11 +735,13 @@ def add_hidden_args(pgroup_hidden):
                                action="store")
     pgroup_hidden.add_argument("--large-genome",
                                dest="large_genome",
+                               default=False,
                                help="Enables optimizations for large genomes"
                                if show_help_hidden else argparse.SUPPRESS,
                                action="store_true")
     pgroup_hidden.add_argument("--save-gp",
                                dest="save_gp",
+                               default=None,
                                help="Enables saving graph pack before repeat resolution (even without --debug)"
                                if show_help_hidden else argparse.SUPPRESS,
                                action="store_true")
@@ -702,6 +765,11 @@ def add_hidden_args(pgroup_hidden):
                                help="generate configs and print script to run_spades.sh"
                                if show_help_hidden else argparse.SUPPRESS,
                                action="store_true")
+    pgroup_hidden.add_argument("--no-clear-after",
+                               dest="no_clear_after",
+                               help="don't delete tmp files after SPAdes pipeline finished"
+                               if show_help_hidden else argparse.SUPPRESS,
+                               action = "store_true")
     pgroup_hidden.add_argument("--help-hidden",
                                help="prints this usage message with all hidden options"
                                if show_help_hidden else argparse.SUPPRESS,
@@ -709,7 +777,6 @@ def add_hidden_args(pgroup_hidden):
 
 
 def create_parser():
-    global parser
     parser = argparse.ArgumentParser(prog="spades.py", formatter_class=SpadesHelpFormatter,
                                      usage="%(prog)s [options] -o <output_dir>", add_help=False)
 
@@ -726,8 +793,12 @@ def create_parser():
     add_advanced_args(pgroup_advanced)
     add_hidden_args(pgroup_hidden)
 
+    return parser
+
 
 def check_options_for_restart_from(log):
+    if ("dataset_data" in options_storage.args) and (options_storage.args.dataset_data is not None):
+        support.error("you cannot specify input data (-1, -2, -12, --pe-1, --pe-2 ...) with --restart-from option!", log)
     if options_storage.args.dataset_yaml_filename:
         support.error("you cannot specify --dataset with --restart-from option!", log)
     if options_storage.args.single_cell:
@@ -738,6 +809,8 @@ def check_options_for_restart_from(log):
         support.error("you cannot specify --plasmid with --restart-from option!", log)
     if options_storage.args.rna:
         support.error("you cannot specify --rna with --restart-from option!", log)
+    if options_storage.args.isolate:
+        support.error("you cannot specify --isolate with --restart-from option!", log)
     if options_storage.args.iontorrent:
         support.error("you cannot specify --iontorrent with --restart-from option!", log)
     if options_storage.args.only_assembler:
@@ -774,14 +847,25 @@ def add_to_option(args, log, skip_output_dir):
         support.check_path_is_ascii(tmp_dir, "directory for temporary files")
         args.tmp_dir = tmp_dir
 
+    if args.custom_hmms is not None:
+        custom_hmms = abspath(expanduser(args.custom_hmms))
+        support.check_path_is_ascii(custom_hmms, "directory with custom hmms")
+        args.custom_hmms = custom_hmms
+
     if "reference" in args and args.reference is not None:
         args.developer_mode = True
+
+    if args.developer_mode:
+        args.no_clear_after = True
 
     if args.only_assembler and args.only_error_correction:
         support.error("you cannot specify --only-error-correction and --only-assembler simultaneously")
 
-    if args.rna and args.only_error_correction:
+    if (args.rna or args.rnaviral) and args.only_error_correction:
         support.error("you cannot specify --only-error-correction in RNA-seq mode!", log)
+
+    if args.isolate and args.only_error_correction:
+        support.error("you cannot specify --only-error-correction in isolate mode!", log)
 
     if args.careful == False and args.mismatch_corrector == True:
         support.error("you cannot specify --mismatch-correction and --careful:false simultaneously")
@@ -792,17 +876,23 @@ def add_to_option(args, log, skip_output_dir):
     if args.rna and (args.careful or args.mismatch_corrector):
         support.error("you cannot specify --mismatch-correction or --careful in RNA-seq mode!", log)
 
+    if args.isolate and (args.careful or args.mismatch_corrector):
+        support.error("you cannot specify --mismatch-correction or --careful in isolate mode!", log)
+
+    if args.only_assembler and args.isolate:
+        support.warning("Isolate mode already implies --only-assembler, so this option has no effect.")
+
     if args.restart_from is not None:
         args.continue_mode = True
     if args.careful is not None:
         args.mismatch_corrector = args.careful
     if args.truseq_mode:
         enable_truseq_mode()
-    if args.rna and not args.iontorrent:
+    if (args.isolate or args.rna or args.rnaviral) and not args.iontorrent:
         args.only_assembler = True
 
 
-def add_to_cfg(cfg, log, bin_home, args):
+def add_to_cfg(cfg, log, bin_home, spades_home, args):
     ### FILLING cfg
     cfg["common"] = empty_config()
     cfg["dataset"] = empty_config()
@@ -818,8 +908,29 @@ def add_to_cfg(cfg, log, bin_home, args):
     cfg["common"].__dict__["max_threads"] = args.threads
     cfg["common"].__dict__["max_memory"] = args.memory
     cfg["common"].__dict__["developer_mode"] = args.developer_mode
+    cfg["common"].__dict__["time_tracer"] = args.time_tracer
     if args.series_analysis:
         cfg["common"].__dict__["series_analysis"] = args.series_analysis
+
+    hmms_path = None
+    if args.custom_hmms is not None:
+        hmms_path = args.custom_hmms
+    elif args.bio:
+        hmms_path = os.path.join(spades_home, options_storage.biosyntheticspades_hmms)
+    if hmms_path is not None:
+        hmms = ""
+        if os.path.isdir(hmms_path):
+            is_hmmfile = lambda hmmfile: os.path.isfile(os.path.join(hmms_path, hmmfile)) \
+                                       and (hmmfile.endswith("hmm") or hmmfile.endswith("hmm.gz"))
+            hmms = ",".join([os.path.join(hmms_path, hmmfile)
+                             for hmmfile in os.listdir(hmms_path)
+                             if is_hmmfile(hmmfile)])
+        elif os.path.isfile(hmms_path) and (hmms_path.endswith("hmm") or hmms_path.endswith("hmm.gz")):
+            hmms = hmms_path
+
+        if hmms == "":
+            support.error("Custom HMM folder does not contain any HMMs. They should have .hmm or .hmm.gz extension.", log)
+        cfg["common"].__dict__["set_of_hmms"] = hmms
 
     # dataset section
     cfg["dataset"].__dict__["yaml_filename"] = args.dataset_yaml_filename
@@ -845,7 +956,7 @@ def add_to_cfg(cfg, log, bin_home, args):
             args.k_mers = None
         if args.k_mers:
             cfg["assembly"].__dict__["iterative_K"] = args.k_mers
-        elif args.rna:
+        elif (args.rna or args.rnaviral):
             cfg["assembly"].__dict__["iterative_K"] = "auto"
         else:
             cfg["assembly"].__dict__["iterative_K"] = options_storage.K_MERS_SHORT
@@ -881,6 +992,8 @@ def postprocessing(args, cfg, dataset_data, log, spades_home, load_processed_dat
             support.add_to_dataset("-1", os.path.join(spades_home, "test_dataset/ecoli_1K_1.fq.gz"), dataset_data)
             support.add_to_dataset("-2", os.path.join(spades_home, "test_dataset/ecoli_1K_2.fq.gz"), dataset_data)
 
+    if args.bio or args.rnaviral:
+        args.meta = True
     if not args.output_dir:
         support.error("the output_dir is not set! It is a mandatory parameter (-o output_dir).", log)
     if not os.path.isdir(args.output_dir):
@@ -904,16 +1017,20 @@ def postprocessing(args, cfg, dataset_data, log, spades_home, load_processed_dat
                           "Please use '--restart-from last' if you need to change some "
                           "of the options from the initial run and continue from the last available checkpoint.", log)
     if args.meta:
-        if args.careful or args.mismatch_corrector or args.cov_cutoff != "off":
+        if args.careful or args.mismatch_corrector or (args.cov_cutoff != "off" and args.cov_cutoff is not None):
             support.error("you cannot specify --careful, --mismatch-correction or --cov-cutoff in metagenomic mode!",
                           log)
-    if args.rna:
+    if args.rna or args.rnaviral:
         if args.careful:
             support.error("you cannot specify --careful in RNA-Seq mode!", log)
-    if [args.meta, args.large_genome, args.truseq_mode,
-        args.rna, args.plasmid, args.single_cell].count(True) > 1:
+
+    modes_count =  [args.meta, args.large_genome, args.truseq_mode, args.rna, args.plasmid, args.single_cell, args.isolate, args.rnaviral].count(True)
+    if modes_count > 1 and ([args.meta, args.plasmid].count(True) < 2 and [args.meta, args.bio].count(True) < 2 and [args.meta, args.rnaviral].count(True) < 2):
         support.error("you cannot simultaneously use more than one mode out of "
-                      "Metagenomic, Large genome, Illumina TruSeq, RNA-Seq, Plasmid, and Single-cell!", log)
+                      "Isolate, Metagenomic, Large genome, Illumina TruSeq, RNA-Seq, Plasmid, and Single-cell (except combining Metagenomic and Plasmid)!", log)
+    elif modes_count == 0:
+        support.warning("No assembly mode was specified! If you intend to assemble high-coverage multi-cell/isolate data, use '--isolate' option.")
+
     if args.continue_mode:
         return None
 
@@ -952,10 +1069,12 @@ def postprocessing(args, cfg, dataset_data, log, spades_home, load_processed_dat
                           ", ".join(options_storage.READS_TYPES_USED_IN_RNA_SEQ) + " in RNA-Seq mode!")
             # if len(support.get_lib_ids_by_type(dataset_data, 'paired-end')) > 1:
             #    support.error('you cannot specify more than one paired-end library in RNA-Seq mode!')
-    if args.meta and not args.only_error_correction:
-        if len(support.get_lib_ids_by_type(dataset_data, "paired-end")) != 1 or \
-                                len(dataset_data) - min(1, len(
-                            support.get_lib_ids_by_type(dataset_data, ["tslr", "pacbio", "nanopore"]))) > 1:
+    if args.meta and not args.only_error_correction and not args.rnaviral:
+        paired_end_libs = max(1, len(support.get_lib_ids_by_type(dataset_data, "paired-end")))
+        graph_libs = max(1, len(support.get_lib_ids_by_type(dataset_data, "assembly-graph")))
+        long_read_libs = max(1, len(support.get_lib_ids_by_type(dataset_data, ["tslr", "pacbio", "nanopore"])))
+        
+        if len(dataset_data) > paired_end_libs + graph_libs + long_read_libs:
             support.error("you cannot specify any data types except a single paired-end library "
                           "(optionally accompanied by a single library of "
                           "TSLR-contigs, or PacBio reads, or Nanopore reads) in metaSPAdes mode!")
@@ -971,7 +1090,7 @@ def postprocessing(args, cfg, dataset_data, log, spades_home, load_processed_dat
 
 def parse_args(log, bin_home, spades_home, secondary_filling, restart_from=False, options=None):
     cfg = dict()
-    global parser
+    parser = create_parser()
 
     if secondary_filling:
         old_output_dir = options_storage.args.output_dir
@@ -981,6 +1100,11 @@ def parse_args(log, bin_home, spades_home, secondary_filling, restart_from=False
     load_processed_dataset = secondary_filling
 
     options_storage.args, argv = parser.parse_known_args(options)
+
+    if options_storage.args.restart_from is not None and not secondary_filling:
+        for arg in options_storage.args.__dict__:
+            parser.set_defaults(**{arg: None})
+        options_storage.args, argv = parser.parse_known_args(options)
 
     if argv:
         msg = "Please specify option (e.g. -1, -2, -s, etc)) for the following paths: %s"
@@ -1002,12 +1126,12 @@ def parse_args(log, bin_home, spades_home, secondary_filling, restart_from=False
     if options_storage.args.continue_mode:
         return options_storage.args, None, None
 
-    add_to_cfg(cfg, log, bin_home, options_storage.args)
+    add_to_cfg(cfg, log, bin_home, spades_home, options_storage.args)
     return options_storage.args, cfg, dataset_data
 
 
 def usage(spades_version, show_hidden=False, mode=None):
-    global parser
+    parser = create_parser()
     parser.print_help()
 
 
@@ -1031,12 +1155,24 @@ def set_default_values():
         options_storage.args.checkpoints = "none"
     if options_storage.args.developer_mode is None:
         options_storage.args.developer_mode = False
+    if options_storage.args.time_tracer is None:
+        options_storage.args.time_tracer = False        
     if options_storage.args.qvoffset == "auto":
         options_storage.args.qvoffset = None
     if options_storage.args.cov_cutoff is None:
         options_storage.args.cov_cutoff = "off"
     if options_storage.args.tmp_dir is None:
         options_storage.args.tmp_dir = os.path.join(options_storage.args.output_dir, options_storage.TMP_DIR)
+    if options_storage.args.large_genome is None:
+        options_storage.args.large_genome = False
+    if options_storage.args.truseq_mode is None:
+        options_storage.args.truseq_mode = False
+    if options_storage.args.save_gp is None:
+        options_storage.args.save_gp = False
+    if options_storage.args.only_assembler is None:
+        options_storage.args.only_assembler = False
+    if options_storage.args.only_error_correction is None:
+        options_storage.args.only_error_correction = False
 
 
 def save_restart_options():

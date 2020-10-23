@@ -7,7 +7,10 @@
 
 #pragma once
 
-#include "io/binary.hpp"
+#include "io/binary/binary.hpp"
+
+#include "common/utils/logger/logger.hpp"
+
 #include <string>
 #include <vector>
 #include <map>
@@ -47,11 +50,6 @@ public:
 
     PathInfo(const std::vector<EdgeId> &p, size_t weight = 0) :
             path_(p), w_(weight) {
-    }
-
-    PathInfo(const PathInfo<Graph> &other) {
-        path_ = other.path_;
-        w_ = other.w_;
     }
 
     std::string str(const Graph &g_) const {

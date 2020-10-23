@@ -9,13 +9,16 @@
 #define SEQUENCE_MAPPER_NOTIFIER_HPP_
 
 #include "sequence_mapper.hpp"
+
+#include "assembly_graph/paths/mapping_path.hpp"
+#include "assembly_graph/core/graph.hpp"
 #include "io/reads/paired_read.hpp"
 #include "io/reads/read_stream_vector.hpp"
-#include "pipeline/graph_pack.hpp"
-#include "common/utils/memory_limit.hpp"
 
+#include "utils/perf/timetracer.hpp"
+
+#include <string>
 #include <vector>
-#include <cstdlib>
 
 namespace debruijn_graph {
 //todo think if we still need all this
@@ -40,28 +43,25 @@ public:
 class SequenceMapperNotifier {
     static constexpr size_t BUFFER_SIZE = 200000;
 public:
-    typedef SequenceMapper<conj_graph_pack::graph_t> SequenceMapperT;
+    typedef SequenceMapper<Graph> SequenceMapperT;
 
     typedef std::vector<SequenceMapperListener*> ListenersContainer;
 
-    SequenceMapperNotifier(const conj_graph_pack& gp, size_t lib_count)
-            : gp_(gp), listeners_(lib_count) { }
+    SequenceMapperNotifier(const GraphPack &gp, size_t lib_count);
 
-    void Subscribe(size_t lib_index, SequenceMapperListener* listener) {
-        VERIFY(lib_index < listeners_.size());
-        listeners_[lib_index].push_back(listener);
-    }
+    void Subscribe(size_t lib_index, SequenceMapperListener* listener);
 
     template<class ReadType>
     void ProcessLibrary(io::ReadStreamList<ReadType>& streams,
                         size_t lib_index, const SequenceMapperT& mapper, size_t threads_count = 0) {
+        std::string lib_str = std::to_string(lib_index);
+        TIME_TRACE_SCOPE("SequenceMapperNotifier::ProcessLibrary", lib_str);
         if (threads_count == 0)
             threads_count = streams.size();
 
         streams.reset();
         NotifyStartProcessLibrary(lib_index, threads_count);
         size_t counter = 0, n = 15;
-        size_t fmem = utils::get_free_memory();
 
         #pragma omp parallel for num_threads(threads_count) shared(counter)
         for (size_t i = 0; i < streams.size(); ++i) {
@@ -69,10 +69,7 @@ public:
             ReadType r;
             auto& stream = streams[i];
             while (!stream.eof()) {
-                if (size == BUFFER_SIZE || 
-                    // Stop filling buffer if the amount of available is smaller
-                    // than half of free memory.
-                    (10 * utils::get_free_memory() / 4 < fmem && size > 10000)) {
+                if (size == BUFFER_SIZE) {
                     #pragma omp critical
                     {
                         counter += size;
@@ -103,78 +100,18 @@ private:
     template<class ReadType>
     void NotifyProcessRead(const ReadType& r, const SequenceMapperT& mapper, size_t ilib, size_t ithread) const;
 
-    void NotifyStartProcessLibrary(size_t ilib, size_t thread_count) const {
-        for (const auto& listener : listeners_[ilib])
-            listener->StartProcessLibrary(thread_count);
-    }
+    void NotifyStartProcessLibrary(size_t ilib, size_t thread_count) const;
 
-    void NotifyStopProcessLibrary(size_t ilib) const {
-        for (const auto& listener : listeners_[ilib])
-            listener->StopProcessLibrary();
-    }
+    void NotifyStopProcessLibrary(size_t ilib) const;
 
-    void NotifyMergeBuffer(size_t ilib, size_t ithread) const {
-        for (const auto& listener : listeners_[ilib])
-            listener->MergeBuffer(ithread);
-    }
-    const conj_graph_pack& gp_;
+    void NotifyMergeBuffer(size_t ilib, size_t ithread) const;
+
+    const GraphPack& gp_;
 
     std::vector<std::vector<SequenceMapperListener*> > listeners_;  //first vector's size = count libs
 };
 
-template<>
-inline void SequenceMapperNotifier::NotifyProcessRead(const io::PairedReadSeq& r,
-                                                      const SequenceMapperT& mapper,
-                                                      size_t ilib,
-                                                      size_t ithread) const {
-
-    const Sequence& read1 = r.first().sequence();
-    const Sequence& read2 = r.second().sequence();
-    MappingPath<EdgeId> path1 = mapper.MapSequence(read1);
-    MappingPath<EdgeId> path2 = mapper.MapSequence(read2);
-    for (const auto& listener : listeners_[ilib]) {
-        listener->ProcessPairedRead(ithread, r, path1, path2);
-        listener->ProcessSingleRead(ithread, r.first(), path1);
-        listener->ProcessSingleRead(ithread, r.second(), path2);
-    }
-}
-
-template<>
-inline void SequenceMapperNotifier::NotifyProcessRead(const io::PairedRead& r,
-                                                      const SequenceMapperT& mapper,
-                                                      size_t ilib,
-                                                      size_t ithread) const {
-    MappingPath<EdgeId> path1 = mapper.MapRead(r.first());
-    MappingPath<EdgeId> path2 = mapper.MapRead(r.second());
-    for (const auto& listener : listeners_[ilib]) {
-        listener->ProcessPairedRead(ithread, r, path1, path2);
-        listener->ProcessSingleRead(ithread, r.first(), path1);
-        listener->ProcessSingleRead(ithread, r.second(), path2);
-    }
-}
-
-template<>
-inline void SequenceMapperNotifier::NotifyProcessRead(const io::SingleReadSeq& r,
-                                                      const SequenceMapperT& mapper,
-                                                      size_t ilib,
-                                                      size_t ithread) const {
-    const Sequence& read = r.sequence();
-    MappingPath<EdgeId> path = mapper.MapSequence(read);
-    for (const auto& listener : listeners_[ilib])
-        listener->ProcessSingleRead(ithread, r, path);
-}
-
-template<>
-inline void SequenceMapperNotifier::NotifyProcessRead(const io::SingleRead& r,
-                                                      const SequenceMapperT& mapper,
-                                                      size_t ilib,
-                                                      size_t ithread) const {
-    MappingPath<EdgeId> path = mapper.MapRead(r);
-    for (const auto& listener : listeners_[ilib])
-        listener->ProcessSingleRead(ithread, r, path);
-}
-
-} /*debruijn_graph*/
+} // namespace debruijn_graph
 
 
 #endif /* SEQUENCE_MAPPER_NOTIFIER_HPP_ */

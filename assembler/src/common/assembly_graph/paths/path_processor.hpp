@@ -10,6 +10,7 @@
 #include "adt/bag.hpp"
 #include "assembly_graph/dijkstra/dijkstra_helper.hpp"
 #include <boost/optional.hpp>
+#include "utils/perf/timetracer.hpp"
 
 namespace omnigraph {
 
@@ -127,7 +128,12 @@ private:
             });
 
             std::sort(incoming.begin(), incoming.end(), [&] (EdgeId e1, EdgeId e2) {
-                return dijkstra_.GetDistance(g_.EdgeStart(e1)) < dijkstra_.GetDistance(g_.EdgeStart(e2));
+                auto first = dijkstra_.GetDistance(g_.EdgeStart(e1));
+                auto second = dijkstra_.GetDistance(g_.EdgeStart(e2));
+                if (first != second) {
+                    return first < second;
+                }
+                return g_.coverage(e1) > g_.coverage(e2);
             });
 
             for (EdgeId e : incoming) {
@@ -184,6 +190,7 @@ public:
               start_(start),
               dijkstra_(DijkstraHelper<Graph>::CreateBoundedDijkstra(g, length_bound,
                                                                      dijkstra_vertex_limit)) {
+        //TIME_TRACE_SCOPE("PathProcessor:Dijkstra");
         TRACE("Dijkstra launched");
         dijkstra_.Run(start);
         TRACE("Dijkstra finished");
@@ -195,6 +202,7 @@ public:
                 Callback& callback,
                 size_t edge_depth_bound = std::numeric_limits<size_t>::max()) const {
         TRACE("Process launched");
+        //TIME_TRACE_SCOPE("PathProcessor:Process");
         int error_code = 0;
 
         if (dijkstra_.VertexLimitExceeded()) {
@@ -213,12 +221,11 @@ public:
         return error_code;
     }
 
-private:
     static const size_t MAX_CALL_CNT = 3000;
     static const size_t MAX_DIJKSTRA_VERTICES = 3000;
     static const size_t VERTEX_USAGE_ENABLE_THRESHOLD = 500;
     static const size_t MAX_VERTEX_USAGE = 5;
-
+private:
     const Graph& g_;
     VertexId start_;
     DijkstraT dijkstra_;

@@ -12,6 +12,7 @@
 #include "io/reads/io_helper.hpp"
 #include "io/reads/wrapper_collection.hpp"
 #include "io/reads/multifile_reader.hpp"
+#include "io/reads/file_reader.hpp"
 #include "io/graph/gfa_reader.hpp"
 #include "io/graph/gfa_writer.hpp"
 
@@ -32,7 +33,7 @@ void create_console_logger() {
 
 namespace debruijn_graph {
 
-typedef debruijn_graph::BasicSequenceMapper<debruijn_graph::Graph, Index> MapperClass;
+typedef BasicSequenceMapper<Graph, EdgeIndex<Graph>> MapperClass;
 
 
 struct ReadMappingStr {
@@ -225,15 +226,12 @@ void Launch(size_t K, const string &saves_path, const string &reads_fasta, const
     edge_index.Refill();
     INFO("Loaded graph with " << g.size() << " vertices");
 
-    io::ReadStreamList<io::SingleRead> streams;
-    streams.push_back(make_shared<io::FixingWrapper>(make_shared<io::FileReadStream>(reads_fasta)));
-
-    io::SingleStreamPtr sstream = io::MultifileWrap(streams);
-    vector<io::SingleRead> wrappedreads;
-    while (!sstream->eof()) {
+    auto sstream = io::FixingWrapper(io::FileReadStream(reads_fasta));
+    std::vector<io::SingleRead> wrappedreads;
+    while (!sstream.eof()) {
         io::SingleRead read;
-        *sstream >> read;
-        wrappedreads.push_back(move(read));
+        sstream >> read;
+        wrappedreads.push_back(std::move(read));
     }
     INFO("Loaded reads from " << reads_fasta);
 

@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include <string>
+
 namespace debruijn_graph {
 
 // The stuff is template here to provide interface w/o including any headers
@@ -15,8 +17,7 @@ namespace debruijn_graph {
 struct EdgeIndexRefiller {
     std::string workdir_;
 
-    EdgeIndexRefiller(const std::string &workdir)
-            : workdir_(workdir) {}
+    EdgeIndexRefiller(const std::string &workdir);
 
     template<class EdgeIndex, class Graph>
     void Refill(EdgeIndex &index, const Graph &g);

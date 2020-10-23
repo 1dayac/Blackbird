@@ -15,6 +15,7 @@ import re
 import getopt
 import datetime
 import subprocess
+import functools
 
 ###################################################################
 
@@ -48,24 +49,23 @@ long_options = "output-dir= reference= thread-num= bin-size= kmer-size= max-is= 
 short_options = "o:r:t:b:k:x:sp"
 
 def usage():
-    print 'Estimation reads quality'
-    print 'Usage:', sys.argv[0], ' [options described below] <datasets YAML description-file(s)>'
-    print ""
-    print "Options:"
-    print "-p\t--paired-mode\tStarts ReadsQuality in PAIRED mode (former paired_reads_quality)"
-    print "-r\t--reference\tFile with reference genome (Mandatory parameter)"
-    print "-o\t--output-dir\tDirectory to store all result files"
-    print "-t\t--thread-num\tMax number of threads (default is " + str(thread_num) + ")"
-    print "-k\t--kmer-size\tK-mer size for which coverage is counted (default is " + str(kmer) + ")"
-    print "-b\t--bin-size\tSize of bins for counting coverage (default is " + str(bin_size) + ")"
-    print "-x\t--max-is\tMaximal inser size (default is none)"
-    print "-s\t--skip-trimming\tSkip N-trimming for speed-up"
+    print("Estimation reads quality")
+    print("Usage:", sys.argv[0], " [options described below] <datasets YAML description-file(s)>")
+    print("")
+    print("Options:")
+    print("-p\t--paired-mode\tStarts ReadsQuality in PAIRED mode (former paired_reads_quality)")
+    print("-r\t--reference\tFile with reference genome (Mandatory parameter)")
+    print("-o\t--output-dir\tDirectory to store all result files")
+    print("-t\t--thread-num\tMax number of threads (default is " + str(thread_num) + ")")
+    print("-k\t--kmer-size\tK-mer size for which coverage is counted (default is " + str(kmer) + ")")
+    print("-b\t--bin-size\tSize of bins for counting coverage (default is " + str(bin_size) + ")")
+    print("-x\t--max-is\tMaximal inser size (default is none)")
+    print("-s\t--skip-trimming\tSkip N-trimming for speed-up")
     
 try:
     options, datasets = getopt.gnu_getopt(sys.argv[1:], short_options, long_options)
-except getopt.GetoptError, err:
-    print str(err)
-    print ""
+except getopt.GetoptError as err:
+    print(str(err) + "\n")
     usage()
     sys.exit(1)
 
@@ -100,12 +100,12 @@ for d in datasets:
     support.check_file_existence(d)    
 
 if not datasets:
-    print >> sys.stderr, "no datasets"
+    sys.stderr.wirte("no datasets provided")
     usage()
     sys.exit(1)   
 
 if not reference:
-    print >> sys.stderr, 'no reference'
+    sys.stderr.wirte("no refrence provided")
     usage()
     sys.exit(1)   
 
@@ -148,18 +148,18 @@ print("Analyzing datasets")
 for dataset in datasets:
 
     try:
-        dataset_data = pyyaml.load(file(dataset, 'r'))
-    except pyyaml.YAMLError, exc:
+        dataset_data = pyyaml.load(open(dataset, 'r'))
+    except pyyaml.YAMLError as exc:
         support.warning('skipping ' + dataset + ': exception caught while parsing YAML file (' + options_storage.dataset_yaml_filename + '):\n' + str(exc))
         continue
 
     dataset_data = support.correct_dataset(dataset_data)
     for id, library in enumerate(dataset_data):
-        print ("processing lib#" + str(id) + " of " + dataset)
+        print("processing lib#" + str(id) + " of " + dataset)
         basename = os.path.splitext(os.path.basename(dataset))[0]
         cur_key = basename
         i = 1
-        while datasets_dict.has_key(cur_key):
+        while cur_key in datasets_dict.keys():
             cur_key = basename + "_" + str(i)
 
         cur_reads = []
@@ -178,7 +178,7 @@ if len(datasets_dict.keys()) == 0:
 ###################################################################
 
 report_dict = {"header" : ["Dataset"]}
-for dataset in datasets_dict.iterkeys():
+for dataset in datasets_dict.keys():
     report_dict[dataset] = [dataset]
 
 tmp_folder = os.path.join(output_dir, tmp_folder)
@@ -194,7 +194,7 @@ print("  reference...")
 reference = ungzip_if_needed(reference, tmp_folder)
 
 # TODO fastA analysis (we should convert all in fasta if there is at least one file in fasta)
-for dataset in datasets_dict.iterkeys():
+for dataset in datasets_dict.keys():
     print("  " + dataset + "...")
     ungzipped_reads = []
     for read in datasets_dict[dataset]:    
@@ -224,11 +224,11 @@ print("Aligning")
 report_dict["header"] += ["Unaligned reads", "Uniquely aligned reads", "Non-niquely aligned reads"]
 total_reads = {}
 
-for dataset in datasets_dict.iterkeys():
+for dataset in datasets_dict.keys():
     print("  " + dataset + "...")
     align_log = open(os.path.join(output_dir, dataset + ".log"),'w')
     align_err = open(os.path.join(output_dir, dataset + ".err"),'w') 
-    reads_string = reduce(lambda x, y: x + (',' + y if os.path.getsize(y) > 0 else ""), datasets_dict[dataset], "")
+    reads_string = functools.reduce(lambda x, y: x + (',' + y if os.path.getsize(y) > 0 else ""), datasets_dict[dataset], "")
 
     if (len(reads_string) > 0):
         if paired_mode:
@@ -259,7 +259,7 @@ for dataset in datasets_dict.iterkeys():
 # raw-single    
 print("Parsing Bowtie log")
 import raw_single
-for dataset in datasets_dict.iterkeys():
+for dataset in datasets_dict.keys():
     print("  " + dataset + "...")
     align_log = os.path.join(output_dir, dataset + ".log")
     raw_file  = os.path.join(output_dir, dataset + ".raw")
@@ -275,16 +275,16 @@ for line in open(reference):
 print("Analyzing coverage")
 report_dict["header"] += ["Genome mapped (%)"]
 gaps_dict = {}  # TODO: use it somewhere!
-import coverage
-for dataset in datasets_dict.iterkeys():
+import read_coverage
+for dataset in datasets_dict.keys():
     print("  " + dataset + "...")
     raw_file  = os.path.join(output_dir, dataset + ".raw")
     cov_file  = os.path.join(output_dir, dataset + ".cov")
-    cov = coverage.coverage(raw_file, cov_file, ref_len, bin_size, kmer)
+    cov = read_coverage.coverage(raw_file, cov_file, ref_len, bin_size, kmer)
     
     gaps_file  = os.path.join(output_dir, dataset + ".gaps")
     chunks_file  = os.path.join(output_dir, os.path.splitext(os.path.basename(reference))[0] + "gaps_" + dataset + ".fasta")
-    gaps_dict[dataset] = coverage.analyze_gaps(cov_file, gaps_file, reference, chunks_file, kmer)
+    gaps_dict[dataset] = read_coverage.analyze_gaps(cov_file, gaps_file, reference, chunks_file, kmer)
 
     report_dict[dataset].append( str(cov * 100) )
 
@@ -293,7 +293,7 @@ if paired_mode:
     print("Retaining insert size")
     report_dict["header"] += ["Read length", "FR read pairs", "Insert size (deviation)", "RF read pairs", "Insert size (deviation)", "FF read pairs", "Insert size (deviation)", "One uniquely aligned read in pair", "Both reads unaligned", "Both aligned to same position", "Suppressed due to insert size limit"]
     import is_from_single_log
-    for dataset in datasets_dict.iterkeys():
+    for dataset in datasets_dict.keys():
         print("  " + dataset + "...")
         align_log = os.path.join(output_dir, dataset + ".log")
         stat = is_from_single_log.stat_from_log(align_log, max_is)

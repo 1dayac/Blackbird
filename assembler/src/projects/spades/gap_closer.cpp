@@ -8,148 +8,114 @@
 #include "gap_closer.hpp"
 #include "assembly_graph/stats/picture_dump.hpp"
 #include "modules/simplification/compressor.hpp"
+#include "modules/alignment/sequence_mapper_notifier.hpp"
+#include "paired_info/concurrent_pair_info_buffer.hpp"
 #include "io/dataset_support/read_converter.hpp"
+
+#include <parallel_hashmap/phmap.h>
+#include <numeric>
 #include <stack>
 
 namespace debruijn_graph {
 
-class GapCloserPairedIndexFiller {
+class GapCloserPairedIndexFiller : public SequenceMapperListener {
 private:
     const Graph &graph_;
-    const SequenceMapper<Graph> &mapper_;
-    typedef std::unordered_map<EdgeId, std::pair<EdgeId, int>> TipMap;
+    typedef phmap::parallel_flat_hash_map<EdgeId, EdgeId> TipMap;
+    omnigraph::de::PairedInfoIndexT<Graph> &paired_index_;
+    omnigraph::de::ConcurrentPairedInfoBuffer<Graph> buffer_pi_;
+    TipMap out_tip_map_;
 
-    size_t CorrectLength(Path<EdgeId> path, size_t idx) const {
-        size_t answer = graph_.length(path[idx]);
-        if (idx == 0)
-            answer -= path.start_pos();
-        if (idx == path.size() - 1)
-            answer -= graph_.length(path[idx]) - path.end_pos();
-        return answer;
-    }
-
-    template<typename PairedRead>
-    void ProcessPairedRead(omnigraph::de::PairedInfoBuffer<Graph> &paired_index, const PairedRead &p_r,
-                           const TipMap &OutTipMap, const TipMap &InTipMap) const {
-        Sequence read1 = p_r.first().sequence();
-        Sequence read2 = p_r.second().sequence();
-
-        Path<EdgeId> path1 = mapper_.MapSequence(read1).path();
-        Path<EdgeId> path2 = mapper_.MapSequence(read2).path();
+    void ProcessPairedRead(const MappingPath<EdgeId> &path1, const MappingPath<EdgeId> &path2) {
         for (size_t i = 0; i < path1.size(); ++i) {
-            auto OutTipIter = OutTipMap.find(path1[i]);
-            if (OutTipIter != OutTipMap.end()) {
-                for (size_t j = 0; j < path2.size(); ++j) {
-                    auto InTipIter = InTipMap.find(path2[j]);
-                    if (InTipIter != InTipMap.end()) {
-                        auto e1 = OutTipIter->second.first;
-                        auto e2 = InTipIter->second.first;
-                        //FIXME: Normalize fake points
-                        auto sp = std::make_pair(e1, e2);
-                        auto cp = paired_index.ConjugatePair(e1, e2);
-                        auto ip = std::min(sp, cp);
-                        paired_index.Add(ip.first, ip.second, omnigraph::de::RawPoint(1000000., 1.));
-                    }
-                }
+            auto OutTipIter = out_tip_map_.find(path1[i].first);
+            if (OutTipIter == out_tip_map_.cend())
+                continue;
+
+            for (size_t j = 0; j < path2.size(); ++j) {
+                auto InTipIter = out_tip_map_.find(graph_.conjugate(path2[j].first));
+                if (InTipIter == out_tip_map_.cend())
+                    continue;
+
+                auto e1 = OutTipIter->second;
+                auto e2 = graph_.conjugate(InTipIter->second);
+                //FIXME: Normalize fake points
+                auto sp = std::make_pair(e1, e2);
+                auto cp = buffer_pi_.ConjugatePair(e1, e2);
+                auto ip = std::min(sp, cp);
+                buffer_pi_.Add(ip.first, ip.second, omnigraph::de::RawPoint(0, 1.));
             }
         }
     }
 
-    void PrepareShiftMaps(TipMap &OutTipMap, TipMap &InTipMap) {
-        std::stack<std::pair<EdgeId, int>> edge_stack;
-        for (auto iterator = graph_.ConstEdgeBegin(); !iterator.IsEnd();) {
-            EdgeId edge = *iterator;
-            if (graph_.IncomingEdgeCount(graph_.EdgeStart(edge)) == 0) {
-                InTipMap.insert({edge, {edge, 0}});
-                edge_stack.push({edge, 0});
-                while (edge_stack.size() > 0) {
+    void PrepareTipMap(TipMap &OutTipMap) const {
+        size_t nthreads = omp_get_max_threads();
+
+        omnigraph::IterationHelper<Graph, EdgeId> edges(graph_);
+        auto ranges = edges.Ranges(nthreads);
+#pragma omp parallel for
+        for (size_t i = 0; i < ranges.size(); ++i) {
+            TipMap local_out_tip_map;
+            for (EdgeId edge : ranges[i]) {
+                if (!graph_.IsDeadEnd(graph_.EdgeEnd(edge)))
+                    continue;
+
+                local_out_tip_map.emplace(edge, edge);
+                std::stack<EdgeId> edge_stack;
+                edge_stack.push(edge);
+                while (!edge_stack.empty()) {
                     auto checking_pair = edge_stack.top();
                     edge_stack.pop();
-                    if (graph_.IncomingEdgeCount(graph_.EdgeEnd(checking_pair.first)) == 1) {
-                        VertexId v = graph_.EdgeEnd(checking_pair.first);
-                        if (graph_.OutgoingEdgeCount(v)) {
-                            for (auto I = graph_.out_begin(v), E = graph_.out_end(v); I != E; ++I) {
-                                EdgeId Cur_edge = *I;
-                                InTipMap.insert({Cur_edge, {edge, graph_.length(checking_pair.first) +
-                                                                  checking_pair.second}});
-                                edge_stack.push({Cur_edge, graph_.length(checking_pair.first) + checking_pair.second});
+                    VertexId start = graph_.EdgeStart(checking_pair);
+                    if (!graph_.CheckUniqueOutgoingEdge(start))
+                        continue;
 
-                            }
-                        }
+                    for (EdgeId e : graph_.IncomingEdges(start)) {
+                        local_out_tip_map.emplace(e, edge);
+                        edge_stack.push(e);
                     }
                 }
             }
 
-            if (graph_.OutgoingEdgeCount(graph_.EdgeEnd(edge)) == 0) {
-                OutTipMap.insert({edge, {edge, 0}});
-                edge_stack.push({edge, 0});
-                while (edge_stack.size() > 0) {
-                    auto checking_pair = edge_stack.top();
-                    edge_stack.pop();
-                    if (graph_.OutgoingEdgeCount(graph_.EdgeStart(checking_pair.first)) == 1) {
-                        if (graph_.IncomingEdgeCount(graph_.EdgeStart(checking_pair.first))) {
-                            for (EdgeId e : graph_.IncomingEdges(graph_.EdgeStart(checking_pair.first))) {
-                                OutTipMap.insert({e, {edge, graph_.length(e) + checking_pair.second}});
-                                edge_stack.push({e, graph_.length(e) + checking_pair.second});
-                            }
-                        }
-                    }
-
-                }
-            }
-            ++iterator;
-        }
-    }
-
-    template<class Streams>
-    void MapReads(omnigraph::de::PairedInfoIndexT<Graph> &paired_index, Streams &streams,
-                  const TipMap &OutTipMap, const TipMap &InTipMap) const {
-        INFO("Processing paired reads (takes a while)");
-
-        size_t nthreads = streams.size();
-        omnigraph::de::PairedInfoBuffersT<Graph> buffer_pi(graph_, nthreads);
-
-        size_t counter = 0;
-#       pragma omp parallel for num_threads(nthreads) reduction(+ : counter)
-        for (size_t i = 0; i < nthreads; ++i) {
-            typename Streams::ReadT r;
-            auto &stream = streams[i];
-            stream.reset();
-
-            while (!stream.eof()) {
-                stream >> r;
-                ++counter;
-                ProcessPairedRead(buffer_pi[i], r, OutTipMap, InTipMap);
+#pragma omp critical
+            {
+                OutTipMap.insert(std::make_move_iterator(local_out_tip_map.begin()), std::make_move_iterator(local_out_tip_map.end()));
             }
         }
 
-        INFO("Used " << counter << " paired reads");
+        size_t out_length =
+                std::accumulate(OutTipMap.begin(), OutTipMap.end(), 0,
+                                [this](size_t val, const std::pair<EdgeId, EdgeId> &p) { return val + graph_.length(p.first); });
 
-        INFO("Merging paired indices");
-        for (auto &index: buffer_pi) {
-            paired_index.Merge(index);
-            index.clear();
-        }
+        INFO("Total edges in tip neighborhood: " << OutTipMap.size() << " out of " << graph_.e_size() << ", length: " << out_length);
     }
 
 public:
+    GapCloserPairedIndexFiller(const Graph &graph, omnigraph::de::PairedInfoIndexT<Graph> &paired_index)
+            : graph_(graph), paired_index_(paired_index), buffer_pi_(graph) { }
 
-    GapCloserPairedIndexFiller(const Graph &graph, const SequenceMapper<Graph> &mapper)
-            : graph_(graph), mapper_(mapper) { }
-
-    /**
-     * Method reads paired data from stream, maps it to genome and stores it in this PairInfoIndex.
-     */
-    template<class Streams>
-    void FillIndex(omnigraph::de::PairedInfoIndexT<Graph> &paired_index, Streams &streams) {
-        TipMap OutTipMap, InTipMap;
-
-        INFO("Preparing shift maps");
-        PrepareShiftMaps(OutTipMap, InTipMap);
-
-        MapReads(paired_index, streams, OutTipMap, InTipMap);
+    void StartProcessLibrary(size_t /* threads_count */) override {
+        paired_index_.clear();
+        INFO("Preparing tip map");
+        PrepareTipMap(out_tip_map_);
     }
 
+    void StopProcessLibrary() override {
+        paired_index_.Merge(buffer_pi_);
+        buffer_pi_.clear();
+        out_tip_map_.clear();
+    }
+
+    void ProcessPairedRead(size_t /* thread_index */, const io::PairedRead&  /* pr */,
+                           const MappingPath<EdgeId> &path1,
+                           const MappingPath<EdgeId> &path2) override {
+        ProcessPairedRead(path1, path2);
+    }
+    void ProcessPairedRead(size_t /* thread_index */, const io::PairedReadSeq& /* pr */,
+                           const MappingPath<EdgeId> &path1,
+                           const MappingPath<EdgeId> &path2) override {
+        ProcessPairedRead(path1, path2);
+    }
 };
 
 class GapCloser {
@@ -173,18 +139,17 @@ class GapCloser {
         return answer;
     }
 
-    size_t HammingDistance(const Sequence &s1, const Sequence &s2) const {
+    size_t LimitedHammingDistance(const Sequence &s1, const Sequence &s2, size_t bound) const {
         VERIFY(s1.size() == s2.size());
         size_t dist = 0;
-        for (size_t i = 0; i < s1.size(); ++i)
-            if (s1[i] != s2[i])
-                dist++;
+        for (size_t i = 0; i < s1.size(); ++i) {
+            dist += (s1[i] != s2[i]);
+            if (dist > bound)
+                return dist;
+        }
+
         return dist;
     }
-
-    //  size_t HammingDistance(const Sequence& s1, const Sequence& s2) const {
-    //    return DiffPos(s1, s2).size();
-    //  }
 
     std::vector<size_t> PosThatCanCorrect(size_t overlap_length/*in nucls*/, const MismatchPos &mismatch_pos,
                                           size_t edge_length/*in nucls*/, bool left_edge) const {
@@ -301,26 +266,42 @@ class GapCloser {
             return false;
         }
 
-        Sequence seq1 = g_.EdgeNucls(first);
-        Sequence seq2 = g_.EdgeNucls(second);
+        Sequence seq1 = g_.EdgeNucls(first), seq2 = g_.EdgeNucls(second);
         TRACE("Checking possible gaps from 1 to " << k_ - min_intersection_);
         for (int gap = 1; gap <= k_ - (int) min_intersection_; ++gap) {
             int overlap = k_ - gap;
-            size_t hamming_distance = HammingDistance(g_.EdgeNucls(first).Last(overlap),
-                                                      g_.EdgeNucls(second).First(overlap));
-            if (hamming_distance <= hamming_dist_bound_) {
-                DEBUG("For edges " << g_.str(first) << " and " << g_.str(second)
-                      << ". For gap value " << gap << " (overlap " << overlap << "bp) hamming distance was " <<
-                      hamming_distance);
-                //        DEBUG("Sequences of distance " << tip_distance << " :"
-                //                << seq1.Subseq(seq1.size() - k).str() << "  "
-                //                << seq2.Subseq(0, k).str());
+            size_t hamming_distance = LimitedHammingDistance(seq1.Last(overlap), seq2.First(overlap), hamming_dist_bound_);
+            if (hamming_distance > hamming_dist_bound_)
+                continue;
 
-                if (hamming_distance > 0) {
-                    return HandlePositiveHammingDistanceCase(first, second, overlap);
-                } else {
-                    return HandleSimpleCase(first, second, overlap);
+            {
+                // Perform complexity check. At minimum overlap (10 bp by default)
+                // we do not allow perfect poly-nucl overlaps and at maximum (k-1)
+                // we disregard overlaps with at least 80% identical nucls.
+                Sequence oseq = seq1.Last(overlap);
+                std::array<size_t, 4> counts = std::array<size_t, 4>();
+
+                for (size_t i = 0; i < size_t(overlap); ++i)
+                    counts[oseq[i]] += 1;
+                size_t curm = *std::max_element(counts.begin(), counts.end());
+                double ratio = 0.8 + 0.2 * double(gap - 1)/double(k_-min_intersection_-1);
+                if (math::gr(double(curm), ratio * double(overlap))) {
+                    DEBUG("Disregard low-complexity overlap: " << oseq);
+                    return false;
                 }
+            }
+
+            DEBUG("For edges " << g_.str(first) << " and " << g_.str(second)
+                  << ". For gap value " << gap << " (overlap " << overlap << "bp) hamming distance was " <<
+                  hamming_distance);
+            //        DEBUG("Sequences of distance " << tip_distance << " :"
+            //                << seq1.Subseq(seq1.size() - k).str() << "  "
+            //                << seq2.Subseq(0, k).str());
+
+            if (hamming_distance > 0) {
+                return HandlePositiveHammingDistanceCase(first, second, overlap);
+            } else {
+                return HandleSimpleCase(first, second, overlap);
             }
         }
         return false;
@@ -386,41 +367,45 @@ private:
     DECL_LOGGER("GapCloser");
 };
 
-template<class Streams>
-void CloseGaps(conj_graph_pack &gp, Streams &streams) {
-    auto mapper = MapperInstance(gp);
-    GapCloserPairedIndexFiller gcpif(gp.g, *mapper);
-    PairedIndexT tips_paired_idx(gp.g);
-    gcpif.FillIndex(tips_paired_idx, streams);
-    GapCloser gap_closer(gp.g, tips_paired_idx,
-                         cfg::get().gc.minimal_intersection, cfg::get().gc.weight_threshold);
-    gap_closer.CloseShortGaps();
-}
-
-void GapClosing::run(conj_graph_pack &gp, const char *) {
-    visualization::graph_labeler::DefaultLabeler<Graph> labeler(gp.g, gp.edge_pos);
+void GapClosing::run(GraphPack &gp, const char *) {
+    visualization::graph_labeler::DefaultLabeler<Graph> labeler(gp.get<Graph>(), gp.get<EdgesPositionHandler<Graph>>());
     stats::detail_info_printer printer(gp, labeler, cfg::get().output_dir);
     printer(config::info_printer_pos::before_first_gap_closer);
 
     bool pe_exist = false;
-    for (size_t i = 0; i < cfg::get().ds.reads.lib_count(); ++i) {
-        if (cfg::get().ds.reads[i].type() == io::LibraryType::PairedEnd) {
-            pe_exist = true;
-            break;
-        }
+    for (const auto& lib : cfg::get().ds.reads.libraries()) {
+        if (lib.type() != io::LibraryType::PairedEnd)
+            continue;
+
+        pe_exist = true;
     }
     if (!pe_exist) {
         INFO("No paired-end libraries exist, skipping gap closer");
         return;
     }
+
     gp.EnsureIndex();
+    auto &g = gp.get_mutable<Graph>();
+    omnigraph::de::PairedInfoIndexT<Graph> tips_paired_idx(g);
+    GapCloserPairedIndexFiller gcpif(g, tips_paired_idx);
+
+    SequenceMapperNotifier notifier(gp, cfg::get().ds.reads.lib_count());
+    auto mapper = MapperInstance(gp);
 
     auto& dataset = cfg::get_writable().ds;
     for (size_t i = 0; i < dataset.reads.lib_count(); ++i) {
-        if (dataset.reads[i].type() == io::LibraryType::PairedEnd) {
-            auto streams = paired_binary_readers(dataset.reads[i], false, 0, false);
-            CloseGaps(gp, streams);
-        }
+        if (dataset.reads[i].type() != io::LibraryType::PairedEnd)
+            continue;
+
+        notifier.Subscribe(i, &gcpif);
+        io::BinaryPairedStreams paired_streams = paired_binary_readers(dataset.reads[i], false, 0, false);
+        notifier.ProcessLibrary(paired_streams, i, *mapper);
+
+        INFO("Initializing gap closer");
+        GapCloser gap_closer(g, tips_paired_idx,
+                             cfg::get().gc.minimal_intersection, cfg::get().gc.weight_threshold);
+        gap_closer.CloseShortGaps();
+        INFO("Gap closer done");
     }
 }
 

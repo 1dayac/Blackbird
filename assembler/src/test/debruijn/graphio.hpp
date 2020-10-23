@@ -6,8 +6,9 @@
 
 #pragma once
 
-#include "pipeline/graph_pack.hpp"
 #include "assembly_graph/core/construction_helper.hpp"
+#include "assembly_graph/handlers/edges_position_handler.hpp"
+#include "pipeline/graph_pack.hpp"
 
 namespace debruijn_graph {
 
@@ -28,23 +29,6 @@ inline void DeserializePoint(FILE* file, size_t& e1, size_t& e2, omnigraph::de::
 class LegacyTextIO {
 
 public:
-    bool LoadEdgeIndex(const std::string &file_name, KmerFreeEdgeIndex<Graph> &index) {
-        std::ifstream file;
-        file.open((file_name + ".kmidx").c_str(),
-                  std::ios_base::binary | std::ios_base::in);
-        INFO("Reading kmer index, " << file_name << " started");
-        if (!file.is_open())
-            return false;
-
-        uint32_t k_;
-        file.read((char *) &k_, sizeof(uint32_t));
-        VERIFY_MSG(k_ == index.k(), "Cannot read edge index, different Ks:");
-
-        index.BinRead(file);
-        file.close();
-        return true;
-    }
-
     void LoadGraph(const std::string &file_name, Graph &graph) {
         INFO("Trying to read conjugate de bruijn graph from " << file_name << ".grp");
         FILE* file = fopen((file_name + ".grp").c_str(), "r");
@@ -130,7 +114,7 @@ public:
         LoadEdgeAssociatedInfo(in, cov);
     }
 
-    bool LoadFlankingCoverage(const std::string &file_name, FlankingCoverage<Graph> &flanking_cov) {
+    bool LoadFlankingCoverage(const std::string &file_name, omnigraph::FlankingCoverage<Graph> &flanking_cov) {
         if (!fs::FileExists(file_name + ".flcvr")) {
             INFO("Flanking coverage saves are missing");
             return false;
@@ -194,7 +178,7 @@ public:
         fclose(file);
     }
 
-    bool LoadPositions(const std::string &file_name, EdgesPositionHandler<Graph> &edge_pos) {
+    bool LoadPositions(const std::string &file_name, omnigraph::EdgesPositionHandler<Graph> &edge_pos) {
         FILE* file = fopen((file_name + ".pos").c_str(), "r");
         if (file == NULL) {
             INFO("No positions were saved");
@@ -233,24 +217,26 @@ public:
         LoadCoverage(file_name, g.coverage_index());
     }
 
-    void LoadGraphPack(const std::string &file_name, conj_graph_pack &gp) {
-        LoadBasicGraph(file_name, gp.g);
-        gp.index.Attach();
-        if (LoadEdgeIndex(file_name, gp.index.inner_index())) {
-            gp.index.Update();
-        } else {
-            WARN("Cannot load edge index, kmer coverages will be missed");
-            gp.index.Refill();
-        }
-        LoadPositions(file_name, gp.edge_pos);
+    void LoadGraphPack(const std::string &file_name, GraphPack &gp) {
+        auto &graph = gp.get_mutable<Graph>();
+        auto &index = gp.get_mutable<EdgeIndex<Graph>>();
+        auto &edge_pos = gp.get_mutable<omnigraph::EdgesPositionHandler<Graph>>();
+        auto &flanking_cov = gp.get_mutable<omnigraph::FlankingCoverage<Graph>>();
+        auto &kmer_mapper = gp.get_mutable<KmerMapper<Graph>>();
+
+        LoadBasicGraph(file_name, graph);
+
+        index.Attach();
+        index.Refill();
+
+        LoadPositions(file_name, edge_pos);
         //load kmer_mapper only if needed
-        if (gp.kmer_mapper.IsAttached())
-            if (!LoadKmerMapper(file_name, gp.kmer_mapper)) {
+        if (kmer_mapper.IsAttached())
+            if (!LoadKmerMapper(file_name, kmer_mapper)) {
                 WARN("Cannot load kmer_mapper, information on projected kmers will be missed");
             }
-        if (!LoadFlankingCoverage(file_name, gp.flanking_cov)) {
-            WARN("Cannot load flanking coverage, flanking coverage will be recovered from index");
-            gp.flanking_cov.Fill(gp.index.inner_index());
+        if (!LoadFlankingCoverage(file_name, flanking_cov)) {
+            FATAL_ERROR("Cannot load flanking coverage");
         }
     }
 
@@ -277,7 +263,7 @@ void ScanBasicGraph(const std::string &file_name, Graph &g) {
     LegacyTextIO().LoadBasicGraph(file_name, g);
 }
 
-void ScanGraphPack(const std::string &file_name, conj_graph_pack &gp) {
+void ScanGraphPack(const std::string &file_name, GraphPack &gp) {
     LegacyTextIO().LoadGraphPack(file_name, gp);
 }
 

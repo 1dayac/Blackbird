@@ -6,12 +6,15 @@
 
 #pragma once
 
-#include <memory>
-#include "io/reads/ireader.hpp"
+#include "filtering_reader_wrapper.hpp"
+
+#include "sequence/sequence.hpp"
 
 #include "adt/cqf.hpp"
 #include "adt/cyclichash.hpp"
 #include "utils/kmer_counting.hpp"
+
+#include <memory>
 
 namespace io {
 
@@ -95,21 +98,24 @@ public:
 };
 
 template<class ReadType, class Hasher>
-inline std::shared_ptr<ReadStream<ReadType>> CovFilteringWrap(std::shared_ptr<ReadStream<ReadType>> reader_ptr,
-                                                              unsigned k, const Hasher &hasher,
-                                                              const utils::CQFKmerFilter &cqf, unsigned thr) {
+inline ReadStream<ReadType> CovFilteringWrap(ReadStream<ReadType> reader,
+                                             unsigned k, const Hasher &hasher,
+                                             const utils::CQFKmerFilter &cqf, unsigned thr) {
     CoverageFilter<ReadType, Hasher> filter(k, hasher, cqf, thr);
-    return io::FilteringWrap<ReadType>(reader_ptr, [=](const ReadType &r) { return filter(r); });
+    return io::FilteringWrap<ReadType>(std::move(reader),
+                                       [=](const ReadType &r) { return filter(r); });
 }
 
 template<class ReadType, class Hasher>
-inline ReadStreamList<ReadType> CovFilteringWrap(ReadStreamList<ReadType> &readers,
+inline ReadStreamList<ReadType> CovFilteringWrap(ReadStreamList<ReadType> readers,
                                                  unsigned k, const Hasher &hasher,
                                                  const utils::CQFKmerFilter &filter, unsigned thr) {
     ReadStreamList<ReadType> answer;
-    for (size_t i = 0; i < readers.size(); ++i)
-        answer.push_back(CovFilteringWrap(readers.ptr_at(i),
+    for (auto &reader : readers) {
+        answer.push_back(CovFilteringWrap(std::move(reader),
                                           k, hasher, filter, thr));
+
+    }
 
     return answer;
 }

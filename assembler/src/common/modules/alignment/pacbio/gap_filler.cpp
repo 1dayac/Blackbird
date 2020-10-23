@@ -35,8 +35,8 @@ GapFillerResult GapFiller::BestScoredPathDijkstra(const string &s,
     auto path_searcher = omnigraph::DijkstraHelper<debruijn_graph::Graph>::
                                 CreateBoundedDijkstra(g_, path_max_length);
     path_searcher.Run(start_v);
-    auto reached_vertices_b = path_searcher_b.ProcessedVertices();
-    auto reached_vertices = path_searcher.ProcessedVertices();
+    const auto &reached_vertices_b = path_searcher_b.ProcessedVertices();
+    const auto &reached_vertices = path_searcher.ProcessedVertices();
 
     unordered_map<VertexId, size_t> vertex_pathlen;
     for (auto v : reached_vertices_b) {
@@ -236,7 +236,7 @@ void GapFiller::UpdatePath(vector<debruijn_graph::EdgeId> &path,
             return;
         }
         path = cur_sorted;
-        range.path_start.seq_pos = 0;
+        range.path_start.seq_pos = p.seq_pos;
         range.path_start.edge_pos = start;
     }
 }
@@ -279,10 +279,9 @@ GapFillerResult GapFiller::Run(Sequence &s,
         return res;
     }
     vector<EdgeId> ans = algo.path();
-    MappingPoint p(forward ? algo.seq_end_position() + range.path_end.seq_pos : 0, algo.path_end_position());
+    MappingPoint p(forward ? algo.seq_end_position() + range.path_end.seq_pos : range.path_start.seq_pos - algo.seq_end_position(), algo.path_end_position());
     UpdatePath(path, ans, p, range, forward, old_start_pos);
     return res;
 }
-
 
 } // namespace sensitive_aligner

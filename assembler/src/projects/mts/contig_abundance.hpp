@@ -3,6 +3,8 @@
 #include "utils/ph_map/perfect_hash_map_builder.hpp"
 #include "io/kmers/mmapped_reader.hpp"
 
+#include <boost/optional.hpp>
+
 namespace debruijn_graph {
 
 //Kmer multiplicities types: integral values
@@ -25,7 +27,7 @@ template<typename T> using Profile = std::vector<T>;
 
 class KmerProfileIndex {
 private:
-    typedef typename utils::InvertableStoring::trivial_inverter<Offset> InverterT;
+    typedef typename utils::InvertableStoring::trivial_inverter InverterT;
     typedef utils::KeyStoringMap<RtSeq,
         Offset,
         utils::kmer_index_traits<RtSeq>,

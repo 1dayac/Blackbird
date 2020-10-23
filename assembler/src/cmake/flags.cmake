@@ -6,14 +6,16 @@ if (OPENMP_FOUND)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 # Use parallel libstdc++ if possible
-  add_definitions(-DUSE_GLIBCXX_PARALLEL=1)
+  if (NOT "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+    add_definitions(-DUSE_GLIBCXX_PARALLEL=1)
+  endif()
 else ()
   if (NOT "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
     message(FATAL_ERROR "SPAdes requires OpenMP to be available")
   endif()
 endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+set(CMAKE_CXX_STANDARD 14)
 add_compile_options(-Wno-deprecated)
 
 # Use libc++ with clang due to C++11 mode
@@ -35,7 +37,7 @@ else()
   message("Making Release Configuration...")
 
   if (${CMAKE_BUILD_TYPE} STREQUAL "RelWithDebInfo")
-    add_compile_options(-g3)
+    add_compile_options(-g1)
   else()
     add_compile_options(-g0)
   endif()

@@ -49,6 +49,10 @@ public:
         return coverage_index_.coverage(edge);
     }
 
+    uint64_t kmer_multiplicity(EdgeId edge) const {
+        return coverage_index_.RawCoverage(edge);
+    }
+
     using base::AddVertex;
     using base::AddEdge;
 

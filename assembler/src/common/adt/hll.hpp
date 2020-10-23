@@ -4,6 +4,7 @@
 #include <functional>
 #include <numeric>
 #include <cmath>
+
 namespace hll {
 
 template<unsigned precision = 24>
@@ -34,22 +35,38 @@ public:
     }
 
     void merge(const hll &other) {
+      VERIFY(data_.size() == other.data_.size());
       for (size_t i = 0; i < data_.size(); ++i)
         data_[i] = std::max(data_[i], other.data_[i]);
     }
 
-    std::pair<double, bool> cardinality() const {
+    double cardinality() const {
       // FIXME: Precision loss?
       // FIXME: Bias correction!
       double res = alpha(precision) * m_ * m_;
       double E = std::accumulate(data_.begin(), data_.end(),
                                  0.0, [](double a, uint8_t b) { return a + exp2(-(double) b); });
+      uint64_t zeros_bucket_cnt = std::accumulate(data_.begin(), data_.end(), 0,
+          [](uint64_t a, uint8_t b) {return a + (b == 0);});
       res /= E;
-      return {res, res > 5.0 * m_ / 2};
+      if (res <= 5.0 * m_/2 && zeros_bucket_cnt > 0) {
+          return m_ * (std::log((double)m_) - std::log((double)zeros_bucket_cnt));
+      } else {
+          return res;
+      }
+    }
+
+    double upper_bound_cardinality() const {
+        return 1.1 * cardinality();
     }
 
     void clear() {
       std::fill(data_.begin(), data_.end(), 0);
+    }
+
+    template <typename Archive>
+    void BinArchive(Archive &ar) {
+        ar(data_);
     }
 
 private:

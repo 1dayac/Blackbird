@@ -116,7 +116,7 @@ protected:
         VERIFY(ostreams.size() == num_files_ && kmer_buffers_[0].size() == num_files_);
 
 #   pragma omp parallel for
-        for (unsigned k = 0; k < num_files_; ++k) {
+        for (size_t k = 0; k < num_files_; ++k) {
             // Below k is thread id!
 
             size_t sz = 0;
@@ -231,8 +231,7 @@ class DeBruijnKMerSplitter : public RtSeqKMerSplitter {
 
 template<class Read, class KmerFilter>
 class DeBruijnReadKMerSplitter : public DeBruijnKMerSplitter<KmerFilter> {
-  io::ReadStreamList<Read> &streams_;
-  io::SingleStream *contigs_;
+  io::ReadStreamList<Read>& streams_;
 
   template<class ReadStream>
   size_t
@@ -243,18 +242,17 @@ class DeBruijnReadKMerSplitter : public DeBruijnKMerSplitter<KmerFilter> {
   DeBruijnReadKMerSplitter(fs::TmpDir work_dir,
                            unsigned K, uint32_t seed,
                            io::ReadStreamList<Read>& streams,
-                           io::SingleStream* contigs_stream = 0,
                            size_t read_buffer_size = 0,
                            KmerFilter filter = KmerFilter())
       : DeBruijnKMerSplitter<KmerFilter>(work_dir, K, filter, read_buffer_size, seed),
-      streams_(streams), contigs_(contigs_stream) {}
+      streams_(streams) {}
 
   RawKMers Split(size_t num_files, unsigned nthreads) override;
 };
 
 template<class Read, class KmerFilter> template<class ReadStream>
 size_t
-DeBruijnReadKMerSplitter<Read, KmerFilter>::FillBufferFromStream(ReadStream &stream,
+DeBruijnReadKMerSplitter< Read, KmerFilter>::FillBufferFromStream(ReadStream &stream,
                                                                  unsigned thread_id) {
   typename ReadStream::ReadT r;
   size_t reads = 0;
@@ -291,22 +289,8 @@ DeBruijnReadKMerSplitter<Read, KmerFilter>::Split(size_t num_files, unsigned nth
     }
   }
 
-  if (contigs_) {
-    INFO("Adding contigs from previous K");
-    unsigned cnt = 0;
-    contigs_->reset();
-    while (!contigs_->eof()) {
-      FillBufferFromStream(*contigs_, cnt);
-      this->DumpBuffers(out);
-      if (++cnt >= nthreads)
-        cnt = 0;
-    }
-  }
-
   this->ClearBuffers();
-
   INFO("Used " << counter << " reads");
-
   return out;
 }
 

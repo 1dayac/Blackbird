@@ -1,12 +1,13 @@
 #pragma once
 
 #include "assembly_graph/core/graph.hpp"
-#include "pipeline/graph_pack.hpp"
-#include "utils/logger/logger.hpp"
-//FIXME
 #include "modules/path_extend/pe_utils.hpp"
 #include "modules/path_extend/pe_config_struct.hpp"
 #include "modules/path_extend/paired_library.hpp"
+
+//FIXME: layering violation
+#include "pipeline/graph_pack.hpp"
+#include "utils/logger/logger.hpp"
 
 namespace path_extend {
 typedef debruijn_graph::EdgeId EdgeId;
@@ -28,21 +29,20 @@ public:
     ScaffoldingUniqueEdgeStorage& operator=(const ScaffoldingUniqueEdgeStorage&) = delete;
 
     ScaffoldingUniqueEdgeStorage(ScaffoldingUniqueEdgeStorage&&) = default;
-    ScaffoldingUniqueEdgeStorage& operator=(ScaffoldingUniqueEdgeStorage&&) = default;
 
     bool IsUnique(EdgeId e) const {
         return (unique_edges_.find(e) != unique_edges_.end());
     }
 
-    decltype(unique_edges_.begin()) begin() const {
+    auto begin() const {
         return unique_edges_.begin();
     }
 
-    decltype(unique_edges_.end()) end() const {
+    auto end() const {
         return unique_edges_.end();
     }
 
-    decltype(unique_edges_.begin()) erase(decltype(unique_edges_.begin()) iter) {
+    auto erase(decltype(unique_edges_.begin()) iter) {
         return unique_edges_.erase(iter);
     }
 
@@ -68,7 +68,8 @@ protected:
 
 
 class ScaffoldingUniqueEdgeAnalyzer {
-    const debruijn_graph::conj_graph_pack &gp_;
+    const debruijn_graph::GraphPack &gp_;
+    const debruijn_graph::Graph &graph_;
     size_t length_cutoff_;
     double median_coverage_;
     double relative_coverage_variation_;
@@ -94,13 +95,8 @@ protected:
 
     void SetCoverageBasedCutoff();
 public:
-    ScaffoldingUniqueEdgeAnalyzer(const debruijn_graph::conj_graph_pack &gp, size_t apriori_length_cutoff,
-                                  double max_relative_coverage):
-            gp_(gp),
-            length_cutoff_(apriori_length_cutoff),
-            relative_coverage_variation_(max_relative_coverage) {
-        SetCoverageBasedCutoff();
-    }
+    ScaffoldingUniqueEdgeAnalyzer(const debruijn_graph::GraphPack &gp, size_t apriori_length_cutoff,
+                                  double max_relative_coverage);
     void FillUniqueEdgeStorage(ScaffoldingUniqueEdgeStorage &storage);
     void ClearLongEdgesWithPairedLib(size_t lib_index, ScaffoldingUniqueEdgeStorage &storage) const;
     void FillUniqueEdgesWithLongReads(GraphCoverageMap &long_reads_cov_map,
@@ -118,7 +114,6 @@ public:
     UsedUniqueStorage& operator=(const UsedUniqueStorage&) = delete;
 
     UsedUniqueStorage(UsedUniqueStorage&&) = default;
-    UsedUniqueStorage& operator=(UsedUniqueStorage&&) = default;
 
     explicit UsedUniqueStorage(const ScaffoldingUniqueEdgeStorage& unique,
                                const debruijn_graph::ConjugateDeBruijnGraph &g):

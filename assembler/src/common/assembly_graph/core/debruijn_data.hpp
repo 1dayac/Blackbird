@@ -13,6 +13,7 @@
 #include <vector>
 #include <set>
 #include <cstring>
+#include <cstdint>
 
 namespace debruijn_graph {
 class DeBruijnDataMaster;
@@ -27,7 +28,7 @@ public:
 
 class CoverageData {
  private:
-    unsigned coverage_;
+    uint32_t coverage_;
 
  public:
     CoverageData()
@@ -57,8 +58,7 @@ class DeBruijnEdgeData {
 public:
 
     explicit DeBruijnEdgeData(const Sequence &nucls) :
-            nucls_(nucls) {
-    }
+            nucls_(nucls) {}
 
     const Sequence& nucls() const {
         return nucls_;
@@ -152,7 +152,7 @@ inline const DeBruijnEdgeData DeBruijnDataMaster::MergeData(const std::vector<co
 }
 
 inline std::pair<DeBruijnVertexData, std::pair<DeBruijnEdgeData, DeBruijnEdgeData>> DeBruijnDataMaster::SplitData(const EdgeData& edge,
-                                                                                                                  size_t position, 
+                                                                                                                  size_t position,
                                                                                                                   bool is_self_conj) const {
     const Sequence& nucls = edge.nucls();
     size_t end = nucls.size();

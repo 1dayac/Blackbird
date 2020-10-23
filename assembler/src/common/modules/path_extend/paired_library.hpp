@@ -5,16 +5,9 @@
 //* See file LICENSE for details.
 //***************************************************************************
 
-/*
- * paired_library.hpp
- *
- *  Created on: Feb 19, 2012
- *      Author: andrey
- */
-
 #pragma once
 
-#include "pipeline/graph_pack.hpp"
+#include "pipeline/config_struct.hpp"
 #include "paired_info/paired_info.hpp"
 #include "ideal_pair_info.hpp"
 
@@ -30,19 +23,20 @@ using omnigraph::de::Point;
 
 class PairedInfoLibrary {
 public:
-    PairedInfoLibrary(const Graph& g, size_t read_size, size_t is,
+    PairedInfoLibrary(const Graph& g, size_t read_length, size_t is,
                       size_t is_min, size_t is_max, double is_var,
                       bool is_mp,
                       const std::map<int, size_t>& is_distribution)
             : g_(g),
               k_(g.k()),
-              is_(is),
+              read_length_(read_length),
+              insert_size_(is),
               is_min_(is_min),
               is_max_(is_max),
               is_var_(is_var),
-              is_mp_(is_mp),
+              is_mate_pairs_(is_mp),
               ideal_pi_counter_(g, (int) is_min, (int) is_max,
-                                read_size, is_distribution) {
+                                read_length, is_distribution) {
     }
 
     virtual ~PairedInfoLibrary() {}
@@ -57,20 +51,22 @@ public:
         return ideal_pi_counter_.IdealPairedInfo(e1, e2, distance, additive);
     }
 
-    size_t GetIS() const { return is_; }
+    size_t GetIS() const { return insert_size_; }
     size_t GetISMin() const { return is_min_; }
     size_t GetISMax() const { return is_max_; }
+    size_t GetRL() const { return read_length_; }
     double GetIsVar() const { return is_var_; }
-    bool IsMp() const { return is_mp_; }
+    bool IsMp() const { return is_mate_pairs_; }
 
 protected:
     const Graph& g_;
     size_t k_;
-    size_t is_;
+    size_t read_length_;
+    size_t insert_size_;
     size_t is_min_;
     size_t is_max_;
     double is_var_;
-    bool is_mp_;
+    bool is_mate_pairs_;
     IdealPairInfoCounter ideal_pi_counter_;
     DECL_LOGGER("PathExtendPI");
 };
@@ -80,10 +76,10 @@ class PairedInfoLibraryWithIndex : public PairedInfoLibrary {
     const Index& index_;
 
 public:
-    PairedInfoLibraryWithIndex(const Graph& g, size_t readS, size_t is, size_t is_min, size_t is_max, double is_div,
+    PairedInfoLibraryWithIndex(const Graph& g, size_t read_length, size_t is, size_t is_min, size_t is_max, double is_div,
                                const Index& index, bool is_mp,
                                const std::map<int, size_t>& is_distribution)
-        : PairedInfoLibrary(g, readS, is, is_min, is_max, is_div, is_mp, is_distribution),
+        : PairedInfoLibrary(g, read_length, is, is_min, is_max, is_div, is_mp, is_distribution),
           index_(index) {}
 
     size_t FindJumpEdges(EdgeId e, std::set<EdgeId>& result, int min_dist, int max_dist, size_t min_len = 0) const override {
@@ -117,7 +113,7 @@ public:
             return;
 
         for (auto point : index_.Get(e1, e2)) {
-            int pairedDistance = de::rounded_d(point);
+            int pairedDistance = omnigraph::de::rounded_d(point);
             dist.push_back(pairedDistance);
             w.push_back(point.weight);
         }
@@ -129,15 +125,15 @@ public:
         double weight = 0.0;
 
         for (auto point : index_.Get(e1, e2)) {
-            int pairedDistance = de::rounded_d(point);
+            int pairedDistance = omnigraph::de::rounded_d(point);
             int distanceDev = (int) point.variance();  //max((int) pointIter->var, (int) is_variation_);
             //Can be modified according to distance comparison
             int d_min = distance - distanceDev;
             int d_max = distance + distanceDev;
 
             if (from_interval) {
-                d_min -= (int) (is_ - is_min_);
-                d_max += (int) (is_max_ - is_);
+                d_min -= (int) (insert_size_ - is_min_);
+                d_max += (int) (is_max_ - insert_size_);
             }
             if (pairedDistance >= d_min && pairedDistance <= d_max) {
                 weight += point.weight;
@@ -150,7 +146,7 @@ public:
         VERIFY(index_.size() != 0);
         double weight = 0.0;
         for (const auto &point : index_.Get(e1, e2)) {
-            int dist = de::rounded_d(point);
+            int dist = omnigraph::de::rounded_d(point);
             if (dist >= dist_min && dist <= dist_max)
                 weight += point.weight;
         }

@@ -4,9 +4,8 @@
 //* See file LICENSE for details.
 //***************************************************************************
 
-#include "index/edge_index_builders.hpp"
-#include "index/edge_multi_index.hpp"
-#include "core/graph.hpp"
+#include "assembly_graph/index/edge_index_builders.hpp"
+#include "assembly_graph/core/graph.hpp"
 #include "utils/filesystem/temporary.hpp"
 
 #include "edge_index_refiller.hpp"
@@ -14,25 +13,38 @@
 namespace debruijn_graph {
 
 using EdgeIndex = KmerFreeEdgeIndex<ConjugateDeBruijnGraph>;
+using EdgeIndex64 = KmerFreeEdgeIndex<ConjugateDeBruijnGraph, uint64_t>;
+using EdgeIndex32 = KmerFreeEdgeIndex<ConjugateDeBruijnGraph, uint32_t>;
+
+EdgeIndexRefiller::EdgeIndexRefiller(const std::string &workdir)
+    : workdir_(workdir)
+{}
 
 template<>
 void EdgeIndexRefiller::Refill(EdgeIndex &index,
                                const ConjugateDeBruijnGraph &g) {
     auto workdir = fs::tmp::make_temp_dir(workdir_, "edge_index");
 
-    typedef typename EdgeIndexHelper<EdgeIndex>::GraphPositionFillingIndexBuilderT IndexBuilder;
+    typedef GraphPositionFillingIndexBuilder<EdgeIndex> IndexBuilder;
     IndexBuilder().BuildIndexFromGraph(index, g, workdir);
 }
 
-using PacIndex = DeBruijnEdgeMultiIndex<ConjugateDeBruijnGraph::EdgeId>;
-
 template<>
-void EdgeIndexRefiller::Refill(PacIndex &index,
+void EdgeIndexRefiller::Refill(EdgeIndex64 &index,
                                const ConjugateDeBruijnGraph &g) {
     auto workdir = fs::tmp::make_temp_dir(workdir_, "edge_index");
 
-    typedef typename debruijn_graph::EdgeIndexHelper<PacIndex>::GraphPositionFillingIndexBuilderT Builder;
-    Builder().BuildIndexFromGraph(index, g, workdir);
+    typedef GraphPositionFillingIndexBuilder<EdgeIndex64> IndexBuilder;
+    IndexBuilder().BuildIndexFromGraph(index, g, workdir);
+}
+
+template<>
+void EdgeIndexRefiller::Refill(EdgeIndex32 &index,
+                               const ConjugateDeBruijnGraph &g) {
+    auto workdir = fs::tmp::make_temp_dir(workdir_, "edge_index");
+
+    typedef GraphPositionFillingIndexBuilder<EdgeIndex32> IndexBuilder;
+    IndexBuilder().BuildIndexFromGraph(index, g, workdir);
 }
 
 }

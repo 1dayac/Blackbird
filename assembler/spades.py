@@ -32,6 +32,7 @@ if sys.version.startswith("2."):
     import pyyaml2 as pyyaml
 elif sys.version.startswith("3."):
     import pyyaml3 as pyyaml
+
 import options_storage
 options_storage.spades_version = spades_version
 
@@ -87,20 +88,28 @@ def print_used_values(cfg, log):
 
         if options_storage.args.iontorrent:
             log.info("  IonTorrent data")
+        if options_storage.args.bio:
+            log.info("  BiosyntheticSPAdes mode")
+        if options_storage.args.rnaviral:
+            log.info("  RNA virus assembly mode")
         if options_storage.args.meta:
             log.info("  Metagenomic mode")
         elif options_storage.args.large_genome:
             log.info("  Large genome mode")
         elif options_storage.args.truseq_mode:
             log.info("  Illumina TruSeq mode")
+        elif options_storage.args.isolate:
+            log.info("  Isolate mode")
         elif options_storage.args.rna:
             log.info("  RNA-seq mode")
         elif options_storage.args.single_cell:
             log.info("  Single-cell mode")
         else:
-            log.info("  Multi-cell mode (you should set '--sc' flag if input data" \
-                     " was obtained with MDA (single-cell) technology" \
-                     " or --meta flag if processing metagenomic dataset)")
+            log.info("  Standard mode")
+            log.info("  For multi-cell/isolate data we recommend to use '--isolate' option;" \
+                     " for single-cell MDA data use '--sc';" \
+                     " for metagenomic data use '--meta';" \
+                     " for RNA-Seq use '--rna'.")
 
         log.info("  Reads:")
         dataset_data = pyyaml.load(open(cfg["dataset"].yaml_filename))
@@ -156,6 +165,7 @@ def print_used_values(cfg, log):
 def create_logger():
     log = logging.getLogger("spades")
     log.setLevel(logging.DEBUG)
+
 
     console = logging.StreamHandler(sys.stdout)
     console.setFormatter(logging.Formatter("%(message)s"))
@@ -265,7 +275,7 @@ def add_file_to_log(cfg, log):
     return log_filename, log_handler
 
 
-def get_restart_from_command_line(args, log):
+def get_restart_from_command_line(args):
     updated_params = ""
     for i in range(1, len(args)):
         if not args[i].startswith("-o") and not args[i].startswith("--restart-from") and \
@@ -273,9 +283,9 @@ def get_restart_from_command_line(args, log):
             updated_params += "\t" + args[i]
 
     updated_params = updated_params.strip()
-    log.info("Restart-from=" + options_storage.args.restart_from)
-    log.info("with updated parameters: " + updated_params)
-    return updated_params
+    restart_from_update_message = "Restart-from=" + options_storage.args.restart_from + "\n"
+    restart_from_update_message += "with updated parameters: " + updated_params
+    return updated_params, restart_from_update_message
 
 
 def get_command_line(args):
@@ -302,11 +312,15 @@ def print_params(log, log_filename, command_line, args, cfg):
     log.addHandler(params_handler)
 
     if not options_storage.args.continue_mode:
-        command_line = "Command line: " + get_command_line(args)
+        log.info("Command line: " + get_command_line(args))
     elif options_storage.args.restart_from:
-        command_line += "\t" + get_restart_from_command_line(args, log)
+        update_params, restart_from_update_message = get_restart_from_command_line(args)
+        command_line += "\t" + update_params
+        log.info(command_line)
+        log.info(restart_from_update_message)
+    else:
+        log.info(command_line)
 
-    log.info(command_line)
 
     print_used_values(cfg, log)
     log.removeHandler(params_handler)
@@ -337,14 +351,14 @@ def clear_configs(cfg, log, command_before_restart_from, stage_id_before_restart
         first_del = stage_id_before_restart_from + 1
 
     if restart_from_stage_id is not None:
-        stage_name = "stage_%d_%s" % (restart_from_stage_id, old_pipeline[restart_from_stage_id]["short_name"])
-        if os.path.isfile(os.path.join(cfg["common"].output_dir, stage_name)):
-            os.remove(os.path.join(cfg["common"].output_dir, stage_name))
+        stage_filename = options_storage.get_stage_filename(restart_from_stage_id, old_pipeline[restart_from_stage_id]["short_name"])
+        if os.path.isfile(stage_filename):
+            os.remove(stage_filename)
 
     for delete_id in range(first_del, len(old_pipeline)):
-        stage_name = "stage_%d_%s" % (delete_id, old_pipeline[delete_id]["short_name"])
-        if os.path.isfile(os.path.join(cfg["common"].output_dir, stage_name)):
-            os.remove(os.path.join(cfg["common"].output_dir, stage_name))
+        stage_filename = options_storage.get_stage_filename(delete_id, old_pipeline[delete_id]["short_name"])
+        if os.path.isfile(stage_filename):
+            os.remove(stage_filename)
 
         cfg_dir = old_pipeline[delete_id]["config_dir"]
         if cfg_dir != "" and os.path.isdir(os.path.join(cfg["common"].output_dir, cfg_dir)):
@@ -357,8 +371,8 @@ def get_first_incomplete_command(filename):
 
     first_incomplete_stage_id = 0
     while first_incomplete_stage_id < len(old_pipeline):
-        stage_name = "stage_%d_%s" % (first_incomplete_stage_id, old_pipeline[first_incomplete_stage_id]["short_name"])
-        if not os.path.isfile(os.path.join(get_stage.cfg["common"].output_dir, stage_name)):
+        stage_filename = options_storage.get_stage_filename(first_incomplete_stage_id, old_pipeline[first_incomplete_stage_id]["short_name"])
+        if not os.path.isfile(stage_filename):
             return old_pipeline[first_incomplete_stage_id]
         first_incomplete_stage_id += 1
 
@@ -391,8 +405,8 @@ def get_command_and_stage_id_before_restart_from(draft_commands, cfg, log):
         return draft_commands[restart_from_stage_id], restart_from_stage_id
 
     if restart_from_stage_id > 0:
-        stage_name = "stage_%d_%s" % (restart_from_stage_id - 1, draft_commands[restart_from_stage_id - 1].short_name)
-        if not os.path.isfile(os.path.join(cfg["common"].output_dir, stage_name)):
+        stage_filename = options_storage.get_stage_filename(restart_from_stage_id - 1, draft_commands[restart_from_stage_id - 1].short_name)
+        if not os.path.isfile(stage_filename):
             support.error(
                 "cannot restart from stage %s: previous stage was not complete." % options_storage.args.restart_from,
                 log)
@@ -413,6 +427,11 @@ def print_info_about_output_files(cfg, log, output_files):
 
     if "assembly" in cfg:
         check_and_report_output_file("result_contigs_filename", " * Assembled contigs are in ")
+
+        if options_storage.args.bio or options_storage.args.custom_hmms:
+            check_and_report_output_file("result_domain_graph_filename", " * Domain graph is in ")
+            check_and_report_output_file("result_gene_clusters_filename", " * Gene cluster sequences are in ")
+            check_and_report_output_file("result_bgc_stats_filename", " * BGC cluster statistics ")
 
         if options_storage.args.rna:
             check_and_report_output_file("result_transcripts_filename", " * Assembled transcripts are in ")
@@ -455,6 +474,9 @@ def get_output_files(cfg):
                                                                options_storage.transcripts_name)
     output_files["result_transcripts_paths_filename"] = os.path.join(cfg["common"].output_dir,
                                                                      options_storage.transcripts_paths)
+    output_files["result_bgc_stats_filename"] = os.path.join(cfg["common"].output_dir, options_storage.bgc_stats_name)
+    output_files["result_domain_graph_filename"] = os.path.join(cfg["common"].output_dir, options_storage.domain_graph_name)
+    output_files["result_gene_clusters_filename"] = os.path.join(cfg["common"].output_dir, options_storage.gene_clusters_name)
     output_files["truseq_long_reads_file_base"] = os.path.join(cfg["common"].output_dir, "truseq_long_reads")
     output_files["truseq_long_reads_file"] = output_files["truseq_long_reads_file_base"] + ".fasta"
     output_files["misc_dir"] = os.path.join(cfg["common"].output_dir, "misc")
@@ -492,6 +514,7 @@ def get_stage(iteration_name):
 
 def build_pipeline(pipeline, cfg, output_files, tmp_configs_dir, dataset_data, log, bin_home,
                    ext_python_modules_home, python_modules_home):
+    from stages import before_start_stage
     from stages import error_correction_stage
     from stages import spades_stage
     from stages import postprocessing_stage
@@ -501,6 +524,8 @@ def build_pipeline(pipeline, cfg, output_files, tmp_configs_dir, dataset_data, l
     from stages import preprocess_reads_stage
     from stages import terminating_stage
 
+    before_start_stage.add_to_pipeline(pipeline, cfg, output_files, tmp_configs_dir, dataset_data, log, bin_home,
+                                           ext_python_modules_home, python_modules_home)
     preprocess_reads_stage.add_to_pipeline(pipeline, cfg, output_files, tmp_configs_dir, dataset_data, log, bin_home,
                                            ext_python_modules_home, python_modules_home)
     error_correction_stage.add_to_pipeline(pipeline, cfg, output_files, tmp_configs_dir, dataset_data, log, bin_home,
@@ -536,8 +561,11 @@ def init_parser(args):
         command_line, options, script, err_msg = get_options_from_params(
             os.path.join(options_parser.get_output_dir_from_args(), "params.txt"),
             args[0])
+
+        if err_msg != "":
+            support.error(err_msg)
+
         options_storage.first_command_line = [script] + options
-    options_parser.create_parser()
 
 
 def main(args):

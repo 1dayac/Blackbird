@@ -16,6 +16,7 @@ import re
 import datetime
 import argparse
 import subprocess
+import functools
 from traceback import print_exc
 
 sys.path.append('./src/spades_pipeline/')
@@ -26,9 +27,16 @@ class Log:
 
     text = ""
 
+    def start_block(self, name, desc):
+        print("==== Step: '%s' ('%s')" % (name, desc))
+
+    def end_block(self, name, value):
+        pass
+
     def log(self, s):
-        self.text += s + "\n"    
+        self.text += s + "\n"
         print(s)
+        sys.stdout.flush()
 
     def warn(self, s):
         msg = "WARNING: " + s + "\n"
@@ -36,7 +44,7 @@ class Log:
         sys.stdout.write(msg)
         sys.stdout.flush()
 
-    def err(self, s):
+    def err(self, s, context = ""):
         msg = "ERROR: " + s + "\n"
         self.text += msg
         sys.stdout.write(msg)
@@ -48,7 +56,64 @@ class Log:
     def get_log(self):
         return self.text
 
-log = Log()
+    def record_metric(self, name, value):
+        pass
+
+_quote = {"'": "|'", "|": "||", "\n": "|n", "\r": "|r", '[': '|[', ']': '|]'}
+
+def escape_value(value):
+    return "".join(_quote.get(x, x) for x in value)
+
+class TeamCityLog:
+
+    text = ""
+
+    def _tc_out(self, token, **attributes):
+        message = "##teamcity[%s" % token
+
+        for k in sorted(attributes.keys()):
+            value = attributes[k]
+            if value is None:
+                continue
+
+            message += (" %s='%s'" % (k, escape_value(value)))
+
+        message += "]\n"
+        sys.stdout.write(message)
+        sys.stdout.flush()
+
+    def start_block(self, name, desc):
+        sys.stdout.flush()
+        self._tc_out("blockOpened", name = name, description = desc)
+
+    def end_block(self, name):
+        sys.stdout.flush()
+        self._tc_out("blockClosed", name = name)
+
+    def log(self, s):
+        self.text += s + "\n"
+        self._tc_out("message", text = s)
+
+    def warn(self, s):
+        msg = "WARNING: " + s + "\n"
+        self.text += msg
+        self._tc_out("message", text = s, status = 'WARNING')
+
+    def err(self, s, context = ""):
+        msg = "ERROR: " + s + "\n"
+        self.text += msg
+        self._tc_out("message", text = s, status = 'ERROR', errorDetails = context)
+
+    def print_log(self):
+        print(self.text)
+
+    def get_log(self):
+        return self.text
+
+    def record_metric(self, name, value):
+        self._tc_out("buildStatisticValue", key=name, value=value)
+
+log = TeamCityLog()
 
 ### Quality assessment ###
 
@@ -85,13 +150,12 @@ class MetricEntry:
             #E.g. reads aligned 100 (100%)
             p = re.search('\((.+)%\)', s).group(1)
             return float(p)
-            
+
 
 # Construct limit map for given metrics ---  list of triplets (config_name, report_name, should_be_higher_that_threshold)
 def construct_limit_map(dataset_info, prefix, metric_list, add_all_params = False):
     limit_map = {}
     params = map(lambda x: MetricEntry(prefix + x[0], x[1], x[2], x[3], x[4], x[5]), metric_list)
-
     if add_all_params or (prefix + 'assess' in dataset_info.__dict__ and dataset_info.__dict__[prefix + 'assess']):
         log.log("Assessing quality results...")
         for p in params:
@@ -118,6 +182,8 @@ def assess_map(result_map, limit_map):
         if metric in limit_map and len(limit_map[metric]) > 0:
             for entry in limit_map[metric]:
                 metric_value = int(result_map[metric]) if entry.is_int else result_map[metric]
+                log.record_metric(metric, str(metric_value))
+
                 if not entry.assess:
                     log.log(metric + " = " + str(metric_value))
                     continue
@@ -154,7 +220,6 @@ def parse_report(report, limit_map):
             columns.append(row[0].strip())
             values.append(row[1].strip())
     f.close()
-
     result_map = {}
     for metric in limit_map.keys():
         if metric in columns:
@@ -217,7 +282,7 @@ def run_reads_assessment(dataset_info, working_dir, output_dir):
 
 # Run QUAST for a set of contigs
 def run_quast(dataset_info, contigs, quast_output_dir, opts):
-    if not reduce(lambda x, y: os.path.exists(y) and x, contigs, True):
+    if not functools.reduce(lambda x, y: os.path.exists(y) and x, contigs, True):
         log.err("No contigs were found")
         return 8
 
@@ -264,6 +329,8 @@ def run_quast(dataset_info, contigs, quast_output_dir, opts):
 def construct_quast_limit_map(dataset_info, prefix, add_all_params = False):
 #                                       metric name,  QUAST name, higher than threshold, is int, relative delta, delta value
     return construct_limit_map(dataset_info, prefix, [
+                                        ('min_contig',      "# contigs",                True,   True, True, 0.1),
+                                        ('max_contig',      "# contigs",                False,  True, True, 0.1),
                                         ('min_n50',         "N50",                      True,   True, True, 0.1),
                                         ('max_n50',         "N50",                      False,  True, True, 0.1),
                                         ('min_ng50',        "NG50",                     True,   True, True, 0.1) ,
@@ -352,19 +419,19 @@ def quast_analysis(contigs, dataset_info, folder):
     return exit_code
 
 
-### Compare misassemblies 
+### Compare misassemblies
 
-def parse_alignment(s): 
+def parse_alignment(s):
     m = s.strip()
     if not m.startswith("Real Alignment"):
         return None
-    
+
     coords = m.split(':')[1]
     genome_c = coords.split('|')[0].strip().split(' ')
     genome_coords = (int(genome_c[0]), int(genome_c[1]))
     contig_c = coords.split('|')[1].strip().split(' ')
     contig_coords = (int(contig_c[0]), int(contig_c[1]))
-    
+
     return (genome_coords, contig_coords)
 
 
@@ -391,7 +458,7 @@ def parse_misassembly(m1, m2):
         return (pos1, pos2)
     else:
         return (pos2, pos1)
-  
+
 
 def find_mis_positions(contig_report):
     infile = open(contig_report)
@@ -422,7 +489,7 @@ def find_mis_positions(contig_report):
             prev_line = line2
             continue
         prev_line = line
-               
+
     infile.close()
     return coords
 
@@ -453,10 +520,10 @@ def cmp_misassemblies(quast_output_dir, old_ctgs, new_ctgs):
                 new_pos[k] = []
 
     old_mis = 0
-    for k, v in old_pos.items(): 
+    for k, v in old_pos.items():
         old_mis += len(v)
     new_mis = 0
-    for k, v in new_pos.items():   
+    for k, v in new_pos.items():
         new_mis += len(v)
 
     if new_mis == 0 and old_mis == 0:
@@ -485,7 +552,7 @@ def cmp_misassemblies(quast_output_dir, old_ctgs, new_ctgs):
                     log.log("      " + ctg)
         return False
 
-        
+
 # Run QUAST and compare misassemblies for given pair of contigs files
 def compare_misassemblies(contigs, dataset_info, contig_storage_dir, output_dir):
     exit_code = 0
@@ -496,7 +563,7 @@ def compare_misassemblies(contigs, dataset_info, contig_storage_dir, output_dir)
         for name, file_name, prefix, opts, ext in contigs:
             if ext != "fasta":
                 continue
-            fn = os.path.join(output_dir, file_name + "." + ext) 
+            fn = os.path.join(output_dir, file_name + "." + ext)
             if not os.path.exists(fn):
                 log.err('File for comparison is not found: ' + fn)
                 exit_code = 8
@@ -542,6 +609,8 @@ def load_info(dataset_path):
             info.__dict__["mode"] = "rna"
         elif 'plasmid' in info.__dict__ and info.plasmid:
             info.__dict__["mode"] = "plasmid"
+        elif 'bio' in info.__dict__ and info.bio:
+            info.__dict__["mode"] = "bio"
         else:
             info.__dict__["mode"] = "standard"
     return info
@@ -553,6 +622,9 @@ def get_contigs_list(args, dataset_info, before_rr = False):
     contigs.append(("scaffolds", "scaffolds", "sc", " -s ", "fasta"))
     contigs.append(("contigs_paths", "contigs", "", "", "paths"))
     contigs.append(("scaffolds_paths", "scaffolds", "", "", "paths"))
+
+    if dataset_info.mode == "bio":
+        contigs = [("gene_clusters", "gene_clusters", "bio", "", "fasta")]
 
     if dataset_info.mode == "tru":
         contigs = [("contigs", "truseq_long_reads", "", "", "fasta")]
@@ -641,8 +713,9 @@ def create_output_dir(args, dataset_info):
 
 # Compile SPAdes
 def compile_spades(args, dataset_info, working_dir):
+    log.log("Building SPAdes")
     if not args.cfg_compilation:
-        log.log("Forced to use current SPAdes build, will not compile SPAdes");
+        log.warn("Forced to use current SPAdes build, will not compile SPAdes");
     elif 'spades_compile' not in dataset_info.__dict__ or dataset_info.spades_compile:
         comp_params = ' '
         if 'compilation_params' in dataset_info.__dict__:
@@ -662,6 +735,7 @@ def compile_spades(args, dataset_info, working_dir):
 
         if err_code != 0:
             # Compile from the beginning if failed
+            log.warn("Incremental build failed, trying from scratch")
             shutil.rmtree('bin', True)
             shutil.rmtree('build_spades', True)
             return os.system('./spades_compile.sh ' + comp_params)
@@ -687,7 +761,7 @@ def make_spades_cmd(args, dataset_info, spades_dir, output_dir):
         spades_params.append(args.spades_cfg_dir)
 
     spades_exec = dataset_info.mode + "spades.py"
-    if dataset_info.mode in ['standard', 'tru']:
+    if dataset_info.mode in ['standard', 'tru', 'bio']:
         spades_exec = "spades.py"
     if "--only-assembler" not in spades_params:
         spades_exec += " --disable-gzip-output "
@@ -781,4 +855,3 @@ def save_quast_report(contigs, dataset_info, contig_storage_dir, output_dir, art
         os.chdir(quast_output_dir)
         os.system("zip -9r " + compressed_report + " * > /dev/null")
         os.chdir(working_dir)
-

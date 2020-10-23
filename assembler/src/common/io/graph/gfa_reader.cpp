@@ -9,7 +9,7 @@
 #include "assembly_graph/core/graph.hpp"
 #include "assembly_graph/core/construction_helper.hpp"
 
-#include "io/id_mapper.hpp"
+#include "io/utils/id_mapper.hpp"
 
 #include "gfa1/gfa.h"
 
@@ -34,6 +34,22 @@ bool GFAReader::open(const std::string &filename) {
 
 uint32_t GFAReader::num_edges() const { return gfa_->n_seg; }
 uint64_t GFAReader::num_links() const { return gfa_->n_arc; }
+
+unsigned GFAReader::k() const {
+    unsigned k = -1U;
+    for (size_t i = 0; i < gfa_->n_arc; ++i) {
+        gfa_arc_t *arc = gfa_->arc + i;
+        if (arc->ov != arc->ow || arc->ov < 0)
+            return -1U;
+
+        if (k == -1U)
+            k = unsigned(arc->ov);
+        else if (k != unsigned(arc->ov))
+            return -1U;
+    }
+
+    return k;
+}
 
 void GFAReader::to_graph(ConjugateDeBruijnGraph &g,
                          io::IdMapper<std::string> *id_mapper) {

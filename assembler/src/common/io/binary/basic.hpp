@@ -13,6 +13,9 @@ namespace io {
 
 namespace binary {
 
+/**
+ * @brief  This IOer processes the graph with its coverage index.
+ */
 template<typename Graph>
 class BasicGraphIO : public GraphIO<Graph> {
     typedef GraphIO<Graph> Base;
@@ -27,6 +30,19 @@ public:
         bool loaded = Base::Load(basename, graph);
         VERIFY(loaded);
         loaded = io::binary::Load(basename, graph.coverage_index());
+        VERIFY(loaded);
+        return true;
+    }
+
+    void BinWrite(std::ostream &os, const Graph &graph) override {
+        Base::BinWrite(os, graph);
+        io::binary::Write(os, graph.coverage_index());
+    }
+
+    bool BinRead(std::istream &is, Graph &graph) override {
+        bool loaded = Base::BinRead(is, graph);
+        VERIFY(loaded);
+        loaded = io::binary::Read(is, graph.coverage_index());
         VERIFY(loaded);
         return true;
     }

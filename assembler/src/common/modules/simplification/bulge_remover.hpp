@@ -5,13 +5,6 @@
 //* See file LICENSE for details.
 //***************************************************************************
 
-/*
- * bulge_remover.hpp
- *
- *  Created on: Apr 13, 2011
- *      Author: sergey
- */
-
 #pragma once
 
 #include "assembly_graph/graph_support/parallel_processing.hpp"
@@ -21,6 +14,7 @@
 #include "assembly_graph/graph_support/comparators.hpp"
 #include "assembly_graph/components/graph_component.hpp"
 #include "sequence/sequence_tools.hpp"
+#include "common/utils/bulge_utils.hpp"
 #include <cmath>
 #include <stack>
 #include <unordered_set>
@@ -114,7 +108,7 @@ template<class Graph>
 class BulgeGluer {
     typedef typename Graph::EdgeId EdgeId;
     typedef typename Graph::VertexId VertexId;
-    typedef std::function<void(EdgeId edge, const std::vector<EdgeId> &path)> BulgeCallbackF;
+    typedef std::function<bool(EdgeId edge, const std::vector<EdgeId>& path)> BulgeCallbackF;
     Graph& g_;
     BulgeCallbackF opt_callback_;
     std::function<void(EdgeId)> removal_handler_;
@@ -177,9 +171,10 @@ public:
 
     }
 
-    void operator()(EdgeId edge, const std::vector<EdgeId> &path) {
-        if (opt_callback_)
-            opt_callback_(edge, path);
+    void operator()(EdgeId edge, const std::vector<EdgeId>& path) {
+        if (opt_callback_ && opt_callback_(edge, path)) {
+                return;
+        }
 
         if (removal_handler_)
             removal_handler_(edge);
@@ -213,6 +208,7 @@ class AlternativesAnalyzer {
     double max_relative_delta_;
     size_t max_edge_cnt_;
     size_t dijkstra_vertex_limit_;
+    double min_identity_;
 
     static std::vector<EdgeId> EmptyPath() {
         return {};
@@ -227,11 +223,22 @@ class AlternativesAnalyzer {
                 g_.coverage(e)) && SimplePathCondition<Graph>(g_)(e, path);
     }
 
+    bool IdentityCondition(EdgeId e, const std::vector<EdgeId>& path) const {
+        if (math::eq(min_identity_, 0.0))
+            return true;
+
+        const Sequence &seq1 = g_.EdgeNucls(e);
+        Sequence seq2 = utils::GetSequenceByPath(g_, g_.k(), path);
+        double identity = std::max(0.0, 1 - utils::RelAlignmentOfSequences(seq1, seq2));
+        return math::ge(identity, min_identity_);
+    }
+
+
 public:
     AlternativesAnalyzer(const Graph& g, double max_coverage, size_t max_length,
                          double max_relative_coverage, size_t max_delta,
                          double max_relative_delta, size_t max_edge_cnt,
-                         size_t dijkstra_vertex_limit) :
+                         size_t dijkstra_vertex_limit, double min_identity) :
                          g_(g),
                          max_coverage_(max_coverage),
                          max_length_(max_length),
@@ -239,7 +246,8 @@ public:
                          max_delta_(max_delta),
                          max_relative_delta_(max_relative_delta),
                          max_edge_cnt_(max_edge_cnt),
-                         dijkstra_vertex_limit_(dijkstra_vertex_limit) {
+                         dijkstra_vertex_limit_(dijkstra_vertex_limit),
+                         min_identity_(min_identity) {
         DEBUG("Created alternatives analyzer max_length=" << max_length
         << " max_coverage=" << max_coverage
         << " max_relative_coverage=" << max_relative_coverage
@@ -279,7 +287,7 @@ public:
         if (math::gr(path_coverage, 0.)) {
             TRACE("Best path with coverage " << path_coverage << " is " << PrintPath(g_, path));
 
-            if (BulgeCondition(e, path, path_coverage)) {
+            if (BulgeCondition(e, path, path_coverage) && IdentityCondition(e, path)) {
                 TRACE("Satisfied condition");
                 return path;
             } else {
@@ -363,7 +371,7 @@ protected:
 
 public:
 
-    typedef std::function<void(EdgeId edge, const std::vector<EdgeId> &path)> BulgeCallbackF;
+    typedef std::function<bool(EdgeId edge, const std::vector<EdgeId> &path)> BulgeCallbackF;
 
     BulgeRemover(Graph& g, size_t chunk_cnt,
             const AlternativesAnalyzer<Graph>& alternatives_analyzer,
@@ -394,7 +402,8 @@ private:
     typedef typename Graph::VertexId VertexId;
     typedef InterestingFinderPtr<Graph, EdgeId> CandidateFinderPtr;
     typedef SmartSetIterator<Graph, EdgeId, CoverageComparator<Graph>> SmartEdgeSet;
-
+    typedef phmap::flat_hash_set<EdgeId> EdgeSet;
+    
     size_t buff_size_;
     double buff_cov_diff_;
     double buff_cov_rel_diff_;
@@ -462,7 +471,7 @@ private:
         return smart_set;
     }
 
-    bool CheckInteracting(const BulgeInfo &info, const std::unordered_set<EdgeId> &involved_edges) const {
+    bool CheckInteracting(const BulgeInfo &info, const EdgeSet &involved_edges) const {
         if (involved_edges.count(info.e))
             return true;
         for (EdgeId e : info.alternative)
@@ -471,7 +480,7 @@ private:
         return false;
     }
 
-    void AccountEdge(EdgeId e, std::unordered_set<EdgeId>& involved_edges) const {
+    void AccountEdge(EdgeId e, EdgeSet& involved_edges) const {
         TRACE("Pushing edge " << this->g().str(e));
         involved_edges.insert(e);
         EdgeId conj = this->g().conjugate(e);
@@ -479,7 +488,7 @@ private:
         involved_edges.insert(conj);
     }
 
-    void AccountEdges(const BulgeInfo& info, std::unordered_set<EdgeId>& involved_edges) const {
+    void AccountEdges(const BulgeInfo& info, EdgeSet& involved_edges) const {
         AccountEdge(info.e, involved_edges);
         for (EdgeId e : info.alternative) {
             AccountEdge(e, involved_edges);
@@ -574,7 +583,7 @@ private:
         std::vector<BulgeInfo> filtered;
         filtered.reserve(bulges.size());
         //fixme switch to involved vertices to bring fully parallel glueing closer
-        std::unordered_set<EdgeId> involved_edges;
+        EdgeSet involved_edges;
         SmartEdgeSet interacting_edges(this->g(), false, CoverageComparator<Graph>(this->g()));
 
         for (BulgeInfo& info : bulges) {
@@ -636,7 +645,7 @@ private:
 
 public:
 
-    typedef std::function<void(EdgeId edge, const std::vector<EdgeId> &path)> BulgeCallbackF;
+    typedef std::function<bool(EdgeId edge, const std::vector<EdgeId>& path)> BulgeCallbackF;
 
     ParallelBulgeRemover(Graph& g,
                          size_t chunk_cnt,

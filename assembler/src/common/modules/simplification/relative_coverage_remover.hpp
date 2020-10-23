@@ -254,7 +254,7 @@ public:
         DEBUG("Max local coverage outgoing  - " << rel_helper_.MaxLocalCoverage(this->g().OutgoingEdges(v), v));
         return rel_helper_.AnyHighlyCoveredOnBothSides(v, coverage_edge_around_v) &&
                 HighCoverageComponentFinder<Graph>(this->g(), this->g().coverage(e) * diff_mult_, min_neighbourhood_size_)
-                       .EdgeSummaryLength(v) >= min_neighbourhood_size_;
+                       .CumulativeEdgeLength(v) >= min_neighbourhood_size_;
     }
 
 private:
@@ -320,23 +320,25 @@ class LongestPathFinder {
     }
 
 public:
+    static constexpr size_t NOT_FOUND = size_t(-1);
+
     LongestPathFinder(const Component<Graph>& component)
             : component_(component), g_(component.g()), cycle_detected_(false) {
     }
 
-    //-1u if component contains a cycle or no path between terminating vertices
+    // NOT_FOUND if component contains a cycle or no path between terminating vertices
     size_t Find() {
         int answer = 0;
         for (VertexId v : component_.terminating_vertices()) {
             ProcessVertex(v);
             if (cycle_detected_)
-                return -1u;
+                return NOT_FOUND;
             VERIFY(max_distance_.count(v) > 0);
             answer = std::max(answer, utils::get(max_distance_, v));
         }
         VERIFY(answer >= 0);
         if (answer == 0)
-            return -1u;
+            return NOT_FOUND;
         return size_t(answer);
     }
 };
@@ -388,8 +390,10 @@ public:
 
     bool FullCheck(const Component<Graph>& component) const {
         TRACE("Performing full check of the component");
-        size_t longest_connecting_path = LongestPathFinder<Graph>(component).Find();
-        if (longest_connecting_path != -1u) {
+        using PathFinder = LongestPathFinder<Graph>;
+
+        size_t longest_connecting_path = PathFinder(component).Find();
+        if (longest_connecting_path != PathFinder::NOT_FOUND) {
             if (longest_connecting_path >= longest_connecting_path_bound_) {
                 TRACE("Length of longest path: " << longest_connecting_path << "; threshold: "
                                                  << longest_connecting_path_bound_);
@@ -654,7 +658,7 @@ public:
             double max_coverage = std::numeric_limits<double>::max(),
             HandlerF handler_function = nullptr, size_t vertex_count_limit = 10,
             std::string vis_dir = "")
-            : base(g, nullptr, /*canonical only*/ false, 
+            : base(g, nullptr, /*canonical only*/ false,
                     CoverageComparator<Graph>(g), /*track changes*/ false),
               finder_(g, flanking_cov,
                       min_coverage_gap, length_bound,

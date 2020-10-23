@@ -8,6 +8,7 @@
 #pragma once
 
 #include "adt/queue_iterator.hpp"
+#include "adt/iterator_range.hpp"
 #include "func/pred.hpp"
 #include "action_handlers.hpp"
 #include "utils/stl_utils.hpp"
@@ -26,11 +27,16 @@ public:
               container_(c) {}
 
     void HandleDelete(Element e) override {
-        container_.erase(e);
+        container_.get().erase(e);
     }
 
-  private:
-    Container &container_;
+protected:
+    void reset(Container &c) {
+        container_ = c;
+    }
+
+private:
+    std::reference_wrapper<Container> container_;
 };
 
 template<class Container, class Graph>
@@ -49,6 +55,19 @@ public:
     SmartContainer(const Graph &g, Args&&... args)
             : container(std::forward<Args>(args)...),
               wrapper_(g, *this) {}
+
+    SmartContainer& operator=(SmartContainer &&other) {
+        if (other == this)
+            return *this;
+
+        Container::operator=(other);
+        wrapper_.reset(*this);
+    }
+
+    SmartContainer(SmartContainer &&other)
+            : Container(other),
+              wrapper_(other.wrapper_.g(), *this) {}
+
 private:
     wrapper wrapper_;
 };
@@ -120,7 +139,7 @@ private:
 };
 
 template<class Container, class Graph>
-SmartEdgeSetWrapper<Container, Graph> make_smart_edge_set(const Graph &g, Container &c) {
+SmartEdgeSetWrapper<Container, Graph> make_smart_edge_set_wrapper(const Graph &g, Container &c) {
     return SmartEdgeSetWrapper<Container, Graph>(g, c);
 }
 
@@ -136,6 +155,18 @@ public:
             : container(std::forward<Args>(args)...),
               wrapper_(graph, *this) {}
 
+    SmartEdgeSet& operator=(SmartEdgeSet &&other) {
+        if (other == this)
+            return *this;
+
+        SetContainer::operator=(other);
+        wrapper_.reset(*this);
+    }
+
+    SmartEdgeSet(SmartEdgeSet &&other)
+            : SetContainer(other),
+              wrapper_(other.wrapper_.g(), *this) {}
+
 private:
     wrapper wrapper_;
 
@@ -143,19 +174,19 @@ private:
 };
 
 template<class Container, class Graph, typename... Args>
-SmartEdgeSet<Container, Graph> make_smart_edge_set(const Graph &g, Args&&... args) {
-    return SmartEdgeSet<Container, Graph>(g, std::forward<Args>(args)...);
+SmartEdgeSet<Container, Graph> make_smart_edge_set(const Graph &g, Container &c, Args&&... args) {
+    return SmartEdgeSet<Container, Graph>(g, c, std::forward<Args>(args)...);
 }
 
 /**
  * SmartIterator is able to iterate through collection content of which can be changed in process of
  * iteration. And as GraphActionHandler SmartIterator can change collection contents with respect to the
- * way graph is changed. Also one can define order of iteration by specifying Comparator.
+ * way graph is changed. Also one can define order of iteration by specifying Priority.
  */
-template<class Graph, typename ElementId, typename Comparator = std::less<ElementId>>
+template<class Graph, typename ElementId, typename Priority = adt::identity>
 class SmartIterator : public GraphActionHandler<Graph> {
     typedef GraphActionHandler<Graph> base;
-    typedef adt::DynamicQueueIterator<ElementId, Comparator> DynamicQueueIterator;
+    typedef adt::DynamicQueueIteratorKey<ElementId, Priority> DynamicQueueIterator;
     DynamicQueueIterator inner_it_;
     bool add_new_;
     bool canonical_only_;
@@ -189,10 +220,10 @@ protected:
     }
 
     SmartIterator(const Graph &g, const std::string &name, bool add_new,
-                  const Comparator& comparator, bool canonical_only,
+                  const Priority& priority, bool canonical_only,
                   func::TypedPredicate<ElementId> add_condition = func::AlwaysTrue<ElementId>())
             : base(g, name),
-              inner_it_(comparator),
+              inner_it_(priority),
               add_new_(add_new),
               canonical_only_(canonical_only),
               add_condition_(add_condition) {
@@ -240,29 +271,29 @@ public:
  * SmartIterator is abstract class which acts both as QueueIterator and GraphActionHandler. As QueueIterator
  * SmartIterator is able to iterate through collection content of which can be changed in process of
  * iteration. And as GraphActionHandler SmartIterator can change collection contents with respect to the
- * way graph is changed. Also one can define order of iteration by specifying Comparator.
+ * way graph is changed. Also one can define order of iteration by specifying Priority.
  */
 template<class Graph, typename ElementId,
-         typename Comparator = std::less<ElementId>>
-class SmartSetIterator : public SmartIterator<Graph, ElementId, Comparator> {
-    typedef SmartIterator<Graph, ElementId, Comparator> base;
+         typename Priority = adt::identity>
+class SmartSetIterator : public SmartIterator<Graph, ElementId, Priority> {
+    typedef SmartIterator<Graph, ElementId, Priority> base;
 
 public:
     SmartSetIterator(const Graph &g,
                      bool add_new = false,
-                     const Comparator& comparator = Comparator(),
+                     const Priority& priority = Priority(),
                      bool canonical_only = false,
                      func::TypedPredicate<ElementId> add_condition = func::AlwaysTrue<ElementId>())
-            : base(g, "SmartSet", add_new, comparator, canonical_only, add_condition) {
+            : base(g, "SmartSet", add_new, priority, canonical_only, add_condition) {
     }
 
     template<class Iterator>
     SmartSetIterator(const Graph &g, Iterator begin, Iterator end,
                      bool add_new = false,
-                     const Comparator& comparator = Comparator(),
+                     const Priority& priority = Priority(),
                      bool canonical_only = false,
                      func::TypedPredicate<ElementId> add_condition = func::AlwaysTrue<ElementId>())
-            : SmartSetIterator(g, add_new, comparator, canonical_only, add_condition) {
+            : SmartSetIterator(g, add_new, priority, canonical_only, add_condition) {
         insert(begin, end);
     }
 
@@ -283,13 +314,13 @@ public:
 /**
  * SmartVertexIterator iterates through vertices of graph. It listens to AddVertex/DeleteVertex graph events
  * and correspondingly edits the set of vertices to iterate through. Note: high level event handlers are
- * triggered before low level event handlers like H>andleAdd/HandleDelete. Thus if Comparator uses certain
+ * triggered before low level event handlers like H>andleAdd/HandleDelete. Thus if Priority uses certain
  * structure which is also updated with handlers make sure that all information is updated in high level
  * event handlers.
  */
-template<class Graph, typename Comparator = std::less<typename Graph::VertexId> >
+template<class Graph, typename Priority = adt::identity >
 class SmartVertexIterator : public SmartIterator<Graph,
-                                                 typename Graph::VertexId, Comparator> {
+                                                 typename Graph::VertexId, Priority> {
   public:
     typedef typename Graph::VertexId VertexId;
 
@@ -299,11 +330,11 @@ class SmartVertexIterator : public SmartIterator<Graph,
     }
 
   public:
-    SmartVertexIterator(const Graph &g, const Comparator& comparator =
-                        Comparator(), bool canonical_only = false)
-            : SmartIterator<Graph, VertexId, Comparator>(
+    SmartVertexIterator(const Graph &g, const Priority& priority =
+                        Priority(), bool canonical_only = false)
+            : SmartIterator<Graph, VertexId, Priority>(
                 g, "SmartVertexIterator " + std::to_string(get_id()), true,
-                comparator, canonical_only) {
+                priority, canonical_only) {
         this->insert(g.begin(), g.end());
     }
 
@@ -408,12 +439,12 @@ class ConstEdgeIterator {
 /**
  * SmartEdgeIterator iterates through edges of graph. It listens to AddEdge/DeleteEdge graph events
  * and correspondingly edits the set of edges to iterate through. Note: high level event handlers are
- * triggered before low level event handlers like HandleAdd/HandleDelete. Thus if Comparator uses certain
+ * triggered before low level event handlers like HandleAdd/HandleDelete. Thus if Priority uses certain
  * structure which is also updated with handlers make sure that all information is updated in high level
  * event handlers.
  */
-template<class Graph, typename Comparator = std::less<typename Graph::EdgeId> >
-class SmartEdgeIterator : public SmartIterator<Graph, typename Graph::EdgeId, Comparator> {
+template<class Graph, typename Priority = adt::identity>
+class SmartEdgeIterator : public SmartIterator<Graph, typename Graph::EdgeId, Priority> {
     typedef GraphEdgeIterator<Graph> EdgeIt;
   public:
     typedef typename Graph::EdgeId EdgeId;
@@ -424,11 +455,11 @@ class SmartEdgeIterator : public SmartIterator<Graph, typename Graph::EdgeId, Co
     }
 
   public:
-    SmartEdgeIterator(const Graph &g, Comparator comparator = Comparator(),
+    SmartEdgeIterator(const Graph &g, Priority priority = Priority(),
                       bool canonical_only = false)
-            : SmartIterator<Graph, EdgeId, Comparator>(
+            : SmartIterator<Graph, EdgeId, Priority>(
                 g, "SmartEdgeIterator " + std::to_string(get_id()), true,
-                comparator, canonical_only) {
+                priority, canonical_only) {
         this->insert(EdgeIt(g, g.begin()), EdgeIt(g, g.end()));
 
 //        for (auto it = graph.begin(); it != graph.end(); ++it) {
@@ -452,18 +483,13 @@ class IterationHelper<Graph, typename Graph::VertexId> {
 public:
     typedef typename Graph::VertexId VertexId;
     typedef typename Graph::VertexIt const_vertex_iterator;
+    typedef typename adt::iterator_range<const_vertex_iterator> VertexRange;
 
     IterationHelper(const Graph& g)
-            : g_(g) {
-    }
+            : g_(g) {}
 
-    const_vertex_iterator begin() const {
-        return g_.begin();
-    }
-
-    const_vertex_iterator end() const {
-        return g_.end();
-    }
+    const_vertex_iterator begin() const { return g_.begin(); }
+    const_vertex_iterator end() const { return g_.end(); }
 
     std::vector<const_vertex_iterator> Chunks(size_t chunk_cnt) const {
         VERIFY(chunk_cnt > 0);
@@ -497,6 +523,15 @@ public:
         return answer;
     }
 
+    std::vector<VertexRange> Ranges(size_t chunk_num) const {
+        auto its = Chunks(chunk_num);
+
+        std::vector<VertexRange> ranges;
+        for (size_t i = 0; i < its.size() - 1; ++i)
+            ranges.emplace_back(its[i], its[i+1]);
+
+        return ranges;
+    }    
 };
 
 //todo move out
@@ -508,30 +543,33 @@ class IterationHelper<Graph, typename Graph::EdgeId> {
 public:
     typedef typename Graph::EdgeId EdgeId;
     typedef GraphEdgeIterator<Graph> const_edge_iterator;
+    typedef adt::iterator_range<const_edge_iterator> EdgeRange;
 
     IterationHelper(const Graph& g)
-            : g_(g) {
-    }
-
-    const_edge_iterator begin() const {
-        return const_edge_iterator(g_, g_.begin());
-    }
-
-    const_edge_iterator end() const {
-        return const_edge_iterator(g_, g_.end());
-    }
+            : g_(g) {}
+    
+    const_edge_iterator begin() const { return const_edge_iterator(g_, g_.begin()); }
+    const_edge_iterator end() const { return const_edge_iterator(g_, g_.end()); }
 
     std::vector<omnigraph::GraphEdgeIterator<Graph>> Chunks(size_t chunk_cnt) const {
-        if (chunk_cnt == 1) {
+        if (chunk_cnt == 1)
             return {begin(), end()};
-        }
 
         std::vector<omnigraph::GraphEdgeIterator<Graph>> answer;
-
         for (auto v_it : IterationHelper<Graph, VertexId>(g_).Chunks(chunk_cnt)) {
             answer.push_back(omnigraph::GraphEdgeIterator<Graph>(g_, v_it));
         }
         return answer;
+    }
+
+    std::vector<EdgeRange> Ranges(size_t chunk_num) const {
+        auto its = Chunks(chunk_num);
+
+        std::vector<EdgeRange> ranges;
+        for (size_t i = 0; i < its.size() - 1; ++i)
+            ranges.emplace_back(its[i], its[i+1]);
+
+        return ranges;
     }
 };
 

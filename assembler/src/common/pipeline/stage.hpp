@@ -9,6 +9,10 @@
 #define __STAGE_HPP__
 
 #include "pipeline/graph_pack.hpp"
+#include "pipeline/config_struct.hpp"
+
+#include "utils/filesystem/path_helper.hpp"
+#include "utils/logger/logger.hpp"
 
 #include <vector>
 #include <memory>
@@ -29,10 +33,11 @@ public:
     const char *name() const { return name_; }
     const char *id() const { return id_; }
 
-    virtual void load(debruijn_graph::conj_graph_pack &, const std::string &load_from, const char *prefix = nullptr);
-    virtual void save(const debruijn_graph::conj_graph_pack &, const std::string &save_to,
+    virtual void load(debruijn_graph::GraphPack &, const std::string &load_from, const char *prefix = nullptr);
+    virtual void save(const debruijn_graph::GraphPack &, const std::string &save_to,
                       const char *prefix = nullptr) const;
-    virtual void run(debruijn_graph::conj_graph_pack &, const char *started_from = nullptr) = 0;
+    void prepare(debruijn_graph::GraphPack &, const char *stage_name, const char *started_from = nullptr);
+    virtual void run(debruijn_graph::GraphPack &, const char *started_from = nullptr) = 0;
 
 private:
     const char *name_;
@@ -75,9 +80,9 @@ public:
         return *this;
     }
 
-    virtual void init(debruijn_graph::conj_graph_pack &, const char * = nullptr) = 0;
-    virtual void fini(debruijn_graph::conj_graph_pack &) = 0;
-    void run(debruijn_graph::conj_graph_pack &gp, const char * = nullptr);
+    virtual void init(debruijn_graph::GraphPack &, const char * = nullptr) = 0;
+    virtual void fini(debruijn_graph::GraphPack &) = 0;
+    void run(debruijn_graph::GraphPack &gp, const char * = nullptr);
 
 private:
     std::vector<std::unique_ptr<PhaseBase> > phases_;
@@ -101,8 +106,8 @@ public:
     CompositeStageWithStorage(const char *name, const char *id)
             : CompositeStageBase(name, id) { }
 
-    void init(debruijn_graph::conj_graph_pack &, const char * = nullptr) override {};
-    void fini(debruijn_graph::conj_graph_pack &) override {};
+    void init(debruijn_graph::GraphPack &, const char * = nullptr) override {};
+    void fini(debruijn_graph::GraphPack &) override {};
 
     virtual Storage &storage() = 0;
     virtual const Storage &storage() const = 0;
@@ -149,18 +154,21 @@ private:
 
 class SavesPolicy {
 public:
-    typedef debruijn_graph::config::Checkpoints Checkpoints;
+    using Checkpoints = debruijn_graph::config::Checkpoints;
 
     SavesPolicy()
             : checkpoints_(Checkpoints::None), saves_path_("") {
     }
 
-    SavesPolicy(Checkpoints checkpoints, const std::string &saves_path)
+    SavesPolicy(Checkpoints checkpoints,
+                const std::string &saves_path, const std::string &load_path = "")
             : checkpoints_(checkpoints), saves_path_(saves_path) {
+        load_path_ = (load_path == "" ? saves_path_ : load_path);
     }
 
     Checkpoints EnabledCheckpoints() const { return checkpoints_; }
     const std::string & SavesPath() const { return saves_path_; }
+    const std::string & LoadPath() const { return load_path_; }
 
     std::string GetLastCheckpoint() const {
         std::string res;
@@ -177,6 +185,7 @@ private:
 
     Checkpoints checkpoints_;
     std::string saves_path_;
+    std::string load_path_;
 };
 
 class StageManager {
@@ -199,7 +208,7 @@ public:
         return *this;
     }
 
-    void run(debruijn_graph::conj_graph_pack &g,
+    void run(debruijn_graph::GraphPack &g,
              const char *start_from = nullptr);
 
     const SavesPolicy &saves_policy() const {

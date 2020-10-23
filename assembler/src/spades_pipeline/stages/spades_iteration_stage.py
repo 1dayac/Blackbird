@@ -19,14 +19,16 @@ from process_cfg import bool_to_str
 
 
 # FIXME double with scaffold correction stage
-def add_configs(command, configs_dir):
+def add_configs(command, configs_dir, cfg):
     # Order matters here!
-    mode_config_mapping = [("single_cell", "mda_mode"),
+    mode_config_mapping = [("isolate", "isolate_mode"),
+                           ("single_cell", "mda_mode"),
                            ("meta", "meta_mode"),
                            ("truseq_mode", "moleculo_mode"),
                            ("rna", "rna_mode"),
                            ("large_genome", "large_genome_mode"),
-                           ("plasmid", "plasmid_mode")]
+                           ("plasmid", "plasmid_mode"),
+                           ("rnaviral", "rnaviral_mode")]
     # ("careful", "careful_mode"),
     for (mode, config) in mode_config_mapping:
         if options_storage.args.__dict__[mode]:
@@ -38,6 +40,8 @@ def add_configs(command, configs_dir):
             command.append(os.path.join(configs_dir, "careful_mda_mode.info"))
         else:
             command.append(os.path.join(configs_dir, "careful_mode.info"))
+    if "set_of_hmms" in cfg.__dict__:
+            command.append(os.path.join(configs_dir, "hmm_mode.info"))
 
 
 def prepare_config_spades(filename, cfg, log, additional_contigs_fname, K, stage, saves_dir, last_one, execution_home):
@@ -57,9 +61,10 @@ def prepare_config_spades(filename, cfg, log, additional_contigs_fname, K, stage
     if "checkpoints" in cfg.__dict__:
         subst_dict["checkpoints"] = cfg.checkpoints
     subst_dict["developer_mode"] = bool_to_str(cfg.developer_mode)
+    subst_dict["time_tracer_enabled"] = bool_to_str(cfg.time_tracer)
     subst_dict["gap_closer_enable"] = bool_to_str(last_one or K >= options_storage.GAP_CLOSER_ENABLE_MIN_K)
     subst_dict["rr_enable"] = bool_to_str(last_one and cfg.rr_enable)
-    #    subst_dict["topology_simplif_enabled"] = bool_to_str(last_one)
+#    subst_dict["topology_simplif_enabled"] = bool_to_str(last_one)
     subst_dict["max_threads"] = cfg.max_threads
     subst_dict["max_memory"] = cfg.max_memory
     subst_dict["save_gp"] = bool_to_str(cfg.save_gp)
@@ -95,6 +100,14 @@ def prepare_config_rnaspades(filename, log):
     subst_dict["antisense"] = bool_to_str(options_storage.args.strand_specificity == "rf")
     process_cfg.substitute_params(filename, subst_dict, log)
 
+def prepare_config_bgcspades(filename, cfg, log):
+    if not "set_of_hmms" in cfg.__dict__:
+        return
+    subst_dict = dict()
+    subst_dict["set_of_hmms"] = cfg.set_of_hmms
+    subst_dict["component_size_part"] = 1 if options_storage.args.bio else 2
+    subst_dict["start_only_from_tips"] = bool_to_str(True) if options_storage.args.bio else bool_to_str(False)
+    process_cfg.substitute_params(filename, subst_dict, log)
 
 def prepare_config_construction(filename, log):
     if options_storage.args.read_cov_threshold is None:
@@ -127,9 +140,9 @@ class IterationStage(stage.Stage):
             dir_util.copy_tree(os.path.join(self.tmp_configs_dir, "debruijn"), dst_configs, preserve_times=False)
 
         if self.prev_K:
-            additional_contigs_fname = os.path.join(cfg.output_dir, "K%d" % self.prev_K, "simplified_contigs.fasta")
+            additional_contigs_dname = os.path.join(cfg.output_dir, "K%d" % self.prev_K, "simplified_contigs")
         else:
-            additional_contigs_fname = None
+            additional_contigs_dname = None
 
         if "read_buffer_size" in cfg.__dict__:
             # FIXME why here???
@@ -141,9 +154,10 @@ class IterationStage(stage.Stage):
                                           {"scaffolding_mode": cfg.scaffolding_mode}, self.log)
 
         prepare_config_rnaspades(os.path.join(dst_configs, "rna_mode.info"), self.log)
+        prepare_config_bgcspades(os.path.join(dst_configs, "hmm_mode.info"), cfg, self.log)
         prepare_config_construction(os.path.join(dst_configs, "construction.info"), self.log)
         cfg_fn = os.path.join(dst_configs, "config.info")
-        prepare_config_spades(cfg_fn, cfg, self.log, additional_contigs_fname, self.K, self.get_stage(self.short_name),
+        prepare_config_spades(cfg_fn, cfg, self.log, additional_contigs_dname, self.K, self.get_stage(self.short_name),
                               saves_dir, self.last_one, self.bin_home)
 
     def get_command(self, cfg):
@@ -151,7 +165,7 @@ class IterationStage(stage.Stage):
         dst_configs = os.path.join(data_dir, "configs")
         cfg_fn = os.path.join(dst_configs, "config.info")
         args = [cfg_fn]
-        add_configs(args, dst_configs)
+        add_configs(args, dst_configs, cfg)
 
         command = [commands_parser.Command(
             STAGE="K%d" % self.K,

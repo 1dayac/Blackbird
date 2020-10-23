@@ -96,7 +96,7 @@ void load(pe_config::ParamSetT::ScaffolderOptionsT& so,
     load(so.enabled, pt, "enabled"      , complete);
     load(so.cutoff      , pt, "cutoff", complete);
     load(so.hard_cutoff      , pt, "hard_cutoff", complete);
-    load(so.rel_cutoff      , pt, "rel_cutoff", complete);
+    load(so.rel_cov_cutoff      , pt, "rel_cov_cutoff", complete);
     load(so.sum_threshold      , pt, "sum_threshold", complete);
 
     load(so.cluster_info      , pt, "cluster_info", complete);
@@ -164,8 +164,10 @@ void load(pe_config::ParamSetT::SimpleCoverageResolver& scr,
 {
     using config_common::load;
     load(scr.enabled      , pt, "enabled"      , complete);
-    load(scr.coverage_delta      , pt, "coverage_delta"      , complete);
+    load(scr.coverage_margin      , pt, "coverage_margin"      , complete);
     load(scr.min_upper_coverage      , pt, "min_upper_coverage"      , complete);
+    load(scr.max_coverage_variation      , pt, "max_coverage_variation"      , complete);
+
 }
 
 void load(pe_config::ParamSetT& p, boost::property_tree::ptree const& pt, bool complete) {
@@ -241,6 +243,7 @@ void load(pe_config::AllLongReads& p, boost::property_tree::ptree const& pt,
     load(p.single_reads, pt, "single_reads", complete);
     load(p.contigs, pt, "contigs", complete);
     load(p.meta_contigs, pt, "meta_untrusted_contigs", complete);
+    load(p.rna_long_reads, pt, "rna_long_reads", complete);
 }
 
 void load(pe_config::MainPEParamsT& p, boost::property_tree::ptree const& pt,

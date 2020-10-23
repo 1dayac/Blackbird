@@ -7,7 +7,7 @@
 #pragma once
 
 #include "io/reads/header_naming.hpp"
-#include "io/id_mapper.hpp"
+#include "id_mapper.hpp"
 #include "utils/verify.hpp"
 #include "utils/logger/logger.hpp"
 
@@ -35,8 +35,8 @@ EdgeNamingF<Graph> BasicNamingF(const std::string &prefix = "EDGE") {
 }
 
 template<class Graph>
-std::string ErrorNamingF(const Graph&, typename Graph::EdgeId e) {
-    FATAL_ERROR("Unknown edge: " << e);
+std::string ErrorNamingF(const Graph& g, typename Graph::EdgeId e) {
+    FATAL_ERROR("Unknown edge: " << g.int_id(e));
     return "";
 }
 
@@ -45,7 +45,7 @@ EdgeNamingF<Graph> MapNamingF(const io::IdMapper<std::string> &id_mapper,
                               EdgeNamingF<Graph> fallback = ErrorNamingF<Graph>) {
     using EdgeId = typename Graph::EdgeId;
     return [&id_mapper, fallback](const Graph &g, EdgeId e) {
-        if (!id_mapper.count(e.int_id()))
+        if (!id_mapper.count(g.int_id(e)))
             return fallback(g, e);
         return id_mapper[g.int_id(e)];
     };

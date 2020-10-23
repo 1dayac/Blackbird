@@ -5,27 +5,8 @@
 //* See file LICENSE for details.
 //***************************************************************************
 
-/**
- * @file    filtering_reader_wrapper.hpp
- * @author  Sergey Nurk
- * @version 1.0
- *
- * @section LICENSE
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of
- * the License, or (at your option) any later version.
- *
- * @section DESCRIPTION
- *
- * FilteringReaderWrapper is the class-wrapper that gets only valid
- * reads. 
- */
-
 #pragma once
 
-#include <boost/optional.hpp>
 #include "delegating_reader_wrapper.hpp"
 #include "read_stream_vector.hpp"
 
@@ -48,9 +29,9 @@ public:
    *
    * @param reader Reference to any other reader (child of IReader).
    */
-    explicit FilteringReaderWrapper(typename base::ReadStreamPtrT reader_ptr,
+    explicit FilteringReaderWrapper(typename base::ReadStreamT reader_ptr,
                                     FilterF filter = VALIDITY_FILTER) :
-            base(reader_ptr), filter_f_(filter), eof_(false) {
+            base(std::move(reader_ptr)), filter_f_(filter), eof_(false) {
         StepForward();
     }
 
@@ -60,7 +41,7 @@ public:
    * @return true if the end of stream is reached and false
    * otherwise.
    */
-    bool eof() override {
+    bool eof() {
         return eof_;
     }
 
@@ -72,7 +53,7 @@ public:
    *
    * @return Reference to this stream.
    */
-    FilteringReaderWrapper& operator>>(ReadType& read) override {
+    FilteringReaderWrapper& operator>>(ReadType& read) {
         read = next_read_;
         StepForward();
         return *this;
@@ -81,14 +62,13 @@ public:
     /*
      * Close the stream and open it again.
      */
-    void reset() override {
+    void reset() {
         base::reset();
         eof_ = false;
         StepForward();
     }
 
 private:
-
     FilterF filter_f_;
 
   /*
@@ -113,14 +93,13 @@ private:
         }
         eof_ = true;
     }
-
 };
 
 template<class ReadType>
-std::shared_ptr<ReadStream<ReadType>> FilteringWrap(std::shared_ptr<ReadStream<ReadType>> reader_ptr,
-                                                    typename FilteringReaderWrapper<ReadType>::FilterF filter =
-                                                            FilteringReaderWrapper<ReadType>::VALIDITY_FILTER) {
-    return std::make_shared<FilteringReaderWrapper<ReadType>>(reader_ptr, filter);
+ReadStream<ReadType> FilteringWrap(ReadStream<ReadType> reader_ptr,
+                                   typename FilteringReaderWrapper<ReadType>::FilterF filter =
+                                   FilteringReaderWrapper<ReadType>::VALIDITY_FILTER) {
+    return FilteringReaderWrapper<ReadType>(std::move(reader_ptr), filter);
 }
 
 template<class ReadType>

@@ -43,6 +43,8 @@ scaffold_correction_mode false
 
 ; enabled (1) or disabled (0) repeat resolution (former "paired_mode")
 rr_enable true
+; 0 for graph N50
+min_edge_length_for_is_count 0
 
 ;preserve raw paired index after distance estimation
 preserve_raw_paired_index false
@@ -151,6 +153,7 @@ pacbio_processor
     max_vertex_in_dijkstra 2000
 ;gap_closer
     long_seq_limit 400
+    enable_gap_closing true
     pacbio_min_gap_quantity 2
     contigs_min_gap_quantity 1
     max_contigs_gap_length 10000
@@ -174,3 +177,17 @@ bwa_aligner
 flanking_range 55
 series_analysis ""
 save_gp false
+
+ss_coverage_splitter {
+    enabled           false
+    bin_size          50
+    min_edge_len      200
+    min_edge_coverage 5
+    min_flanking_coverage 2
+    coverage_margin   5
+}
+
+time_tracer {
+  time_tracer_enabled true
+  granularity 500
+}

@@ -1,32 +1,37 @@
 #!/usr/bin/env awk -f
 
 BEGIN {
-  sym_prefix = "_"
+  sym_prefix = ""
   split("\
-        _je_aligned_alloc \
-        _je_calloc \
-        _je_dallocx \
-        _je_free \
-        _je_mallctl \
-        _je_mallctlbymib \
-        _je_mallctlnametomib \
-        _je_malloc \
-        _je_malloc_conf \
-        _je_malloc_message \
-        _je_malloc_stats_print \
-        _je_malloc_usable_size \
-        _je_mallocx \
-        _je_nallocx \
-        _je_posix_memalign \
-        _je_rallocx \
-        _je_realloc \
-        _je_sallocx \
-        _je_sdallocx \
-        _je_xallocx \
-        _je_valloc \
-        _je_valloc \
-        _je_smallocx_0 \
-        _pthread_create \
+        je_aligned_alloc \
+        je_calloc \
+        je_dallocx \
+        je_free \
+        je_mallctl \
+        je_mallctlbymib \
+        je_mallctlnametomib \
+        je_malloc \
+        je_malloc_conf \
+        je_malloc_message \
+        je_malloc_stats_print \
+        je_malloc_usable_size \
+        je_mallocx \
+        je_nallocx \
+        je_posix_memalign \
+        je_rallocx \
+        je_realloc \
+        je_sallocx \
+        je_sdallocx \
+        je_xallocx \
+        je_valloc \
+        je_memalign \
+        je_valloc \
+        je_smallocx_0 \
+        pthread_create \
+        __free_hook \
+        __malloc_hook \
+        __realloc_hook \
+        __memalign_hook \
         ", exported_symbol_names)
   # Store exported symbol names as keys in exported_symbols.
   for (i in exported_symbol_names) {

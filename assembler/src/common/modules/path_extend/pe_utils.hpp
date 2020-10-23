@@ -15,7 +15,8 @@
 #ifndef PE_UTILS_HPP_
 #define PE_UTILS_HPP_
 
-#include "assembly_graph/paths/bidirectional_path.hpp"
+#include "assembly_graph/paths/bidirectional_path_container.hpp"
+#include "modules/alignment/rna/ss_coverage.hpp"
 
 namespace path_extend {
 
@@ -24,7 +25,10 @@ using namespace debruijn_graph;
 //Checks whether we are in a cycle of length 2, used only for seed selection.
 inline bool InTwoEdgeCycle(EdgeId e, const Graph &g) {
     auto v = g.EdgeEnd(e);
-    if (g.OutgoingEdgeCount(v) >= 1) {
+    //allow to start from long edge with potential coverage one.
+    if (g.OutgoingEdgeCount(v) >= 1 && (g.length(e) < 1000 || g.OutgoingEdgeCount(v) > 1)) {
+
+//    if (g.OutgoingEdgeCount(v) >= 1) {
         auto edges = g.OutgoingEdges(v);
         for (auto it = edges.begin(); it != edges.end(); ++it) {
             if (g.EdgeStart(e) == g.EdgeEnd(*it)) {
@@ -88,7 +92,6 @@ public:
     GraphCoverageMap& operator=(const GraphCoverageMap&) = delete;
 
     GraphCoverageMap(GraphCoverageMap&&) = default;
-    GraphCoverageMap& operator=(GraphCoverageMap&&) = default;
 
     explicit GraphCoverageMap(const Graph& g) : g_(g) {
         //FIXME heavy constructor
@@ -189,7 +192,7 @@ public:
 class PathContainerCoverageSwitcher {
     const Graph& g_;
 
-    const SSCoverageStorage& coverage_storage_;
+    const debruijn_graph::SSCoverageStorage& coverage_storage_;
 
     bool antisense_;
 
@@ -204,7 +207,7 @@ class PathContainerCoverageSwitcher {
     }
 
 public:
-    PathContainerCoverageSwitcher(const Graph& g, const SSCoverageStorage& coverage_storage, bool antisense):
+    PathContainerCoverageSwitcher(const Graph& g, const debruijn_graph::SSCoverageStorage& coverage_storage, bool antisense):
         g_(g), coverage_storage_(coverage_storage), antisense_(antisense) {}
 
 
@@ -229,6 +232,10 @@ inline bool GetLoopAndExit(const Graph& g, EdgeId forward_cycle_edge, EdgeId& ba
     auto edges = g.OutgoingEdges(loop_end);
     EdgeId edge1 = *edges.begin();
     EdgeId edge2 = *(++edges.begin());
+    if (g.EdgeEnd(edge1) == g.EdgeEnd(edge2)) {
+//Patologic situation, two glued loops
+        return false;
+    }
     if (g.EdgeEnd(edge1) == g.EdgeStart(forward_cycle_edge)) {
         back_cycle_edge = edge1;
         loop_outgoing = edge2;

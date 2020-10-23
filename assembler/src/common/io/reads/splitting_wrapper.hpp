@@ -18,8 +18,9 @@ private:
     std::vector<SingleRead> buffer_;
     size_t buffer_position_;
 
-    void FillBuffer(SingleRead& tmp_read) {
+    void FillBuffer(const SingleRead& tmp_read) {
         buffer_.clear();
+        buffer_position_ = 0;
         for (size_t i = 0; i < tmp_read.size(); ++i) {
             size_t j = i;
             while (j < tmp_read.size() && is_nucl(tmp_read.GetSequenceString()[j])) {
@@ -30,7 +31,6 @@ private:
                 i = j - 1;
             }
         }
-        buffer_position_ = 0;
     }
 
     bool Skip() {
@@ -44,11 +44,10 @@ private:
 
 public:
 
-    explicit SplittingWrapper(base::ReadStreamPtrT reader) :
-            base(reader), buffer_position_(0) {
+    explicit SplittingWrapper(base::ReadStreamT reader) :
+            base(std::move(reader)), buffer_position_(0) {
     }
 
-    /* virtual */
     SplittingWrapper& operator>>(SingleRead& read) {
         Skip();
         read = buffer_[buffer_position_];
@@ -57,19 +56,19 @@ public:
     }
 
     //todo fix needed!!! seems that eof can't be called multiple times in a row!!!
-    /* virtual */ bool eof() {
+    bool eof() {
         return !Skip();
     }
 };
 
-inline std::shared_ptr<ReadStream<SingleRead>> SplittingWrap(std::shared_ptr<ReadStream<SingleRead>> reader_ptr) {
-    return std::make_shared<SplittingWrapper>(reader_ptr);
+inline ReadStream<SingleRead> SplittingWrap(ReadStream<SingleRead> reader_ptr) {
+    return SplittingWrapper(std::move(reader_ptr));
 }
 
-inline ReadStreamList<SingleRead> SplittingWrap(ReadStreamList<SingleRead>& readers) {
+inline ReadStreamList<SingleRead> SplittingWrap(ReadStreamList<SingleRead> readers) {
     ReadStreamList<SingleRead> answer;
-    for (size_t i = 0; i < readers.size(); ++i) {
-        answer.push_back(SplittingWrap(readers.ptr_at(i)));
+    for (auto &reader : readers) {
+        answer.push_back(SplittingWrap(std::move(reader)));
     }
     return answer;
 }

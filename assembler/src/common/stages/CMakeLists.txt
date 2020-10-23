@@ -8,5 +8,5 @@
 project(stages CXX)
 
 add_library(stages STATIC
-            read_conversion.cpp construction.cpp simplification.cpp)
-target_link_libraries(stages gqf)
+            read_conversion.cpp construction.cpp simplification.cpp ss_edge_split.cpp genomic_info_filler.cpp)
+target_link_libraries(stages coverage_model pipeline gqf input)

@@ -30,6 +30,7 @@
 #  define sdallocx je_sdallocx
 #  define xallocx je_xallocx
 #  define valloc je_valloc
+#  define memalign je_memalign
 #  define valloc je_valloc
 #  define smallocx_0 je_smallocx_0
 #endif
@@ -63,6 +64,7 @@
 #  undef je_sdallocx
 #  undef je_xallocx
 #  undef je_valloc
+#  undef je_memalign
 #  undef je_valloc
 #  undef je_smallocx_0
 #endif

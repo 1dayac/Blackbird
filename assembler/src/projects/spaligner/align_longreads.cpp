@@ -9,6 +9,7 @@
 #include "io/reads/io_helper.hpp"
 #include "io/reads/wrapper_collection.hpp"
 #include "io/reads/multifile_reader.hpp"
+#include "io/reads/file_reader.hpp"
 #include "io/graph/gfa_reader.hpp"
 #include "io/graph/gfa_writer.hpp"
 #include "assembly_graph/core/graph.hpp"
@@ -22,7 +23,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <cxxopts/cxxopts.hpp>
+#include <clipp/clipp.h>
 
 using namespace std;
 
@@ -38,14 +39,10 @@ namespace yaml {
 template<> struct MappingTraits<debruijn_graph::config::pacbio_processor> {
     static void mapping(IO& io, debruijn_graph::config::pacbio_processor& cfg) {
         io.mapRequired("internal_length_cutoff", cfg.internal_length_cutoff);
-        io.mapRequired("compression_cutoff", cfg.compression_cutoff);
         io.mapRequired("path_limit_stretching", cfg.path_limit_stretching);
         io.mapRequired("path_limit_pressing", cfg.path_limit_pressing);
-        io.mapRequired("max_path_in_dijkstra", cfg.max_path_in_dijkstra);
-        io.mapRequired("max_vertex_in_dijkstra", cfg.max_vertex_in_dijkstra);
-        io.mapRequired("long_seq_limit", cfg.long_seq_limit);
-        io.mapRequired("pacbio_min_gap_quantity", cfg.pacbio_min_gap_quantity);
-        io.mapRequired("contigs_min_gap_quantity", cfg.contigs_min_gap_quantity);
+        io.mapRequired("max_path_in_chaining", cfg.max_path_in_dijkstra);
+        io.mapRequired("max_vertex_in_chaining", cfg.max_vertex_in_dijkstra);
     }
 };
 
@@ -85,7 +82,7 @@ template<> struct MappingTraits<sensitive_aligner::GAlignerConfig> {
         io.mapRequired("run_dijkstra", cfg.gap_cfg.run_dijkstra);
         io.mapRequired("restore_ends", cfg.restore_ends);
 
-        io.mapRequired("pb", cfg.pb);
+        io.mapRequired("hits_generation", cfg.pb);
         io.mapRequired("gap_closing", cfg.gap_cfg);
         io.mapRequired("ends_recovering", cfg.ends_cfg);
     }
@@ -101,29 +98,27 @@ class LongReadsAligner {
     LongReadsAligner(const debruijn_graph::ConjugateDeBruijnGraph &g,
                      const io::CanonicalEdgeHelper<debruijn_graph::Graph> &edge_namer,
                      const GAlignerConfig &cfg,
-                     const string output_file,
+                     const string output_dir,
                      const int threads)
-        :g_(g),
-         cfg_(cfg),
-         galigner_(g_, cfg),
-         threads_(threads),
-         mapping_printer_hub_(g_, edge_namer, output_file, cfg.output_format) {
+        : g_(g),
+          cfg_(cfg),
+          galigner_(g_, cfg),
+          threads_(threads),
+          mapping_printer_hub_(g_, edge_namer, output_dir, cfg.output_format) {
         aligned_reads_ = 0;
         processed_reads_ = 0;
     }
 
     void RunAligner() {
-        io::ReadStreamList<io::SingleRead> streams;
-        streams.push_back(make_shared<io::FixingWrapper>(make_shared<io::FileReadStream>(cfg_.path_to_sequences)));
-        io::SingleStreamPtr read_stream = io::MultifileWrap(streams);
+        auto read_stream = io::FixingWrapper(io::FileReadStream(cfg_.path_to_sequences));
         size_t n = 0;
         size_t buffer_no = 0;
-        while (!read_stream->eof()) {
-            vector<io::SingleRead> read_buffer;
+        while (!read_stream.eof()) {
+            std::vector<io::SingleRead> read_buffer;
             read_buffer.reserve(read_buffer_size);
             io::SingleRead read;
-            for (size_t buf_size = 0; buf_size < read_buffer_size && !read_stream->eof(); ++buf_size) {
-                *read_stream >> read;
+            for (size_t buf_size = 0; buf_size < read_buffer_size && !read_stream.eof(); ++buf_size) {
+                read_stream >> read;
                 read_buffer.push_back(move(read));
             }
             INFO("Prepared batch " << buffer_no << " of " << read_buffer.size() << " reads.");
@@ -204,7 +199,7 @@ void LoadGraph(const string &saves_path, debruijn_graph::ConjugateDeBruijnGraph 
     }
 }
 
-void Launch(GAlignerConfig &cfg, const string output_file, int threads) {
+void Launch(GAlignerConfig &cfg, const string output_dir, int threads) {
     string tmpdir = fs::make_temp_dir(fs::current_dir(), "tmp");
     debruijn_graph::ConjugateDeBruijnGraph g(cfg.K);
     io::IdMapper<std::string> id_mapper;
@@ -212,45 +207,47 @@ void Launch(GAlignerConfig &cfg, const string output_file, int threads) {
     io::CanonicalEdgeHelper<debruijn_graph::Graph> edge_namer(g, io::MapNamingF<debruijn_graph::Graph>(id_mapper));
     INFO("Loaded graph with " << g.size() << " vertices");
 
-    LongReadsAligner aligner(g, edge_namer, cfg, output_file, threads);
-    INFO("LongReadsAligner created");
+    LongReadsAligner aligner(g, edge_namer, cfg, output_dir, threads);
+    INFO("LongSequenceAligner created");
 
     INFO("Process reads from " << cfg.path_to_sequences);
     aligner.RunAligner();
-    INFO("Finished")
+    INFO("Thank you for using SPAligner! Results can be found here: " + output_dir )
     fs::remove_dir(tmpdir);
 }
 } // namespace sensitive_aligner
 
-int main(int argc, char **argv) {
+void process_cmdline(int argc, char **argv,
+                    sensitive_aligner::GAlignerConfig &config,
+                    string &cfg_name,
+                    string &seq_type,
+                    unsigned &nthreads,
+                    string &output_dir) {
+    using namespace clipp;
 
-    unsigned nthreads;
-    string cfg, output_file, seq_type;
-    sensitive_aligner::GAlignerConfig config;
+    auto cli = (
+      cfg_name << value("aligner parameters description (in YAML)")
+                        .if_missing([]{ cout << "ERROR: No input YAML was specified\n"; } ),
+      (required("-d","--datatype") & value("value", seq_type)
+                                           .if_missing([]{ cout << "ERROR: Sequence type is not provided (nanopore or pacbio)\n"; } ))
+                                           % "type of sequences: nanopore, pacbio",
+      (required("-s","--sequences") & value("value", config.path_to_sequences)
+                                           .if_missing([]{ cout << "ERROR: Path to file with sequences is not provided\n"; } ))
+                                           % "path to fasta/fastq file with sequences",
+      (required("-g","--graph") & value("value", config.path_to_graphfile)
+                                        .if_missing([]{ cout << "ERROR: Path to file with graph is not provided\n"; } ))
+                                         % "path to GFA-file or SPAdes saves folder",
+      (required("-k", "--kmer") & integer("value", config.K)
+                                         .if_missing([]{ cout << "ERROR: k-mer value is not provided\n"; } ))
+                                         % "graph k-mer size (odd value)",
+      (option("-t", "--threads") & integer("value", nthreads)) % "# of threads to use",
+      (option("-o", "--outdir") & value("dir", output_dir)) % "output directory"
+    );
 
-    cxxopts::Options options(argv[0], " <YAML-config sequences and graph description> - Tool for sequence alignment on graph");
-    options.add_options()
-    ("K,k-mer", "graph k-mer size (odd value)", cxxopts::value<int>(config.K))
-    ("d,datatype", "type of sequences: nanopore, pacbio", cxxopts::value<string>(seq_type))
-    ("s,seq", "path to fasta/fastq file with sequences", cxxopts::value<string>(config.path_to_sequences))
-    ("g,graph", "path to gfa-file or SPAdes saves folder", cxxopts::value<string>(config.path_to_graphfile))
-    ("o,outfile", "Output file prefix", cxxopts::value<string>(output_file)->default_value("./galigner_output"), "prefix")
-    ("t,threads", "# of threads to use", cxxopts::value<unsigned>(nthreads)->default_value(to_string(min(omp_get_max_threads(), 16))), "threads")
-    ("h,help", "Print help");
-
-    options.add_options("Input")
-    ("positional", "", cxxopts::value<string>(cfg));
-
-    options.parse_positional("positional");
-    options.parse(argc, argv);
-    if (options.count("help")) {
-        cout << options.help() << endl;
-        exit(0);
-    }
-    if (!options.count("positional")) {
-        cerr << "ERROR: No input YAML was specified" << endl << endl;
-        cout << options.help() << endl;
-        exit(-1);
+    auto result = parse(argc, argv, cli);
+    if (!result) {
+      std::cout << make_man_page(cli, argv[0]);
+      exit(1);
     }
 
     if (seq_type == "nanopore")
@@ -258,12 +255,29 @@ int main(int argc, char **argv) {
     else if (seq_type == "pacbio")
         config.data_type = alignment::BWAIndex::AlignmentMode::PacBio;
     else {
-        cerr << "ERROR: Unsupported data type - nanopore, pacbio" << endl;
-        cout << options.help() << endl;
+        cerr << "You need to provied a supported datatype - nanopore or pacbio" << endl;
+        std::cout << make_man_page(cli, argv[0]);
         exit(-1);
+    }
+}
+
+int main(int argc, char **argv) {
+
+    unsigned nthreads = 8;
+    string cfg, output_dir = "./spaligner_result", seq_type;
+    sensitive_aligner::GAlignerConfig config;
+
+    process_cmdline(argc, argv, config, cfg, seq_type, nthreads, output_dir);
+
+    std::string cmd_line = "";
+    for (int i = 0; i < argc; ++ i) {
+        cmd_line += std::string(argv[i]) + " ";
     }
 
     create_console_logger();
+    START_BANNER("SPAligner: long sequence to graph alignment");
+    INFO("Command line: " << cmd_line);
+
     INFO("Loading config from " << cfg)
     auto buf = llvm::MemoryBuffer::getFile(cfg);
     VERIFY_MSG(buf, "Failed to load config file " + cfg);
@@ -271,6 +285,6 @@ int main(int argc, char **argv) {
     yin >> config;
     omp_set_num_threads(nthreads);
 
-    sensitive_aligner::Launch(config, output_file, nthreads);
+    sensitive_aligner::Launch(config, output_dir, nthreads);
     return 0;
 }

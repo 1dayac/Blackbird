@@ -7,13 +7,14 @@
 import codecs
 import gzip
 import sys
+import os
 
 fasta_ext = ['.fa', '.fas', '.fasta', '.seq', '.fsa', '.fna', '.ffn', '.frn']
-fastq_ext = ['.fq', 'fastq']
+fastq_ext = ['.fq', '.fastq']
 
 
 def Open(f, mode):
-    if f.endswith(".gz"):
+    if f.lower().endswith((".gz", ".gzip")):
         return codecs.getreader('UTF-8')(gzip.open(f, mode))
     else:
         return codecs.open(f, mode, encoding='utf-8')
@@ -58,7 +59,10 @@ class Reader:
             result.append(self.Top().strip())
             cnt += len(self.Top().strip())
             self.TrashCash()
-        assert (cnt == buf_size)
+        if cnt != buf_size:
+            raise Exception('The sequence and quality strings for one of reads have different length in file {FILE}. '
+                            'Please check the correctness of the file')
+
         return "".join(result)
 
     def EOF(self):
@@ -121,13 +125,6 @@ def parse_fastq(handler):
         yield SeqRecord(rec_seq, rec_id[1:], rec_qual)
 
 
-def parse(handler, file_type):
-    if file_type == "fasta":
-        return parse_fasta(handler)
-    elif file_type == "fastq":
-        return parse_fastq(handler)
-
-
 def write(rec, handler, file_type):
     if file_type == "fasta":
         handler.write(">" + rec.id + "\n")
@@ -157,20 +154,28 @@ def RemoveNs(input_handler, output_handler):
             write(SeqRecord(contig.seq[l:r], contig.id))
 
 
-def is_fasta(file_name):
-    for ext in fasta_ext:
-        if ext in file_name:
-            return True
+def check_extension(fname, extension_list):
+    fname = fname.lower()
+    # "reads.fastq", ".gz"
+    basename_plus_innerext, outer_ext = os.path.splitext(fname)
+    if outer_ext not in ['.gz', '.gzip']:
+        basename_plus_innerext, outer_ext = fname, ''  # not an archive
 
-    return False
+    # "reads", ".fastq"
+    basename, inner_ext = os.path.splitext(basename_plus_innerext)
+    return inner_ext in extension_list
+
+
+def is_fasta(file_name):
+    return check_extension(file_name, fasta_ext)
 
 
 def is_fastq(file_name):
-    for ext in fastq_ext:
-        if ext in file_name:
-            return True
+    return check_extension(file_name, fastq_ext)
 
-    return False
+
+def is_bam(file_name):
+    return check_extension(file_name, ['.bam'])
 
 
 def get_read_file_type(file_name):
@@ -178,5 +183,7 @@ def get_read_file_type(file_name):
         return 'fastq'
     elif is_fasta(file_name):
         return 'fasta'
+    elif is_bam(file_name):
+        return 'bam'
     else:
         return None

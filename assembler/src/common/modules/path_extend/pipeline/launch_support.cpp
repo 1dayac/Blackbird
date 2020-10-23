@@ -61,7 +61,10 @@ std::string PELaunchSupport::LibStr(size_t count) const {
 }
 
 pe_config::LongReads PELaunchSupport::GetLongReadsConfig(const io::LibraryType &type) const {
-    if (io::SequencingLibraryBase::is_long_read_lib(type)) {
+    if (params_.pset.multi_path_extend && (io::SequencingLibraryBase::is_long_read_lib(type) ||
+        io::SequencingLibraryBase::is_contig_lib(type))) {
+        return params_.pe_cfg.long_reads.rna_long_reads;
+    } else if (io::SequencingLibraryBase::is_long_read_lib(type)) {
         return params_.pe_cfg.long_reads.pacbio_reads;
     } else if (type == io::LibraryType::PathExtendContigs) {
         return params_.pe_cfg.long_reads.meta_contigs;
@@ -118,7 +121,7 @@ double PELaunchSupport::EstimateLibCoverage(size_t lib_index) const {
 size_t PELaunchSupport::TotalNuclsInGraph() const {
     size_t total_nc_count = 0;
     for (const auto &lib: dataset_info_.reads) {
-        if (lib.is_graph_contructable())
+        if (lib.is_graph_constructable())
             total_nc_count += lib.data().total_nucls;
     }
     return total_nc_count;

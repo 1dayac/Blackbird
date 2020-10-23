@@ -8,6 +8,7 @@
 #ifndef __GENOMIC_INFO_HPP__
 #define __GENOMIC_INFO_HPP__
 
+#include <string>
 #include <vector>
 
 namespace llvm { namespace yaml { class IO; } }
@@ -34,6 +35,9 @@ class GenomicInfo {
 
     bool Load(const std::string &filename);
     void Save(const std::string &filename) const;
+
+    bool BinWrite(std::ostream &os) const;
+    void BinRead(std::istream &is);
 
     void yamlize(llvm::yaml::IO &io);
 

@@ -13,12 +13,11 @@
 #include "common/adt/kmer_vector.hpp"
 
 #include "utils/parallel/openmp_wrapper.h"
-
+#include "utils/memory_limit.hpp"
 #include "utils/logger/logger.hpp"
 #include "utils/filesystem/path_helper.hpp"
-
-#include "utils/memory_limit.hpp"
 #include "utils/filesystem/file_limit.hpp"
+#include "utils/perf/timetracer.hpp"
 
 #include "adt/iterator_range.hpp"
 #include "adt/loser_tree.hpp"
@@ -115,14 +114,19 @@ public:
 
     // Split k-mers into buckets.
     INFO("Splitting kmer instances into " << num_files << " files using " << num_threads << " threads. This might take a while.");
+    TIME_TRACE_BEGIN("KMerDiskCounter::Split");
     auto raw_kmers = splitter_.Split(num_files, num_threads);
+    TIME_TRACE_END;
 
     INFO("Starting k-mer counting.");
     size_t kmers = 0;
-#   pragma omp parallel for shared(raw_kmers) num_threads(num_threads) schedule(dynamic) reduction(+:kmers)
-    for (unsigned i = 0; i < raw_kmers.size(); ++i) {
-      kmers += MergeKMers(*raw_kmers[i], GetUniqueKMersFname(i));
-      raw_kmers[i].reset();
+    {
+        TIME_TRACE_SCOPE("KMerDiskCounter::Count");
+#       pragma omp parallel for shared(raw_kmers) num_threads(num_threads) schedule(dynamic) reduction(+:kmers)
+        for (size_t i = 0; i < raw_kmers.size(); ++i) {
+          kmers += MergeKMers(*raw_kmers[i], GetUniqueKMersFname(unsigned(i)));
+          raw_kmers[i].reset();
+        }
     }
     INFO("K-mer counting done. There are " << kmers << " kmers in total. ");
     if (!kmers) {
@@ -131,15 +135,17 @@ public:
     }
 
     INFO("Merging temporary buckets.");
-    for (unsigned i = 0; i < num_buckets; ++i) {
-      std::string ofname = GetMergedKMersFname(i);
-      std::ofstream ofs(ofname.c_str(), std::ios::out | std::ios::binary);
-      for (unsigned j = 0; j < num_threads; ++j) {
-        BucketStorage ins(GetUniqueKMersFname(i + j * num_buckets), Seq::GetDataSize(k_), /* unlink */ true);
-        ofs.write((const char*)ins.data(), ins.data_size());
-      }
+    {
+        TIME_TRACE_SCOPE("KMerDiskCounter::MergeTemporary");
+        for (unsigned i = 0; i < num_buckets; ++i) {
+            std::string ofname = GetMergedKMersFname(i);
+            std::ofstream ofs(ofname.c_str(), std::ios::out | std::ios::binary);
+            for (unsigned j = 0; j < num_threads; ++j) {
+                BucketStorage ins(GetUniqueKMersFname(i + j * num_buckets), Seq::GetDataSize(k_), /* unlink */ true);
+                ofs.write((const char*)ins.data(), ins.data_size());
+            }
+        }
     }
-
     this->kmers_ = kmers;
     this->counted_ = true;
 
@@ -148,6 +154,7 @@ public:
 
   void MergeBuckets() override {
     INFO("Merging final buckets.");
+    TIME_TRACE_SCOPE("KMerDiskCounter::MergeFinal");
 
     final_kmers_ = work_dir_->tmp_file("final_kmers");
     std::ofstream ofs(*final_kmers_, std::ios::out | std::ios::binary);
@@ -220,18 +227,30 @@ private:
 
       // Write it down!
       adt::KMerVector<Seq> buf(k_, 1024*1024);
-      auto pval = tree.pop();
       size_t total = 0;
       while (!tree.empty()) {
           buf.clear();
-          for (size_t cnt = 0; cnt < buf.capacity() && !tree.empty(); ) {
-              auto cval = tree.pop();
-              if (!adt::array_equal_to<typename Seq::DataType>()(pval, cval)) {
-                  buf.push_back(pval);
-                  pval = cval;
-                  cnt += 1;
-              }
+          buf.push_back(tree.pop());
+          size_t cnt = 1;
+
+          while (cnt < buf.capacity()) {
+            while (!tree.empty() &&
+                   adt::array_equal_to<typename Seq::DataType>()(buf.back(), tree.top()))
+              tree.replay();
+
+            if (tree.empty())
+              break;
+            
+            buf.push_back(tree.top());
+            tree.replay();
+            cnt += 1;
           }
+
+          // Handle the last value
+          while (!tree.empty() &&
+                 adt::array_equal_to<typename Seq::DataType>()(buf.back(), tree.top()))
+            tree.replay();
+
           total += buf.size();
 
           FILE *g = fopen(ofname.c_str(), "ab");
@@ -241,18 +260,6 @@ private:
           if (res != buf.size())
             FATAL_ERROR("I/O error! Incomplete write! Reason: " << strerror(errno) << ". Error code: " << errno);
           fclose(g);
-      }
-
-      // Handle very last value
-      {
-        FILE *g = fopen(ofname.c_str(), "ab");
-        if (!g)
-          FATAL_ERROR("Cannot open temporary file " << ofname << " for writing");
-        size_t res = fwrite(pval.data(), pval.data_size(), 1, g);
-        if (res != 1)
-          FATAL_ERROR("I/O error! Incomplete write! Reason: " << strerror(errno) << ". Error code: " << errno);
-        fclose(g);
-        total += 1;
       }
 
       return total;
@@ -296,6 +303,8 @@ class KMerIndexBuilder {
 template<class Index>
 size_t KMerIndexBuilder<Index>::BuildIndex(Index &index, KMerCounter<Seq> &counter,
                                            bool save_final) {
+    //TIME_TRACE_SCOPE("KMerIndexBuilder::BuildIndex");
+
   index.clear();
 
   INFO("Building kmer index ");
@@ -313,18 +322,21 @@ size_t KMerIndexBuilder<Index>::BuildIndex(Index &index, KMerCounter<Seq> &count
 
   INFO("Building perfect hash indices");
 
-# pragma omp parallel for shared(index) num_threads(num_threads_)
-  for (unsigned i = 0; i < buckets; ++i) {
-    typename KMerIndex<kmer_index_traits>::KMerDataIndex &data_index = index.index_[i];
-    auto bucket = counter.GetBucket(i, !save_final);
-    size_t sz = bucket->end() - bucket->begin();
-    index.bucket_starts_[i + 1] = sz;
+  {
+      TIME_TRACE_SCOPE("KMerDiskCounter::BuildPHM");
+#     pragma omp parallel for shared(index) num_threads(num_threads_)
+      for (unsigned i = 0; i < buckets; ++i) {
+          typename KMerIndex<kmer_index_traits>::KMerDataIndex &data_index = index.index_[i];
+          auto bucket = counter.GetBucket(i, !save_final);
+          size_t sz = bucket->end() - bucket->begin();
+          index.bucket_starts_[i + 1] = sz;
 
-    data_index = typename Index::KMerDataIndex(sz,
-                                               boomphf::range(bucket->begin(), bucket->end()),
-                                               1, 2.0, false, false);
+          data_index = typename Index::KMerDataIndex(sz,
+                                                     boomphf::range(bucket->begin(), bucket->end()),
+                                                     1, 2.0, false, false);
+      }
   }
-
+  
   // Finally, record the sizes of buckets.
   for (unsigned i = 1; i < buckets; ++i)
     index.bucket_starts_[i] += index.bucket_starts_[i - 1];
