@@ -48,42 +48,10 @@ class RelativeCoverageECCondition: public EdgeCondition<Graph> {
     double AvgLocalityCoverage(EdgeId ec_edge) const {
         const Graph &g = this->g();
         VertexId start = g.EdgeStart(ec_edge), end = g.EdgeEnd(ec_edge);
-        auto in_start = g.IncomingEdges(start);
         auto out_start = g.OutgoingEdges(start);
         auto in_end = g.IncomingEdges(end);
-        auto out_end = g.OutgoingEdges(end);
-        double total_edges = double(g.IncomingEdgeCount(start) + g.OutgoingEdgeCount(start) +
-            g.IncomingEdgeCount(end) + g.OutgoingEdgeCount(end) - 2);
-        return (SumCompetitorCoverage(ec_edge, in_start) +
-                SumCompetitorCoverage(ec_edge, out_start) +
-                SumCompetitorCoverage(ec_edge, in_end) +
-                SumCompetitorCoverage(ec_edge, out_end)) / total_edges;
-    }
-
-    template<class ContainerType>
-    double MaxCompetitorCoverage(EdgeId ec_edge, const ContainerType& edges) const {
-        const Graph &g = this->g();
-        double result = 0;
-        for (EdgeId e : edges) {
-            //update if competitor edge is not loop
-            if (e != ec_edge && g.EdgeStart(e) != g.EdgeEnd(e))
-                result = std::max(result, g.coverage(e));
-        }
-        return result;
-    }
-
-    double MaxCompetitorCoverage(EdgeId ec_edge) const {
-        const Graph &g = this->g();
-        VertexId start = g.EdgeStart(ec_edge), end = g.EdgeEnd(ec_edge);
-        auto in_start = g.IncomingEdges(start);
-        auto out_start = g.OutgoingEdges(start);
-        auto in_end = g.IncomingEdges(end);
-        auto out_end = g.OutgoingEdges(end);
-        return std::max(
-                std::max(MaxCompetitorCoverage(ec_edge, in_start),
-                         MaxCompetitorCoverage(ec_edge, out_start)),
-                std::max(MaxCompetitorCoverage(ec_edge, in_end),
-                         MaxCompetitorCoverage(ec_edge, out_end)));
+        double total_edges = double(g.OutgoingEdgeCount(start) + g.IncomingEdgeCount(end) - 2);
+        return (SumCompetitorCoverage(ec_edge, out_start) + SumCompetitorCoverage(ec_edge, in_end)) / total_edges;
     }
 
 public:
@@ -341,7 +309,7 @@ class AdditionalMDAThornCondition : public EdgeCondition<Graph> {
 //todo move to rnaSPAdes simplification
 template<class Graph>
 class ECLoopRemover : public EdgeProcessingAlgorithm<Graph> {
-    typedef std::less<typename Graph::EdgeId> Comparator;
+    typedef adt::identity Priority;
     typedef EdgeProcessingAlgorithm<Graph> base;
     typedef typename Graph::EdgeId EdgeId;
     typedef typename Graph::VertexId VertexId;
@@ -511,7 +479,7 @@ public:
                     size_t uniqueness_length,
                     double relative_threshold,
                     EdgeRemovalHandlerF<Graph> removal_handler = 0)
-            : base(g, nullptr, /*canonical only*/ false, std::less<VertexId>(), /*track changes*/false), 
+            : base(g, nullptr, /*canonical only*/ false, adt::identity(), /*track changes*/false),
               flanking_coverage_(flanking_coverage),
               uniqueness_length_(uniqueness_length),
               relative_threshold_(relative_threshold),
@@ -605,7 +573,7 @@ public:
                     double unreliability_coeff,
                     double ec_threshold, double relative_threshold,
                     EdgeRemovalHandlerF<Graph> removal_handler = 0)
-            : base(g, nullptr, /*canonical only*/ false, std::less<VertexId>(), /*track changes*/false), 
+            : base(g, nullptr, /*canonical only*/ false, adt::identity(), /*track changes*/false),
               flanking_coverage_(flanking_coverage),
               uniqueness_length_(uniqueness_length),
               unreliability_threshold_(unreliability_coeff * ec_threshold), ec_threshold_(ec_threshold),

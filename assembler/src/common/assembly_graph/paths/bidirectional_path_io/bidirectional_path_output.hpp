@@ -44,6 +44,7 @@ public:
 
 };
 
+
 class GFAPathWriter : public gfa::GFAWriter {
     void WritePath(const std::string &name, size_t segment_id,
                    const std::vector<std::string> &edge_strs,
@@ -106,7 +107,6 @@ public:
             WritePath(scaffold_info.name, segment_id, segmented_path, "");
         }
     }
-
 };
 
 typedef std::function<void (const ScaffoldStorage&)> PathsWriterT;

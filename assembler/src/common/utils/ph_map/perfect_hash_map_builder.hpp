@@ -5,10 +5,13 @@
 //* See file LICENSE for details.
 //***************************************************************************
 
+#include "perfect_hash_map.hpp"
+#include "kmer_maps.hpp"
+#include "cqf_hash_map.hpp"
+
 #include "utils/kmer_mph/kmer_index_builder.hpp"
 #include "utils/kmer_mph/kmer_splitters.hpp"
-
-#include "perfect_hash_map.hpp"
+#include "utils/perf/timetracer.hpp"
 
 namespace utils {
 
@@ -17,6 +20,8 @@ struct PerfectHashMapBuilder {
     void BuildIndex(PerfectHashMap<K, V, traits, StoringType> &index,
                     Counter& counter, size_t bucket_num,
                     size_t thread_num, bool save_final = true) const {
+        TIME_TRACE_SCOPE("PerfectHashMapBuilder::BuildIndex");
+
         using KMerIndex = typename PerfectHashMap<K, V, traits, StoringType>::KMerIndexT;
 
         KMerIndexBuilder<KMerIndex> builder((unsigned)bucket_num, (unsigned)thread_num);
@@ -41,6 +46,8 @@ struct CQFHashMapBuilder {
     void BuildIndex(CQFHashMap<K, traits, StoringType> &index,
                     Counter& counter, size_t bucket_num, size_t thread_num,
                     bool save_final = false) const {
+        TIME_TRACE_SCOPE("CQFHashMapBuilder::BuildIndex");
+
         using Index = CQFHashMap<K, traits, StoringType>;
         using KMerIndex = typename Index::KMerIndexT;
 
@@ -117,18 +124,4 @@ void BuildIndex(PerfectHashMap<K, V, traits, StoringType> &index,
                 size_t thread_num, bool save_final = true) {
     PerfectHashMapBuilder().BuildIndex(index, counter, bucket_num, thread_num, save_final);
 }
-
-template<class Index, class Streams>
-size_t BuildIndexFromStream(const std::string &workdir,
-                            Index &index,
-                            Streams &streams,
-                            io::SingleStream* contigs_stream = 0) {
-    DeBruijnReadKMerSplitter<typename Streams::ReadT,
-                             StoringTypeFilter<typename Index::storing_type>>
-            splitter(workdir, index.k(), 0, streams, contigs_stream);
-    KMerDiskCounter<RtSeq> counter(workdir, splitter);
-    BuildIndex(index, counter, 16, streams.size());
-    return 0;
-}
-
 }

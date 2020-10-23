@@ -15,8 +15,12 @@ add_executable(spades-kmercount
 add_executable(spades-read-filter
                read_filter.cpp)
 
+add_executable(spades-kmer-estimating
+               kmer_estimating.cpp)
+
 target_link_libraries(spades-kmercount common_modules ${COMMON_LIBRARIES})
 target_link_libraries(spades-read-filter common_modules ${COMMON_LIBRARIES})
+target_link_libraries(spades-kmer-estimating common_modules ${COMMON_LIBRARIES})
 
 
 if (SPADES_STATIC_BUILD)
@@ -25,5 +29,13 @@ if (SPADES_STATIC_BUILD)
 endif()
 
 install(TARGETS spades-kmercount
+        DESTINATION bin
+        COMPONENT runtime)
+
+install(TARGETS spades-read-filter
+        DESTINATION bin
+        COMPONENT runtime)
+
+install(TARGETS spades-kmer-estimating
         DESTINATION bin
         COMPONENT runtime)

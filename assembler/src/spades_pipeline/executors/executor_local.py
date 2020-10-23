@@ -22,8 +22,7 @@ class Executor(executors.ExecutorBase):
         for num in range(len(commands)):
             command = commands[num]
             if options_storage.args.continue_mode:
-                stage_file_name = "stage_%d_%s" % (num, command.short_name)
-                stage_checkpoint_path = os.path.join(options_storage.args.output_dir, stage_file_name)
+                stage_checkpoint_path = options_storage. get_stage_filename(num, command.short_name)
                 if os.path.isfile(stage_checkpoint_path) and \
                         ("_start" not in command.short_name) and \
                         ("_finish" not in command.short_name):
@@ -54,11 +53,15 @@ class Executor(executors.ExecutorBase):
                 break
 
     def rm_files(self, command):
+        if options_storage.args.no_clear_after:
+            return
+
         for fpath in command.del_after:
-            if os.path.isdir(fpath):
-                shutil.rmtree(fpath)
-            elif os.path.isfile(fpath):
-                os.remove(fpath)
+            fpath_abs = os.path.join(options_storage.args.output_dir, fpath)
+            if os.path.isdir(fpath_abs):
+                shutil.rmtree(fpath_abs)
+            elif os.path.isfile(fpath_abs):
+                os.remove(fpath_abs)
 
     def check_output(self, command):
         for fpath in command.output_files:
@@ -69,6 +72,7 @@ class Executor(executors.ExecutorBase):
         commands_parser.write_commands_to_sh(commands, outputfile)
 
     def touch_file(self, command, num):
-        stage_file_name = "stage_%d_%s" % (num, command.short_name)
-        stage_checkpoint_path = os.path.join(options_storage.args.output_dir, stage_file_name)
-        open(stage_checkpoint_path, 'a').close()
+        path = options_storage.get_stage_filename(num, command.short_name)
+        if not os.path.exists(os.path.dirname(path)):
+            os.makedirs(os.path.dirname(path))
+        open(path, 'a').close()

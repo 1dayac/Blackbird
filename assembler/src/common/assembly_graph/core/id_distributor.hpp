@@ -12,6 +12,7 @@
 #include <vector>
 #include <cstddef>
 #include <cstdint>
+#include <functional>
 
 namespace omnigraph {
 
@@ -28,6 +29,7 @@ class ReclaimingIdDistributor {
     size_t size() const {
         return free_map_.size();
     }
+    uint64_t max_id() const { return size() + bias_; }
     bool occupied(uint64_t at) const {
         return !free_map_[at - bias_];
     }
@@ -42,6 +44,8 @@ class ReclaimingIdDistributor {
         free_map_[at - bias_] = true;
     }
 
+    void clear_state(void) { last_allocated_ = 0; }
+
     class id_iterator : public boost::iterator_facade<id_iterator,
                                                       uint64_t,
                                                       boost::forward_traversal_tag,
@@ -51,7 +55,7 @@ class ReclaimingIdDistributor {
                     const std::vector<bool> &map,
                     uint64_t bias)
                 : map_(map), bias_(bias), cur_(start) {
-            if (cur_ != NPOS && map_[cur_])
+            if (cur_ != NPOS && map_.get()[cur_])
                 cur_ = next_occupied(cur_);
         }
 
@@ -63,8 +67,8 @@ class ReclaimingIdDistributor {
         }
 
         uint64_t next_occupied(uint64_t n) const {
-            for (size_t i = n + 1; i < map_.size(); ++i) {
-                if (!map_[i])
+            for (size_t i = n + 1; i < map_.get().size(); ++i) {
+                if (!map_.get()[i])
                     return i;
             }
             return NPOS;
@@ -83,7 +87,7 @@ class ReclaimingIdDistributor {
 
       private:
         static const uint64_t NPOS = -1ULL;
-        const std::vector<bool> &map_;
+        std::reference_wrapper<const std::vector<bool>> map_;
         uint64_t bias_, cur_;
     };
 

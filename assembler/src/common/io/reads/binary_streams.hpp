@@ -7,19 +7,21 @@
 
 #pragma once
 
-#include "utils/verify.hpp"
-#include "ireader.hpp"
+#include "read_stream.hpp"
 #include "single_read.hpp"
 #include "paired_read.hpp"
 #include "binary_converter.hpp"
+
+#include "utils/verify.hpp"
+#include "utils/logger/logger.hpp"
+#include "utils/filesystem/path_helper.hpp"
 
 #include <fstream>
 
 namespace io {
 
 template<typename SeqT>
-class BinaryFileStream: public ReadStream<SeqT> {
-
+class BinaryFileStream {
 protected:
     std::ifstream stream_;
 
@@ -99,111 +101,66 @@ public:
     BinaryFileStream(const std::string &file_name_prefix)
             : BinaryFileStream(file_name_prefix, 1, 0) {}
 
-    BinaryFileStream<SeqT>& operator>>(SeqT &read) override {
+    BinaryFileStream<SeqT>& operator>>(SeqT &read) {
         ReadImpl(read);
         VERIFY(current_ < count_);
         ++current_;
         return *this;
     }
 
-    bool is_open() override {
+    bool is_open() {
         return stream_.is_open();
     }
 
-    bool eof() override {
+    bool eof() {
         return current_ >= count_;
     }
 
-    void close() override {
+    void close() {
         current_ = 0;
         stream_.close();
     }
 
-    void reset() override {
+    void reset() {
         Init();
     }
 
 };
 
 class BinaryFileSingleStream : public BinaryFileStream<SingleReadSeq>  {
-
 protected:
-    bool ReadImpl(SingleReadSeq &read) override {
-        return read.BinRead(stream_);
-    }
-
+    bool ReadImpl(SingleReadSeq &read) override;
 public:
-    BinaryFileSingleStream(const std::string &file_name_prefix, size_t portion_count, size_t portion_num)
-            : BinaryFileStream(file_name_prefix, portion_count, portion_num) {
-    }
+    BinaryFileSingleStream(const std::string &file_name_prefix, size_t portion_count, size_t portion_num);
 };
 
 class BinaryFilePairedStream: public BinaryFileStream<PairedReadSeq> {
     size_t insert_size_;
-
 protected:
-    bool ReadImpl(PairedReadSeq& read) override {
-        return read.BinRead(stream_, insert_size_);
-    }
-
+    bool ReadImpl(PairedReadSeq& read) override;
 public:
     BinaryFilePairedStream(const std::string &file_name_prefix, size_t insert_size,
-                           size_t portion_count, size_t portion_num)
-            : BinaryFileStream(file_name_prefix, portion_count, portion_num), insert_size_ (insert_size) {
-    }
+                           size_t portion_count, size_t portion_num);
 };
 
-//returns FF oriented paired reads
-class BinaryUnmergingPairedStream: public ReadStream<PairedReadSeq> {
+// returns FF oriented paired reads
+class BinaryUnmergingPairedStream {
     BinaryFileSingleStream stream_;
     size_t insert_size_;
     size_t read_length_;
 
-    PairedReadSeq Convert(const SingleReadSeq &read) const {
-        if (read.GetLeftOffset() >= read_length_ ||
-                read.GetRightOffset() >= read_length_) {
-            return PairedReadSeq();
-        }
-//        VERIFY(read_length_ >= read.GetLeftOffset() &&
-//                       read_length_ >= read.GetRightOffset());
-
-        const size_t left_length = std::min(read.size(), read_length_ - read.GetLeftOffset());
-        const size_t right_length = std::min(read.size(), read_length_ - read.GetRightOffset());
-        SingleReadSeq left(read.sequence().Subseq(0, left_length), read.GetLeftOffset(), 0);
-        SingleReadSeq right(read.sequence().Subseq(read.size() - right_length), 0, read.GetRightOffset());
-        return PairedReadSeq(left, right, insert_size_);
-    }
+    PairedReadSeq Convert(const SingleReadSeq &read) const;
 
 public:
     BinaryUnmergingPairedStream(const std::string& file_name_prefix, size_t insert_size, size_t read_length,
-                                size_t portion_count, size_t portion_num) :
-            stream_(file_name_prefix, portion_count, portion_num),
-            insert_size_(insert_size),
-            read_length_(read_length) {
-    }
+                                size_t portion_count, size_t portion_num);
 
-    bool is_open() override {
-        return stream_.is_open();
-    }
+    bool is_open() { return stream_.is_open(); }
+    bool eof() { return stream_.eof(); }
+    void close() { stream_.close(); }
+    void reset() { stream_.reset(); }
 
-    bool eof() override {
-        return stream_.eof();
-    }
-
-    BinaryUnmergingPairedStream& operator>>(PairedReadSeq& read) override {
-        SingleReadSeq single_read;
-        stream_ >> single_read;
-        read = Convert(single_read);
-        return *this;
-    }
-
-    void close() override {
-        stream_.close();
-    }
-
-    void reset() override {
-        stream_.reset();
-    }
+    BinaryUnmergingPairedStream& operator>>(PairedReadSeq& read);
 
 };
 

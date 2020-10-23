@@ -26,6 +26,7 @@
 #define je_sdallocx je_sdallocx
 #define je_xallocx je_xallocx
 #define je_valloc je_valloc
+#define je_memalign je_memalign
 #define je_valloc je_valloc
 #define je_smallocx_0 je_smallocx_0
 #endif

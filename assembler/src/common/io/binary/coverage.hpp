@@ -21,19 +21,25 @@ public:
             IOSingle<Index>(name, ext) {
     }
 
-    void Write(BinOStream &str, const Index &index) override {
-        for (auto it = index.g().ConstEdgeBegin(); !it.IsEnd(); ++it) {
-            auto e = *it;
-            str << e.int_id() << index.RawCoverage(e);
+    void SaveImpl(BinOStream &str, const Index &index) override {
+        for (auto e : index.g().canonical_edges()) {
+            str << e << index.RawCoverage(e);
         }
+        str << uint64_t(0);  // null-term
     }
 
-    void Read(BinIStream &str, Index &index) override {
-        while (str.has_data()) {
+    void LoadImpl(BinIStream &str, Index &index) override {
+        while (true) {
             uint64_t eid;
             str >> eid;
-            auto cov = str.Read<unsigned>();
+            if (!eid) break; // null-term
+            uint32_t cov;
+            str >> cov;
             index.SetRawCoverage(eid, cov);
+            auto conj_eid = index.g().conjugate(typename Index::EdgeId(eid));
+            if (eid != conj_eid.int_id()) {
+                index.SetRawCoverage(conj_eid, cov);
+            }
         }
     }
 };

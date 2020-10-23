@@ -5,16 +5,13 @@
 //* See file LICENSE for details.
 //***************************************************************************
 
-/*
- * graph_simplification.hpp
- *
- *  Created on: Aug 12, 2011
- *      Author: sergey
- */
-
 #pragma once
 
-#include "pipeline/config_struct.hpp"
+#include "assembly_graph/core/graph.hpp"
+#include "assembly_graph/graph_support/chimera_stats.hpp"
+#include "assembly_graph/graph_support/basic_edge_conditions.hpp"
+#include "assembly_graph/graph_support/parallel_processing.hpp"
+#include "assembly_graph/graph_support/detail_coverage.hpp"
 
 #include "modules/simplification/tip_clipper.hpp"
 #include "modules/simplification/complex_tip_clipper.hpp"
@@ -28,15 +25,11 @@
 
 #include "modules/graph_read_correction.hpp"
 
-#include "assembly_graph/graph_support/chimera_stats.hpp"
-#include "assembly_graph/graph_support/basic_edge_conditions.hpp"
-#include "assembly_graph/stats/picture_dump.hpp"
-#include "assembly_graph/graph_support/parallel_processing.hpp"
-#include "assembly_graph/graph_support/detail_coverage.hpp"
+#include "pipeline/config_struct.hpp"
 
-#include "assembly_graph/core/graph.hpp"
+#include "utils/perf/timetracer.hpp"
 
-#include "visualization/graph_colorer.hpp"
+#include <boost/algorithm/string.hpp>
 
 namespace debruijn {
 
@@ -180,6 +173,11 @@ private:
             return CoverageUpperBound<Graph>(g_, cov_bound);
         } else if (next_token_ == "nbr") {
             return NotBulgeECCondition<Graph>(g_);
+        } else if (next_token_ == "rcec_cb") {
+            ReadNext();
+            double rcec_ratio = std::stod(next_token_);
+            INFO("Creating relative coverage EC condition with threshold " << rcec_ratio);
+            return RelativeCoverageECCondition<Graph>(g_, rcec_ratio);
         } else if (next_token_ == "rctc") {
             ReadNext();
             DEBUG("Creating relative cov tip cond " << next_token_);
@@ -388,7 +386,7 @@ AlternativesAnalyzer<Graph> ParseBRConfig(const Graph &g,
                                        config.max_delta,
                                        config.max_relative_delta,
                                        config.max_number_edges,
-                                       config.dijkstra_vertex_limit);
+                                       config.dijkstra_vertex_limit, config.min_identity);
 }
 
 template<class Graph>
@@ -445,36 +443,38 @@ template<class Graph>
 AlgoPtr<Graph> RelativelyLowCoverageDisconnectorInstance(Graph &g,
         const FlankingCoverage<Graph> &flanking_cov,
         const config::debruijn_config::simplification::relative_coverage_edge_disconnector &rced_config,
-        const SimplifInfoContainer &info) {
+        const SimplifInfoContainer &info,
+        EdgeRemovalHandlerF<Graph> removal_handler = nullptr) {
     if (!rced_config.enabled) {
         INFO("Disconnection of relatively low covered edges disabled");
         return nullptr;
     }
+
     using Condition=omnigraph::simplification::relative_coverage::RelativeCovDisconnectionCondition<Graph>;
 
     func::TypedPredicate<EdgeId> condition = Condition(g, flanking_cov, rced_config.diff_mult, rced_config.edge_sum);
 
-    if (math::gr(rced_config.unconditional_diff_mult, 0.)) {
+    if (math::gr(rced_config.unconditional_diff_mult, 0.))
         condition = func::Or(Condition(g, flanking_cov, rced_config.unconditional_diff_mult, 0), condition);
-    }
 
     return std::make_shared<omnigraph::DisconnectionAlgorithm<Graph>>(g,
             condition,
             info.chunk_cnt(),
-            nullptr);
+            removal_handler);
 }
 
 template<class Graph>
 AlgoPtr<Graph> ComplexBRInstance(
     Graph &g,
     config::debruijn_config::simplification::complex_bulge_remover cbr_config,
+    const SmartEdgeSet<std::unordered_set<typename Graph::EdgeId>, Graph> *restricted_edges,
     const SimplifInfoContainer &info) {
     if (!cbr_config.enabled)
         return nullptr;
     size_t max_length = (size_t) ((double) g.k() * cbr_config.max_relative_length);
     size_t max_diff = cbr_config.max_length_difference;
-    return std::make_shared<omnigraph::complex_br::ComplexBulgeRemover<Graph>>(g, max_length,
-                                                                               max_diff, info.chunk_cnt());
+    return std::make_shared<omnigraph::complex_br::ComplexBulgeRemover<Graph>>(g, max_length, max_diff,
+                                                                               restricted_edges, info.chunk_cnt());
 }
 
 template<class Graph>
@@ -501,13 +501,15 @@ AlgoPtr<Graph> IsolatedEdgeRemoverInstance(Graph &g,
                                            config::debruijn_config::simplification::isolated_edge_remover ier,
                                            const SimplifInfoContainer &info,
                                            EdgeRemovalHandlerF<Graph> removal_handler = 0) {
-    if (!ier.enabled) {
+    if (!ier.enabled)
         return nullptr;
-    }
+
     size_t max_length_any_cov = ier.use_rl_for_max_length_any_cov ?
-                                std::max(info.read_length(), ier.max_length_any_cov) : ier.max_length_any_cov;
+                                std::max(info.read_length() + ier.rl_threshold_increase, ier.max_length_any_cov) :
+                                ier.max_length_any_cov;
     size_t max_length = ier.use_rl_for_max_length ?
-                                std::max(info.read_length(), ier.max_length) : ier.max_length;
+                                std::max(info.read_length() + ier.rl_threshold_increase, ier.max_length) :
+                                ier.max_length;
 
 
     auto condition = func::And(IsolatedEdgeCondition<Graph>(g),
@@ -576,12 +578,11 @@ AlgoPtr<Graph> TipClipperInstance(Graph &g,
     auto condition = parser();
     auto algo = TipClipperInstance(g, condition, info, removal_handler);
     VERIFY_MSG(parser.requested_iterations() != 0, "To disable tip clipper pass empty string");
-    if (parser.requested_iterations() == 1) {
+    if (parser.requested_iterations() == 1)
         return algo;
-    } else {
-        return std::make_shared<LoopedAlgorithm<Graph>>(g, algo, 1, size_t(parser.requested_iterations()),
-                /*force primary for all*/ true);
-    }
+
+    return std::make_shared<LoopedAlgorithm<Graph>>(g, algo, 1, size_t(parser.requested_iterations()),
+                                                    /*force primary for all*/ true);
 }
 
 template<class Graph>
@@ -616,10 +617,13 @@ AlgoPtr<Graph> TopologyTipClipperInstance(
                               condition, info, removal_handler, /*track changes*/false);
 }
 
+typedef std::function<bool(EdgeId edge, const std::vector<EdgeId>& path)> BulgeCallbackF;
+
 template<class Graph>
 AlgoPtr<Graph> BRInstance(Graph &g,
                           const config::debruijn_config::simplification::bulge_remover &br_config,
                           const SimplifInfoContainer &info,
+                          BulgeCallbackF callback = nullptr,
                           EdgeRemovalHandlerF<Graph> removal_handler = nullptr) {
     if (!br_config.enabled || (br_config.main_iteration_only && !info.main_iteration())) {
         return nullptr;
@@ -635,7 +639,7 @@ AlgoPtr<Graph> BRInstance(Graph &g,
                 br_config.buff_cov_diff,
                 br_config.buff_cov_rel_diff,
                 alternatives_analyzer,
-                nullptr,
+                callback,
                 removal_handler,
                 /*track_changes*/true);
     } else {
@@ -643,7 +647,7 @@ AlgoPtr<Graph> BRInstance(Graph &g,
         return std::make_shared<omnigraph::BulgeRemover<Graph>>(g,
                 info.chunk_cnt(),
                 alternatives_analyzer,
-                nullptr,
+                callback,
                 removal_handler,
                 /*track_changes*/true);
     }
@@ -661,22 +665,22 @@ AlgoPtr<Graph> LowFlankDisconnectorInstance(Graph &g,
     }
 
     auto condition = [&,cov_bound] (EdgeId e) {
-        return g.OutgoingEdgeCount(g.EdgeStart(e)) > 1
-               && math::le(flanking_cov.CoverageOfStart(e), cov_bound);
+        return g.OutgoingEdgeCount(g.EdgeStart(e)) > 1 &&
+                math::le(flanking_cov.CoverageOfStart(e), cov_bound);
     };
 
     return std::make_shared<omnigraph::DisconnectionAlgorithm<Graph>>(g, condition,
-                                                                 info.chunk_cnt(),
-                                                                 removal_handler);
+                                                                      info.chunk_cnt(),
+                                                                      removal_handler);
 }
 
 template<class Graph>
 AlgoPtr<Graph> LowCoverageEdgeRemoverInstance(Graph &g,
                                               const config::debruijn_config::simplification::low_covered_edge_remover &lcer_config,
                                               const SimplifInfoContainer &info) {
-    if (!lcer_config.enabled) {
+    if (!lcer_config.enabled)
         return nullptr;
-    }
+
     VERIFY(info.read_length() > g.k());
     double threshold = lcer_config.coverage_threshold * double(info.read_length() - g.k()) / double(info.read_length());
     INFO("Low coverage edge removal (LCER) activated and will remove edges of coverage lower than " << threshold);
@@ -695,6 +699,8 @@ bool RemoveHiddenLoopEC(Graph &g,
                         double determined_coverage_threshold,
                         double relative_threshold,
                         EdgeRemovalHandlerF<Graph> removal_handler) {
+    TIME_TRACE_SCOPE();
+
     INFO("Removing loops and rc loops with erroneous connections");
     ECLoopRemover<Graph> hc(g, flanking_cov,
                             determined_coverage_threshold,

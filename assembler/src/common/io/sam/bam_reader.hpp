@@ -7,7 +7,7 @@
 //todo rename to reader
 #pragma once
 
-#include "io/reads/ireader.hpp"
+#include "io/reads/read_stream.hpp"
 #include "io/reads/single_read.hpp"
 
 #include <bamtools/api/BamReader.h>
@@ -53,8 +53,10 @@ public:
     }
 };
 
-class UnmappedBamStream : public ReadStream<BamRead> {
+class UnmappedBamStream {
 public:
+    typedef BamRead ReadT;
+    
     UnmappedBamStream(const std::string &filename)
             : filename_(filename) {
         open();

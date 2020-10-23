@@ -4,37 +4,30 @@
 
 
 # Configuration directories and files
-SourceDirectory: /Users/dima/Desktop/Blackbird/assembler/ext/src/jemalloc
-BuildDirectory: /Users/dima/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/jemalloc
+SourceDirectory: /home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/jemalloc
+BuildDirectory: /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/jemalloc
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: mac178124.local
+Site: dmm2017-ThinkPad-E475
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
-BuildName: Darwin-c++
+BuildName: Linux-c++
+
+# Subprojects
+LabelsForSubprojects: 
 
 # Submission information
-IsCDash: 
-CDashVersion: 
-QueryCDashVersion: 
-DropSite: 
-DropLocation: 
-DropSiteUser: 
-DropSitePassword: 
-DropSiteMode: 
-DropMethod: http
-TriggerSite: 
-ScpCommand: /usr/bin/scp
+SubmitURL: http://
 
 # Dashboard start time
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/Applications/CLion.app/Contents/bin/cmake/bin/cmake" "/Users/dima/Desktop/Blackbird/assembler/ext/src/jemalloc"
-MakeCommand: /Applications/CLion.app/Contents/bin/cmake/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
+ConfigureCommand: "/home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake" "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/jemalloc"
+MakeCommand: /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
 DefaultCTestConfigurationType: Release
 
 # version control
@@ -46,7 +39,7 @@ CVSCommand: CVSCOMMAND-NOTFOUND
 CVSUpdateOptions: -d -A -P
 
 # Subversion options
-SVNCommand: /usr/bin/svn
+SVNCommand: SVNCOMMAND-NOTFOUND
 SVNOptions: 
 SVNUpdateOptions: 
 
@@ -69,8 +62,8 @@ UpdateOptions:
 UpdateType: 
 
 # Compiler info
-Compiler: /Library/Developer/CommandLineTools/usr/bin/c++
-CompilerVersion: 9.0.0.9000039
+Compiler: /usr/bin/c++
+CompilerVersion: 5.4.0
 
 # Dynamic analysis (MemCheck)
 PurifyCommand: 
@@ -83,7 +76,7 @@ MemoryCheckCommandOptions:
 MemoryCheckSuppressionFile: 
 
 # Coverage
-CoverageCommand: /opt/local/bin/gcov
+CoverageCommand: /usr/bin/gcov
 CoverageExtraFlags: -l
 
 # Cluster commands

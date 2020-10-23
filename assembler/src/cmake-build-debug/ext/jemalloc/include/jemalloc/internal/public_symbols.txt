@@ -19,5 +19,6 @@ sallocx:je_sallocx
 sdallocx:je_sdallocx
 xallocx:je_xallocx
 valloc:je_valloc
+memalign:je_memalign
 valloc:je_valloc
 smallocx_0:je_smallocx_0

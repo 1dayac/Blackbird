@@ -114,24 +114,45 @@ def generateK_for_rna(cfg, dataset_data, log):
         log.info("K values to be used: " + str(k_values))
 
 
+def generateK_for_rnaviral(cfg, dataset_data, log):
+    if cfg.iterative_K == "auto":
+        k_values = rna_k_values(support, dataset_data, log)
+        # FIXME: Hack-hack-hack! :)
+        if min(k_values) == options_storage.RNA_MAX_LOWER_K:
+            k_values = [options_storage.K_MERS_RNA[0]] + k_values
+        cfg.iterative_K = k_values
+        log.info("K values to be used: " + str(k_values))
+
+
 def generateK(cfg, log, dataset_data, silent=False):
     if options_storage.args.rna:
         generateK_for_rna(cfg, dataset_data, log)
+    elif options_storage.args.rnaviral:
+        generateK_for_rnaviral(cfg, dataset_data, log)
     elif not options_storage.args.iontorrent:
         RL = support.get_primary_max_reads_length(dataset_data, log, ["merged reads"],
                                                   options_storage.READS_TYPES_USED_IN_CONSTRUCTION)
         if options_storage.auto_K_allowed():
-            if RL >= 250:
-                if not silent:
-                    log.info("Default k-mer sizes were set to %s because estimated "
-                             "read length (%d) is equal to or greater than 250" % (str(options_storage.K_MERS_250), RL))
-                cfg.iterative_K = options_storage.K_MERS_250
-            elif RL >= 150:
-                if not silent:
-                    log.info("Default k-mer sizes were set to %s because estimated "
-                             "read length (%d) is equal to or greater than 150" % (str(options_storage.K_MERS_150), RL))
-                cfg.iterative_K = options_storage.K_MERS_150
-
+            if options_storage.args.plasmid:
+                if RL >= 150:
+                    if not silent:
+                        log.info("Default k-mer sizes were set to %s because estimated read length (%d) is equal to or greater than 150" % (str(options_storage.K_MERS_PLASMID_LONG), RL))
+                    cfg.iterative_K = options_storage.K_MERS_PLASMID_LONG
+                else:
+                    if not silent:
+                        log.info("Default k-mer sizes were set to %s because estimated read length (%d) is less than 150" % (str(options_storage.K_MERS_PLASMID_100), RL))
+                    cfg.iterative_K = options_storage.K_MERS_PLASMID_100
+            else:
+                if RL >= 250:
+                    if not silent:
+                        log.info("Default k-mer sizes were set to %s because estimated "
+                                 "read length (%d) is equal to or greater than 250" % (str(options_storage.K_MERS_250), RL))
+                    cfg.iterative_K = options_storage.K_MERS_250
+                elif RL >= 150:
+                    if not silent:
+                        log.info("Default k-mer sizes were set to %s because estimated "
+                                 "read length (%d) is equal to or greater than 150" % (str(options_storage.K_MERS_150), RL))
+                    cfg.iterative_K = options_storage.K_MERS_150
         if RL <= max(cfg.iterative_K):
             new_k_mers = [k for k in cfg.iterative_K if k < RL]
             if not silent:
@@ -143,6 +164,23 @@ def generateK(cfg, log, dataset_data, silent=False):
         cfg.iterative_K = [cfg.iterative_K]
     cfg.iterative_K = sorted(cfg.iterative_K)
 
+class PlasmidGlueFileStage(stage.Stage):
+    STAGE_NAME = "metaplasmid glue files"
+    def __init__(self, latest, *args):
+        super(PlasmidGlueFileStage, self).__init__(*args)
+        self.latest = latest
+
+    def get_command(self, cfg):
+        self.cfg = cfg
+        args = [os.path.join(self.python_modules_home, "spades_pipeline", "scripts", "plasmid_glue.py")]
+        args.append(self.latest)
+        command = [commands_parser.Command(STAGE=self.STAGE_NAME,
+                                       path=sys.executable,
+                                       args=args,
+                                       short_name=self.short_name,
+                                       )]
+        return command 
+
 
 class SpadesCopyFileStage(stage.Stage):
     STAGE_NAME = "Copy files"
@@ -152,6 +190,9 @@ class SpadesCopyFileStage(stage.Stage):
 
     def rna_copy(self, output_file, latest, cfg):
         return options_storage.args.rna and self.always_copy(output_file, latest, cfg)
+
+    def only_bio(self, output_file, latest, cfg):
+        return options_storage.args.bio or options_storage.args.custom_hmms
 
     def correct_scaffolds_copy(self, output_file, latest, cfg):
         return cfg.correct_scaffolds
@@ -173,23 +214,31 @@ class SpadesCopyFileStage(stage.Stage):
             self.OutputFile(self.cfg.result_scaffolds, "corrected_scaffolds.fasta", self.correct_scaffolds_copy),
             self.OutputFile(os.path.join(os.path.dirname(self.cfg.result_contigs), "before_rr.fasta"),
                             "before_rr.fasta", self.always_copy),
+            self.OutputFile(os.path.join(os.path.dirname(self.cfg.result_contigs), "assembly_graph_after_simplification.gfa"),
+                            "assembly_graph_after_simplification.gfa", self.always_copy),
             self.OutputFile(self.cfg.result_transcripts, "transcripts.fasta", self.rna_copy),
             self.OutputFile(self.cfg.result_transcripts_paths, "transcripts.paths", self.rna_copy),
             self.OutputFile(self.cfg.result_contigs, "final_contigs.fasta", self.not_rna_copy),
             self.OutputFile(os.path.join(os.path.dirname(self.cfg.result_contigs),
                                          "first_pe_contigs.fasta"), "first_pe_contigs.fasta", self.not_rna_copy),
+            self.OutputFile(os.path.join(os.path.dirname(self.cfg.result_contigs),
+                                         "strain_graph.gfa"), "strain_graph.gfa", self.not_rna_copy),
             self.OutputFile(self.cfg.result_scaffolds, "scaffolds.fasta", self.rr_enably_copy),
             self.OutputFile(self.cfg.result_scaffolds_paths, "scaffolds.paths", self.rr_enably_copy),
             self.OutputFile(self.cfg.result_graph_gfa, "assembly_graph_with_scaffolds.gfa", self.always_copy),
             self.OutputFile(self.cfg.result_graph, "assembly_graph.fastg", self.always_copy),
-            self.OutputFile(self.cfg.result_contigs_paths, "final_contigs.paths", self.not_rna_copy)
+            self.OutputFile(self.cfg.result_contigs_paths, "final_contigs.paths", self.not_rna_copy),
+            self.OutputFile(self.cfg.result_gene_clusters, "gene_clusters.fasta", self.only_bio),
+            self.OutputFile(self.cfg.result_bgc_statistics, "bgc_statistics.txt", self.only_bio),
+            self.OutputFile(self.cfg.result_domain_graph, "domain_graph.dot", self.only_bio)
+
         ]
 
         for filtering_type in options_storage.filtering_types:
             prefix = filtering_type + "_filtered_"
             result_filtered_transcripts = os.path.join(self.cfg.output_dir,
                                                        prefix + options_storage.transcripts_name)
-            self.OutputFile(result_filtered_transcripts, prefix + "final_paths.fasta", self.rna_copy)
+            self.output.append(self.OutputFile(result_filtered_transcripts, prefix + "final_paths.fasta", self.rna_copy))
 
     def __init__(self, latest, *args):
         super(SpadesCopyFileStage, self).__init__(*args)
@@ -212,13 +261,13 @@ class SpadesCopyFileStage(stage.Stage):
                 filename = os.path.join(self.latest, outputfile.tmp_file)
                 args.append(filename)
                 args.append(outputfile.output_file)
-
         bin_reads_dir = os.path.join(self.cfg.output_dir, ".bin_reads")
         command = [commands_parser.Command(STAGE=self.STAGE_NAME,
                                            path=sys.executable,
                                            args=args,
                                            short_name=self.short_name,
-                                           del_after=[bin_reads_dir, self.cfg.tmp_dir])]
+                                           del_after=[os.path.relpath(bin_reads_dir, options_storage.args.output_dir),
+                                                      os.path.relpath(self.cfg.tmp_dir, options_storage.args.output_dir)])]
         return command
 
 
@@ -284,7 +333,14 @@ class SpadesStage(stage.Stage):
                                                                                  self.ext_python_modules_home,
                                                                                  self.python_modules_home))
             self.latest = os.path.join(os.path.join(self.cfg.output_dir, "SCC"), "K21")
-
+        if options_storage.args.plasmid and options_storage.args.meta:
+            self.stages.append(PlasmidGlueFileStage(self.latest, "plasmid_copy_files", 
+                                                    self.output_files,
+                                                    self.tmp_configs_dir,
+                                                    self.dataset_data, self.log,
+                                                    self.bin_home,
+                                                    self.ext_python_modules_home,
+                                                    self.python_modules_home))
         self.stages.append(SpadesCopyFileStage(self.latest, "copy_files",
                                                self.output_files,
                                                self.tmp_configs_dir,
@@ -303,6 +359,9 @@ class SpadesStage(stage.Stage):
         self.cfg.__dict__["result_scaffolds_paths"] = output_files["result_scaffolds_paths_filename"]
         self.cfg.__dict__["result_transcripts"] = output_files["result_transcripts_filename"]
         self.cfg.__dict__["result_transcripts_paths"] = output_files["result_transcripts_paths_filename"]
+        self.cfg.__dict__["result_gene_clusters"] = output_files["result_gene_clusters_filename"]
+        self.cfg.__dict__["result_bgc_statistics"] = output_files["result_bgc_stats_filename"]
+        self.cfg.__dict__["result_domain_graph"] = output_files["result_domain_graph_filename"]
 
         if self.cfg.disable_rr:
             self.cfg.__dict__["rr_enable"] = False

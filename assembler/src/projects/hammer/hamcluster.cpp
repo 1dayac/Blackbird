@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <fstream>
 
 class EncoderKMer {
 public:
@@ -173,7 +174,7 @@ void KMerHamClusterer::cluster(const std::string &prefix,
 
   size_t big_blocks2 = 0;
   {
-    INFO("Spliting sub-kmers, pass 2.");
+    INFO("Splitting sub-kmers, pass 2.");
     SubKMerSplitter Splitter(bfname, kfname);
     size_t nblocks = 0;
     std::pair<size_t, size_t> stat =

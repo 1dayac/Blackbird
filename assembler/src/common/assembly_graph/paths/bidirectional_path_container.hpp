@@ -1,12 +1,13 @@
-//
-// Created by andrey on 14.08.17.
-//
+//***************************************************************************
+//* Copyright (c) 2017-2019 Saint Petersburg State University
+//* All Rights Reserved
+//* See file LICENSE for details.
+//***************************************************************************
 
 #pragma once
 
 #include "bidirectional_path.hpp"
 #include "modules/path_extend/path_filter.hpp"
-
 #include <vector>
 #include <set>
 #include <map>
@@ -58,7 +59,7 @@ public:
         }
 
         ConstIterator(const PathContainer::Iterator& iter)
-            : PathContainerT::const_iterator(iter) {
+            : PathContainerT::const_iterator(PathContainerT::iterator(iter)) {
         }
 
         BidirectionalPath* get() const {
@@ -69,9 +70,7 @@ public:
         }
     };
 
-    PathContainer() {
-    }
-
+    PathContainer() {}
 
     PathContainer(const PathContainer&) = delete;
     PathContainer& operator=(const PathContainer&) = delete;
@@ -82,7 +81,9 @@ public:
     PathContainer(ConstIterator begin, ConstIterator end) {
         DeleteAllPaths();
         for (ConstIterator it = begin; it != end; ++it) {
-            AddPair(new BidirectionalPath(*it.get()), new BidirectionalPath(*it.getConjugate()));
+            BidirectionalPath * path = new BidirectionalPath(*(it.get()));
+            BidirectionalPath * conjugatePath = new BidirectionalPath(*(it.getConjugate()));
+            AddPair(path, conjugatePath);
         }
     }
 
@@ -140,7 +141,7 @@ public:
                 return desc ? p1.first->Length() > p2.first->Length()
                             : p1.first->Length() < p2.first->Length();
             }
-            const Graph& g = p1.first->graph();
+            const debruijn_graph::Graph& g = p1.first->graph();
             return g.int_id(p1.first->Front()) < g.int_id(p2.first->Front());
         });
     }
@@ -161,7 +162,7 @@ public:
         return ConstIterator(data_.end());
     }
 
-    Iterator erase(Iterator iter) {
+    Iterator erase(ConstIterator iter) {
         return Iterator(data_.erase(iter));
     }
 
@@ -173,7 +174,7 @@ public:
     }
 
     void FilterPaths(const func::TypedPredicate<const BidirectionalPath&>& pred) {
-        DEBUG("Removing empty paths");
+        DEBUG("Filtering paths based on predicate");
         for (auto &pp : data_) {
             if (pred(*pp.first)) {
                 VERIFY(pred(*pp.second)); //do we need it?
@@ -183,10 +184,11 @@ public:
 
         const PathPair empty_pp(nullptr, nullptr);
         data_.erase(std::remove(data_.begin(), data_.end(), empty_pp), data_.end());
-        DEBUG("Empty paths removed");
+        DEBUG("Paths filtered");
     }
 
     void FilterEmptyPaths() {
+        DEBUG("Removing empty paths");
         FilterPaths(EmptyPathCondition());
     }
 

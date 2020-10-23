@@ -8,9 +8,13 @@
 project(modules CXX)
 
 add_library(modules STATIC
+            chromosome_remover.cpp
             genome_consistance_checker.cpp
             alignment/gap_info.cpp
             alignment/bwa_index.cpp
+            alignment/long_read_mapper.cpp
+            alignment/sequence_mapper.cpp
+            alignment/sequence_mapper_notifier.cpp
             alignment/pacbio/gap_filler.cpp
             alignment/pacbio/gap_dijkstra.cpp 
             alignment/pacbio/g_aligner.cpp 

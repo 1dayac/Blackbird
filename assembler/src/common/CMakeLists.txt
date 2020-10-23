@@ -18,8 +18,10 @@ add_subdirectory(utils)
 add_subdirectory(io)
 add_subdirectory(utils/kmer_mph)
 add_subdirectory(modules/coverage_model)
+add_subdirectory(hmm)
 
-add_library(common_modules INTERFACE)
+add_library(common_modules
+            adt/concurrent_dsu.cpp)
 
-target_link_libraries(common_modules INTERFACE
+target_link_libraries(common_modules
                       assembly_graph input pipeline sequence coverage_model paired_info path_extend stages utils mph_index modules)

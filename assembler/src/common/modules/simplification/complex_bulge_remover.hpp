@@ -128,7 +128,7 @@ public:
             if (v == start_vertex_)
                 continue;
             std::vector<EdgeId> filtered_incoming;
-            std::copy_if(g_.in_begin(v), g_.in_end(v), std::back_inserter(filtered_incoming), 
+            std::copy_if(g_.in_begin(v), g_.in_end(v), std::back_inserter(filtered_incoming),
                         [&] (EdgeId e) {return contains(g_.EdgeStart(e));});
             VERIFY_MSG(filtered_incoming.size() == g_.IncomingEdgeCount(v), "Strange component");
             if (g_.IncomingEdgeCount(v) > 1) {
@@ -636,11 +636,11 @@ public:
     SkeletonTreeFinder(const LocalizedComponent<Graph>& component,
             const ComponentColoring<Graph>& coloring) :
         component_(component),
-        coloring_(coloring), 
-        level_heights_(SetAsVector<size_t>(component_.avg_distances())), 
-        current_level_((int) level_heights_.size() - 1), 
+        coloring_(coloring),
+        level_heights_(SetAsVector<size_t>(component_.avg_distances())),
+        current_level_((int) level_heights_.size() - 1),
         current_color_partition_(component_.end_vertices().size()) {
-        
+
         Init();
     }
 
@@ -1050,7 +1050,7 @@ class CandidateFinder : public VertexCondition<Graph> {
     size_t length_diff_;
 
 public:
-    CandidateFinder(const Graph& g, size_t max_length, size_t length_diff) : 
+    CandidateFinder(const Graph& g, size_t max_length, size_t length_diff) :
         VertexCondition<Graph>(g), max_length_(max_length), length_diff_(length_diff) {
     }
 
@@ -1083,9 +1083,11 @@ class ComplexBulgeRemover : public PersistentProcessingAlgorithm<Graph, typename
     typedef typename Graph::VertexId VertexId;
     typedef typename Graph::EdgeId EdgeId;
     typedef PersistentProcessingAlgorithm<Graph, VertexId> base;
+    typedef SmartEdgeSet<std::unordered_set<EdgeId>, Graph> RestrictedEdgeSet;
 
     size_t max_length_;
     size_t length_diff_;
+    const RestrictedEdgeSet *protected_edges_ = nullptr;
     std::string pics_folder_;
 
     bool ProcessComponent(LocalizedComponent<Graph>& component,
@@ -1097,6 +1099,16 @@ class ComplexBulgeRemover : public PersistentProcessingAlgorithm<Graph, typename
         if (tree_finder.FindTree()) {
             DEBUG("Tree found");
             SkeletonTree<Graph> tree(component, tree_finder.GetTreeEdges());
+
+            if (protected_edges_) {
+                auto tree_edges = tree_finder.GetTreeEdges();
+                for (auto edge : tree_edges) {
+                    if (protected_edges_->count(edge) > 0) {
+                        DEBUG("Trying to project a-domain edges");
+                        return false;
+                    }
+                }
+            }
 
             if (!pics_folder_.empty()) {
                 PrintComponent(component, tree,
@@ -1156,13 +1168,14 @@ class ComplexBulgeRemover : public PersistentProcessingAlgorithm<Graph, typename
 public:
 
     //track_changes=false leads to every iteration run from scratch
-    ComplexBulgeRemover(Graph& g, size_t max_length, size_t length_diff,
-                        size_t chunk_cnt, const std::string &pics_folder = "") :
+    ComplexBulgeRemover(Graph& g, size_t max_length, size_t length_diff, const RestrictedEdgeSet *protected_edges,
+                        size_t chunk_cnt, const std::string& pics_folder = "") :
             base(g, std::make_shared<omnigraph::ParallelInterestingElementFinder<Graph, VertexId>>(
-                CandidateFinder<Graph>(g, max_length, length_diff), chunk_cnt), 
-                false, std::less<VertexId>(), /*track changes*/false),
-            max_length_(max_length), 
-            length_diff_(length_diff), 
+                CandidateFinder<Graph>(g, max_length, length_diff), chunk_cnt),
+                false, adt::identity(), /*track changes*/false),
+            max_length_(max_length),
+            length_diff_(length_diff),
+            protected_edges_(protected_edges),
             pics_folder_(pics_folder) {
         if (!pics_folder_.empty()) {
 //            remove_dir(pics_folder_);

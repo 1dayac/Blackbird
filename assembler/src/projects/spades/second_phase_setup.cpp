@@ -4,25 +4,26 @@
 //* See file LICENSE for details.
 //***************************************************************************
 
-#include "io/dataset_support/dataset_readers.hpp"
-#include "io/dataset_support/read_converter.hpp"
-
-#include "paired_info/paired_info.hpp"
-
-#include "assembly_graph/stats/picture_dump.hpp"
-#include "pair_info_count.hpp"
 #include "second_phase_setup.hpp"
 
+#include "assembly_graph/core/graph.hpp"
+#include "assembly_graph/core/graph_iterators.hpp"
+#include "utils/filesystem/path_helper.hpp"
+
+#include <unordered_set>
 
 namespace debruijn_graph {
 
-void SecondPhaseSetup::run(conj_graph_pack &gp, const char*) {
+void SecondPhaseSetup::run(GraphPack &gp, const char*) {
     INFO("Preparing second phase");
     gp.ClearRRIndices();
     gp.ClearPaths();
+    // Clearing used edges for plasmids
+    if (gp.count<omnigraph::SmartContainer<std::unordered_set<EdgeId>, Graph>>("used_edges"))
+        gp.get_mutable<omnigraph::SmartContainer<std::unordered_set<EdgeId>, Graph>>("used_edges").clear();
 
-    std::string old_pe_contigs_filename = cfg::get().output_dir + "final_contigs.fasta";
-    std::string new_pe_contigs_filename = cfg::get().output_dir + "first_pe_contigs.fasta";
+    std::string old_pe_contigs_filename = fs::append_path(cfg::get().output_dir, cfg::get().co.contigs_name + ".fasta");
+    std::string new_pe_contigs_filename = fs::append_path(cfg::get().output_dir, "first_pe_contigs.fasta");
 
     VERIFY(fs::check_existence(old_pe_contigs_filename));
     INFO("Moving preliminary contigs from " << old_pe_contigs_filename << " to " << new_pe_contigs_filename);

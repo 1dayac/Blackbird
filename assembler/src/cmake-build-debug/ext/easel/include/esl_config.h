@@ -90,7 +90,7 @@
 #define HAVE_SYSCONF
 #define HAVE_SYSCTL
 #define HAVE_TIMES
-#define HAVE_ERFC
+/* #undef HAVE_ERFC */
 
 #define HAVE_FUNC_ATTRIBUTE_NORETURN // Compiler supports __attribute__ tag, which we use to help w/ clang static analysis.
 

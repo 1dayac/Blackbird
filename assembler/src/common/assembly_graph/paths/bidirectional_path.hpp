@@ -1,4 +1,3 @@
-
 //***************************************************************************
 //* Copyright (c) 2015 Saint Petersburg State University
 //* Copyright (c) 2011-2014 Saint Petersburg Academic University
@@ -6,25 +5,13 @@
 //* See file LICENSE for details.
 //***************************************************************************
 
-/*
- * bidirectional_path.h
- *
- *  Created on: Nov 14, 2011
- *      Author: andrey
- */
 #pragma once
 
 #include "assembly_graph/core/graph.hpp"
-#include "assembly_graph/components/connected_component.hpp"
-#include <boost/algorithm/string.hpp>
 #include <algorithm>
 #include <atomic>
 #include <deque>
 #include <vector>
-
-using debruijn_graph::Graph;
-using debruijn_graph::EdgeId;
-using debruijn_graph::VertexId;
 
 namespace path_extend {
 
@@ -54,20 +41,19 @@ struct Gap {
 
     //gap is in k+1-mers and does not know about "trash" regions
     explicit Gap(int gap_, Gap::Trash trash_, bool is_final_ = true)
-     : gap(gap_), trash(trash_), is_final(is_final_)
-     { }
+            : gap(gap_), trash(trash_), is_final(is_final_) { }
 
     explicit Gap(int gap_ = 0, bool is_final_ = true)
-            : gap(gap_), trash{0, 0}, is_final(is_final_)
-    { }
+            : gap(gap_), trash{0, 0}, is_final(is_final_) { }
 
     Gap conjugate() const {
         return Gap(gap, {trash.current, trash.previous}, is_final);
     }
 
     bool operator==(const Gap &that) const {
-        return gap == that.gap && trash.previous == that.trash.previous && trash.current == that.trash.current
-               && is_final == that.is_final;
+        return gap == that.gap &&
+                trash.previous == that.trash.previous && trash.current == that.trash.current &&
+                is_final == that.is_final;
     }
 
     bool operator!=(const Gap &that) const {
@@ -93,18 +79,18 @@ inline std::ostream& operator<<(std::ostream& os, Gap gap) {
 
 class PathListener {
 public:
-    virtual void FrontEdgeAdded(EdgeId e, BidirectionalPath *path, const Gap &gap) = 0;
-    virtual void BackEdgeAdded(EdgeId e, BidirectionalPath *path, const Gap &gap) = 0;
-    virtual void FrontEdgeRemoved(EdgeId e, BidirectionalPath *path) = 0;
-    virtual void BackEdgeRemoved(EdgeId e, BidirectionalPath *path) = 0;
+    virtual void FrontEdgeAdded(debruijn_graph::EdgeId e, BidirectionalPath *path, const Gap &gap) = 0;
+    virtual void BackEdgeAdded(debruijn_graph::EdgeId e, BidirectionalPath *path, const Gap &gap) = 0;
+    virtual void FrontEdgeRemoved(debruijn_graph::EdgeId e, BidirectionalPath *path) = 0;
+    virtual void BackEdgeRemoved(debruijn_graph::EdgeId e, BidirectionalPath *path) = 0;
     virtual ~PathListener() {}
 };
 
 class BidirectionalPath : public PathListener {
     static std::atomic<uint64_t> path_id_;
 
-    const Graph& g_;
-    std::deque<EdgeId> data_;
+    const debruijn_graph::Graph& g_;
+    std::deque<debruijn_graph::EdgeId> data_;
     BidirectionalPath* conj_path_;
     // Length from beginning of i-th edge to path end: L(e_i + gap_(i+1) + e_(i+1) + ... + gap_N + e_N)
     std::deque<size_t> cumulative_len_;
@@ -114,14 +100,14 @@ class BidirectionalPath : public PathListener {
     float weight_;
 
 public:
-    BidirectionalPath(const Graph& g)
+    BidirectionalPath(const debruijn_graph::Graph& g)
             : g_(g),
               conj_path_(nullptr),
               id_(path_id_++),
               weight_(1.0) {
     }
 
-    BidirectionalPath(const Graph& g, const std::vector<EdgeId>& path)
+    BidirectionalPath(const debruijn_graph::Graph& g, const std::vector<debruijn_graph::EdgeId>& path)
             : BidirectionalPath(g) {
         cumulative_len_.resize(path.size(), 0);
         data_.resize(path.size());
@@ -136,7 +122,7 @@ public:
         }
     }
 
-    BidirectionalPath(const Graph& g, EdgeId e)
+    BidirectionalPath(const debruijn_graph::Graph& g, debruijn_graph::EdgeId e)
             : BidirectionalPath(g) {
         PushBack(e);
     }
@@ -152,7 +138,7 @@ public:
               weight_(path.weight_) {
     }
 
-    const Graph &g() const{
+    const debruijn_graph::Graph &g() const{
         return g_;
     }
 
@@ -193,7 +179,7 @@ public:
         return data_.size();
     }
 
-    const Graph& graph() const {
+    const debruijn_graph::Graph& graph() const {
         return g_;
     }
 
@@ -210,11 +196,11 @@ public:
     }
 
     //TODO iterators forward/reverse
-    EdgeId operator[](size_t index) const {
+    debruijn_graph::EdgeId operator[](size_t index) const {
         return data_[index];
     }
 
-    EdgeId At(size_t index) const {
+    debruijn_graph::EdgeId At(size_t index) const {
         return data_[index];
     }
 
@@ -239,15 +225,18 @@ public:
         return id_;
     }
 
-    EdgeId Back() const {
+    bool IsCanonical() const {
+        return id_ < this->conj_path_->GetId();
+    }
+
+    debruijn_graph::EdgeId Back() const {
         return data_.back();
     }
 
-    EdgeId Front() const {
+    debruijn_graph::EdgeId Front() const {
         return data_.front();
     }
-
-    void PushBack(EdgeId e, const Gap& gap = Gap()) {
+    void PushBack(debruijn_graph::EdgeId e, const Gap& gap = Gap()) {
         VERIFY(!data_.empty() || gap == Gap());
         data_.push_back(e);
         gap_len_.push_back(gap);
@@ -266,10 +255,10 @@ public:
     }
 
     void PopBack() {
-        if (data_.empty()) {
+        if (data_.empty())
             return;
-        }
-        EdgeId e = data_.back();
+
+        debruijn_graph::EdgeId e = data_.back();
         DecreaseLengths();
         gap_len_.pop_back();
         data_.pop_back();
@@ -288,22 +277,22 @@ public:
         }
     }
 
-    void FrontEdgeAdded(EdgeId, BidirectionalPath*, const Gap&) override {
+    void FrontEdgeAdded(debruijn_graph::EdgeId, BidirectionalPath*, const Gap&) override {
         //FIXME is it ok to be empty?
     }
 
-    void BackEdgeAdded(EdgeId e, BidirectionalPath*, const Gap& gap) override {
+    void BackEdgeAdded(debruijn_graph::EdgeId e, BidirectionalPath*, const Gap& gap) override {
         PushFront(g_.conjugate(e), gap.conjugate());
     }
 
-    void FrontEdgeRemoved(EdgeId, BidirectionalPath*) override {
+    void FrontEdgeRemoved(debruijn_graph::EdgeId, BidirectionalPath*) override {
     }
 
-    void BackEdgeRemoved(EdgeId, BidirectionalPath *) override {
+    void BackEdgeRemoved(debruijn_graph::EdgeId, BidirectionalPath *) override {
         PopFront();
     }
 
-    int FindFirst(EdgeId e) const {
+    int FindFirst(debruijn_graph::EdgeId e) const {
         for (size_t i = 0; i < Size(); ++i) {
             if (data_[i] == e) {
                 return (int) i;
@@ -312,7 +301,7 @@ public:
         return -1;
     }
 
-    int FindLast(EdgeId e) const {
+    int FindLast(debruijn_graph::EdgeId e) const {
         for (int i = (int) Size() - 1; i >= 0; --i) {
             if (data_[i] == e) {
                 return i;
@@ -321,11 +310,11 @@ public:
         return -1;
     }
 
-    bool Contains(EdgeId e) const {
+    bool Contains(debruijn_graph::EdgeId e) const {
         return FindFirst(e) != -1;
     }
 
-    bool Contains(VertexId v) const {
+    bool Contains(debruijn_graph::VertexId v) const {
         for(auto edge : data_) {
             if(g_.EdgeEnd(edge) == v || g_.EdgeStart(edge) == v ) {
                 return true;
@@ -334,7 +323,7 @@ public:
         return false;
     }
 
-    std::vector<size_t> FindAll(EdgeId e, size_t start = 0) const {
+    std::vector<size_t> FindAll(debruijn_graph::EdgeId e, size_t start = 0) const {
         std::vector<size_t> result;
         for (size_t i = start; i < Size(); ++i) {
             if (data_[i] == e) {
@@ -449,42 +438,8 @@ public:
     }
 
     //FIXME remove
-    std::vector<EdgeId> ToVector() const {
-        return std::vector<EdgeId>(data_.begin(), data_.end());
-    }
-
-    void PrintDEBUG() const {
-        for (const auto& s: PrintLines()) {
-            DEBUG(s);
-        }
-    }
-
-    void PrintINFO() const {
-        for (const auto& s: PrintLines()) {
-            INFO(s);
-        }
-    }
-
-    void Print(std::ostream &os) const {
-        if (Empty()) {
-            return;
-        }
-        os << "Path " << GetId() << "\n";
-        os << "Length " << Length() << "\n";
-        os << "Weight " << weight_ << "\n";
-        os << "#, edge (length), gap info, total length, total length from start" << "\n";
-        for (size_t i = 0; i < Size(); ++i) {
-            os << i << ", " << g_.str(At(i))
-               << ", " << GapAt(i)
-               << ", " << LengthAt(i)
-               << ", " << ((Length() < LengthAt(i)) ? 0 : Length() - LengthAt(i)) << "\n";
-        }
-    }
-
-    std::string str() const {
-        std::stringstream ss;
-        Print(ss);
-        return ss.str();
+    std::vector<debruijn_graph::EdgeId> ToVector() const {
+        return std::vector<debruijn_graph::EdgeId>(data_.begin(), data_.end());
     }
 
     auto begin() const -> decltype(data_.begin()) {
@@ -495,14 +450,13 @@ public:
         return data_.end();
     }
 
+    void PrintDEBUG() const;
+    void PrintINFO() const;
+    void Print(std::ostream &os) const;
+    std::string str() const;
+
 private:
-    std::vector<std::string> PrintLines() const {
-        auto as_str = str();
-        boost::trim(as_str);
-        std::vector<std::string> result;
-        boost::split(result, as_str, boost::is_any_of("\n"), boost::token_compress_on);
-        return result;
-    }
+    std::vector<std::string> PrintLines() const;
 
     void IncreaseLengths(size_t length, int gap) {
         for (auto iter = cumulative_len_.begin(); iter != cumulative_len_.end(); ++iter) {
@@ -520,31 +474,31 @@ private:
         cumulative_len_.pop_back();
     }
 
-    void NotifyFrontEdgeAdded(EdgeId e, Gap gap) {
+    void NotifyFrontEdgeAdded(debruijn_graph::EdgeId e, Gap gap) {
         for (auto i = listeners_.begin(); i != listeners_.end(); ++i) {
             (*i)->FrontEdgeAdded(e, this, gap);
         }
     }
 
-    void NotifyBackEdgeAdded(EdgeId e, Gap gap) {
+    void NotifyBackEdgeAdded(debruijn_graph::EdgeId e, Gap gap) {
         for (auto i = listeners_.begin(); i != listeners_.end(); ++i) {
             (*i)->BackEdgeAdded(e, this, gap);
         }
     }
 
-    void NotifyFrontEdgeRemoved(EdgeId e) {
+    void NotifyFrontEdgeRemoved(debruijn_graph::EdgeId e) {
         for (auto i = listeners_.begin(); i != listeners_.end(); ++i) {
             (*i)->FrontEdgeRemoved(e, this);
         }
     }
 
-    void NotifyBackEdgeRemoved(EdgeId e) {
+    void NotifyBackEdgeRemoved(debruijn_graph::EdgeId e) {
         for (auto i = listeners_.begin(); i != listeners_.end(); ++i) {
             (*i)->BackEdgeRemoved(e, this);
         }
     }
 
-    void PushFront(EdgeId e, Gap gap) {
+    void PushFront(debruijn_graph::EdgeId e, Gap gap) {
         data_.push_front(e);
         if (gap_len_.size() > 0) {
             VERIFY(gap_len_[0] == Gap());
@@ -562,7 +516,7 @@ private:
     }
 
     void PopFront() {
-        EdgeId e = data_.front();
+        debruijn_graph::EdgeId e = data_.front();
         data_.pop_front();
         gap_len_.pop_front();
         cumulative_len_.pop_front();
@@ -576,7 +530,7 @@ private:
     DECL_LOGGER("BidirectionalPath");
 };
 
-inline int SkipOneGap(EdgeId end, const BidirectionalPath& path, int gap, int pos, bool forward) {
+inline int SkipOneGap(debruijn_graph::EdgeId end, const BidirectionalPath& path, int gap, int pos, bool forward) {
     size_t len = 0;
     while (pos < (int) path.Size() && pos >= 0 && end != path.At(pos) && (int) len < 2 * gap) {
         len += path.graph().length(path.At(pos));
@@ -674,10 +628,10 @@ inline bool EndsWithInterstrandBulge(const BidirectionalPath &path) {
     if (path.Empty())
         return false;
 
-    const Graph &g = path.g();
-    EdgeId e = path.Back();
-    VertexId v1 = g.EdgeStart(e);
-    VertexId v2 = g.EdgeEnd(e);
+    const debruijn_graph::Graph &g = path.g();
+    debruijn_graph::EdgeId e = path.Back();
+    debruijn_graph::VertexId v1 = g.EdgeStart(e);
+    debruijn_graph::VertexId v2 = g.EdgeEnd(e);
 
     return v2 == g.conjugate(v1) &&
             e != g.conjugate(e) &&

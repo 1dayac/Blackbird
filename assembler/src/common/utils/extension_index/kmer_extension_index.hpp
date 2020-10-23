@@ -9,6 +9,7 @@
 
 #include "sequence/rtseq.hpp"
 #include "utils/ph_map/perfect_hash_map.hpp"
+#include "utils/ph_map/kmer_maps.hpp"
 #include "utils/stl_utils.hpp"
 #include "utils/ph_map/storing_traits.hpp"
 #include <bitset>
@@ -17,7 +18,7 @@ namespace utils {
 
 inline uint8_t invert_byte_slow(uint8_t a) {
     size_t res = 0;
-    for(size_t i = 0; i < 8; i++) {
+    for (size_t i = 0; i < 8; i++) {
         res <<= 1;
         res += a & 1;
         a = uint8_t(a >> 1);
@@ -42,28 +43,29 @@ class InOutMask {
 private:
     uint8_t mask_;
 
-    bool CheckUnique(uint8_t mask) const {
-        static bool unique[] =
-                { 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 };
+    static constexpr bool CheckUnique(uint8_t mask) {
+        constexpr bool unique[] =
+                { 0, 1, 1, 0, 1, 0, 0, 0,
+                  1, 0, 0, 0, 0, 0, 0, 0 };
         return unique[mask];
     }
 
-    char GetUnique(uint8_t mask) const {
-        static char next[] = { -1, 0, 1, -1, 2, -1, -1, -1, 3, -1, -1, -1, -1,
-                -1, -1, -1 };
+    static constexpr char GetUnique(uint8_t mask) {
+        constexpr char next[] =
+                { -1,  0,  1, -1,  2, -1, -1, -1,
+                  3, -1, -1, -1, -1, -1, -1, -1 };
         return next[mask];
     }
 
-    size_t Count(uint8_t mask) const {
-        static char count[] = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4 };
+    static constexpr size_t Count(uint8_t mask) {
+        constexpr char count[] =
+                { 0, 1, 1, 2, 1, 2, 2, 3,
+                  1, 2, 2, 3, 2, 3, 3, 4 };
         return count[mask];
     }
 
-    char inv_position(char nucl, bool as_is) const {
-        if (as_is)
-            return nucl;
-        else
-            return char(7 - nucl);
+    static constexpr char inv_position(char nucl, bool as_is) {
+        return as_is ? nucl: char(7 - nucl);
     }
 
     uint8_t outgoing() const {
@@ -137,6 +139,10 @@ public:
 
     bool IsDeadStart() const {
         return incoming() == 0;
+    }
+
+    bool IsJunction() const {
+        return !CheckUniqueOutgoing() || !CheckUniqueIncoming();
     }
 
     bool CheckUniqueOutgoing() const {
@@ -219,12 +225,6 @@ struct AbstractDeEdge {
     AbstractDeEdge(KeyWithHash s, KeyWithHash e)
             : start(std::move(s)), end(std::move(e)) {}
 
-    AbstractDeEdge<KeyWithHash> &operator=(const AbstractDeEdge<KeyWithHash> &that) {
-        this->start = that.start;
-        this->end = that.end;
-        return *this;
-    }
-
     bool operator==(const AbstractDeEdge &other) {
         return start == other.start && end == other.end;
     }
@@ -302,6 +302,10 @@ public:
 
     bool IsDeadStart(const KeyWithHash &kwh) const {
         return this->get_value(kwh).IsDeadStart();
+    }
+
+    bool IsJunction(const KeyWithHash &kwh) const {
+        return this->get_value(kwh).IsJunction();
     }
 
     bool CheckUniqueOutgoing(const KeyWithHash &kwh) const {

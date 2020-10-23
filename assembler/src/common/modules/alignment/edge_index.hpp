@@ -7,11 +7,18 @@
 
 #pragma once
 
+#include <limits>
 #include "assembly_graph/core/graph.hpp"
 #include "assembly_graph/core/action_handlers.hpp"
 #include "assembly_graph/index/edge_info_updater.hpp"
 #include "edge_index_refiller.hpp"
-    
+
+
+namespace io { namespace binary {
+template<class Graph>
+class EdgeIndexIO;
+} }
+
 namespace debruijn_graph {
 
 /**
@@ -21,74 +28,113 @@ namespace debruijn_graph {
  */
 template<class Graph>
 class EdgeIndex: public omnigraph::GraphActionHandler<Graph> {
-
-public:
-    typedef typename Graph::EdgeId EdgeId;
     using InnerIndex = KmerFreeEdgeIndex<Graph>;
-    typedef Graph GraphT;
-    typedef typename InnerIndex::KMer KMer;
-    typedef typename InnerIndex::KMerIdx KMerIdx;
-    typedef typename InnerIndex::KmerPos Value;
+
+    using InnerIndex32 = KmerFreeEdgeIndex<Graph, uint32_t>;
+    using InnerIndex64 = KmerFreeEdgeIndex<Graph, uint64_t>;
+    
+    typedef typename Graph::EdgeId EdgeId;
+public:
+    typedef RtSeq KMer;
+    static constexpr size_t NOT_FOUND = size_t(-1);
 
 private:
-    InnerIndex inner_index_;
-    EdgeInfoUpdater<InnerIndex, Graph> updater_;
+    bool large_index_;
+    void *inner_index_;
+
+    EdgeInfoUpdater<Graph> updater_;
     EdgeIndexRefiller refiller_;
-    bool delete_index_;
+
+    template<class Index>
+    const std::pair<EdgeId, size_t> get(const KMer& kmer, const Index &index) const {
+        auto kwh = index.ConstructKWH(kmer);
+        if (!index.contains(kwh)) {
+            return { EdgeId(), NOT_FOUND };
+        } else {
+            auto entry = index.get_value(kwh);
+            return { entry.edge(), (size_t)entry.offset() };
+        }
+    }
+
+    template<class Index>
+    bool contains(const KMer& kmer, const Index &index) const {
+        return index.contains(index.ConstructKWH(kmer));
+    }
 
 public:
     EdgeIndex(const Graph& g, const std::string &workdir)
             : omnigraph::GraphActionHandler<Graph>(g, "EdgeIndex"),
-              inner_index_(g),
-              updater_(g, inner_index_),
-              refiller_(workdir),
-              delete_index_(true) {
+              large_index_(true), inner_index_(nullptr),
+              refiller_(workdir) {
+        INFO("Size of edge index entries: "
+             << sizeof(typename InnerIndex64::KmerPos) << "/"
+             << sizeof(typename InnerIndex32::KmerPos));
     }
 
     virtual ~EdgeIndex() {
+        if (large_index_)
+            delete static_cast<InnerIndex64*>(inner_index_);
+        else
+            delete static_cast<InnerIndex32*>(inner_index_);
         TRACE("~EdgeIndex OK")
     }
 
-    InnerIndex &inner_index() {
-        return inner_index_;
-    }
-
     size_t k() const {
-        return inner_index_.k();
-    }
-
-    const InnerIndex &inner_index() const {
-        VERIFY(this->IsAttached());
-        return inner_index_;
+        return this->g().k() + 1;
     }
 
     void HandleAdd(EdgeId e) override {
-        updater_.UpdateKmers(e);
+        if (large_index_)
+            updater_.UpdateKmers(this->g(), e,
+                                 *static_cast<InnerIndex64*>(inner_index_));
+        else
+            updater_.UpdateKmers(this->g(), e,
+                                 *static_cast<InnerIndex32*>(inner_index_));
     }
 
     void HandleDelete(EdgeId e) override {
-        updater_.DeleteKmers(e);
+        if (large_index_)
+            updater_.DeleteKmers(this->g(), e,
+                                 *static_cast<InnerIndex64*>(inner_index_));
+        else
+            updater_.DeleteKmers(this->g(), e,
+                                 *static_cast<InnerIndex32*>(inner_index_));
     }
 
     bool contains(const KMer& kmer) const {
-        VERIFY(this->IsAttached());
-        return inner_index_.contains(inner_index_.ConstructKWH(kmer));
+        if (large_index_)
+            return contains(kmer,
+                            *static_cast<const InnerIndex64*>(inner_index_));
+        else
+            return contains(kmer,
+                            *static_cast<const InnerIndex32*>(inner_index_));
     }
 
     const std::pair<EdgeId, size_t> get(const KMer& kmer) const {
-        VERIFY(this->IsAttached());
-        auto kwh = inner_index_.ConstructKWH(kmer);
-        if (!inner_index_.contains(kwh)) {
-            return { EdgeId(), -1u };
-        } else {
-            EdgeInfo<EdgeId> entry = inner_index_.get_value(kwh);
-            return { entry.edge_id, (size_t)entry.offset };
-        }
+        if (large_index_)
+            return get(kmer,
+                       *static_cast<const InnerIndex64*>(inner_index_));
+        else
+            return get(kmer,
+                       *static_cast<const InnerIndex32*>(inner_index_));
     }
 
     void Refill() {
         clear();
-        refiller_.Refill(inner_index_, this->g());
+        uint64_t max_id = this->g().max_eid();
+        large_index_ = (max_id > std::numeric_limits<uint32_t>::max());
+        if (large_index_) {
+            INFO("Using large index (max_id = " << max_id << ")");
+            auto index = new InnerIndex64(this->g());
+            refiller_.Refill(*index, this->g());
+            inner_index_ = index;
+        } else {
+            INFO("Using small index (max_id = " << max_id << ")");
+            auto index = new InnerIndex32(this->g());
+            refiller_.Refill(*index, this->g());
+            inner_index_ = index;
+        }
+
         INFO("Index refilled");
     }
 
@@ -97,8 +143,50 @@ public:
     }
 
     void clear() {
-        inner_index_.clear();
+        if (!inner_index_)
+            return;
+        
+        if (large_index_) {
+            auto index = static_cast<InnerIndex64*>(inner_index_);
+            index->clear();
+            delete index;
+        } else {
+            auto index = static_cast<InnerIndex32*>(inner_index_);
+            index->clear();
+            delete index;
+        }
+        inner_index_ = nullptr;
+    }
+
+    static bool IsInvertable() {
+        return InnerIndex::storing_type::IsInvertable();
+    }
+
+    template<class Writer>
+    void BinWrite(Writer &writer) const {
+        writer << large_index_;
+        if (large_index_)
+            static_cast<const InnerIndex64*>(inner_index_)->BinWrite(writer);
+        else
+            static_cast<const InnerIndex32*>(inner_index_)->BinWrite(writer);
+    }
+
+    template<class Reader>
+    void BinRead(Reader &reader) {
+        VERIFY(inner_index_ == nullptr);
+        reader >> large_index_;
+        if (large_index_) {
+            inner_index_ = new InnerIndex64(this->g());
+            static_cast<InnerIndex64*>(inner_index_)->BinRead(reader);
+        } else {
+            inner_index_ = new InnerIndex32(this->g());
+            static_cast<InnerIndex32*>(inner_index_)->BinRead(reader);
+        }
     }
 
 };
+
+template<class Graph>
+constexpr size_t EdgeIndex<Graph>::NOT_FOUND;
+
 }

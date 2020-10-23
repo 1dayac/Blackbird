@@ -6,7 +6,7 @@
 
 // This one is temporary, until we will be able to untangle IDs from the graph
 #include "assembly_graph/core/graph.hpp"
-#include "io/id_mapper.hpp"
+#include "io/utils/id_mapper.hpp"
 
 #include "adt/iterator_range.hpp"
 
@@ -59,6 +59,7 @@ class GFAReader {
         return adt::make_range(path_begin(), path_end());
     }
 
+    unsigned k() const;
     void to_graph(debruijn_graph::DeBruijnGraph &g, io::IdMapper<std::string> *id_mapper = nullptr);
 
   private:

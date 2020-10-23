@@ -7,96 +7,120 @@
 
 #pragma once
 
+#include "sequence/rtseq.hpp"
 #include "utils/ph_map/perfect_hash_map.hpp"
-#include "io/reads/single_read.hpp"
+#include "utils/ph_map/kmer_maps.hpp"
+
+#include <folly/SmallLocks.h>
 
 namespace debruijn_graph {
 
-template<class IdType>
-struct EdgeInfo {
-    IdType edge_id;
-    unsigned offset;
-    unsigned count;
+template<class IdType, class IdHolder = IdType>
+class EdgeInfo {
+    IdHolder edge_id_;
 
-    EdgeInfo(IdType edge_id_ = IdType(), unsigned offset_ = unsigned(-1), unsigned count_ = 0) :
-            edge_id(edge_id_), offset(offset_), count(count_) {
-        VERIFY(edge_id != IdType() || clean());
+    typedef folly::PicoSpinLock<uint32_t> OffsetType;
+    OffsetType offset_with_lock_;
+    // This is a bit hacky...
+    static constexpr unsigned CLEARED = -1u & ~OffsetType::kLockBitMask_;
+    static constexpr unsigned TOMBSTONE = -2u & ~OffsetType::kLockBitMask_;
+
+ public:
+    EdgeInfo(IdType e = IdType(), unsigned o = CLEARED) :
+        edge_id_(IdHolder(e.int_id())) {
+        offset_with_lock_.init();
+        offset_with_lock_.setData(o);
+        VERIFY(edge_id_ != IdType().int_id() || clean());
     }
 
     template<class Graph>
     EdgeInfo conjugate(const Graph &g) const {
         if (!valid())
-            return EdgeInfo(IdType(), unsigned(-1), count);
+            return EdgeInfo(IdType(), CLEARED);
 
-        return EdgeInfo(g.conjugate(edge_id), unsigned(g.length(edge_id) - offset - 1), count);
+        return EdgeInfo(g.conjugate(edge()), unsigned(g.length(edge()) - offset() - 1));
     }
+
+    IdType edge() const {
+        return edge_id_;
+    }
+
+    void lock() { offset_with_lock_.lock(); }
+    void unlock() { offset_with_lock_.unlock(); }
+
+    unsigned offset() const { return offset_with_lock_.getData(); }
 
     void clear() {
-        offset = unsigned(-1);
+      offset_with_lock_.setData(CLEARED);
+      edge_id_ = IdHolder(IdType().int_id());
     }
-
-    bool clean() const {
-        return offset == unsigned(-1);
-    }
+    bool clean() const { return offset() == CLEARED; }
 
     void remove() {
-        offset = unsigned(-2);
+      offset_with_lock_.setData(TOMBSTONE);
+      edge_id_ = IdHolder(IdType().int_id());
     }
-
-    bool removed() const {
-        return offset == unsigned(-2);
-    }
+    bool removed() const { return offset() == TOMBSTONE; }
 
     bool valid() const {
         return !clean() && !removed();
     }
-};
+
+    template<class Writer>
+    void BinWrite(Writer &writer) const {
+      io::binary::BinWrite(writer, edge_id_, offset_with_lock_.getData());
+    }
+
+    template<class Reader>
+    void BinRead(Reader &reader) {
+      uint32_t offset;
+      IdHolder id;
+      io::binary::BinRead(reader, id, offset);
+      offset_with_lock_.setData(offset);
+      edge_id_ = id;
+    }
+} __attribute__((packed));
 
 template<class stream, class IdType>
 stream &operator<<(stream &s, const EdgeInfo<IdType> &info) {
-    return s << "EdgeInfo[" << info.edge_id.int_id() << ", " << info.offset << ", " << info.count << "]";
+    return s << "EdgeInfo[" << info.edge() << ", " << info.offset() << "]";
 }
 
-template<class Graph,
-         typename IdType = typename Graph::EdgeId>
+template<class Graph>
 struct GraphInverter {
-    const Graph &g_;
+  const Graph &g_;
 
-    GraphInverter(const Graph &g)
-            : g_(g) {}
+  GraphInverter(const Graph &g)
+      : g_(g) {}
 
-    template<class K>
-    EdgeInfo<IdType> operator()(const EdgeInfo<IdType>& v, const K&) const {
-        return v.conjugate(g_);
-    }
+  template<class K, class EI>
+  EI operator()(const EI& v, const K&) const {
+    return v.conjugate(g_);
+  }
 };
 
 
-template<class Graph, class StoringType = utils::DefaultStoring>
-class KmerFreeEdgeIndex : public utils::KeyIteratingMap<RtSeq,
-                                                        EdgeInfo<typename Graph::EdgeId>,
-                                                        utils::kmer_index_traits<RtSeq>, StoringType> {
-    typedef utils::KeyIteratingMap<RtSeq, EdgeInfo<typename Graph::EdgeId>,
-            utils::kmer_index_traits<RtSeq>, StoringType> base;
-    const Graph &graph_;
+template<class Graph, class IdHolder = typename Graph::EdgeId, class StoringType = utils::DefaultStoring>
+class KmerFreeEdgeIndex : public utils::PerfectHashMap<RtSeq,
+                                                       EdgeInfo<typename Graph::EdgeId, IdHolder>,
+                                                       utils::kmer_index_traits<RtSeq>, StoringType> {
+  typedef utils::PerfectHashMap<RtSeq, EdgeInfo<typename Graph::EdgeId, IdHolder>,
+                                utils::kmer_index_traits<RtSeq>, StoringType> base;
+  const Graph &graph_;
 
 public:
-    typedef typename base::traits_t traits_t;
     typedef StoringType storing_type;
-    typedef typename base::KMer KMer;
-    typedef typename base::KMerIdx KMerIdx;
-    typedef Graph GraphT;
-    typedef typename Graph::EdgeId IdType;
+    typedef typename base::KeyType KMer;
     typedef typename base::KeyWithHash KeyWithHash;
-    typedef EdgeInfo<typename Graph::EdgeId> KmerPos;
-    using base::valid;
-    using base::ConstructKWH;
+    typedef EdgeInfo<typename Graph::EdgeId, IdHolder> KmerPos;
 
 public:
-
     KmerFreeEdgeIndex(const Graph &graph)
             : base(unsigned(graph.k() + 1)), graph_(graph) {}
 
+
+    using base::valid;
+    using base::ConstructKWH;
 
     KmerPos get_value(const KeyWithHash &kwh) const {
         return base::get_value(kwh, GraphInverter<Graph>(graph_));
@@ -117,57 +141,35 @@ public:
         KmerPos entry = get_value(kwh);
         if (!entry.valid())
             return false;
-        return graph_.EdgeNucls(entry.edge_id).contains(kwh.key(), entry.offset);
+
+        return graph_.EdgeNucls(entry.edge()).contains(kwh.key(), entry.offset());
     }
 
-    void PutInIndex(KeyWithHash &kwh, IdType id, size_t offset) {
+    void PutInIndex(KeyWithHash &kwh, typename Graph::EdgeId id, size_t offset) {
         if (!valid(kwh))
             return;
 
         KmerPos &entry = this->get_raw_value_reference(kwh);
-        if (entry.removed()) {
-            //VERIFY(false);
+        if (entry.removed())
             return;
-        }
+
+        entry.lock();
         if (entry.clean()) {
-            //put verify on this conversion!
-            put_value(kwh, KmerPos(id, (unsigned)offset, entry.count));
+            // Note that this releases the lock as well!
+            put_value(kwh, KmerPos(id, (unsigned)offset));
         } else if (contains(kwh)) {
-            //VERIFY(false);
             entry.remove();
-        } else {
-            //VERIFY(false);
-            //FIXME bad situation; some other kmer is there; think of putting verify
         }
-    }
-
-    //Only coverage is loaded
-    template<class Writer>
-    void BinWrite(Writer &writer) const {
-        this->index_ptr_->serialize(writer);
-        size_t sz = this->data_.size();
-        writer.write((char*)&sz, sizeof(sz));
-        for (size_t i = 0; i < sz; ++i)
-            writer.write((char*)&(this->data_[i].count), sizeof(this->data_[0].count));
-    }
-
-    template<class Reader>
-    void BinRead(Reader &reader) {
-        this->clear();
-        this->index_ptr_->deserialize(reader);
-        size_t sz = 0;
-        reader.read((char*)&sz, sizeof(sz));
-        this->data_.resize(sz);
-        for (size_t i = 0; i < sz; ++i)
-            reader.read((char*)&(this->data_[i].count), sizeof(this->data_[0].count));
+        entry.unlock();
     }
 };
 
-template<class Graph, class StoringType = utils::DefaultStoring>
-class KmerStoringEdgeIndex : public utils::KeyStoringMap<RtSeq, EdgeInfo<typename Graph::EdgeId>,
-        utils::kmer_index_traits<RtSeq>, StoringType> {
-  typedef utils::KeyStoringMap<RtSeq, EdgeInfo<typename Graph::EdgeId>,
-          utils::kmer_index_traits<RtSeq>, StoringType> base;
+template<class Graph, class IdHolder = typename Graph::EdgeId, class StoringType = utils::DefaultStoring>
+class KmerStoringEdgeIndex :
+      public utils::KeyStoringMap<RtSeq, EdgeInfo<typename Graph::EdgeId, IdHolder>,
+                                  utils::kmer_index_traits<RtSeq>, StoringType> {
+  typedef utils::KeyStoringMap<RtSeq, EdgeInfo<typename Graph::EdgeId, IdHolder>,
+                               utils::kmer_index_traits<RtSeq>, StoringType> base;
 
 public:
   typedef typename base::traits_t traits_t;
@@ -201,8 +203,6 @@ public:
       this->index_ptr_->serialize(writer);
       size_t sz = this->data_.size();
       writer.write((char*)&sz, sizeof(sz));
-      for (size_t i = 0; i < sz; ++i)
-          writer.write((char*)&(this->data_[i].count), sizeof(this->data_[0].count));
       this->BinWriteKmers(writer);
   }
 
@@ -213,13 +213,11 @@ public:
       size_t sz = 0;
       reader.read((char*)&sz, sizeof(sz));
       this->data_.resize(sz);
-      for (size_t i = 0; i < sz; ++i)
-          reader.read((char*)&(this->data_[i].count), sizeof(this->data_[0].count));
       this->BinReadKmers(reader, FileName);
   }
 
   void PutInIndex(KeyWithHash &kwh, IdType id, size_t offset) {
-      //here valid already checks equality of query-kmer and stored-kmer sequences
+      // Here valid already checks equality of query-kmer and stored-kmer sequences
       if (!base::valid(kwh))
         return;
 
@@ -227,12 +225,15 @@ public:
       if (entry.removed())
         return;
 
-      if (!entry.clean()) {
-        this->put_value(kwh, KmerPos(id, (unsigned)offset, entry.count));
+      entry.lock();
+      if (entry.clean()) {
+        put_value(kwh, KmerPos(id, (unsigned)offset));
       } else {
         entry.remove();
       }
+      entry.unlock();
   }
 };
+
 
 }

@@ -5,5 +5,5 @@
  * For use by SFMT.  configure.ac doesn't actually define HAVE_SSE2 because its
  * dependencies are notoriously unportable in practice.
  */
-/* #undef HAVE_SSE2 */
+#define HAVE_SSE2 1
 /* #undef HAVE_ALTIVEC */

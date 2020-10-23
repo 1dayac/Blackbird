@@ -16,16 +16,23 @@ add_library(spades-stages STATIC
             repeat_resolving.cpp
             contig_output_stage.cpp
             hybrid_aligning.cpp
-            series_analysis.cpp
-            chromosome_removal.cpp)
-target_link_libraries(spades-stages ConsensusCore)
+            chromosome_removal.cpp
+            extract_domains.cpp
+            domain_matcher.cpp
+            domain_graph_construction.cpp
+            restricted_edges_filling.cpp
+            load_graph.cpp
+            domain_graph.cpp)
 
-add_executable(spades-core 
+target_link_libraries(spades-stages ConsensusCore)
+          
+add_executable(spades-core
+               pipeline.cpp
                main.cpp
                series_analysis.cpp
                ../mts/contig_abundance.cpp)
 
-target_link_libraries(spades-core spades-stages graphio common_modules ${COMMON_LIBRARIES})
+target_link_libraries(spades-core spades-stages graphio common_modules hmmercpp ${COMMON_LIBRARIES})
 
 if (SPADES_STATIC_BUILD)
   set_target_properties(spades-core PROPERTIES LINK_SEARCH_END_STATIC 1)

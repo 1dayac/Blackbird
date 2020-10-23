@@ -43,9 +43,19 @@ enum class pipeline_type : char {
     rna,
     plasmid,
     large_genome,
-
+    metaplasmid,
+    rnaviral,
     total
 };
+
+class PipelineHelper {
+
+public:
+    static bool IsPlasmidPipeline(const pipeline_type pipeline);
+    static bool IsMetagenomicPipeline(const pipeline_type pipeline);
+    static bool IsRNAPipeline(const pipeline_type pipeline);
+};
+
 
 std::vector<std::string> PipelineTypeNames();
 
@@ -162,6 +172,7 @@ struct debruijn_config {
             size_t buff_size;
             double buff_cov_diff;
             double buff_cov_rel_diff;
+            double min_identity;
         };
 
         struct erroneous_connections_remover {
@@ -213,6 +224,7 @@ struct debruijn_config {
             double max_coverage;
             bool use_rl_for_max_length_any_cov;
             size_t max_length_any_cov;
+            size_t rl_threshold_increase; // add this value to read length if used, i.e. flags above are set
         };
 
         struct complex_bulge_remover {
@@ -278,7 +290,7 @@ struct debruijn_config {
         low_covered_edge_remover lcer;
         tip_clipper final_tc;
         bulge_remover final_br;
-
+        bulge_remover subspecies_br;
         init_cleaning init_clean;
     };
 
@@ -338,6 +350,18 @@ struct debruijn_config {
         double small_component_relative_coverage;
         size_t min_component_length;
         size_t min_isolated_length;
+        bool meta_mode;
+        double absolute_coverage_cutoff;
+//circular removal for plasmids
+        size_t min_start_edge_length;
+        double min_start_coverage;
+        size_t max_loop;
+        std::string reference_removal;
+//settings for iterative removal;
+        bool iterative_coverage_elimination;
+        size_t additive_step; //5
+        double relative_step; //1.3
+        size_t max_length; //1000000
     };
 
     struct position_handler {
@@ -355,6 +379,15 @@ struct debruijn_config {
         bool before_simplify;
         bool after_simplify;
         double weight_threshold;
+    };
+
+    struct ss_coverage_splitter_t {
+        bool enabled;
+        size_t bin_size;
+        size_t min_edge_len;
+        double min_edge_coverage;
+        double coverage_margin;
+        double min_flanking_coverage;
     };
 
     struct info_printer {
@@ -387,6 +420,11 @@ struct debruijn_config {
         bool use_coverage_threshold;
     };
 
+    struct time_tracing {
+        bool enable;
+        unsigned granularity;
+    };
+    
     typedef std::map<info_printer_pos, info_printer> info_printers_t;
 
     std::string dataset_file;
@@ -429,6 +467,12 @@ struct debruijn_config {
         bool antisense;
     };
 
+    struct hmm_matching {
+        std::string hmm_set;
+        size_t component_size_part;
+        bool start_only_from_tips;
+    };
+    
     contig_output co;
 
     boost::optional<scaffold_correction> sc_cor;
@@ -440,6 +484,7 @@ struct debruijn_config {
     bool rr_enable;
     bool two_step_rr;
     bool use_intermediate_contigs;
+    size_t min_edge_length_for_is_count;
 
     single_read_resolving_mode single_reads_rr;
     bool use_single_reads;
@@ -451,8 +496,7 @@ struct debruijn_config {
 
     size_t max_repeat_length;
 
-    //Convertion options
-    size_t buffer_size;
+    // Conversion options
     std::string temp_bin_reads_dir;
     std::string temp_bin_reads_path;
     std::string paired_read_prefix;
@@ -479,15 +523,18 @@ struct debruijn_config {
     dataset ds;
     position_handler pos;
     gap_closer gc;
+    ss_coverage_splitter_t ss_coverage_splitter;
     graph_read_corr_cfg graph_read_corr;
     info_printers_t info_printers;
     kmer_coverage_model kcm;
     bwa_aligner bwa;
     boost::optional<plasmid> pd;
+    boost::optional<hmm_matching> hm;
     size_t flanking_range;
 
     bool calculate_coverage_for_each_lib;
     strand_specificity ss;
+    time_tracing tt;
 
     bool need_mapping;
 
@@ -497,13 +544,14 @@ struct debruijn_config {
     }
 };
 
-
 void init_libs(io::DataSet<LibraryData> &dataset, size_t max_threads,
-               size_t buffer_size, const std::string &temp_bin_reads_path);
+               const std::string &temp_bin_reads_path);
 void load(debruijn_config& cfg, const std::vector<std::string> &filenames);
 void load(debruijn_config& cfg, const std::string &filename);
 void load_lib_data(const std::string& prefix);
+void load_lib_data(std::istream& is);
 void write_lib_data(const std::string& prefix);
+void write_lib_data(std::ostream& os);
 
 } // config
 } // debruijn_graph

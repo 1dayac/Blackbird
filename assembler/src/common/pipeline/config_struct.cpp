@@ -9,15 +9,16 @@
 
 #include "utils/parallel/openmp_wrapper.h"
 #include "utils/logger/logger.hpp"
+#include "utils/filesystem/path_helper.hpp"
 #include "utils/verify.hpp"
 #include "io/reads/file_reader.hpp"
 
 #include "llvm/Support/YAMLTraits.h"
-#include "llvm/Support/Errc.h"
 #include "llvm/Support/FileSystem.h"
 
 #include <string>
 #include <vector>
+#include <common/io/binary/binary.hpp>
 
 using namespace llvm;
 
@@ -41,6 +42,27 @@ template class io::DataSet<debruijn_graph::config::LibraryData>;
 
 namespace debruijn_graph {
 namespace config {
+
+bool PipelineHelper::IsPlasmidPipeline(const pipeline_type pipeline) {
+    return pipeline == pipeline_type::plasmid || pipeline == pipeline_type::metaplasmid;
+}
+
+bool PipelineHelper::IsMetagenomicPipeline(const pipeline_type pipeline) {
+    switch (pipeline) {
+        default:
+            return false;
+        case pipeline_type::meta:
+        case pipeline_type::metaplasmid:
+        case pipeline_type::rnaviral:
+            return true;
+    }
+
+    return false;
+}
+
+bool PipelineHelper::IsRNAPipeline(const pipeline_type pipeline) {
+    return pipeline == pipeline_type::rna || pipeline == pipeline_type::rnaviral;
+}
 
 template<typename mode_t>
 std::vector<std::string> CheckedNames(const std::vector<std::pair<std::string, mode_t>>& mapping, mode_t total) {
@@ -74,7 +96,9 @@ std::vector<std::string> PipelineTypeNames() {
                     {"moleculo", pipeline_type::moleculo},
                     {"rna", pipeline_type::rna},
                     {"plasmid", pipeline_type::plasmid},
-                    {"large_genome", pipeline_type::large_genome}
+                    {"large_genome", pipeline_type::large_genome},
+                    {"metaplasmid", pipeline_type::metaplasmid},
+                    {"rnaviral", pipeline_type::rnaviral}
                     }, pipeline_type::total);
 }
 
@@ -100,19 +124,37 @@ std::vector<std::string> BrokenScaffoldsModeNames() {
 
 template<class T>
 void LoadFromYaml(const std::string& filename, T &t) {
-    auto buf = llvm::MemoryBuffer::getFile(filename);
-    VERIFY_MSG(buf, "Failed to load file " << filename);
-    llvm::yaml::Input yin(*buf.get());
-    VERIFY_MSG(!yin.error(), "Failed to load file " << filename);
+    std::ifstream ifs(filename, std::ios::binary);
+    LoadFromYaml(ifs, t);
+}
+
+template<class T>
+void LoadFromYaml(std::istream& in, T &t) {
+    std::string buffer;
+    io::binary::BinRead(in, buffer);
+    llvm::yaml::Input yin(buffer);
     yin >> t;
+    VERIFY(!yin.error());
 }
 
 template<class T>
 void WriteToYaml(T &t, const std::string& filename) {
-    std::error_code EC;
-    llvm::raw_fd_ostream ofs(filename, EC, llvm::sys::fs::OpenFlags::F_Text);
-    llvm::yaml::Output yout(ofs);
+    std::ofstream ofs(filename, std::ios::binary);
+    WriteToYaml(t, ofs);
+}
+
+template<class T>
+void WriteToYaml(T &t, std::ostream& os) {
+    std::string buffer;
+    llvm::raw_string_ostream raw_os(buffer);
+    llvm::yaml::Output yout(raw_os);
     yout << t;
+    raw_os.str();  // Flush content to the target string
+    io::binary::BinWrite(os, buffer);
+}
+
+void load_lib_data(std::istream& is) {
+    LoadFromYaml(is, cfg::get_writable().ds);
 }
 
 void load_lib_data(const std::string& prefix) {
@@ -121,6 +163,10 @@ void load_lib_data(const std::string& prefix) {
 
 void write_lib_data(const std::string& prefix) {
     WriteToYaml(cfg::get_writable().ds, prefix + ".lib_data");
+}
+
+void write_lib_data(std::ostream& os) {
+    WriteToYaml(cfg::get_writable().ds, os);
 }
 
 void load(debruijn_config::simplification::tip_clipper &tc,
@@ -182,7 +228,7 @@ void load(debruijn_config::simplification::bulge_remover& br,
   using config_common::load;
 
   load(br.enabled                           , pt,   "enabled");
-  load(br.main_iteration_only               , pt,   "main_iteration_only"	      , complete);
+  load(br.main_iteration_only               , pt,   "main_iteration_only"         , complete);
   load(br.max_bulge_length_coefficient		, pt,   "max_bulge_length_coefficient", complete);
   load(br.max_additive_length_coefficient	, pt,
        "max_additive_length_coefficient", complete);
@@ -196,6 +242,7 @@ void load(debruijn_config::simplification::bulge_remover& br,
   load(br.buff_size,                        pt,     "buff_size", complete);
   load(br.buff_cov_diff,                    pt,     "buff_cov_diff", complete);
   load(br.buff_cov_rel_diff,                pt,     "buff_cov_rel_diff", complete);
+  load(br.min_identity,                     pt,     "min_identity", false);
 }
 
 void load(debruijn_config::simplification::complex_tip_clipper &ctc,
@@ -207,13 +254,13 @@ void load(debruijn_config::simplification::complex_tip_clipper &ctc,
     load(ctc.condition, pt, "condition", complete);
 }
 
-void load(debruijn_config::simplification::relative_coverage_edge_disconnector& relative_ed,
+void load(debruijn_config::simplification::relative_coverage_edge_disconnector& red,
         boost::property_tree::ptree const& pt, bool complete) {
   using config_common::load;
-  load(relative_ed.enabled, pt, "enabled");
-  load(relative_ed.diff_mult, pt, "diff_mult", complete);
-  load(relative_ed.edge_sum, pt, "edge_sum", complete);
-  load(relative_ed.unconditional_diff_mult, pt, "unconditional_diff_mult", complete);
+  load(red.enabled, pt, "enabled");
+  load(red.diff_mult, pt, "diff_mult", complete);
+  load(red.edge_sum, pt, "edge_sum", complete);
+  load(red.unconditional_diff_mult, pt, "unconditional_diff_mult", complete);
 }
 
 void load(debruijn_config::simplification::relative_coverage_comp_remover& rcc,
@@ -237,6 +284,7 @@ void load(debruijn_config::simplification::isolated_edge_remover& ier,
   load(ier.max_coverage, pt, "max_coverage", complete);
   load(ier.max_length_any_cov, pt, "max_length_any_cov", complete);
   load(ier.use_rl_for_max_length_any_cov, pt, "use_rl_for_max_length_any_cov", complete);
+  load(ier.rl_threshold_increase, pt, "rl_threshold_increase", complete);
 }
 
 void load(debruijn_config::simplification::low_covered_edge_remover& lcer,
@@ -406,6 +454,8 @@ void load(pacbio_processor& pb,
   load(pb.max_path_in_dijkstra, pt, "max_path_in_dijkstra");
   load(pb.max_vertex_in_dijkstra, pt, "max_vertex_in_dijkstra");
   load(pb.long_seq_limit, pt, "long_seq_limit");
+  load(pb.enable_gap_closing, pt, "enable_gap_closing", false);
+  load(pb.enable_fl_gap_closing, pt, "enable_fl_gap_closing", false);
   load(pb.pacbio_min_gap_quantity, pt, "pacbio_min_gap_quantity");
   load(pb.contigs_min_gap_quantity, pt, "contigs_min_gap_quantity");
   load(pb.max_contigs_gap_length, pt, "max_contigs_gap_length");
@@ -433,6 +483,21 @@ void load(debruijn_config::plasmid& pd,
     load(pd.small_component_relative_coverage, pt, "small_component_relative_coverage");
     load(pd.min_component_length, pt, "min_component_length");
     load(pd.min_isolated_length, pt, "min_isolated_length");
+    load(pd.meta_mode, pt, "meta_mode");
+    load(pd.absolute_coverage_cutoff, pt, "absolute_coverage_cutoff");
+    load(pd.min_start_edge_length, pt, "min_start_edge_length");
+    load(pd.min_start_coverage, pt, "min_start_coverage");
+    load(pd.max_loop, pt, "max_loop");
+    pd.reference_removal = "";
+    boost::optional<std::string> reference =
+            pt.get_optional<std::string>("reference_removal");
+    if (reference && *reference != "N/A") {
+        pd.reference_removal = *reference;
+    }
+    load(pd.iterative_coverage_elimination, pt, "iterative_coverage_elimination");
+    load(pd.additive_step, pt, "additive_step"); //5
+    load(pd.relative_step, pt, "relative_step"); //5
+    load(pd.max_length, pt, "max_length"); //1000000
 }
 
 void load(debruijn_config::gap_closer& gc,
@@ -443,6 +508,17 @@ void load(debruijn_config::gap_closer& gc,
   load(gc.before_simplify, pt, "before_simplify");
   load(gc.after_simplify, pt, "after_simplify");
   load(gc.weight_threshold, pt, "weight_threshold");
+}
+
+void load(debruijn_config::ss_coverage_splitter_t& ss_cs,
+          boost::property_tree::ptree const& pt, bool /*complete*/) {
+    using config_common::load;
+    load(ss_cs.enabled, pt, "enabled");
+    load(ss_cs.bin_size, pt, "bin_size");
+    load(ss_cs.min_edge_len, pt, "min_edge_len");
+    load(ss_cs.min_edge_coverage, pt, "min_edge_coverage");
+    load(ss_cs.coverage_margin, pt, "coverage_margin");
+    load(ss_cs.min_flanking_coverage, pt, "min_flanking_coverage");
 }
 
 void load(debruijn_config::contig_output& co,
@@ -475,6 +551,21 @@ void load(debruijn_config::kmer_coverage_model& kcm,
   load(kcm.strong_probability_threshold, pt, "strong_probability_threshold");
   load(kcm.coverage_threshold, pt, "coverage_threshold");
   load(kcm.use_coverage_threshold, pt, "use_coverage_threshold");
+}
+
+void load(debruijn_config::time_tracing& tt,
+          boost::property_tree::ptree const& pt, bool /*complete*/) {
+  using config_common::load;
+  load(tt.enable, pt, "time_tracer_enabled", true);
+  load(tt.granularity, pt, "granularity", 500);
+}
+
+void load(debruijn_config::hmm_matching& hm,
+          boost::property_tree::ptree const& pt, bool /*complete*/) {
+  using config_common::load;
+  load(hm.hmm_set, pt, "set_of_hmms");
+  load(hm.component_size_part, pt, "component_size_part", 1);
+  load(hm.start_only_from_tips, pt, "start_only_from_tips", 1);
 }
 
 void load(dataset &ds,
@@ -540,6 +631,7 @@ void load(debruijn_config::simplification& simp,
   load(simp.init_clean, pt, "init_clean", complete); // presimplification
   load(simp.final_tc, pt, "final_tc", complete);
   load(simp.final_br, pt, "final_br", complete);
+  load(simp.subspecies_br, pt, "subspecies_br", complete);
 }
 
 void load(debruijn_config::info_printer& printer,
@@ -622,7 +714,7 @@ void load_launch_info(debruijn_config &cfg, boost::property_tree::ptree const &p
 
     load(cfg.load_from, pt, "load_from");
     if (cfg.load_from[0] != '/') { // relative path
-        cfg.load_from = cfg.output_dir + cfg.load_from;
+        cfg.load_from = fs::append_path(cfg.output_dir, cfg.load_from);
     }
 
     load(cfg.tmp_dir, pt, "tmp_dir");
@@ -635,9 +727,6 @@ void load_launch_info(debruijn_config &cfg, boost::property_tree::ptree const &p
     INFO("Additional contigs is " << cfg.additional_contigs);
 
     load(cfg.rr_enable, pt, "rr_enable");
-
-    load(cfg.buffer_size, pt, "buffer_size");
-    cfg.buffer_size <<= 20; //turn MB to bytes
 
     load(cfg.temp_bin_reads_dir, pt, "temp_bin_reads_dir");
     if (cfg.temp_bin_reads_dir[cfg.temp_bin_reads_dir.length() - 1] != '/')
@@ -672,8 +761,14 @@ void load_cfg(debruijn_config &cfg, boost::property_tree::ptree const &pt,
     load(cfg.pb, pt, "pacbio_processor", complete);
 
     load(cfg.two_step_rr, pt, "two_step_rr", complete);
+//TODO::how to do it normally??
+    if (cfg.two_step_rr && cfg.mode == pipeline_type::plasmid) {
+        cfg.mode = pipeline_type::metaplasmid;
+    }
     load(cfg.use_intermediate_contigs, pt, "use_intermediate_contigs", complete);
     load(cfg.single_reads_rr, pt, "single_reads_rr", complete);
+    load(cfg.min_edge_length_for_is_count, pt, "min_edge_length_for_is_count", complete);
+
 
     load(cfg.preserve_raw_paired_index, pt, "preserve_raw_paired_index", complete);
 
@@ -690,6 +785,7 @@ void load_cfg(debruijn_config &cfg, boost::property_tree::ptree const &pt,
 
     load(cfg.con, pt, "construction", complete);
     load(cfg.gc, pt, "gap_closer", complete);
+    load(cfg.ss_coverage_splitter, pt, "ss_coverage_splitter", complete);
     load(cfg.simp, pt, "simp", complete);
     load(cfg.flanking_range, pt, "flanking_range", complete);
     load(cfg.graph_read_corr, pt, "graph_read_corr", complete);
@@ -704,7 +800,7 @@ void load_cfg(debruijn_config &cfg, boost::property_tree::ptree const &pt,
     load(cfg.use_scaffolder, pt, "use_scaffolder", complete);
     load(cfg.avoid_rc_connections, pt, "avoid_rc_connections", complete);
 
-    bool save_gp;
+    bool save_gp = false;
     load(save_gp, pt, "save_gp", complete);
     load(cfg.info_printers, pt, "info_printers", complete);
 
@@ -743,6 +839,13 @@ void load_cfg(debruijn_config &cfg, boost::property_tree::ptree const &pt,
         cfg.prelim_pe_params.reset(cfg.pe_params);
         load(*cfg.prelim_pe_params, pt, "prelim_pe", false);
     }
+
+    if (pt.count("hmm_match")) {
+        cfg.hm.reset(debruijn_config::hmm_matching());
+        load(*cfg.hm, pt, "hmm_match");
+    }
+
+    load(cfg.tt, pt, "time_tracer", complete);
 }
 
 void load(debruijn_config &cfg, const std::string &cfg_fns) {
@@ -750,17 +853,16 @@ void load(debruijn_config &cfg, const std::string &cfg_fns) {
 }
 
 void init_libs(io::DataSet<LibraryData> &dataset, size_t max_threads,
-               size_t buffer_size, const std::string &temp_bin_reads_path) {
+               const std::string &temp_bin_reads_path) {
     for (size_t i = 0; i < dataset.lib_count(); ++i) {
         auto& lib = dataset[i];
         lib.data().lib_index = i;
         auto& bin_info = lib.data().binary_reads_info;
         bin_info.chunk_num = max_threads;
-        bin_info.buffer_size = buffer_size;
-        bin_info.bin_reads_info_file = temp_bin_reads_path + "INFO_" + std::to_string(i);
-        bin_info.paired_read_prefix = temp_bin_reads_path + "paired_" + std::to_string(i);
-        bin_info.merged_read_prefix = temp_bin_reads_path + "merged_" + std::to_string(i);
-        bin_info.single_read_prefix = temp_bin_reads_path + "single_" + std::to_string(i);
+        bin_info.bin_reads_info_file = fs::append_path(temp_bin_reads_path, "INFO_" + std::to_string(i));
+        bin_info.paired_read_prefix = fs::append_path(temp_bin_reads_path, "paired_" + std::to_string(i));
+        bin_info.merged_read_prefix = fs::append_path(temp_bin_reads_path, "merged_" + std::to_string(i));
+        bin_info.single_read_prefix = fs::append_path(temp_bin_reads_path, "single_" + std::to_string(i));
     }
 }
 
@@ -782,32 +884,35 @@ void load(debruijn_config &cfg, const std::vector<std::string> &cfg_fns) {
 
     //some post-loading processing
     using config::pipeline_type;
-    cfg.uneven_depth = std::set<pipeline_type>{pipeline_type::mda, pipeline_type::rna, pipeline_type::meta}.count(cfg.mode);
+    cfg.uneven_depth = std::set<pipeline_type>{pipeline_type::mda, pipeline_type::rna,
+                                               pipeline_type::meta, pipeline_type::metaplasmid}.count(cfg.mode);
     if (!cfg.developer_mode) {
         cfg.pe_params.debug_output = false;
         cfg.pe_params.viz.DisableAll();
         cfg.pe_params.output.DisableAll();
     }
+    cfg.ss_coverage_splitter.enabled = cfg.ss_coverage_splitter.enabled && cfg.ss.ss_enabled && cfg.main_iteration;
 
     if (!cfg.use_scaffolder) {
         cfg.pe_params.param_set.scaffolder_options.enabled = false;
     }
-    cfg.need_mapping = cfg.developer_mode || cfg.correct_mismatches
-                       || cfg.gap_closer_enable || cfg.rr_enable;
 
-    cfg.output_dir = cfg.output_base + "/K" + std::to_string(cfg.K) + "/";
+    cfg.need_mapping = cfg.developer_mode || cfg.correct_mismatches ||
+                       cfg.gap_closer_enable || cfg.rr_enable ||
+                       cfg.ss_coverage_splitter.enabled;
 
-    cfg.output_saves = cfg.output_dir + "saves/";
+    cfg.output_dir = fs::append_path(cfg.output_base, "K" + std::to_string(cfg.K)) + "/";
+
+    cfg.output_saves = fs::append_path(cfg.output_dir, "saves") + "/";
 
     if (cfg.tmp_dir[0] != '/') { // relative path
-        cfg.tmp_dir = cfg.output_dir + cfg.tmp_dir;
+        cfg.tmp_dir = fs::append_path(cfg.output_dir, cfg.tmp_dir);
     }
 
-    cfg.temp_bin_reads_path = cfg.output_base + "/" + cfg.temp_bin_reads_dir;
+    cfg.temp_bin_reads_path = fs::append_path(cfg.output_base, cfg.temp_bin_reads_dir);
     //cfg.temp_bin_reads_info = cfg.temp_bin_reads_path + "INFO";
 
-    init_libs(cfg.ds.reads, cfg.max_threads, cfg.buffer_size, cfg.temp_bin_reads_path);
+    init_libs(cfg.ds.reads, cfg.max_threads, cfg.temp_bin_reads_path);
 }
-
 }
 }

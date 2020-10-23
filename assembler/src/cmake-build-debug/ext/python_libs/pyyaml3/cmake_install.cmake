@@ -1,4 +1,4 @@
-# Install script for directory: /Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3
+# Install script for directory: /home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,25 +27,35 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
-if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "runtime" OR NOT CMAKE_INSTALL_COMPONENT)
+# Install shared libraries without execute permission?
+if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  set(CMAKE_INSTALL_SO_NO_EXE "1")
+endif()
+
+# Is this installation the result of a crosscompile?
+if(NOT DEFINED CMAKE_CROSSCOMPILING)
+  set(CMAKE_CROSSCOMPILING "FALSE")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xruntimex" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/spades/pyyaml3" TYPE FILE FILES
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/__init__.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/composer.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/constructor.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/cyaml.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/dumper.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/emitter.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/error.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/events.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/loader.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/nodes.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/parser.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/reader.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/representer.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/resolver.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/scanner.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/serializer.py"
-    "/Users/dima/Desktop/Blackbird/assembler/ext/src/python_libs/pyyaml3/tokens.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/__init__.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/composer.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/constructor.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/cyaml.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/dumper.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/emitter.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/error.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/events.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/loader.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/nodes.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/parser.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/reader.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/representer.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/resolver.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/scanner.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/serializer.py"
+    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/pyyaml3/tokens.py"
     )
 endif()
 

@@ -7,58 +7,25 @@
 
 #pragma once
 
-#include "pipeline/graph_pack.hpp"
 
-#include "io/reads/io_helper.hpp"
 #include "assembly_graph/core/graph.hpp"
 
 #include "assembly_graph/construction/debruijn_graph_constructor.hpp"
 #include "assembly_graph/construction/early_simplification.hpp"
-
-#include "utils/perf/perfcounter.hpp"
-#include "io/dataset_support/read_converter.hpp"
-
-#include "assembly_graph/handlers/edges_position_handler.hpp"
 #include "assembly_graph/graph_support/coverage_filling.hpp"
-#include "utils/ph_map/storing_traits.hpp"
 #include "assembly_graph/index/edge_index_builders.hpp"
-#include "utils/parallel/openmp_wrapper.h"
-#include "utils/extension_index/kmer_extension_index_builder.hpp"
 
+#include "modules/alignment/edge_index.hpp"
+
+// FIXME: layering violation
+#include "pipeline/config_struct.hpp"
+#include "utils/extension_index/kmer_extension_index_builder.hpp"
+#include "utils/ph_map/coverage_hash_map_builder.hpp"
+#include "utils/perf/perfcounter.hpp"
+
+#include "io/reads/io_helper.hpp"
 
 namespace debruijn_graph {
-
-template<class Graph, class Readers, class Index>
-size_t ConstructGraphUsingOldIndex(Readers& streams, Graph& g,
-        Index& index, io::SingleStreamPtr contigs_stream = io::SingleStreamPtr()) {
-    INFO("Constructing DeBruijn graph");
-
-    TRACE("Filling indices");
-    size_t rl = 0;
-    VERIFY_MSG(streams.size(), "No input streams specified");
-
-    TRACE("... in parallel");
-    typedef typename Index::InnerIndexT InnerIndex;
-    typedef typename EdgeIndexHelper<InnerIndex>::CoverageFillingEdgeIndexBuilderT IndexBuilder;
-    InnerIndex& debruijn = index.inner_index();
-    //fixme hack
-    rl = IndexBuilder().BuildIndexFromStream(debruijn, streams, (contigs_stream == 0) ? 0 : &(*contigs_stream));
-
-    VERIFY(g.k() + 1== debruijn.k());
-    // FIXME: output_dir here is damn ugly!
-
-    TRACE("Filled indices");
-
-    INFO("Condensing graph");
-    DeBruijnGraphConstructor<Graph, InnerIndex> g_c(g, debruijn);
-    TRACE("Constructor ok");
-    VERIFY(!index.IsAttached());
-    index.Attach();
-    g_c.ConstructGraph(100, 10000, 1.2); // TODO: move magic constants to config
-    INFO("Graph condensed");
-
-    return rl;
-}
 
 template<class ExtensionIndex>
 void EarlyClipTips(const config::debruijn_config::construction& params, ExtensionIndex& ext) {
@@ -69,11 +36,12 @@ void EarlyClipTips(const config::debruijn_config::construction& params, Extensio
     EarlyTipClipperProcessor(ext, *params.early_tc.length_bound).ClipTips();
 }
 
-template<class Graph, class Read, class Index>
-void ConstructGraphUsingExtensionIndex(const config::debruijn_config::construction &params,
-                                       fs::TmpDir workdir,
-                                       io::ReadStreamList<Read>& streams, Graph& g,
-                                       Index& index, io::SingleStreamPtr contigs_stream = io::SingleStreamPtr()) {
+using KMerFiles = std::unique_ptr<utils::KMerCounter<RtSeq>>;
+
+template<class Read>
+KMerFiles ConstructGraphUsingExtensionIndex(const config::debruijn_config::construction &params,
+                                            fs::TmpDir workdir,
+                                            io::ReadStreamList<Read>& streams, Graph& g) {
     unsigned k = unsigned(g.k());
     INFO("Constructing DeBruijn graph for k=" << k);
 
@@ -83,46 +51,55 @@ void ConstructGraphUsingExtensionIndex(const config::debruijn_config::constructi
     TRACE("... in parallel");
     utils::DeBruijnExtensionIndex<> ext(k);
 
-    utils::DeBruijnExtensionIndexBuilder().BuildExtensionIndexFromStream(workdir, ext, streams,
-                                                          (contigs_stream == 0) ? 0 : &(*contigs_stream),
-                                                          params.read_buffer_size);
+    KMerFiles kmers = utils::DeBruijnExtensionIndexBuilder().BuildExtensionIndexFromStream(workdir, ext, streams, params.read_buffer_size);
 
     EarlyClipTips(params, ext);
 
     INFO("Condensing graph");
-    VERIFY(!index.IsAttached());
     DeBruijnGraphExtentionConstructor<Graph> g_c(g, ext);
     g_c.ConstructGraph(params.keep_perfect_loops);
+
+    return kmers;
+}
+
+//FIXME these methods are tested, but not used!
+template<class Streams>
+KMerFiles ConstructGraph(const config::debruijn_config::construction &params,
+                         fs::TmpDir workdir, Streams& streams, Graph& g) {
+    return ConstructGraphUsingExtensionIndex(params, workdir, streams, g);
+}
+
+template<class Streams>
+KMerFiles ConstructGraphWithIndex(const config::debruijn_config::construction &params,
+                                  fs::TmpDir workdir, Streams& streams, Graph& g,
+                                  EdgeIndex<Graph>& index) {
+    VERIFY(!index.IsAttached());
+
+    KMerFiles kmers = ConstructGraph(params, workdir, streams, g);
 
     INFO("Building index with from graph")
     //todo pass buffer size
     index.Refill();
     index.Attach();
+
+    return kmers;
 }
 
-//FIXME these methods are tested, but not used!
-template<class Graph, class Index, class Streams>
-void ConstructGraph(const config::debruijn_config::construction &params,
-                    fs::TmpDir workdir, Streams& streams, Graph& g,
-                    Index& index, io::SingleStreamPtr contigs_stream = io::SingleStreamPtr()) {
-    ConstructGraphUsingExtensionIndex(params, workdir, streams, g, index, contigs_stream);
-//  ConstructGraphUsingOldIndex(k, streams, g, index, contigs_stream);
-}
-
-//FIXME these methods are tested, but not used!
-template<class Graph, class Index, class Streams>
+template<class Streams>
 void ConstructGraphWithCoverage(const config::debruijn_config::construction &params,
                                 fs::TmpDir workdir, Streams &streams, Graph &g,
-                                Index &index, FlankingCoverage<Graph> &flanking_cov,
-                                io::SingleStreamPtr contigs_stream = io::SingleStreamPtr()) {
-    ConstructGraph(params, workdir, streams, g, index, contigs_stream);
+                                EdgeIndex<Graph> &index, omnigraph::FlankingCoverage<Graph> &flanking_cov) {
+    KMerFiles kmers = ConstructGraphWithIndex(params, workdir, streams, g, index);
 
-    typedef typename Index::InnerIndex InnerIndex;
-    typedef typename EdgeIndexHelper<InnerIndex>::CoverageAndGraphPositionFillingIndexBuilderT IndexBuilder;
-    INFO("Filling coverage index")
-    IndexBuilder().ParallelFillCoverage(index.inner_index(), streams);
-    INFO("Filling coverage and flanking coverage from index");
-    FillCoverageAndFlanking(index.inner_index(), g, flanking_cov);
+    INFO("Filling coverage index");
+    using CoverageMap = utils::PerfectHashMap<RtSeq, uint32_t, utils::slim_kmer_index_traits<RtSeq>, utils::DefaultStoring>;
+    CoverageMap coverage_map(unsigned(g.k() + 1));
+
+    utils::CoverageHashMapBuilder().BuildIndex(coverage_map,
+                                               *kmers, 16, streams);
+
+    INFO("Filling coverage and flanking coverage from PHM");
+    FillCoverageAndFlankingFromPHM(coverage_map, g, flanking_cov);
 }
 
 }

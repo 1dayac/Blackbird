@@ -7,18 +7,22 @@
 
 #pragma once
 
-#include "ireader.hpp"
+#include "read_stream.hpp"
 #include "paired_read.hpp"
-#include "file_reader.hpp"
 #include "orientation.hpp"
-#include "utils/logger/logger.hpp"
 
 #include <string>
 
+namespace ThreadPool {
+class ThreadPool;
+};
+
 namespace io {
 
-class SeparatePairedReadStream : public ReadStream<PairedRead> {
+class SeparatePairedReadStream {
  public:
+  typedef PairedRead ReadT;
+   
   /*
    * Default constructor.
    *
@@ -28,21 +32,17 @@ class SeparatePairedReadStream : public ReadStream<PairedRead> {
    * @param offset The offset of the read quality.
    */
   explicit SeparatePairedReadStream(const std::string& filename1, const std::string& filename2,
-         size_t insert_size,
-         OffsetType offset_type = PhredOffset)
-      : insert_size_(insert_size),
-        first_(new FileReadStream(filename1, offset_type)),
-        second_(new FileReadStream(filename2, offset_type)),
-        filename1_(filename1),
-        filename2_(filename2){}
+                                    size_t insert_size,
+                                    FileReadFlags flags = FileReadFlags(),
+                                    ThreadPool::ThreadPool *pool = nullptr);
 
   /*
    * Check whether the stream is opened.
    *
    * @return true of the stream is opened and false otherwise.
    */
-  bool is_open() override {
-    return first_->is_open() && second_->is_open();
+  bool is_open() {
+    return first_.is_open() && second_.is_open();
   }
 
   /*
@@ -51,18 +51,7 @@ class SeparatePairedReadStream : public ReadStream<PairedRead> {
    * @return true if the end of stream is reached and false
    * otherwise.
    */
-  bool eof() override {
-
-    if (first_->eof() != second_->eof()) {
-        if (first_->eof()) {
-            ERROR("The number of right read-pairs is larger than the number of left read-pairs");
-        } else {
-            ERROR("The number of left read-pairs is larger than the number of right read-pairs");
-        }
-        FATAL_ERROR("Unequal number of read-pairs detected in the following files: " << filename1_ << "  " << filename2_ << "");
-    }
-    return first_->eof();
-  }
+  bool eof();
 
   /*
    * Read PairedRead from stream.
@@ -71,27 +60,22 @@ class SeparatePairedReadStream : public ReadStream<PairedRead> {
    *
    * @return Reference to this stream.
    */
-  SeparatePairedReadStream& operator>>(PairedRead& pairedread) override {
-    pairedread.set_orig_insert_size(insert_size_);
-    (*first_) >> pairedread.first();
-    (*second_) >> pairedread.second();
-    return *this;
-  }
+  SeparatePairedReadStream& operator>>(PairedRead& pairedread);
 
   /*
    * Close the stream.
    */
-  void close() override {
-    first_->close();
-    second_->close();
+  void close() {
+    first_.close();
+    second_.close();
   }
 
   /*
    * Close the stream and open it again.
    */
-  void reset() override {
-    first_->reset();
-    second_->reset();
+  void reset() {
+    first_.reset();
+    second_.reset();
   }
 
  private:
@@ -100,18 +84,18 @@ class SeparatePairedReadStream : public ReadStream<PairedRead> {
   /*
    * @variable The first stream (reads from first file).
    */
-  const std::unique_ptr<ReadStream<SingleRead>> first_;
+  ReadStream<SingleRead> first_;
   /*
    * @variable The second stream (reads from second file).
    */
-  const std::unique_ptr<ReadStream<SingleRead>> second_;
+  ReadStream<SingleRead> second_;
 
   //Only for providing information about error for users
   const std::string filename1_;
   const std::string filename2_;
 };
 
-class InterleavingPairedReadStream : public ReadStream<PairedRead> {
+class InterleavingPairedReadStream {
  public:
   /*
    * Default constructor.
@@ -122,17 +106,15 @@ class InterleavingPairedReadStream : public ReadStream<PairedRead> {
    */
   explicit InterleavingPairedReadStream(const std::string& filename,
                                         size_t insert_size,
-                                        OffsetType offset_type = PhredOffset)
-      : filename_(filename), insert_size_(insert_size),
-        single_(new FileReadStream(filename_, offset_type)) {}
-
+                                        FileReadFlags flags = FileReadFlags(),
+                                        ThreadPool::ThreadPool *pool = nullptr);
   /*
    * Check whether the stream is opened.
    *
    * @return true of the stream is opened and false otherwise.
    */
-  bool is_open() override {
-    return single_->is_open();
+  bool is_open() {
+    return single_.is_open();
   }
 
   /*
@@ -141,8 +123,8 @@ class InterleavingPairedReadStream : public ReadStream<PairedRead> {
    * @return true if the end of stream is reached and false
    * otherwise.
    */
-  bool eof() override {
-    return single_->eof();
+  bool eof() {
+    return single_.eof();
   }
 
   /*
@@ -152,25 +134,20 @@ class InterleavingPairedReadStream : public ReadStream<PairedRead> {
    *
    * @return Reference to this stream.
    */
-  InterleavingPairedReadStream& operator>>(PairedRead& pairedread) override {
-    pairedread.set_orig_insert_size(insert_size_);
-    (*single_) >> pairedread.first();
-    (*single_) >> pairedread.second();
-    return *this;
-  }
+  InterleavingPairedReadStream& operator>>(PairedRead& pairedread);
 
   /*
    * Close the stream.
    */
-  void close() override {
-    single_->close();
+  void close() {
+    single_.close();
   }
 
   /*
    * Close the stream and open it again.
    */
-  void reset() override {
-    single_->reset();
+  void reset() {
+    single_.reset();
   }
 
  private:
@@ -183,7 +160,6 @@ class InterleavingPairedReadStream : public ReadStream<PairedRead> {
   /*
    * @variable The single read stream.
    */
-  const std::unique_ptr<ReadStream<SingleRead>> single_;
-
+  ReadStream<SingleRead> single_;
 };
 }

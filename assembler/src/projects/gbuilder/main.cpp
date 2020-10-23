@@ -5,6 +5,8 @@
 //* See file LICENSE for details.
 //***************************************************************************
 
+#include "assembly_graph/construction/debruijn_graph_constructor.hpp"
+
 #include "utils/logger/log_writers.hpp"
 #include "utils/segfault_handler.hpp"
 #include "utils/extension_index/kmer_extension_index_builder.hpp"
@@ -17,8 +19,6 @@
 #include "io/dataset_support/read_converter.hpp"
 #include "io/dataset_support/dataset_readers.hpp"
 #include "io/reads/osequencestream.hpp"
-
-#include "assembly_graph/construction/debruijn_graph_constructor.hpp"
 #include "io/binary/basic.hpp"
 
 #include "version.hpp"
@@ -134,12 +134,15 @@ int main(int argc, char* argv[]) {
         io::DataSet<debruijn_graph::config::LibraryData> dataset;
         dataset.load(dataset_desc);
         // FIXME: Get rid of this "/" junk
-        debruijn_graph::config::init_libs(dataset, nthreads, buff_size, tmpdir + "/");
+        debruijn_graph::config::init_libs(dataset, nthreads, tmpdir + "/");
 
         std::vector<size_t> libs_for_construction;
-        for (size_t i = 0; i < dataset.lib_count(); ++i)
-            if (dataset[i].is_graph_contructable())
+        for (size_t i = 0; i < dataset.lib_count(); ++i) {
+            if (dataset[i].is_graph_constructable()) {
                 libs_for_construction.push_back(i);
+                io::ReadConverter::ConvertToBinary(dataset[i]);
+            }
+        }
 
         auto read_streams = io::single_binary_readers_for_libs(dataset, libs_for_construction, true, true);
 
@@ -147,8 +150,8 @@ int main(int argc, char* argv[]) {
         VERIFY_MSG(read_streams.size(), "No input streams specified");
         utils::DeBruijnExtensionIndex<> ext_index(k);
 
-        utils::DeBruijnExtensionIndexBuilder().BuildExtensionIndexFromStream(workdir,
-                                                                             ext_index, read_streams, nullptr, buff_size);
+        utils::DeBruijnExtensionIndexBuilder().BuildExtensionIndexFromStream(workdir, ext_index,
+                                                                             read_streams, buff_size);
 
         // Step 2: extract unbranching paths
         bool keep_perfect_loops = true;

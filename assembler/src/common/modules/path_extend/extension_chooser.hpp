@@ -17,8 +17,11 @@
 
 #include "weight_counter.hpp"
 #include "pe_utils.hpp"
+#include "assembly_graph/components/graph_component.hpp"
+#include "modules/alignment/rna/ss_coverage.hpp"
 //#include "scaff_supplementary.hpp"
 
+#include <queue>
 #include <cfloat>
 #include <iostream>
 #include <fstream>
@@ -227,8 +230,12 @@ public:
     }
 
 protected:
+    double IdealInfo(EdgeId e1, EdgeId e2, size_t dist, bool additive = false) const {
+        return wc_->PairedLibrary().IdealPairedInfo(e1, e2, (int) dist, additive);
+    }
+
     bool HasIdealInfo(EdgeId e1, EdgeId e2, size_t dist) const {
-        return math::gr(wc_->PairedLibrary().IdealPairedInfo(e1, e2, (int) dist), 0.);
+        return math::gr(IdealInfo(e1, e2, dist), 0.);
     }
 
     bool HasIdealInfo(const BidirectionalPath& p, EdgeId e, size_t gap) const {
@@ -237,6 +244,7 @@ protected:
                 return true;
         return false;
     }
+
 
 private:
     DECL_LOGGER("ExtensionChooser");
@@ -288,23 +296,22 @@ public:
 
 class SimpleCoverageExtensionChooser: public ExtensionChooser {
     const SSCoverageStorage& coverage_storage_;
-    //less than 1
-    double coverage_delta_;
-    //larger than 1
-    double inverted_coverage_delta_;
+    //> 1
+    double coverage_margin_;
+    //> 1
+    double max_coverage_variation_;
 
     double min_upper_coverage_;
 
 public:
     SimpleCoverageExtensionChooser(const SSCoverageStorage& coverage_storage, const Graph& g,
-                                   double coverage_delta, double min_upper_coverage = 0) :
+                                   double coverage_margin, double max_coverage_variation, double min_upper_coverage) :
         ExtensionChooser(g), coverage_storage_(coverage_storage),
-        coverage_delta_(coverage_delta),
-        inverted_coverage_delta_(0),
+        coverage_margin_(coverage_margin),
+        max_coverage_variation_(max_coverage_variation),
         min_upper_coverage_(min_upper_coverage) {
-        VERIFY(math::le(coverage_delta_, 1.0));
-        VERIFY(!math::eq(coverage_delta_, 0.0));
-        inverted_coverage_delta_ = 1.0 / coverage_delta_;
+        VERIFY(math::gr(coverage_margin_, 1.0));
+        VERIFY(math::gr(max_coverage_variation_, 1.0));
     }
 
     EdgeContainer Filter(const BidirectionalPath& path, const EdgeContainer& edges) const override {
@@ -317,109 +324,77 @@ public:
                 break;
             index--;
         }
-
         if (index == 0) {
             return EdgeContainer();
         }
+
         DEBUG("Split found at " << index);
         EdgeId path_edge_at_split = path[index - 1];
 
-        return Filter(path, edges, math::ls(coverage_storage_.GetCoverage(path_edge_at_split), coverage_storage_.GetCoverage(path_edge_at_split, true)));
+        bool reverse_cov =  math::ls(coverage_storage_.GetCoverage(path_edge_at_split), coverage_storage_.GetCoverage(path_edge_at_split, true));
+        return Filter(path, edges, index, reverse_cov);
     }
 
 private:
-    EdgeContainer Filter(const BidirectionalPath& path, const EdgeContainer& edges, bool reverse) const {
-        DEBUG("COVERAGE extension chooser");
+    EdgeContainer Filter(const BidirectionalPath& path, const EdgeContainer& edges, size_t split_index,  bool reverse) const {
+        DEBUG("Coverage extension chooser");
+        VERIFY(split_index > 0);
         VERIFY(edges.size() == 2);
-        if (!IsEnoughCoverage(edges.front().e_, edges.back().e_, reverse)) {
-            DEBUG("Candidates are not covered enough: e1 = " << coverage_storage_.GetCoverage(edges.front().e_, reverse) <<
-                ", e2 = " << coverage_storage_.GetCoverage(edges.back().e_, reverse));
+
+        DEBUG("Split found at " << split_index);
+        EdgeId path_edge_at_split = path[split_index - 1];
+        EdgeId other_edge_at_split = GetOtherEdgeAtSplit(g_.EdgeEnd(path_edge_at_split), path_edge_at_split);
+
+        EdgeId candidate1 = edges.front().e_;
+        EdgeId candidate2 = edges.back().e_;
+        VERIFY(other_edge_at_split != EdgeId());
+
+        auto cov_path = coverage_storage_.GetCoverage(path_edge_at_split, reverse);
+        auto cov_other = coverage_storage_.GetCoverage(other_edge_at_split, reverse);
+        auto cov_e1 = coverage_storage_.GetCoverage(candidate1, reverse);
+        auto cov_e2 = coverage_storage_.GetCoverage(candidate2, reverse);
+
+        if (IsCoverageSimilar(cov_path, cov_other, coverage_margin_) || IsCoverageSimilar(cov_e1, cov_e2, coverage_margin_)) {
+            DEBUG("Margin is too low: path = " << cov_path << ", other = " << cov_other << ", ex1 = " << cov_e1 << ", ex2 = " << cov_e2);
             return EdgeContainer();
         }
 
-        if (IsCoverageSimilar(edges.front().e_, edges.back().e_, reverse)) {
-            DEBUG("Candidates coverage is too similar: e1 = " << coverage_storage_.GetCoverage(edges.front().e_, reverse) <<
-                ", e2 = " << coverage_storage_.GetCoverage(edges.back().e_, reverse));
-            return EdgeContainer();
-        }
+        double high_path = std::max(cov_path, cov_other);
+        double low_path = std::min(cov_path, cov_other);
+        double high_ex = std::max(cov_e1, cov_e2);
+        double low_ex = std::min(cov_e1, cov_e2);
 
-        size_t index = path.Size() - 1;
-        while (index > 0) {
-            if (g_.IncomingEdgeCount(g_.EdgeStart(path[index])) == 2)
-                break;
-            index--;
+        if (!IsEnoughCoverage(low_path, high_path) || !IsEnoughCoverage(low_ex, high_ex)) {
+            DEBUG("Coverage is too low: path = " << high_path << ", other = " << high_ex);
+            return EdgeContainer();
         }
 
         EdgeContainer result;
-        if (index > 0) {
-            DEBUG("Split found at " << index);
-            EdgeId path_edge_at_split = path[index - 1];
-            EdgeId other_edge_at_split = GetOtherEdgeAtSplit(g_.EdgeEnd(path_edge_at_split), path_edge_at_split);
-            VERIFY(other_edge_at_split != EdgeId());
-
-            if (IsCoverageSimilar(path_edge_at_split, other_edge_at_split, reverse)) {
-                DEBUG("Path edge and alternative is too similar: path = " << coverage_storage_.GetCoverage(path_edge_at_split, reverse) <<
-                    ", other = " << coverage_storage_.GetCoverage(other_edge_at_split, reverse));
-
-                return EdgeContainer();
-            }
-            if (!IsEnoughCoverage(path_edge_at_split, other_edge_at_split, reverse)) {
-                DEBUG("Path edge and alternative  coverage is too low: path = " << coverage_storage_.GetCoverage(path_edge_at_split, reverse) <<
-                    ", other = " << coverage_storage_.GetCoverage(other_edge_at_split, reverse));
-
-                return EdgeContainer();
-            }
-
-            EdgeId candidate1 = edges.front().e_;
-            EdgeId candidate2 = edges.back().e_;
-
-            if (math::gr(coverage_storage_.GetCoverage(path_edge_at_split, reverse), coverage_storage_.GetCoverage(other_edge_at_split, reverse))) {
-                DEBUG("path coverage is high, edge " << g_.int_id(path_edge_at_split) << ", path cov = "
-                          << coverage_storage_.GetCoverage(path_edge_at_split, reverse) << ", other " << coverage_storage_.GetCoverage(other_edge_at_split, reverse));
-
-                result.emplace_back(math::gr(coverage_storage_.GetCoverage(candidate1, reverse), coverage_storage_.GetCoverage(candidate2, reverse)) ? candidate1 : candidate2, 0);
-            } else {
-                DEBUG("path coverage is low, edge " << g_.int_id(path_edge_at_split) << ", path cov = "
-                          << coverage_storage_.GetCoverage(path_edge_at_split, reverse) << ", other " << coverage_storage_.GetCoverage(other_edge_at_split, reverse));
-
-                result.emplace_back(math::ls(coverage_storage_.GetCoverage(candidate1, reverse), coverage_storage_.GetCoverage(candidate2, reverse)) ? candidate1 : candidate2, 0);
-            }
-
-            if (!IsCoverageSimilar(path_edge_at_split, result.front().e_, reverse)) {
-                DEBUG("Coverage is NOT similar: path = " << coverage_storage_.GetCoverage(path_edge_at_split, reverse) <<
-                    ", candidate = " << coverage_storage_.GetCoverage(result.front().e_, reverse))
-                result.clear();
-            }
-            else {
-                DEBUG("Coverage is similar: path = " << coverage_storage_.GetCoverage(path_edge_at_split, reverse) <<
-                    ", candidate = " << coverage_storage_.GetCoverage(result.front().e_, reverse))
-                DEBUG("Coverage extension chooser helped, adding " << g_.int_id(result.front().e_));
-            }
+        if (math::gr(cov_path, cov_other)) {
+            DEBUG("Path coverage is high, edge " << g_.int_id(path_edge_at_split) << ", path cov = " << cov_path << ", other " << cov_other);
+            if (IsCoverageSimilar(high_path, high_ex, max_coverage_variation_))
+                result.emplace_back(math::gr(cov_e1, cov_e2) ? candidate1 : candidate2, 0);
+        } else {
+            DEBUG("Path coverage is low, edge " << g_.int_id(path_edge_at_split) << ", path cov = " << cov_path << ", other " << cov_other);
+            if (IsCoverageSimilar(low_path, low_ex, max_coverage_variation_))
+                result.emplace_back(math::ls(cov_e1, cov_e2) ? candidate1 : candidate2, 0);
         }
 
         VERIFY(result.size() <= 1);
         return result;
     }
 
-    bool IsEnoughCoverage(EdgeId e1, EdgeId e2, bool reverse) const {
-        double cov1 = coverage_storage_.GetCoverage(e1, reverse);
-        double cov2 = coverage_storage_.GetCoverage(e2, reverse);
-        return math::ge(std::max(cov1, cov2), min_upper_coverage_) || math::eq(std::min(cov1, cov2), 0.0);
+    bool IsEnoughCoverage(double low, double high) const {
+        return math::eq(low, 0.0) || math::ge(high, min_upper_coverage_);
     }
 
-    bool IsCoverageSimilar(EdgeId e1, EdgeId e2, bool reverse) const {
-        double cov1 = coverage_storage_.GetCoverage(e1, reverse);
-        double cov2 = coverage_storage_.GetCoverage(e2, reverse);
-
+    bool IsCoverageSimilar(double cov1, double cov2, double threshold) const {
         if (math::eq(cov2, 0.0) || math::eq(cov1, 0.0)) {
             return false;
         }
 
-        double diff = cov1 / cov2;
-        if (math::ls(diff, 1.0))
-            return math::gr(diff, coverage_delta_);
-        else
-            return math::ls(diff, inverted_coverage_delta_);
+        double diff = math::gr(cov1, cov2) ? cov1 / cov2 : cov2 / cov1;
+        return math::le(diff, threshold);
     }
 
     EdgeId GetOtherEdgeAtSplit(VertexId split, EdgeId e) const {
@@ -670,6 +645,7 @@ class ScaffoldingExtensionChooser : public ExtensionChooser {
     double raw_weight_threshold_;
     double cl_weight_threshold_;
     const double is_scatter_coeff_ = 3.0;
+    double relative_cutoff_;
 
     void AddInfoFromEdge(const std::vector<int> &distances, const std::vector<double> &weights,
                          Histogram &histogram, size_t len_to_path_end) const {
@@ -719,11 +695,20 @@ class ScaffoldingExtensionChooser : public ExtensionChooser {
                 sum += histogram[j].second;
             }
             DEBUG("Weight for scaffolding = " << sum << ", threshold = " << cl_weight_threshold_)
+
             if (math::ls(sum, cl_weight_threshold_)) {
                 continue;
             }
 
             int gap = CountMean(histogram);
+            if (math::gr(relative_cutoff_, 0.0)) {
+                //double avg_cov = (g_.coverage(path.Back()) + g_.coverage(e)) / 2.0;
+                double iw = CountIdealInfo(path, e, gap);
+                if (math::ls(sum / iw, relative_cutoff_)) {
+                    continue;
+                }
+            }
+
             DEBUG("Gap = " << gap)
             if (HasIdealInfo(path, e, gap)) {
                 DEBUG("scaffolding " << g_.int_id(e) << " gap " << gap);
@@ -758,11 +743,13 @@ class ScaffoldingExtensionChooser : public ExtensionChooser {
     }
 
 public:
-    ScaffoldingExtensionChooser(const Graph &g, std::shared_ptr<WeightCounter> wc,
-                                double cl_weight_threshold, double is_scatter_coeff) :
+    ScaffoldingExtensionChooser(const Graph& g, std::shared_ptr<WeightCounter> wc,
+                                double cl_weight_threshold,
+                                double is_scatter_coeff,
+                                double relative_cutoff = 0.0) :
         ExtensionChooser(g, wc), raw_weight_threshold_(0.0),
         cl_weight_threshold_(cl_weight_threshold),
-        is_scatter_coeff_(is_scatter_coeff) {
+        is_scatter_coeff_(is_scatter_coeff), relative_cutoff_(relative_cutoff) {
     }
 
     EdgeContainer Filter(const BidirectionalPath& path, const EdgeContainer& edges) const override {
@@ -782,6 +769,18 @@ public:
         FindBestFittedEdgesForClustered(path, candidates, result);
         DEBUG("Detected possible edges to scaffold: " << result.size())
         return result;
+    }
+
+public:
+    double CountIdealInfo(const BidirectionalPath& path, EdgeId edge, size_t gap) const {
+        double sum = 0.0;
+        for (int i = (int) path.Size() - 1; i >= 0; --i) {
+            double w = IdealInfo(path[i], edge, (int) path.LengthAt(i) + gap);
+            sum += w;
+        }
+        double avg_cov = (g_.coverage(path.Back()) + g_.coverage(edge)) / 2.0;
+        double correction_coeff = avg_cov / ((double(wc_->PairedLibrary().GetRL()) - double(g_.k())) * 2);
+        return sum * correction_coeff;
     }
 
 private:
@@ -1020,6 +1019,107 @@ private:
 //    const Graph& g_;
 //};
 
+class LongReadsRNAExtensionChooser : public ExtensionChooser {
+public:
+    LongReadsRNAExtensionChooser(const Graph& g,
+                                 const GraphCoverageMap& read_paths_cov_map,
+                                 double filtering_threshold,
+                                 size_t min_significant_overlap)
+        : ExtensionChooser(g),
+          filtering_threshold_(filtering_threshold),
+          min_significant_overlap_(min_significant_overlap),
+          cov_map_(read_paths_cov_map)
+    {
+        DEBUG("Created LongReadsRNAExtensionChooser with params: filtering_threshold_ = " << filtering_threshold_ << ", min_significant_overlap_ = " << min_significant_overlap_);
+    }
+
+    /* Choose extension as correct only if we have reads that traverse a unique edge from the path and this extension.
+     * Edge is unique if all reads mapped to this edge are consistent.
+     * Two reads are consistent if they can form one path in the graph.
+     */
+    EdgeContainer Filter(const BidirectionalPath& path,
+                         const EdgeContainer& edges) const override {
+        if (edges.empty()) {
+            return edges;
+        }
+        DEBUG("We are in Filter of LongReadsRNAExtensionChooser");
+        path.PrintDEBUG();
+
+        std::map<EdgeId, double> weights_candidates;
+        DEBUG("Candidates")
+        for (auto it = edges.begin(); it != edges.end(); ++it) {
+            DEBUG(g_.int_id(it->e_));
+            weights_candidates.emplace(it->e_, 0.0);
+        }
+
+        std::set<EdgeId> filtered_candidates;
+        auto support_paths = cov_map_.GetCoveringPaths(path.Back());
+        DEBUG("Found " << support_paths.size() << " supporting paths");
+        for (auto it = support_paths.begin(); it != support_paths.end(); ++it) {
+            auto supporting_path = *it;
+            auto positions = supporting_path->FindAll(path.Back());
+
+            for (size_t i = 0; i < positions.size(); ++i) {
+                if ((int) positions[i] < (int) supporting_path->Size() - 1
+                    && EqualBegins(path, path.Size() - 1, *supporting_path, positions[i], false)) {
+                    DEBUG("Supporting path matches, Checking unique path_back for " << supporting_path->GetId());
+
+                    if (UniqueBackPath(*supporting_path, positions[i])) {
+                        DEBUG("Success");
+
+                        EdgeId next = supporting_path->At(positions[i] + 1);
+                        weights_candidates[next] += supporting_path->GetWeight();
+                        filtered_candidates.insert(next);
+                    }
+                }
+            }
+        }
+        DEBUG("Supported candidates");
+        for (auto iter = weights_candidates.begin(); iter != weights_candidates.end(); ++iter) {
+            DEBUG("Candidate " << g_.int_id(iter->first) << " weight " << iter->second);
+        }
+        std::vector<std::pair<EdgeId, double> > sort_res = MapToSortVector(weights_candidates);
+        if (sort_res.size() < 1 || sort_res[0].second < filtering_threshold_) {
+            filtered_candidates.clear();
+        }
+        EdgeContainer result;
+        for (auto it = edges.begin(); it != edges.end(); ++it) {
+            if (filtered_candidates.find(it->e_) != filtered_candidates.end()) {
+                result.push_back(*it);
+                DEBUG("Inserting to results: " << g_.int_id(it->e_));
+            }
+        }
+        if (result.size() == 0) {
+            DEBUG("Long reads don't help =(");
+        }
+        return result;
+    }
+
+private:
+
+    bool UniqueBackPath(const BidirectionalPath& path, size_t pos) const {
+        int int_pos = (int) pos;
+        while (int_pos >= 0) {
+            if (g_.length(path.At(int_pos)) >= min_significant_overlap_)
+                return true;
+            int_pos--;
+        }
+        return false;
+    }
+
+    std::vector<std::pair<EdgeId, double> > MapToSortVector(const std::map<EdgeId, double>& map) const {
+        std::vector<std::pair<EdgeId, double> > result(map.begin(), map.end());
+        std::sort(result.begin(), result.end(), EdgeWithWeightCompareReverse);
+        return result;
+    }
+
+    double filtering_threshold_;
+    size_t min_significant_overlap_;
+    const GraphCoverageMap& cov_map_;
+
+    DECL_LOGGER("LongReadsRNAExtensionChooser");
+};
+
 class LongReadsExtensionChooser : public ExtensionChooser {
 public:
     LongReadsExtensionChooser(const Graph& g,
@@ -1049,7 +1149,7 @@ public:
         if (edges.empty()) {
             return edges;
         }
-        DEBUG("We in Filter of LongReadsExtensionChooser");
+        DEBUG("We are in Filter of LongReadsExtensionChooser");
         path.PrintDEBUG();
         std::map<EdgeId, double> weights_cands;
         for (const auto &edge : edges) {
@@ -1188,7 +1288,7 @@ private:
         }
     }
 
-    GraphComponent<Graph> GetRepeatComponent(const VertexId start, double path_coverage) const {
+    omnigraph::GraphComponent<Graph> GetRepeatComponent(const VertexId start, double path_coverage) const {
         std::set<VertexId> vertices_of_component;
         vertices_of_component.insert(start);
         std::queue<VertexId> can_be_processed;
@@ -1198,14 +1298,14 @@ private:
             can_be_processed.pop();
             if (vertices_of_component.count(v) != 0) {
                 DEBUG("Component is too complex");
-                return GraphComponent<Graph>::Empty(g_);
+                return omnigraph::GraphComponent<Graph>::Empty(g_);
             }
             DEBUG("Adding vertex " << g_.str(v) << " to component set");
             vertices_of_component.insert(v);
             UpdateCanBeProcessed(v, can_be_processed, path_coverage);
         }
 
-        return GraphComponent<Graph>::FromVertices(g_, vertices_of_component);
+        return omnigraph::GraphComponent<Graph>::FromVertices(g_, vertices_of_component);
     }
 
     EdgeContainer FinalFilter(const EdgeContainer& edges,
@@ -1240,7 +1340,7 @@ private:
         } 
 
         DEBUG("Short extension, launching repeat component analysis");
-        GraphComponent<Graph> gc = GetRepeatComponent(g_.EdgeEnd(ext), path_coverage);
+        auto gc = GetRepeatComponent(g_.EdgeEnd(ext), path_coverage);
         if (gc.v_size() == 0) {
             DEBUG("Component search failed");
             return -1.;

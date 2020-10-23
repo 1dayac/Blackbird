@@ -5,35 +5,19 @@
 //* See file LICENSE for details.
 //***************************************************************************
 
-/**
- * @file    fastqgz_parser.hpp
- * @author  Mariya Fomkina
- * @version 1.0
- *
- * @section LICENSE
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of
- * the License, or (at your option) any later version.
- *
- * @section DESCRIPTION
- *
- * FastaFastqGzParser is the parser stream that reads data from .fastq.gz
- * files.
- */
+#pragma once
 
-#ifndef COMMON_IO_FASTAFASTQGZPARSER_HPP
-#define COMMON_IO_FASTAFASTQGZPARSER_HPP
-
-#include <zlib.h>
-#include <string>
-#include "kseq/kseq.h"
-#include "utils/verify.hpp"
 #include "single_read.hpp"
+
+#include "utils/verify.hpp"
 #include "io/reads/parser.hpp"
 #include "sequence/quality.hpp"
 #include "sequence/nucl.hpp"
+
+#include "kseq/kseq.h"
+
+#include <zlib.h>
+#include <string>
 
 namespace io {
 
@@ -55,9 +39,9 @@ public:
      * @param filename The name of the file to be opened.
      * @param offset The offset of the read quality.
      */
-    FastaFastqGzParser(const std::string& filename, OffsetType offset_type =
-            PhredOffset) :
-            Parser(filename, offset_type), fp_(), seq_(NULL) {
+    FastaFastqGzParser(const std::string& filename,
+                       FileReadFlags flags = FileReadFlags())
+            : Parser(filename, flags), fp_(), seq_(NULL) {
         open();
     }
 
@@ -78,24 +62,19 @@ public:
      */
     /* virtual */
     FastaFastqGzParser& operator>>(SingleRead& read) {
-        if (!is_open_ || eof_) {
+        if (!is_open_ || eof_)
             return *this;
-        }
-        //todo offset_type_ should be used in future
-        if (seq_->qual.s) {
-            read = SingleRead(seq_->name.s, seq_->seq.s, seq_->qual.s, offset_type_);
-        } else {
-            read = SingleRead(seq_->name.s, seq_->seq.s);
-//            size_t len = strlen(seq_->seq.s);
-//            char* qual = (char*) malloc(len + 1);
-//            char q = '\2' + 64;
-//            for (size_t i = 0; i < len; ++i) {
-//                qual[i] = q;
-//            }
-//            qual[len] = '\0';
-//            read.SetAll(seq_->name.s, seq_->seq.s, qual, SolexaOffset);
-//            free(qual);
-        }
+
+        if (seq_->qual.s && flags_.use_name && flags_.use_quality) {
+            read = SingleRead(seq_->name.s, seq_->seq.s, seq_->qual.s, flags_.offset,
+                              0, 0, flags_.validate);
+        } else if (flags_.use_name) {
+            read = SingleRead(seq_->name.s, seq_->seq.s,
+                              0, 0, flags_.validate);
+        } else
+            read = SingleRead(seq_->seq.s,
+                              0, 0, flags_.validate);
+
         ReadAhead();
         return *this;
     }
@@ -105,14 +84,15 @@ public:
      */
     /* virtual */
     void close() {
-        if (is_open_) {
-            // STEP 5: destroy seq
-            fastafastqgz::kseq_destroy(seq_);
-            // STEP 6: close the file handler
-            gzclose(fp_);
-            is_open_ = false;
-            eof_ = true;
-        }
+        if (!is_open_)
+            return;
+
+        // STEP 5: destroy seq
+        fastafastqgz::kseq_destroy(seq_);
+        // STEP 6: close the file handler
+        gzclose(fp_);
+        is_open_ = false;
+        eof_ = true;
     }
 
 private:
@@ -166,5 +146,3 @@ private:
 };
 
 }
-
-#endif /* COMMON_IO_FASTAFASTQGZPARSER_HPP */

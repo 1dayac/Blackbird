@@ -5,7 +5,7 @@
 #define JEMALLOC_HAVE_ATTR_ALLOC_SIZE 1
 
 /* Defined if format(gnu_printf, ...) attribute is supported. */
-/* #undef JEMALLOC_HAVE_ATTR_FORMAT_GNU_PRINTF */
+#define JEMALLOC_HAVE_ATTR_FORMAT_GNU_PRINTF 1
 
 /* Defined if format(printf, ...) attribute is supported. */
 #define JEMALLOC_HAVE_ATTR_FORMAT_PRINTF 1
@@ -14,7 +14,7 @@
  * Define overrides for non-standard allocator-related functions if they are
  * present on the system.
  */
-/* #undef JEMALLOC_OVERRIDE_MEMALIGN */
+#define JEMALLOC_OVERRIDE_MEMALIGN 1
 #define JEMALLOC_OVERRIDE_VALLOC 1
 
 /*
@@ -31,7 +31,7 @@
  * with C++.  The only justification for this is to match the prototypes that
  * glibc defines.
  */
-/* #undef JEMALLOC_USE_CXX_THROW */
+#define JEMALLOC_USE_CXX_THROW 1
 
 #ifdef _MSC_VER
 #  ifdef _WIN64

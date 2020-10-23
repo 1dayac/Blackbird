@@ -8,42 +8,19 @@
 #ifndef __IO_LIBRARY_HPP__
 #define __IO_LIBRARY_HPP__
 
+#include "library_fwd.hpp"
+
 #include "adt/chained_iterator.hpp"
 #include "adt/iterator_range.hpp"
+
+#include "utils/verify.hpp"
 
 #include <boost/iterator/iterator_facade.hpp>
 
 #include <string>
 #include <vector>
-#include "utils/verify.hpp"
-
-// Forward decls for YAML API
-namespace llvm { namespace yaml { class IO; template<typename T> struct MappingTraits; } }
-namespace llvm { class StringRef;  }
 
 namespace io {
-
-enum class LibraryType {
-    SingleReads,
-    SangerReads,
-    PacBioReads,
-    NanoporeReads,
-    PairedEnd,
-    HQMatePairs,
-    MatePairs,
-    TrustedContigs,
-    TSLReads,
-    PathExtendContigs,
-    UntrustedContigs
-};
-
-enum class LibraryOrientation {
-  FR,
-  FF,
-  RF,
-  RR,
-  Undefined
-};
 
 class SequencingLibraryBase {
 public:
@@ -174,7 +151,7 @@ public:
         return adt::make_range(single_begin(), single_end());
     }
 
-    bool is_graph_contructable() const {
+    bool is_graph_constructable() const {
         return type_ == io::LibraryType::PairedEnd ||
                type_ == io::LibraryType::SingleReads ||
                type_ == io::LibraryType::HQMatePairs;
@@ -185,7 +162,7 @@ public:
     }
 
     bool is_mismatch_correctable() const {
-        return is_graph_contructable();
+        return is_graph_constructable();
     }
 
 //    bool is_binary_covertable() {
@@ -213,7 +190,12 @@ public:
         return type == io::LibraryType::PacBioReads ||
                type == io::LibraryType::SangerReads ||
                type == io::LibraryType::NanoporeReads ||
-               type == io::LibraryType::TSLReads;
+               type == io::LibraryType::TSLReads ||
+               type == io::LibraryType::FLRNAReads;
+    }
+
+    static bool is_full_length_rna_lib(LibraryType type) {
+        return type == io::LibraryType::FLRNAReads;
     }
 
     bool is_contig_lib() const {
@@ -222,6 +204,10 @@ public:
 
     bool is_long_read_lib() const {
         return is_long_read_lib(type_);
+    }
+
+    bool is_full_length_rna_lib() const {
+        return is_full_length_rna_lib(type_);
     }
 
     bool is_repeat_resolvable() const {
@@ -238,6 +224,14 @@ public:
                type_ == io::LibraryType::UntrustedContigs;
     }
 
+    bool is_fl_lib() const {
+        return type_ == io::LibraryType::FLRNAReads;
+    }
+
+    bool is_assembly_graph() const {
+        return type_ == io::LibraryType::AssemblyGraph;
+    }
+
 private:
     LibraryType type_;
     LibraryOrientation orientation_;
@@ -248,9 +242,7 @@ private:
     std::vector<std::string> single_reads_;
 };
 
-struct NoData {};
-
-template<class Data = NoData>
+template<class Data>
 class SequencingLibrary: public SequencingLibraryBase {
 public:
     const Data& data() const {
@@ -268,7 +260,7 @@ private:
 };
 
 // Just convenient wrapper to "unwrap" the iterators over libraries.
-template<class Data = NoData>
+template<class Data>
 class DataSet {
 public:
     typedef SequencingLibrary<Data> Library;
@@ -284,9 +276,6 @@ public:
 
     void load(const std::string &filename);
     void save(const std::string &filename);
-
-    void yamlize(llvm::yaml::IO &io);
-    void validate(llvm::yaml::IO &io, llvm::StringRef &res);
 
     void clear() { libraries_.clear(); }
     void push_back(const Library &lib) {
@@ -367,25 +356,5 @@ private:
 };
 
 }
-
-namespace llvm { namespace yaml {
-template <>
-struct MappingTraits<io::SequencingLibraryBase> {
-    static void mapping(llvm::yaml::IO &io, io::SequencingLibraryBase &lib);
-    static StringRef validate(llvm::yaml::IO &io, io::SequencingLibraryBase &lib);
-};
-
-template <class Data>
-struct MappingTraits<io::SequencingLibrary<Data> > {
-    static void mapping(llvm::yaml::IO &io, io::SequencingLibrary<Data> &lib);
-    static StringRef validate(llvm::yaml::IO &io, io::SequencingLibrary<Data> &lib);
-};
-
-template <class Data>
-struct MappingTraits<io::DataSet<Data> > {
-    static void mapping(llvm::yaml::IO &io, io::DataSet<Data> &lib);
-};
-
-}}
 
 #endif // __IO_LIBRARY_HPP__

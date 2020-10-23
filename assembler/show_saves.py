@@ -39,6 +39,16 @@ def read_struct(file, struct):
 ST_SIZE = 8
 ST_NUC = ST_SIZE * 4
 
+def show_kmidx(file):
+    k = read_int(file)
+    print("k: %d" % k)
+    size = read_int(file, 8)
+    print("Size: %d" % size)
+    for _ in range(size):
+        id, count, offset = read_int(file, 8), read_int(file, 4), read_int(file, 4)
+        print(id, offset, count)
+
+
 def read_seq(file):
     def unpack_seq(bytes, length):
         nucs = ['A', 'C', 'G', 'T']
@@ -55,6 +65,8 @@ def read_seq(file):
 #---- De Bruijn graph ----------------------------------------------------------
 def show_grp(file, show_seq=False):
     _, _ = read_int(file), read_int(file) # max_vid, max_eid
+
+    vertex_cnt = read_int(file)
     while True:
         try:
             start = read_int(file)
@@ -102,11 +114,11 @@ def show_sqn(file):
 #---- Edge coverage ------------------------------------------------------------
 def show_cvr(file):
     while True:
-        try:
-            edge, coverage = read_int(file), read_int(file)
-            print(edge, coverage, ".")
-        except EOFError:
+        edge = read_int(file)
+        if not edge: # null-term
             break
+        coverage = read_int(file)
+        print(edge, coverage, ".")
 
 #---- Long reads paths ---------------------------------------------------------
 def show_mpr(file):
@@ -130,7 +142,8 @@ showers = {".grp" : show_grp,
            ".sqn" : show_sqn,
            ".cvr" : show_cvr,
            ".flcvr" : show_cvr,
-           ".mpr" : show_mpr }
+           ".mpr" : show_mpr,
+           ".kmidx" : show_kmidx}
 
 basename, ext = os.path.splitext(sys.argv[1])
 target = ext

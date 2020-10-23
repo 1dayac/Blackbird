@@ -118,6 +118,32 @@ def check_file_existence(input_filename, message="", log=None):
     return filename
 
 
+def get_read_file_type(input_filename, log=None):
+    if input_filename in options_storage.dict_of_prefixes:
+        ext = options_storage.dict_of_prefixes[input_filename]
+        file_type = SeqIO.get_read_file_type(ext)
+    else:
+        file_type = SeqIO.get_read_file_type(input_filename)
+
+    if not file_type:
+        error("incorrect extension of reads file: %s" % input_filename, log)
+    return file_type
+
+
+def check_file_not_empty(input_filename, message="", log=None):
+    filename = abspath(expanduser(input_filename))
+    file_type = get_read_file_type(input_filename, log)
+    if (file_type == 'bam'):
+        return
+    
+    try:
+        reads_iterator = SeqIO.parse(SeqIO.Open(filename, "r"), file_type)
+        if next(reads_iterator, None) is None:
+            error("file is empty: %s (%s)" % (filename, message), log=log)
+    except Exception as inst:
+        error(inst.args[0].format(FILE=filename), log=log)
+
+
 def check_dir_existence(input_dirname, message="", log=None):
     dirname = abspath(expanduser(input_dirname))
     check_path_is_ascii(dirname, message)
@@ -181,6 +207,10 @@ def check_reads_file_format(filename, message, only_assembler, iontorrent, libra
         error("file with %s should be in FASTA format  (%s are supported): %s (%s)" %
               (library_type, ", ".join(options_storage.CONTIGS_ALLOWED_READS_EXTENSIONS), filename, message), log)
 
+    if library_type.endswith("graph") and ext.lower() not in options_storage.GRAPH_ALLOWED_READS_EXTENSIONS:
+        error("file with %s should be in GFA format  (%s are supported): %s (%s)" %
+              (library_type, ", ".join(options_storage.GRAPH_ALLOWED_READS_EXTENSIONS), filename, message), log)
+        
 
 # http://stackoverflow.com/questions/377017/test-if-executable-exists-in-python
 def which(program):
@@ -487,6 +517,13 @@ def get_long_reads_type(option):
     return None
 
 
+def get_graph_type(option):
+    for graph_reads_type in options_storage.GRAPH_READS_TYPES:
+        if option.startswith("--") and option in ("--" + graph_reads_type):
+            return graph_reads_type
+    return None
+
+
 def is_single_read_type(option):
     return option.startswith("--s") and option[3:].isdigit()
 
@@ -501,8 +538,10 @@ def get_lib_type_and_number(option):
         lib_number = int(option[re.search("\d", option).start()])
     elif get_long_reads_type(option):
         lib_type = get_long_reads_type(option)
-    return lib_type, lib_number
+    elif get_graph_type(option):
+        lib_type = get_graph_type(option)
 
+    return lib_type, lib_number
 
 def get_data_type(option):
     if option.endswith("-12"):
@@ -511,7 +550,10 @@ def get_data_type(option):
         data_type = "left reads"
     elif option.endswith("-2"):
         data_type = "right reads"
-    elif option.endswith("-s") or is_single_read_type(option) or get_long_reads_type(option):
+    elif option.endswith("-s") or \
+         is_single_read_type(option) or \
+         get_long_reads_type(option) or \
+         get_graph_type(option):
         data_type = "single reads"
     elif option.endswith("-m") or option.endswith("-merged"):
         data_type = "merged reads"
@@ -639,18 +681,15 @@ def get_reads_files(dataset_data, log, ignored_types, used_types=None):
 
 
 def get_max_reads_length(reads_file, log, num_checked):
-    if reads_file in options_storage.dict_of_prefixes:
-        ext = options_storage.dict_of_prefixes[reads_file]
-        file_type = SeqIO.get_read_file_type(ext)
+    file_type = get_read_file_type(reads_file, log)
+    max_reads_length = 0
+    try:
+        max_reads_length = max(
+            [len(rec) for rec in itertools.islice(SeqIO.parse(SeqIO.Open(reads_file, "r"), file_type), num_checked)])
+    except Exception as inst:
+        error(inst.args[0].format(FILE=reads_file), log=log)
     else:
-        file_type = SeqIO.get_read_file_type(reads_file)
-
-    if not file_type:
-        error("incorrect extension of reads file: %s" % reads_file, log)
-
-    max_reads_length = max(
-        [len(rec) for rec in itertools.islice(SeqIO.parse(SeqIO.Open(reads_file, "r"), file_type), num_checked)])
-    log.info("%s: max reads length: %s" % (reads_file, str(max_reads_length)))
+        log.info("%s: max reads length: %s" % (reads_file, str(max_reads_length)))
     return max_reads_length
 
 
@@ -668,11 +707,18 @@ def check_dataset_reads(dataset_data, only_assembler, iontorrent, log):
                     check_reads_file_format(reads_file, "%s, library number: %d, library type: %s" %
                                             (key, id + 1, reads_library["type"]), only_assembler, iontorrent,
                                             reads_library["type"], log)
+                    if reads_library["type"] in options_storage.READS_TYPES_USED_IN_CONSTRUCTION:
+                        check_file_not_empty(reads_file,
+                                             "%s, library number: %d, library type: %s" %
+                                             (key, id + 1, reads_library["type"]), log)
+
                     all_files.append(reads_file)
                 if key == "left reads":
                     left_number = len(value)
                 elif key == "right reads":
                     right_number = len(value)
+
+
         if left_number != right_number:
             error("the number of files with left paired reads is not equal to the number of files "
                   "with right paired reads (library number: %d, library type: %s)!" %

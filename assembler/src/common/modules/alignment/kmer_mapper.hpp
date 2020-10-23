@@ -7,11 +7,12 @@
 
 #pragma once
 
+#include "kmer_map.hpp"
+
+#include "assembly_graph/core/action_handlers.hpp"
+
 #include "sequence/sequence_tools.hpp"
 #include "adt/kmer_vector.hpp"
-#include "edge_index.hpp"
-
-#include "kmer_map.hpp"
 
 #include <set>
 #include <cstdlib>
@@ -27,7 +28,6 @@ class KmerMapper : public omnigraph::GraphActionHandler<Graph> {
 
     unsigned k_;
     KMerMap mapping_;
-    bool verification_on_;
     bool normalized_;
 
     bool CheckAllDifferent(const Sequence &old_s, const Sequence &new_s) const {
@@ -71,10 +71,22 @@ public:
         for (auto it = begin(); it != end(); ++it)
             all.push_back(it->first);
 
-        for (auto it = all.begin(); it != all.end(); ++it) {
-            Seq val(k_, it.data());
-            Normalize(val);
+        std::vector<const RawSeqData*> roots(all.size(), nullptr);
+
+#       pragma omp parallel for
+        for (size_t i = 0; i < all.size(); ++i) {
+            Seq val(k_, all[i]);
+            roots[i] = GetRoot(val);
         }
+
+#       pragma omp parallel for
+        for (size_t i = 0; i < all.size(); ++i) {
+            if (roots[i] != nullptr) {
+                Seq kmer(k_, all[i]);
+                mapping_.set(kmer, Seq(k_, roots[i]));
+            }
+        }
+
         normalized_ = true;
     }
 
@@ -90,10 +102,6 @@ public:
 //            normalized_ = false;
 //        }
 //    }
-
-    void Normalize(const Kmer &kmer) {
-        mapping_.set(kmer, Substitute(kmer));
-    }
 
     void RemapKmers(const Sequence &old_s, const Sequence &new_s) {
         VERIFY(this->IsAttached());
@@ -141,29 +149,43 @@ public:
         RemapKmers(this->g().EdgeNucls(edge1), this->g().EdgeNucls(edge2));
     }
 
-    Kmer Substitute(const Kmer &kmer) const {
-        VERIFY(this->IsAttached());
-        Kmer answer = kmer;
-        const auto *rawval = mapping_.find(answer);
+    const RawSeqData* GetRoot(const Kmer &kmer) const {
+        const RawSeqData *answer = nullptr;
+        const RawSeqData *rawval = mapping_.find(kmer);
+
         while (rawval != nullptr) {
             Seq val(k_, rawval);
-            if (verification_on_)
-                VERIFY(answer != val);
 
-            answer = val;
-            rawval = mapping_.find(answer);
+            answer = rawval;
+            rawval = mapping_.find(val);
         }
         return answer;
     }
 
-    bool CanSubstitute(const Kmer &kmer) const {
+
+    Kmer Substitute(const Kmer &kmer) const {
+        VERIFY(this->IsAttached());
         const auto *rawval = mapping_.find(kmer);
-        return rawval != nullptr;
+        if (rawval == nullptr)
+            return kmer;
+
+        const auto *newval = rawval;
+        while (rawval != nullptr) {
+            // VERIFY(answer != val);
+            newval = rawval;
+            rawval = mapping_.find(newval);
+        }
+
+        return Kmer(k_, newval);
+    }
+
+    bool CanSubstitute(const Kmer &kmer) const {
+        return mapping_.count(kmer);
     }
 
     void BinWrite(std::ostream &file) const {
-        uint32_t sz = (uint32_t)size();
-        file.write((const char *) &sz, sizeof(uint32_t));
+        size_t sz = size();
+        file.write((const char *) &sz, sizeof(sz));
 
         for (auto iter = begin(); iter != end(); ++iter) {
             Kmer::BinWrite(file, iter->first);
@@ -174,8 +196,8 @@ public:
     void BinRead(std::istream &file) {
         clear();
 
-        uint32_t size;
-        file.read((char *) &size, sizeof(uint32_t));
+        size_t size;
+        file.read((char *) &size, sizeof(size));
         for (uint32_t i = 0; i < size; ++i) {
             Kmer key(k_);
             Seq value(k_);
@@ -194,11 +216,6 @@ public:
     size_t size() const {
         return mapping_.size();
     }
-
-    // "turn on = true" means turning of all verifies
-    void SetUnsafeMode(bool turn_on) {
-        verification_on_ = !turn_on;
-    }
 };
 
-}
+} // namespace debruijn_graph

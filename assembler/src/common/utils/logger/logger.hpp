@@ -14,6 +14,8 @@
 #include <string>
 #include <sstream>
 #include <memory>
+#include <fstream>
+#include <iostream>
 
 #include "config.hpp"
 
@@ -76,8 +78,8 @@ struct properties
     properties(level default_level = L_INFO);
 
     std::unordered_map<std::string, level> levels;
-    level    def_level;
-  bool  all_default;
+    level  def_level;
+    bool   all_default;
 };
 
 ////////////////////////////////////////////////////
@@ -90,12 +92,20 @@ struct logger
     void log(level desired_level, const char* file, size_t line_num, const char* source, const char* msg);
 
     //
-    void add_writer(writer_ptr ptr);
+    void add_writer(writer_ptr ptr) {
+        writers_.push_back(ptr);
+    }
+
+    template<class Writer, typename... Args>
+    void add_writer(Args&&... args) {
+        writers_.push_back(std::make_shared<Writer>(std::forward<Args>(args)...));
+    }
+    
 
 private:
     properties                 props_  ;
     std::vector<writer_ptr>    writers_;
-    utils::perf_counter            timer_  ;
+    utils::perf_counter        timer_  ;
 };
 
 std::shared_ptr<logger>& __logger();
@@ -118,8 +128,12 @@ inline const char* __scope_source_name() {
 #define LOG_MSG(l, msg)                                                 \
   do {                                                                  \
     std::shared_ptr<logging::logger> &__lg__ = logging::__logger();     \
-    if (__lg__.get() == NULL)                                           \
+    if (__lg__.get() == NULL) {                                         \
+      std::cerr << "WARNING: Try to use logger before create one. Level=" << level_name(l);\
+      std::cerr << ". Message="  <<  msg << "\n";                       \
+      fflush(stderr);                                                   \
       break;                                                            \
+    }                                                                   \
                                                                         \
     if (__lg__->need_log((l), __scope_source_name())) {                 \
       std::stringstream __logger__str__;                                \
@@ -128,12 +142,29 @@ inline const char* __scope_source_name() {
     }                                                                   \
   } while(0);
 
+#define LOG_EXPR(l, expr)                                               \
+    do {                                                                \
+        std::shared_ptr<logging::logger> &__lg__ = logging::__logger(); \
+        if (__lg__.get() == NULL) {                                     \
+            std::cerr << "WARNING: Try to use logger before create one. Level=" << level_name(l); \
+            fflush(stderr);                                             \
+            break;                                                      \
+        }                                                               \
+        if (__lg__->need_log((l), __scope_source_name())) {             \
+            expr;                                                       \
+        }                                                               \
+    } while (0);
+
 #ifdef SPADES_DEBUG_LOGGING
-# define DEBUG(message)                      LOG_MSG(logging::L_DEBUG, message)
-# define TRACE(message)                      LOG_MSG(logging::L_TRACE, message)
+# define DEBUG(message)                     LOG_MSG(logging::L_DEBUG, message)
+# define DEBUG_EXPR(expr)                   LOG_EXPR(logging::L_DEBUG, expr)
+# define TRACE(message)                     LOG_MSG(logging::L_TRACE, message)
+# define TRACE_EXPR(expr)                   LOG_EXPR(logging::L_TRACE, expr)
 #else
-# define DEBUG(message)                      /* No trace */
-# define TRACE(message)                      /* No trace */
+# define DEBUG(message)                     /* No trace */
+# define DEBUG_EXPR(expr)                   /* No trace */
+# define TRACE(message)                     /* No trace */
+# define TRACE_EXPR(expr)                   /* No trace */
 #endif
 #define INFO(message)                       LOG_MSG(logging::L_INFO , message)
 #define START_BANNER(description)                                       \

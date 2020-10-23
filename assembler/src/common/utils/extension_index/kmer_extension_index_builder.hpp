@@ -7,10 +7,12 @@
 #pragma once
 
 #include "kmer_extension_index.hpp"
+
 #include "utils/kmer_mph/kmer_index_builder.hpp"
 #include "utils/kmer_mph/kmer_splitters.hpp"
 #include "utils/kmer_counting.hpp"
 #include "utils/ph_map/perfect_hash_map_builder.hpp"
+#include "io/reads/multifile_reader.hpp"
 
 namespace utils {
 
@@ -61,22 +63,24 @@ public:
 
 public:
     template<class Index, class Streams>
-    void BuildExtensionIndexFromStream(fs::TmpDir workdir, Index &index,
-                                       Streams &streams, io::SingleStream *contigs_stream = 0,
-                                       size_t read_buffer_size = 0) const {
+    std::unique_ptr<KMerCounter<RtSeq>>
+    BuildExtensionIndexFromStream(fs::TmpDir workdir, Index &index,
+                                  Streams &streams,
+                                  size_t read_buffer_size = 0) const {
         unsigned nthreads = (unsigned) streams.size();
         using KmerFilter = StoringTypeFilter<typename Index::storing_type>;
 
         // First, build a k+1-mer index
         DeBruijnReadKMerSplitter<typename Streams::ReadT, KmerFilter >
-                splitter(workdir, index.k() + 1, 0xDEADBEEF, streams,
-                         contigs_stream, read_buffer_size);
-        KMerDiskCounter<RtSeq> counter(workdir, splitter);
-        counter.CountAll(nthreads, nthreads, /* merge */ false);
+                splitter(workdir, index.k() + 1, 0xDEADBEEF, streams, read_buffer_size);
+        
+        auto counter = std::make_unique<KMerDiskCounter<RtSeq>>(workdir, splitter);
+        counter->CountAll(nthreads, nthreads, /* merge */ false);
 
-        BuildExtensionIndexFromKPOMers(workdir, index, counter,
+        BuildExtensionIndexFromKPOMers(workdir, index, *counter,
                                        nthreads, read_buffer_size);
 
+        return counter;
     }
 
     template<class Index, class Counter>

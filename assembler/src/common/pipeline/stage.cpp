@@ -6,31 +6,43 @@
 //***************************************************************************
 
 #include "io/dataset_support/read_converter.hpp"
-#include "pipeline/stage.hpp"
 #include "io/binary/graph_pack.hpp"
 
+#include "pipeline/stage.hpp"
+
 #include "utils/logger/log_writers.hpp"
+#include "utils/parallel/openmp_wrapper.h"
+#include "utils/perf/timetracer.hpp"
 
 #include <algorithm>
 #include <cstring>
 
+extern "C" {
+    void mi_stats_print(void*);
+    void mi_stats_merge(void);
+    void mi_collect(bool);
+};
+
 namespace spades {
 
-void AssemblyStage::load(debruijn_graph::conj_graph_pack& gp,
+constexpr char BASE_NAME[] = "graph_pack";
+
+void AssemblyStage::load(debruijn_graph::GraphPack& gp,
                          const std::string &load_from,
                          const char* prefix) {
     if (!prefix) prefix = id_;
     auto dir = fs::append_path(load_from, prefix);
     INFO("Loading current state from " << dir);
 
-    io::ConvertIfNeeded(cfg::get_writable().ds.reads);
+    io::ConvertIfNeeded(cfg::get_writable().ds.reads,
+                        cfg::get().max_threads);
 
-    auto p = fs::append_path(dir, "graph_pack");
-    io::binary::FullPackIO<Graph>().Load(p, gp);
+    auto p = fs::append_path(dir, BASE_NAME);
+    io::binary::FullPackIO().Load(p, gp);
     debruijn_graph::config::load_lib_data(p);
 }
 
-void AssemblyStage::save(const debruijn_graph::conj_graph_pack& gp,
+void AssemblyStage::save(const debruijn_graph::GraphPack& gp,
                          const std::string &save_to,
                          const char* prefix) const {
     if (!prefix) prefix = id_;
@@ -39,8 +51,8 @@ void AssemblyStage::save(const debruijn_graph::conj_graph_pack& gp,
     fs::remove_if_exists(dir);
     fs::make_dir(dir);
 
-    auto p = fs::append_path(dir, "graph_pack");
-    io::binary::FullPackIO<Graph>().Save(p, gp);
+    auto p = fs::append_path(dir, BASE_NAME);
+    io::binary::FullPackIO().Save(p, gp);
     debruijn_graph::config::write_lib_data(p);
 }
 
@@ -78,7 +90,17 @@ class PhaseIdComparator {
     const char* id_;
 };
 
-void CompositeStageBase::run(debruijn_graph::conj_graph_pack& gp,
+static void print_stats() {
+    unsigned nthreads = omp_get_max_threads();
+#   pragma omp parallel for
+    for (unsigned i = 0; i < 10*nthreads; ++i) {
+        mi_collect(true);
+        mi_stats_merge();
+    }
+    //mi_stats_print(stderr);
+}
+
+void CompositeStageBase::run(debruijn_graph::GraphPack& gp,
                              const char* started_from) {
     // The logic here is as follows. By this time StageManager already called
     // load() function of the Stage itself. Therefore we only need to do
@@ -100,22 +122,27 @@ void CompositeStageBase::run(debruijn_graph::conj_graph_pack& gp,
             std::string composite_id(id());
             composite_id += ":";
             composite_id += prev_phase->id();
-            prev_phase->load(gp, parent_->saves_policy().SavesPath(), composite_id.c_str());
-
+            TIME_TRACE_SCOPE("load phase", composite_id);
+            prev_phase->load(gp, parent_->saves_policy().LoadPath(), composite_id.c_str());
         }
     }
 
     for (auto et = phases_.end(); start_phase != et; ++start_phase) {
         PhaseBase *phase = start_phase->get();
 
-        INFO("PROCEDURE == " << phase->name());
-        phase->run(gp, started_from);
+        INFO("PROCEDURE == " << phase->name() << " (id: " << id() << ":" << phase->id() << ")");
+        {
+            print_stats();
+            TIME_TRACE_SCOPE(phase->name());
+            phase->run(gp, started_from);
+        }
 
         if (parent_->saves_policy().EnabledCheckpoints() != SavesPolicy::Checkpoints::None) {
             std::string composite_id(id());
             composite_id += ":";
             composite_id += phase->id();
 
+            TIME_TRACE_SCOPE("save phase", composite_id);
             phase->save(gp, parent_->saves_policy().SavesPath(), composite_id.c_str());
             //TODO: currently no phases are writing saves.
             //When they will, erase the previous saves when SavesPolicy::Last
@@ -125,7 +152,12 @@ void CompositeStageBase::run(debruijn_graph::conj_graph_pack& gp,
     fini(gp);
 }
 
-void StageManager::run(debruijn_graph::conj_graph_pack& g,
+void AssemblyStage::prepare(debruijn_graph::GraphPack& g,
+                            const char *stage, const char*) {
+    g.PrepareForStage(stage);
+}
+
+void StageManager::run(debruijn_graph::GraphPack& g,
                        const char* start_from) {
     auto start_stage = stages_.begin();
     if (start_from) {
@@ -149,18 +181,29 @@ void StageManager::run(debruijn_graph::conj_graph_pack& g,
                 exit(-1);
             }
         }
-        if (start_stage != stages_.begin())
-            (*std::prev(start_stage))->load(g, saves_policy_.SavesPath());
+        if (start_stage != stages_.begin()) {
+            TIME_TRACE_SCOPE("load", saves_policy_.LoadPath());
+            (*std::prev(start_stage))->load(g, saves_policy_.LoadPath());
+        }
     }
 
     for (; start_stage != stages_.end(); ++start_stage) {
         AssemblyStage *stage = start_stage->get();
 
-        INFO("STAGE == " << stage->name());
-        stage->run(g, start_from);
+        INFO("STAGE == " << stage->name() << " (id: " << stage->id() << ")");
+        stage->prepare(g, start_from);        
+        {
+            print_stats();
+            TIME_TRACE_SCOPE(stage->name());
+            stage->run(g, start_from);
+        }
+
         if (saves_policy_.EnabledCheckpoints() != SavesPolicy::Checkpoints::None) {
             auto prev_saves = saves_policy_.GetLastCheckpoint();
-            stage->save(g, saves_policy_.SavesPath());
+            {
+                TIME_TRACE_SCOPE("save", saves_policy_.SavesPath());
+                stage->save(g, saves_policy_.SavesPath());
+            }
             saves_policy_.UpdateCheckpoint(stage->id());
             if (!prev_saves.empty() && saves_policy_.EnabledCheckpoints() == SavesPolicy::Checkpoints::Last) {
                 fs::remove_if_exists(fs::append_path(saves_policy_.SavesPath(), prev_saves));

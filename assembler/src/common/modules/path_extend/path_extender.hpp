@@ -14,11 +14,13 @@
 #pragma once
 
 #include "extension_chooser.hpp"
-#include "common/modules/alignment/gap_info.hpp"
-#include "assembly_graph/paths/bidirectional_path_container.hpp"
-#include "path_filter.hpp"
 #include "overlap_analysis.hpp"
+#include "path_filter.hpp"
+#include "modules/alignment/gap_info.hpp"
+#include "assembly_graph/graph_support/detail_coverage.hpp"
 #include "assembly_graph/graph_support/scaff_supplementary.hpp"
+#include "assembly_graph/paths/bidirectional_path_container.hpp"
+
 #include <cmath>
 
 namespace path_extend {
@@ -305,11 +307,22 @@ private:
                 path.PushBack(loop_outgoing);
             }
             else {
-                DEBUG("Multiple cycles");
-                //If the forward edge is shorter than K, avoid overlapping bases between backward edge and outgoing edge
-                //Make sure that the N-stretch will be exactly 100 bp
-                uint32_t overlapping_bases = (uint32_t) std::max(int(g_.k()) - int(g_.length(forward_cycle_edge)), 0);
-                path.PushBack(loop_outgoing, Gap(int(g_.k() + BASIC_N_CNT - overlapping_bases), {0, overlapping_bases}));
+//TODO:: what should be here?
+                if (cfg::get().pd && loop_count * (g_.length(forward_cycle_edge) + g_.length(loop_outgoing)) < 1000) {
+                    INFO(" Plasmid mode: full loop resolving. Loop multiplicity: " << loop_count);
+                    INFO(" Loop edges " << forward_cycle_edge << " " << loop_outgoing);
+                    for(size_t i = 0; i < loop_count; i++) {
+                        path.PushBack(forward_cycle_edge);
+                        path.PushBack(loop_outgoing);
+                    }
+                } else {
+                    DEBUG("Multiple cycles");
+                    //If the forward edge is shorter than K, avoid overlapping bases between backward edge and outgoing edge
+                    //Make sure that the N-stretch will be exactly 100 bp
+                    uint32_t overlapping_bases = (uint32_t) std::max(int(g_.k()) - int(g_.length(forward_cycle_edge)), 0);
+                    path.PushBack(loop_outgoing, Gap(int(g_.k() + BASIC_N_CNT - overlapping_bases), {0, overlapping_bases}));
+
+                }
             }
         }
         else {
@@ -320,7 +333,7 @@ private:
 
 class CoverageLoopEstimator : public ShortLoopEstimator {
 public:
-    CoverageLoopEstimator(const Graph& g, const FlankingCoverage<Graph>& flanking_cov)
+    CoverageLoopEstimator(const Graph& g, const omnigraph::FlankingCoverage<Graph>& flanking_cov)
             : g_(g), flanking_cov_(flanking_cov) {
 
     }
@@ -357,7 +370,7 @@ public:
 
 private:
     const Graph& g_;
-    const FlankingCoverage<Graph>& flanking_cov_;
+    const omnigraph::FlankingCoverage<Graph>& flanking_cov_;
 };
 
 class PairedInfoLoopEstimator: public ShortLoopEstimator {
@@ -423,7 +436,7 @@ private:
 class CombinedLoopEstimator: public ShortLoopEstimator {
 public:
     CombinedLoopEstimator(const Graph& g,
-                          const FlankingCoverage<Graph>& flanking_cov,
+                          const omnigraph::FlankingCoverage<Graph>& flanking_cov,
                           std::shared_ptr<WeightCounter> wc,
                           double weight_threshold = 0.0)
         : pi_estimator_(g, wc, weight_threshold),
@@ -583,6 +596,10 @@ public:
         //estimated_gap is in k-mers
 
         size_t estimated_overlap = gap.estimated_dist() < 0 ? size_t(abs(gap.estimated_dist())) : 0;
+        DEBUG("SW analyzer");
+        DEBUG(size_t(math::round(double(estimated_overlap) * ESTIMATED_GAP_MULTIPLIER))
+              + GAP_ADDITIONAL_COEFFICIENT);
+
         SWOverlapAnalyzer overlap_analyzer(size_t(math::round(double(estimated_overlap) * ESTIMATED_GAP_MULTIPLIER))
                                            + GAP_ADDITIONAL_COEFFICIENT);
 
@@ -591,6 +608,9 @@ public:
 
         if (overlap_info.size() < min_la_length_) {
             DEBUG("Low alignment size");
+            DEBUG(min_la_length_);
+            DEBUG(min_la_length_);
+
             return GapDescription();
         }
 
@@ -969,6 +989,9 @@ protected:
     virtual bool MakeSimpleGrowStep(BidirectionalPath& path, PathContainer* paths_storage = nullptr) = 0;
 
     virtual bool ResolveShortLoopByCov(BidirectionalPath& path) {
+        if (TryToResolveTwoLoops(path)) {
+            return true;
+        }
         LoopDetector loop_detector(&path, cov_map_);
         size_t init_len = path.Length();
         bool result = false;
@@ -991,22 +1014,55 @@ protected:
     }
 
 public:
-    LoopDetectingPathExtender(const conj_graph_pack &gp,
-                              const GraphCoverageMap &cov_map,
-                              UsedUniqueStorage &unique,
-                              bool investigate_short_loops,
-                              bool use_short_loop_cov_resolver,
+    LoopDetectingPathExtender(const Graph &graph, const omnigraph::FlankingCoverage<Graph> &flanking_cov,
+                              const GraphCoverageMap &cov_map, UsedUniqueStorage &unique,
+                              bool investigate_short_loops, bool use_short_loop_cov_resolver,
                               size_t is)
-            : PathExtender(gp.g),
+            : PathExtender(graph),
               use_short_loop_cov_resolver_(use_short_loop_cov_resolver),
-              cov_loop_resolver_(gp.g, std::make_shared<CoverageLoopEstimator>(gp.g, gp.flanking_cov)),
-              is_detector_(gp.g, is),
+              cov_loop_resolver_(graph, std::make_shared<CoverageLoopEstimator>(graph, flanking_cov)),
+              is_detector_(graph, is),
               used_storage_(unique),
               investigate_short_loops_(investigate_short_loops),
-              cov_map_(cov_map) {
+              cov_map_(cov_map) 
+            {}
 
+    bool TryToResolveTwoLoops(BidirectionalPath& path) {
+        EdgeId last_edge = path.Back();
+        VertexId last_vertex = g_.EdgeEnd(last_edge);
+        VertexId first_vertex = g_.EdgeStart(last_edge);
+        DEBUG("Looking for two loop structure");
+        auto between = g_.GetEdgesBetween(last_vertex, first_vertex);
+        if (between.size() != 2 || g_.OutgoingEdgeCount(last_vertex) != 2 || g_.IncomingEdgeCount(first_vertex) != 2
+            || g_.IncomingEdgeCount(last_vertex) != 1 || g_.OutgoingEdgeCount(first_vertex) != 1 ) {
+            return false;
+        }
+        DEBUG("two glued cycles!");
+        if (path.Size() >= 3 && path[path.Size()-3] == last_edge) {
+            if (path.Size() >= 5 && path.Front() == last_edge){
+                path.GetConjPath()->PopBack();
+                DEBUG("removing extra");
+                path.PrintDEBUG();
+            }
+            DEBUG("already traversed");
+            return false;
+        }
+//FIXME: constants
+        if (g_.coverage(between[0]) > 1.3 *g_.coverage(between[1]) || g_.coverage(between[1]) > 1.3 *g_.coverage(between[0])) {
+            DEBUG("coverage not close");
+            return false;
+        }
+        if (path.Size() == 1) {
+            path.PushBack(between[0]);
+            path.PushBack(last_edge);
+            path.PushBack(between[1]);
+        } else {
+            DEBUG("Resolved two edge-cycle, adding two edges");
+            path.PushBack(between[0] == path[path.Size() - 2]? between[1] : between[0]);
+            path.PushBack(last_edge);
+        }
+        return true;
     }
-
 
     bool MakeGrowStep(BidirectionalPath& path, PathContainer* paths_storage) override {
         if (is_detector_.InExistingLoop(path)) {
@@ -1018,6 +1074,8 @@ public:
         LoopDetector loop_detector(&path, cov_map_);
         if (DetectCycle(path)) {
             result = false;
+        } else if (TryToResolveTwoLoops(path)) {
+            result = true;
         } else if (path.Size() >= 1 && InvestigateShortLoop() && loop_detector.EdgeInShortLoop(path.Back()) && use_short_loop_cov_resolver_) {
             DEBUG("edge in short loop");
             result = ResolveShortLoop(path);
@@ -1080,21 +1138,30 @@ protected:
         DEBUG("Following edges found");
     }
 
-
 public:
+    SimpleExtender(const Graph &graph, const omnigraph::FlankingCoverage<Graph> &flanking_cov,
+                   const GraphCoverageMap &cov_map, UsedUniqueStorage &unique,
+                   std::shared_ptr<ExtensionChooser> ec,
+                   bool investigate_short_loops, bool use_short_loop_cov_resolver,
+                   size_t is, double weight_threshold = 0.0)
+           : LoopDetectingPathExtender(graph, flanking_cov, cov_map, unique, investigate_short_loops, use_short_loop_cov_resolver, is)
+           , extensionChooser_(ec)
+           , loop_resolver_(graph, std::make_shared<CombinedLoopEstimator>(graph, flanking_cov, extensionChooser_->wc(), weight_threshold))
+           , weight_threshold_(weight_threshold)
+        {}
 
-    SimpleExtender(const conj_graph_pack &gp,
+    SimpleExtender(const GraphPack &gp,
                    const GraphCoverageMap &cov_map,
                    UsedUniqueStorage &unique,
                    std::shared_ptr<ExtensionChooser> ec,
                    size_t is,
                    bool investigate_short_loops,
                    bool use_short_loop_cov_resolver,
-                   double weight_threshold = 0.0):
-        LoopDetectingPathExtender(gp, cov_map, unique, investigate_short_loops, use_short_loop_cov_resolver, is),
-        extensionChooser_(ec),
-        loop_resolver_(gp.g, std::make_shared<CombinedLoopEstimator>(gp.g, gp.flanking_cov, extensionChooser_->wc(), weight_threshold)),
-        weight_threshold_(weight_threshold) {}
+                   double weight_threshold = 0.0)
+            : SimpleExtender(gp.get<Graph>(), gp.get<omnigraph::FlankingCoverage<Graph>>(),
+                             cov_map, unique, ec, investigate_short_loops, use_short_loop_cov_resolver,
+                             is, weight_threshold)
+        {}
 
     std::shared_ptr<ExtensionChooser> GetExtensionChooser() const {
         return extensionChooser_;
@@ -1327,7 +1394,7 @@ protected:
             DEBUG("Gap after fixing " << gap.gap << " (was " << candidates.back().d_ << ")");
 
             if (must_overlap && !CheckGap(gap)) {
-                DEBUG("Overlap is not large enough")
+                DEBUG("Overlap is not large enough");
                 return false;
             }
         } else {
@@ -1348,7 +1415,7 @@ protected:
 
 public:
 
-    ScaffoldingPathExtender(const conj_graph_pack &gp,
+    ScaffoldingPathExtender(const GraphPack &gp,
                             const GraphCoverageMap &cov_map,
                             UsedUniqueStorage &unique,
                             std::shared_ptr<ExtensionChooser> extension_chooser,
@@ -1357,7 +1424,7 @@ public:
                             bool investigate_short_loops,
                             bool avoid_rc_connections,
                             bool check_sink = true):
-        LoopDetectingPathExtender(gp, cov_map, unique, investigate_short_loops, false, is),
+        LoopDetectingPathExtender(gp.get<Graph>(), gp.get<omnigraph::FlankingCoverage<Graph>>(), cov_map, unique, investigate_short_loops, false, is),
         extension_chooser_(extension_chooser),
         gap_analyzer_(gap_analyzer),
         avoid_rc_connections_(avoid_rc_connections),
@@ -1391,7 +1458,7 @@ protected:
 
 public:
 
-    RNAScaffoldingPathExtender(const conj_graph_pack &gp,
+    RNAScaffoldingPathExtender(const GraphPack &gp,
                                const GraphCoverageMap &cov_map,
                                UsedUniqueStorage &unique,
                                std::shared_ptr<ExtensionChooser> extension_chooser,

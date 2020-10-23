@@ -7,54 +7,45 @@
 
 #pragma once
 
-#include <unordered_map>
-//#include "utils.hpp"
 #include "visualization/graph_labeler.hpp"
 #include "utils/stl_utils.hpp"
 #include "assembly_graph/core/action_handlers.hpp"
-using namespace omnigraph;
+
+#include <unordered_map>
 
 namespace omnigraph {
+
 template<class Graph>
 class GraphElementFinder : public GraphActionHandler<Graph> {
-private:
     typedef typename Graph::VertexId VertexId;
     typedef typename Graph::EdgeId EdgeId;
     std::unordered_map<size_t, VertexId> id2vertex_;
     std::unordered_map<size_t, EdgeId> id2edge_;
 
 public:
-    GraphElementFinder(const Graph &graph) : GraphActionHandler<Graph>(graph, "Graph element finder") {
+    explicit GraphElementFinder(const Graph &graph) :
+            GraphActionHandler<Graph>(graph, "Graph element finder") {
     }
 
-    virtual ~GraphElementFinder() {
-    }
-
-    virtual void HandleAdd(EdgeId e) {
-#pragma omp critical
-        {
-            id2edge_[e.int_id()] = e;
-        }
-    }
-
-    virtual void HandleAdd(VertexId v) {
-#pragma omp critical
-        {
-            id2vertex_[v.int_id()] = v;
-        }
-    }
-
-    virtual void HandleDelete(EdgeId e) {
+    void HandleAdd(EdgeId e) override {
         id2edge_[e.int_id()] = e;
     }
 
-    virtual void HandleDelete(VertexId v) {
+    void HandleAdd(VertexId v) override {
         id2vertex_[v.int_id()] = v;
+    }
+
+    void HandleDelete(EdgeId e) override {
+        id2edge_.erase(e.int_id());
+    }
+
+    void HandleDelete(VertexId v) override {
+        id2vertex_.erase(v.int_id());
     }
 
     VertexId ReturnVertexId(size_t id) const {
         auto it = id2vertex_.find(id);
-        if(it == id2vertex_.end())
+        if (it == id2vertex_.end())
             return VertexId();
         else
             return it->second;
@@ -62,20 +53,14 @@ public:
 
     EdgeId ReturnEdgeId(size_t id) const {
         auto it = id2edge_.find(id);
-        if(it == id2edge_.end())
+        if (it == id2edge_.end())
             return EdgeId();
         else
             return it->second;
     }
 
-    void Init() {
-        for(auto it = this->g().begin(); it != this->g().end(); ++it) {
-            HandleAdd(*it);
-            for(auto eit = this->g().OutgoingEdges(*it).begin(); eit != this->g().OutgoingEdges(*it).end(); ++eit) {
-                HandleAdd(*eit);
-            }
-        }
-    }
+private:
+    DECL_LOGGER("GraphElementFinder");
 };
 
 }

@@ -6,18 +6,18 @@
 //***************************************************************************
 
 #include "kmer_data.hpp"
-#include "io/reads/read_processor.hpp"
 #include "valid_kmer_generator.hpp"
-
-#include "io/reads/ireadstream.hpp"
 #include "config_struct_hammer.hpp"
+
+#include "adt/cqf.hpp"
+#include "adt/hll.hpp"
+
+#include "io/reads/read_processor.hpp"
+#include "io/reads/ireadstream.hpp"
+#include "io/kmers/kmer_iterator.hpp"
 
 #include "utils/kmer_mph/kmer_index_builder.hpp"
 #include "utils/logger/logger.hpp"
-
-#include "io/kmers/kmer_iterator.hpp"
-#include "adt/cqf.hpp"
-#include "adt/hll.hpp"
 
 using namespace hammer;
 
@@ -255,8 +255,8 @@ class KMerCountEstimator {
       return false;
   }
 
-  std::pair<double, bool> cardinality() const {
-      return hll_[0].cardinality();
+  double upper_bound_cardinality() const {
+      return hll_[0].upper_bound_cardinality();
   }
 
   void merge() {
@@ -298,14 +298,9 @@ void KMerDataCounter::BuildKMerIndex(KMerData &data) {
           }
           INFO("Total " << processed << " reads processed");
           mcounter.merge();
-          std::pair<double, bool> res = mcounter.cardinality();
-          if (res.second == false) {
-              buffer_size = cfg::get().count_split_buffer;
-              if (buffer_size == 0) buffer_size = 512ull * 1024 * 1024;
-          } else {
-              INFO("Estimated " << size_t(res.first) << " distinct kmers");
-              buffer_size = size_t(res.first);
-          }
+          double res = mcounter.upper_bound_cardinality();
+          INFO("Estimated " << size_t(res) << " distinct kmers");
+          buffer_size = size_t(res);
       }
 
       INFO("Filtering singleton k-mers");
