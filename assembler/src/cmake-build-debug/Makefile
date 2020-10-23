@@ -361,6 +361,19 @@ edlib/fast:
 .PHONY : edlib/fast
 
 #=============================================================================
+# Target rules for targets named minimap2
+
+# Build rule for target.
+minimap2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 minimap2
+.PHONY : minimap2
+
+# fast build rule for target.
+minimap2/fast:
+	$(MAKE) -f ext/minimap2/CMakeFiles/minimap2.dir/build.make ext/minimap2/CMakeFiles/minimap2.dir/build
+.PHONY : minimap2/fast
+
+#=============================================================================
 # Target rules for targets named gfa1
 
 # Build rule for target.
@@ -1025,6 +1038,7 @@ help:
 	@echo "... bwa"
 	@echo "... gqf"
 	@echo "... edlib"
+	@echo "... minimap2"
 	@echo "... gfa1"
 	@echo "... easel"
 	@echo "... hmmer"

@@ -21,14 +21,14 @@ static const char *BLACKBIRD_USAGE_MESSAGE =
                 "Contact: Dmitry Meleshko [ dmm2017@med.cornell.edu ]\n"
                 "Usage: blackbird [options]\n\n"
                 "Options:\n"
-                "           bam            Position-sorted and indexed bam-file with BX tags\n"
-                "           rerefence      BWA-indexed reference genome.\n"
-                "           output_folder  Folder where results will be stored.\n"
-                "           spades         Path to spades.py (not needed if spades.py is in path).\n"
-                "           threads        Number of threads - more the better.\n"
-                "           regions        File with chromosomes and coordinates.\n"
-                "           verbose        Print additional output (for debug purposes).\n"
-                "           help           Print this message.\n"
+                "           bam          b      Position-sorted and indexed bam-file with BX tags\n"
+                "           rerefence    r      BWA-indexed reference genome.\n"
+                "           output       o      Folder where results will be stored.\n"
+                "           spades       s      Path to spades.py (not needed if spades.py is in path).\n"
+                "           threads      t      Number of threads - more the better.\n"
+                "           regions      r      File with chromosomes and coordinates.\n"
+                "           verbose      v      Print additional output (for debug purposes).\n"
+                "           help         h      Print this message.\n"
                 "\nReport bugs to dmm2017@med.cornell.edu \n\n";
 
 
