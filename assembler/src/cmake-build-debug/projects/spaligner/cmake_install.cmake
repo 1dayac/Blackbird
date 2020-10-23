@@ -1,4 +1,4 @@
-# Install script for directory: /home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/spaligner
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/src/projects/spaligner
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xspalignerx" OR NOT CMAKE_INSTALL_CO
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spaligner"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin/spaligner")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin/spaligner")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spaligner" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spaligner")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -54,6 +54,6 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xspalignerx" OR NOT CMAKE_INSTALL_CO
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/spaligner" TYPE FILE FILES "/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/spaligner/spaligner_config.yaml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/spaligner" TYPE FILE FILES "/home/dmm2017/Desktop/Blackbird/assembler/src/projects/spaligner/spaligner_config.yaml")
 endif()
 

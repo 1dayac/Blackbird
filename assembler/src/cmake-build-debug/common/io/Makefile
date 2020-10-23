@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -116,7 +116,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -138,7 +138,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -148,14 +148,14 @@ package/fast: package
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/common/io/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/io/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/io/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/io/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/io/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/io/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/io/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/io/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/io/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/io/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 common/io/CMakeFiles/input.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/io/CMakeFiles/input.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/io/CMakeFiles/input.dir/rule
 .PHONY : common/io/CMakeFiles/input.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ input: common/io/CMakeFiles/input.dir/rule
 
 # fast build rule for target.
 input/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/build
 .PHONY : input/fast
 
 dataset_support/dataset_readers.o: dataset_support/dataset_readers.cpp.o
@@ -199,7 +199,7 @@ dataset_support/dataset_readers.o: dataset_support/dataset_readers.cpp.o
 
 # target to build an object file
 dataset_support/dataset_readers.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/dataset_support/dataset_readers.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/dataset_support/dataset_readers.cpp.o
 .PHONY : dataset_support/dataset_readers.cpp.o
 
 dataset_support/dataset_readers.i: dataset_support/dataset_readers.cpp.i
@@ -208,7 +208,7 @@ dataset_support/dataset_readers.i: dataset_support/dataset_readers.cpp.i
 
 # target to preprocess a source file
 dataset_support/dataset_readers.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/dataset_support/dataset_readers.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/dataset_support/dataset_readers.cpp.i
 .PHONY : dataset_support/dataset_readers.cpp.i
 
 dataset_support/dataset_readers.s: dataset_support/dataset_readers.cpp.s
@@ -217,7 +217,7 @@ dataset_support/dataset_readers.s: dataset_support/dataset_readers.cpp.s
 
 # target to generate assembly for a file
 dataset_support/dataset_readers.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/dataset_support/dataset_readers.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/dataset_support/dataset_readers.cpp.s
 .PHONY : dataset_support/dataset_readers.cpp.s
 
 dataset_support/read_converter.o: dataset_support/read_converter.cpp.o
@@ -226,7 +226,7 @@ dataset_support/read_converter.o: dataset_support/read_converter.cpp.o
 
 # target to build an object file
 dataset_support/read_converter.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/dataset_support/read_converter.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/dataset_support/read_converter.cpp.o
 .PHONY : dataset_support/read_converter.cpp.o
 
 dataset_support/read_converter.i: dataset_support/read_converter.cpp.i
@@ -235,7 +235,7 @@ dataset_support/read_converter.i: dataset_support/read_converter.cpp.i
 
 # target to preprocess a source file
 dataset_support/read_converter.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/dataset_support/read_converter.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/dataset_support/read_converter.cpp.i
 .PHONY : dataset_support/read_converter.cpp.i
 
 dataset_support/read_converter.s: dataset_support/read_converter.cpp.s
@@ -244,7 +244,7 @@ dataset_support/read_converter.s: dataset_support/read_converter.cpp.s
 
 # target to generate assembly for a file
 dataset_support/read_converter.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/dataset_support/read_converter.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/dataset_support/read_converter.cpp.s
 .PHONY : dataset_support/read_converter.cpp.s
 
 reads/binary_converter.o: reads/binary_converter.cpp.o
@@ -253,7 +253,7 @@ reads/binary_converter.o: reads/binary_converter.cpp.o
 
 # target to build an object file
 reads/binary_converter.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/binary_converter.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/binary_converter.cpp.o
 .PHONY : reads/binary_converter.cpp.o
 
 reads/binary_converter.i: reads/binary_converter.cpp.i
@@ -262,7 +262,7 @@ reads/binary_converter.i: reads/binary_converter.cpp.i
 
 # target to preprocess a source file
 reads/binary_converter.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/binary_converter.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/binary_converter.cpp.i
 .PHONY : reads/binary_converter.cpp.i
 
 reads/binary_converter.s: reads/binary_converter.cpp.s
@@ -271,7 +271,7 @@ reads/binary_converter.s: reads/binary_converter.cpp.s
 
 # target to generate assembly for a file
 reads/binary_converter.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/binary_converter.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/binary_converter.cpp.s
 .PHONY : reads/binary_converter.cpp.s
 
 reads/binary_streams.o: reads/binary_streams.cpp.o
@@ -280,7 +280,7 @@ reads/binary_streams.o: reads/binary_streams.cpp.o
 
 # target to build an object file
 reads/binary_streams.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/binary_streams.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/binary_streams.cpp.o
 .PHONY : reads/binary_streams.cpp.o
 
 reads/binary_streams.i: reads/binary_streams.cpp.i
@@ -289,7 +289,7 @@ reads/binary_streams.i: reads/binary_streams.cpp.i
 
 # target to preprocess a source file
 reads/binary_streams.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/binary_streams.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/binary_streams.cpp.i
 .PHONY : reads/binary_streams.cpp.i
 
 reads/binary_streams.s: reads/binary_streams.cpp.s
@@ -298,7 +298,7 @@ reads/binary_streams.s: reads/binary_streams.cpp.s
 
 # target to generate assembly for a file
 reads/binary_streams.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/binary_streams.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/binary_streams.cpp.s
 .PHONY : reads/binary_streams.cpp.s
 
 reads/io_helper.o: reads/io_helper.cpp.o
@@ -307,7 +307,7 @@ reads/io_helper.o: reads/io_helper.cpp.o
 
 # target to build an object file
 reads/io_helper.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/io_helper.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/io_helper.cpp.o
 .PHONY : reads/io_helper.cpp.o
 
 reads/io_helper.i: reads/io_helper.cpp.i
@@ -316,7 +316,7 @@ reads/io_helper.i: reads/io_helper.cpp.i
 
 # target to preprocess a source file
 reads/io_helper.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/io_helper.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/io_helper.cpp.i
 .PHONY : reads/io_helper.cpp.i
 
 reads/io_helper.s: reads/io_helper.cpp.s
@@ -325,7 +325,7 @@ reads/io_helper.s: reads/io_helper.cpp.s
 
 # target to generate assembly for a file
 reads/io_helper.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/io_helper.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/io_helper.cpp.s
 .PHONY : reads/io_helper.cpp.s
 
 reads/paired_readers.o: reads/paired_readers.cpp.o
@@ -334,7 +334,7 @@ reads/paired_readers.o: reads/paired_readers.cpp.o
 
 # target to build an object file
 reads/paired_readers.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/paired_readers.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/paired_readers.cpp.o
 .PHONY : reads/paired_readers.cpp.o
 
 reads/paired_readers.i: reads/paired_readers.cpp.i
@@ -343,7 +343,7 @@ reads/paired_readers.i: reads/paired_readers.cpp.i
 
 # target to preprocess a source file
 reads/paired_readers.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/paired_readers.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/paired_readers.cpp.i
 .PHONY : reads/paired_readers.cpp.i
 
 reads/paired_readers.s: reads/paired_readers.cpp.s
@@ -352,7 +352,7 @@ reads/paired_readers.s: reads/paired_readers.cpp.s
 
 # target to generate assembly for a file
 reads/paired_readers.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/paired_readers.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/paired_readers.cpp.s
 .PHONY : reads/paired_readers.cpp.s
 
 reads/parser.o: reads/parser.cpp.o
@@ -361,7 +361,7 @@ reads/parser.o: reads/parser.cpp.o
 
 # target to build an object file
 reads/parser.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/parser.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/parser.cpp.o
 .PHONY : reads/parser.cpp.o
 
 reads/parser.i: reads/parser.cpp.i
@@ -370,7 +370,7 @@ reads/parser.i: reads/parser.cpp.i
 
 # target to preprocess a source file
 reads/parser.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/parser.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/parser.cpp.i
 .PHONY : reads/parser.cpp.i
 
 reads/parser.s: reads/parser.cpp.s
@@ -379,7 +379,7 @@ reads/parser.s: reads/parser.cpp.s
 
 # target to generate assembly for a file
 reads/parser.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/parser.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/reads/parser.cpp.s
 .PHONY : reads/parser.cpp.s
 
 sam/read.o: sam/read.cpp.o
@@ -388,7 +388,7 @@ sam/read.o: sam/read.cpp.o
 
 # target to build an object file
 sam/read.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/sam/read.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/sam/read.cpp.o
 .PHONY : sam/read.cpp.o
 
 sam/read.i: sam/read.cpp.i
@@ -397,7 +397,7 @@ sam/read.i: sam/read.cpp.i
 
 # target to preprocess a source file
 sam/read.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/sam/read.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/sam/read.cpp.i
 .PHONY : sam/read.cpp.i
 
 sam/read.s: sam/read.cpp.s
@@ -406,7 +406,7 @@ sam/read.s: sam/read.cpp.s
 
 # target to generate assembly for a file
 sam/read.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/sam/read.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/sam/read.cpp.s
 .PHONY : sam/read.cpp.s
 
 sam/sam_reader.o: sam/sam_reader.cpp.o
@@ -415,7 +415,7 @@ sam/sam_reader.o: sam/sam_reader.cpp.o
 
 # target to build an object file
 sam/sam_reader.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/sam/sam_reader.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/sam/sam_reader.cpp.o
 .PHONY : sam/sam_reader.cpp.o
 
 sam/sam_reader.i: sam/sam_reader.cpp.i
@@ -424,7 +424,7 @@ sam/sam_reader.i: sam/sam_reader.cpp.i
 
 # target to preprocess a source file
 sam/sam_reader.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/sam/sam_reader.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/sam/sam_reader.cpp.i
 .PHONY : sam/sam_reader.cpp.i
 
 sam/sam_reader.s: sam/sam_reader.cpp.s
@@ -433,7 +433,7 @@ sam/sam_reader.s: sam/sam_reader.cpp.s
 
 # target to generate assembly for a file
 sam/sam_reader.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/sam/sam_reader.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/io/CMakeFiles/input.dir/build.make common/io/CMakeFiles/input.dir/sam/sam_reader.cpp.s
 .PHONY : sam/sam_reader.cpp.s
 
 # Help Target
@@ -489,6 +489,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

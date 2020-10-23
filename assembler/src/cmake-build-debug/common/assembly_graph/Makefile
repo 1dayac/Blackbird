@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -116,7 +116,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -138,7 +138,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -148,14 +148,14 @@ package/fast: package
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/common/assembly_graph/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/assembly_graph/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/assembly_graph/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/assembly_graph/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/assembly_graph/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/assembly_graph/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/assembly_graph/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/assembly_graph/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/assembly_graph/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/assembly_graph/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 common/assembly_graph/CMakeFiles/assembly_graph.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/assembly_graph/CMakeFiles/assembly_graph.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/assembly_graph/CMakeFiles/assembly_graph.dir/rule
 .PHONY : common/assembly_graph/CMakeFiles/assembly_graph.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ assembly_graph: common/assembly_graph/CMakeFiles/assembly_graph.dir/rule
 
 # fast build rule for target.
 assembly_graph/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/build
 .PHONY : assembly_graph/fast
 
 __/modules/alignment/edge_index_refiller.o: __/modules/alignment/edge_index_refiller.cpp.o
@@ -199,7 +199,7 @@ __/modules/alignment/edge_index_refiller.o: __/modules/alignment/edge_index_refi
 
 # target to build an object file
 __/modules/alignment/edge_index_refiller.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/__/modules/alignment/edge_index_refiller.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/__/modules/alignment/edge_index_refiller.cpp.o
 .PHONY : __/modules/alignment/edge_index_refiller.cpp.o
 
 __/modules/alignment/edge_index_refiller.i: __/modules/alignment/edge_index_refiller.cpp.i
@@ -208,7 +208,7 @@ __/modules/alignment/edge_index_refiller.i: __/modules/alignment/edge_index_refi
 
 # target to preprocess a source file
 __/modules/alignment/edge_index_refiller.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/__/modules/alignment/edge_index_refiller.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/__/modules/alignment/edge_index_refiller.cpp.i
 .PHONY : __/modules/alignment/edge_index_refiller.cpp.i
 
 __/modules/alignment/edge_index_refiller.s: __/modules/alignment/edge_index_refiller.cpp.s
@@ -217,7 +217,7 @@ __/modules/alignment/edge_index_refiller.s: __/modules/alignment/edge_index_refi
 
 # target to generate assembly for a file
 __/modules/alignment/edge_index_refiller.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/__/modules/alignment/edge_index_refiller.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/__/modules/alignment/edge_index_refiller.cpp.s
 .PHONY : __/modules/alignment/edge_index_refiller.cpp.s
 
 components/connected_component.o: components/connected_component.cpp.o
@@ -226,7 +226,7 @@ components/connected_component.o: components/connected_component.cpp.o
 
 # target to build an object file
 components/connected_component.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/components/connected_component.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/components/connected_component.cpp.o
 .PHONY : components/connected_component.cpp.o
 
 components/connected_component.i: components/connected_component.cpp.i
@@ -235,7 +235,7 @@ components/connected_component.i: components/connected_component.cpp.i
 
 # target to preprocess a source file
 components/connected_component.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/components/connected_component.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/components/connected_component.cpp.i
 .PHONY : components/connected_component.cpp.i
 
 components/connected_component.s: components/connected_component.cpp.s
@@ -244,7 +244,7 @@ components/connected_component.s: components/connected_component.cpp.s
 
 # target to generate assembly for a file
 components/connected_component.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/components/connected_component.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/components/connected_component.cpp.s
 .PHONY : components/connected_component.cpp.s
 
 core/id_distributor.o: core/id_distributor.cpp.o
@@ -253,7 +253,7 @@ core/id_distributor.o: core/id_distributor.cpp.o
 
 # target to build an object file
 core/id_distributor.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/core/id_distributor.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/core/id_distributor.cpp.o
 .PHONY : core/id_distributor.cpp.o
 
 core/id_distributor.i: core/id_distributor.cpp.i
@@ -262,7 +262,7 @@ core/id_distributor.i: core/id_distributor.cpp.i
 
 # target to preprocess a source file
 core/id_distributor.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/core/id_distributor.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/core/id_distributor.cpp.i
 .PHONY : core/id_distributor.cpp.i
 
 core/id_distributor.s: core/id_distributor.cpp.s
@@ -271,7 +271,7 @@ core/id_distributor.s: core/id_distributor.cpp.s
 
 # target to generate assembly for a file
 core/id_distributor.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/core/id_distributor.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/core/id_distributor.cpp.s
 .PHONY : core/id_distributor.cpp.s
 
 graph_support/coverage_uniformity_analyzer.o: graph_support/coverage_uniformity_analyzer.cpp.o
@@ -280,7 +280,7 @@ graph_support/coverage_uniformity_analyzer.o: graph_support/coverage_uniformity_
 
 # target to build an object file
 graph_support/coverage_uniformity_analyzer.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/graph_support/coverage_uniformity_analyzer.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/graph_support/coverage_uniformity_analyzer.cpp.o
 .PHONY : graph_support/coverage_uniformity_analyzer.cpp.o
 
 graph_support/coverage_uniformity_analyzer.i: graph_support/coverage_uniformity_analyzer.cpp.i
@@ -289,7 +289,7 @@ graph_support/coverage_uniformity_analyzer.i: graph_support/coverage_uniformity_
 
 # target to preprocess a source file
 graph_support/coverage_uniformity_analyzer.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/graph_support/coverage_uniformity_analyzer.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/graph_support/coverage_uniformity_analyzer.cpp.i
 .PHONY : graph_support/coverage_uniformity_analyzer.cpp.i
 
 graph_support/coverage_uniformity_analyzer.s: graph_support/coverage_uniformity_analyzer.cpp.s
@@ -298,7 +298,7 @@ graph_support/coverage_uniformity_analyzer.s: graph_support/coverage_uniformity_
 
 # target to generate assembly for a file
 graph_support/coverage_uniformity_analyzer.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/graph_support/coverage_uniformity_analyzer.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/graph_support/coverage_uniformity_analyzer.cpp.s
 .PHONY : graph_support/coverage_uniformity_analyzer.cpp.s
 
 graph_support/scaff_supplementary.o: graph_support/scaff_supplementary.cpp.o
@@ -307,7 +307,7 @@ graph_support/scaff_supplementary.o: graph_support/scaff_supplementary.cpp.o
 
 # target to build an object file
 graph_support/scaff_supplementary.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/graph_support/scaff_supplementary.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/graph_support/scaff_supplementary.cpp.o
 .PHONY : graph_support/scaff_supplementary.cpp.o
 
 graph_support/scaff_supplementary.i: graph_support/scaff_supplementary.cpp.i
@@ -316,7 +316,7 @@ graph_support/scaff_supplementary.i: graph_support/scaff_supplementary.cpp.i
 
 # target to preprocess a source file
 graph_support/scaff_supplementary.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/graph_support/scaff_supplementary.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/graph_support/scaff_supplementary.cpp.i
 .PHONY : graph_support/scaff_supplementary.cpp.i
 
 graph_support/scaff_supplementary.s: graph_support/scaff_supplementary.cpp.s
@@ -325,7 +325,7 @@ graph_support/scaff_supplementary.s: graph_support/scaff_supplementary.cpp.s
 
 # target to generate assembly for a file
 graph_support/scaff_supplementary.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/graph_support/scaff_supplementary.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/graph_support/scaff_supplementary.cpp.s
 .PHONY : graph_support/scaff_supplementary.cpp.s
 
 paths/bidirectional_path.o: paths/bidirectional_path.cpp.o
@@ -334,7 +334,7 @@ paths/bidirectional_path.o: paths/bidirectional_path.cpp.o
 
 # target to build an object file
 paths/bidirectional_path.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path.cpp.o
 .PHONY : paths/bidirectional_path.cpp.o
 
 paths/bidirectional_path.i: paths/bidirectional_path.cpp.i
@@ -343,7 +343,7 @@ paths/bidirectional_path.i: paths/bidirectional_path.cpp.i
 
 # target to preprocess a source file
 paths/bidirectional_path.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path.cpp.i
 .PHONY : paths/bidirectional_path.cpp.i
 
 paths/bidirectional_path.s: paths/bidirectional_path.cpp.s
@@ -352,7 +352,7 @@ paths/bidirectional_path.s: paths/bidirectional_path.cpp.s
 
 # target to generate assembly for a file
 paths/bidirectional_path.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path.cpp.s
 .PHONY : paths/bidirectional_path.cpp.s
 
 paths/bidirectional_path_io/bidirectional_path_output.o: paths/bidirectional_path_io/bidirectional_path_output.cpp.o
@@ -361,7 +361,7 @@ paths/bidirectional_path_io/bidirectional_path_output.o: paths/bidirectional_pat
 
 # target to build an object file
 paths/bidirectional_path_io/bidirectional_path_output.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path_io/bidirectional_path_output.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path_io/bidirectional_path_output.cpp.o
 .PHONY : paths/bidirectional_path_io/bidirectional_path_output.cpp.o
 
 paths/bidirectional_path_io/bidirectional_path_output.i: paths/bidirectional_path_io/bidirectional_path_output.cpp.i
@@ -370,7 +370,7 @@ paths/bidirectional_path_io/bidirectional_path_output.i: paths/bidirectional_pat
 
 # target to preprocess a source file
 paths/bidirectional_path_io/bidirectional_path_output.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path_io/bidirectional_path_output.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path_io/bidirectional_path_output.cpp.i
 .PHONY : paths/bidirectional_path_io/bidirectional_path_output.cpp.i
 
 paths/bidirectional_path_io/bidirectional_path_output.s: paths/bidirectional_path_io/bidirectional_path_output.cpp.s
@@ -379,7 +379,7 @@ paths/bidirectional_path_io/bidirectional_path_output.s: paths/bidirectional_pat
 
 # target to generate assembly for a file
 paths/bidirectional_path_io/bidirectional_path_output.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path_io/bidirectional_path_output.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path_io/bidirectional_path_output.cpp.s
 .PHONY : paths/bidirectional_path_io/bidirectional_path_output.cpp.s
 
 paths/bidirectional_path_io/io_support.o: paths/bidirectional_path_io/io_support.cpp.o
@@ -388,7 +388,7 @@ paths/bidirectional_path_io/io_support.o: paths/bidirectional_path_io/io_support
 
 # target to build an object file
 paths/bidirectional_path_io/io_support.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path_io/io_support.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path_io/io_support.cpp.o
 .PHONY : paths/bidirectional_path_io/io_support.cpp.o
 
 paths/bidirectional_path_io/io_support.i: paths/bidirectional_path_io/io_support.cpp.i
@@ -397,7 +397,7 @@ paths/bidirectional_path_io/io_support.i: paths/bidirectional_path_io/io_support
 
 # target to preprocess a source file
 paths/bidirectional_path_io/io_support.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path_io/io_support.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path_io/io_support.cpp.i
 .PHONY : paths/bidirectional_path_io/io_support.cpp.i
 
 paths/bidirectional_path_io/io_support.s: paths/bidirectional_path_io/io_support.cpp.s
@@ -406,7 +406,7 @@ paths/bidirectional_path_io/io_support.s: paths/bidirectional_path_io/io_support
 
 # target to generate assembly for a file
 paths/bidirectional_path_io/io_support.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path_io/io_support.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/assembly_graph/CMakeFiles/assembly_graph.dir/build.make common/assembly_graph/CMakeFiles/assembly_graph.dir/paths/bidirectional_path_io/io_support.cpp.s
 .PHONY : paths/bidirectional_path_io/io_support.cpp.s
 
 # Help Target
@@ -459,6 +459,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

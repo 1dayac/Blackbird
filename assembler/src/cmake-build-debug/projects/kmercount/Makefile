@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -70,7 +70,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -148,14 +148,14 @@ install/local/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/kmercount/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/kmercount/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 projects/kmercount/CMakeFiles/spades-read-filter.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/CMakeFiles/spades-read-filter.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/CMakeFiles/spades-read-filter.dir/rule
 .PHONY : projects/kmercount/CMakeFiles/spades-read-filter.dir/rule
 
 # Convenience name for target.
@@ -190,12 +190,12 @@ spades-read-filter: projects/kmercount/CMakeFiles/spades-read-filter.dir/rule
 
 # fast build rule for target.
 spades-read-filter/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-read-filter.dir/build.make projects/kmercount/CMakeFiles/spades-read-filter.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-read-filter.dir/build.make projects/kmercount/CMakeFiles/spades-read-filter.dir/build
 .PHONY : spades-read-filter/fast
 
 # Convenience name for target.
 projects/kmercount/CMakeFiles/spades-kmercount.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/CMakeFiles/spades-kmercount.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/CMakeFiles/spades-kmercount.dir/rule
 .PHONY : projects/kmercount/CMakeFiles/spades-kmercount.dir/rule
 
 # Convenience name for target.
@@ -205,12 +205,12 @@ spades-kmercount: projects/kmercount/CMakeFiles/spades-kmercount.dir/rule
 
 # fast build rule for target.
 spades-kmercount/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmercount.dir/build.make projects/kmercount/CMakeFiles/spades-kmercount.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmercount.dir/build.make projects/kmercount/CMakeFiles/spades-kmercount.dir/build
 .PHONY : spades-kmercount/fast
 
 # Convenience name for target.
 projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/rule
 .PHONY : projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/rule
 
 # Convenience name for target.
@@ -220,7 +220,7 @@ spades-kmer-estimating: projects/kmercount/CMakeFiles/spades-kmer-estimating.dir
 
 # fast build rule for target.
 spades-kmer-estimating/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/build.make projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/build.make projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/build
 .PHONY : spades-kmer-estimating/fast
 
 kmer_estimating.o: kmer_estimating.cpp.o
@@ -229,7 +229,7 @@ kmer_estimating.o: kmer_estimating.cpp.o
 
 # target to build an object file
 kmer_estimating.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/build.make projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/kmer_estimating.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/build.make projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/kmer_estimating.cpp.o
 .PHONY : kmer_estimating.cpp.o
 
 kmer_estimating.i: kmer_estimating.cpp.i
@@ -238,7 +238,7 @@ kmer_estimating.i: kmer_estimating.cpp.i
 
 # target to preprocess a source file
 kmer_estimating.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/build.make projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/kmer_estimating.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/build.make projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/kmer_estimating.cpp.i
 .PHONY : kmer_estimating.cpp.i
 
 kmer_estimating.s: kmer_estimating.cpp.s
@@ -247,7 +247,7 @@ kmer_estimating.s: kmer_estimating.cpp.s
 
 # target to generate assembly for a file
 kmer_estimating.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/build.make projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/kmer_estimating.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/build.make projects/kmercount/CMakeFiles/spades-kmer-estimating.dir/kmer_estimating.cpp.s
 .PHONY : kmer_estimating.cpp.s
 
 main.o: main.cpp.o
@@ -256,7 +256,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmercount.dir/build.make projects/kmercount/CMakeFiles/spades-kmercount.dir/main.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmercount.dir/build.make projects/kmercount/CMakeFiles/spades-kmercount.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -265,7 +265,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmercount.dir/build.make projects/kmercount/CMakeFiles/spades-kmercount.dir/main.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmercount.dir/build.make projects/kmercount/CMakeFiles/spades-kmercount.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -274,7 +274,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmercount.dir/build.make projects/kmercount/CMakeFiles/spades-kmercount.dir/main.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-kmercount.dir/build.make projects/kmercount/CMakeFiles/spades-kmercount.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 read_filter.o: read_filter.cpp.o
@@ -283,7 +283,7 @@ read_filter.o: read_filter.cpp.o
 
 # target to build an object file
 read_filter.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-read-filter.dir/build.make projects/kmercount/CMakeFiles/spades-read-filter.dir/read_filter.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-read-filter.dir/build.make projects/kmercount/CMakeFiles/spades-read-filter.dir/read_filter.cpp.o
 .PHONY : read_filter.cpp.o
 
 read_filter.i: read_filter.cpp.i
@@ -292,7 +292,7 @@ read_filter.i: read_filter.cpp.i
 
 # target to preprocess a source file
 read_filter.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-read-filter.dir/build.make projects/kmercount/CMakeFiles/spades-read-filter.dir/read_filter.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-read-filter.dir/build.make projects/kmercount/CMakeFiles/spades-read-filter.dir/read_filter.cpp.i
 .PHONY : read_filter.cpp.i
 
 read_filter.s: read_filter.cpp.s
@@ -301,7 +301,7 @@ read_filter.s: read_filter.cpp.s
 
 # target to generate assembly for a file
 read_filter.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-read-filter.dir/build.make projects/kmercount/CMakeFiles/spades-read-filter.dir/read_filter.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/kmercount/CMakeFiles/spades-read-filter.dir/build.make projects/kmercount/CMakeFiles/spades-read-filter.dir/read_filter.cpp.s
 .PHONY : read_filter.cpp.s
 
 # Help Target
@@ -341,6 +341,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

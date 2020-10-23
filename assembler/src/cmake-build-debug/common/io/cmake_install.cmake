@@ -1,4 +1,4 @@
-# Install script for directory: /home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/io
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/src/common/io
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,8 +39,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/common/io/binary/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/common/io/graph/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/io/binary/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/io/graph/cmake_install.cmake")
 
 endif()
 

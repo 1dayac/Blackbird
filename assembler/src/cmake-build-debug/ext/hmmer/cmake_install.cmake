@@ -1,4 +1,4 @@
-# Install script for directory: /home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/hmmer
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/ext/src/hmmer
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

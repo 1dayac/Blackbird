@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -116,7 +116,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -127,7 +127,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -148,14 +148,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/hammer/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/hammer/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/hammer/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/hammer/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/hammer/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/hammer/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/hammer/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/hammer/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/hammer/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/hammer/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 projects/hammer/CMakeFiles/spades-hammer.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/hammer/CMakeFiles/spades-hammer.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/hammer/CMakeFiles/spades-hammer.dir/rule
 .PHONY : projects/hammer/CMakeFiles/spades-hammer.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ spades-hammer: projects/hammer/CMakeFiles/spades-hammer.dir/rule
 
 # fast build rule for target.
 spades-hammer/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/build
 .PHONY : spades-hammer/fast
 
 config_struct_hammer.o: config_struct_hammer.cpp.o
@@ -199,7 +199,7 @@ config_struct_hammer.o: config_struct_hammer.cpp.o
 
 # target to build an object file
 config_struct_hammer.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/config_struct_hammer.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/config_struct_hammer.cpp.o
 .PHONY : config_struct_hammer.cpp.o
 
 config_struct_hammer.i: config_struct_hammer.cpp.i
@@ -208,7 +208,7 @@ config_struct_hammer.i: config_struct_hammer.cpp.i
 
 # target to preprocess a source file
 config_struct_hammer.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/config_struct_hammer.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/config_struct_hammer.cpp.i
 .PHONY : config_struct_hammer.cpp.i
 
 config_struct_hammer.s: config_struct_hammer.cpp.s
@@ -217,7 +217,7 @@ config_struct_hammer.s: config_struct_hammer.cpp.s
 
 # target to generate assembly for a file
 config_struct_hammer.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/config_struct_hammer.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/config_struct_hammer.cpp.s
 .PHONY : config_struct_hammer.cpp.s
 
 expander.o: expander.cpp.o
@@ -226,7 +226,7 @@ expander.o: expander.cpp.o
 
 # target to build an object file
 expander.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/expander.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/expander.cpp.o
 .PHONY : expander.cpp.o
 
 expander.i: expander.cpp.i
@@ -235,7 +235,7 @@ expander.i: expander.cpp.i
 
 # target to preprocess a source file
 expander.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/expander.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/expander.cpp.i
 .PHONY : expander.cpp.i
 
 expander.s: expander.cpp.s
@@ -244,7 +244,7 @@ expander.s: expander.cpp.s
 
 # target to generate assembly for a file
 expander.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/expander.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/expander.cpp.s
 .PHONY : expander.cpp.s
 
 hamcluster.o: hamcluster.cpp.o
@@ -253,7 +253,7 @@ hamcluster.o: hamcluster.cpp.o
 
 # target to build an object file
 hamcluster.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/hamcluster.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/hamcluster.cpp.o
 .PHONY : hamcluster.cpp.o
 
 hamcluster.i: hamcluster.cpp.i
@@ -262,7 +262,7 @@ hamcluster.i: hamcluster.cpp.i
 
 # target to preprocess a source file
 hamcluster.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/hamcluster.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/hamcluster.cpp.i
 .PHONY : hamcluster.cpp.i
 
 hamcluster.s: hamcluster.cpp.s
@@ -271,7 +271,7 @@ hamcluster.s: hamcluster.cpp.s
 
 # target to generate assembly for a file
 hamcluster.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/hamcluster.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/hamcluster.cpp.s
 .PHONY : hamcluster.cpp.s
 
 hammer_tools.o: hammer_tools.cpp.o
@@ -280,7 +280,7 @@ hammer_tools.o: hammer_tools.cpp.o
 
 # target to build an object file
 hammer_tools.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/hammer_tools.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/hammer_tools.cpp.o
 .PHONY : hammer_tools.cpp.o
 
 hammer_tools.i: hammer_tools.cpp.i
@@ -289,7 +289,7 @@ hammer_tools.i: hammer_tools.cpp.i
 
 # target to preprocess a source file
 hammer_tools.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/hammer_tools.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/hammer_tools.cpp.i
 .PHONY : hammer_tools.cpp.i
 
 hammer_tools.s: hammer_tools.cpp.s
@@ -298,7 +298,7 @@ hammer_tools.s: hammer_tools.cpp.s
 
 # target to generate assembly for a file
 hammer_tools.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/hammer_tools.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/hammer_tools.cpp.s
 .PHONY : hammer_tools.cpp.s
 
 kmer_cluster.o: kmer_cluster.cpp.o
@@ -307,7 +307,7 @@ kmer_cluster.o: kmer_cluster.cpp.o
 
 # target to build an object file
 kmer_cluster.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/kmer_cluster.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/kmer_cluster.cpp.o
 .PHONY : kmer_cluster.cpp.o
 
 kmer_cluster.i: kmer_cluster.cpp.i
@@ -316,7 +316,7 @@ kmer_cluster.i: kmer_cluster.cpp.i
 
 # target to preprocess a source file
 kmer_cluster.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/kmer_cluster.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/kmer_cluster.cpp.i
 .PHONY : kmer_cluster.cpp.i
 
 kmer_cluster.s: kmer_cluster.cpp.s
@@ -325,7 +325,7 @@ kmer_cluster.s: kmer_cluster.cpp.s
 
 # target to generate assembly for a file
 kmer_cluster.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/kmer_cluster.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/kmer_cluster.cpp.s
 .PHONY : kmer_cluster.cpp.s
 
 kmer_data.o: kmer_data.cpp.o
@@ -334,7 +334,7 @@ kmer_data.o: kmer_data.cpp.o
 
 # target to build an object file
 kmer_data.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/kmer_data.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/kmer_data.cpp.o
 .PHONY : kmer_data.cpp.o
 
 kmer_data.i: kmer_data.cpp.i
@@ -343,7 +343,7 @@ kmer_data.i: kmer_data.cpp.i
 
 # target to preprocess a source file
 kmer_data.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/kmer_data.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/kmer_data.cpp.i
 .PHONY : kmer_data.cpp.i
 
 kmer_data.s: kmer_data.cpp.s
@@ -352,7 +352,7 @@ kmer_data.s: kmer_data.cpp.s
 
 # target to generate assembly for a file
 kmer_data.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/kmer_data.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/kmer_data.cpp.s
 .PHONY : kmer_data.cpp.s
 
 main.o: main.cpp.o
@@ -361,7 +361,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/main.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -370,7 +370,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/main.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -379,7 +379,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/main.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 read_corrector.o: read_corrector.cpp.o
@@ -388,7 +388,7 @@ read_corrector.o: read_corrector.cpp.o
 
 # target to build an object file
 read_corrector.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/read_corrector.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/read_corrector.cpp.o
 .PHONY : read_corrector.cpp.o
 
 read_corrector.i: read_corrector.cpp.i
@@ -397,7 +397,7 @@ read_corrector.i: read_corrector.cpp.i
 
 # target to preprocess a source file
 read_corrector.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/read_corrector.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/read_corrector.cpp.i
 .PHONY : read_corrector.cpp.i
 
 read_corrector.s: read_corrector.cpp.s
@@ -406,7 +406,7 @@ read_corrector.s: read_corrector.cpp.s
 
 # target to generate assembly for a file
 read_corrector.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/read_corrector.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/hammer/CMakeFiles/spades-hammer.dir/build.make projects/hammer/CMakeFiles/spades-hammer.dir/read_corrector.cpp.s
 .PHONY : read_corrector.cpp.s
 
 # Help Target
@@ -459,6 +459,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

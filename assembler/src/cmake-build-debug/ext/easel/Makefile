@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -116,7 +116,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -127,7 +127,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -148,14 +148,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/easel/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/easel/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/easel/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/easel/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/easel/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/easel/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/easel/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/easel/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/easel/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/easel/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 ext/easel/CMakeFiles/easel.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/easel/CMakeFiles/easel.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/easel/CMakeFiles/easel.dir/rule
 .PHONY : ext/easel/CMakeFiles/easel.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ easel: ext/easel/CMakeFiles/easel.dir/rule
 
 # fast build rule for target.
 easel/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/build
 .PHONY : easel/fast
 
 easel.o: easel.c.o
@@ -199,7 +199,7 @@ easel.o: easel.c.o
 
 # target to build an object file
 easel.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/easel.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/easel.c.o
 .PHONY : easel.c.o
 
 easel.i: easel.c.i
@@ -208,7 +208,7 @@ easel.i: easel.c.i
 
 # target to preprocess a source file
 easel.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/easel.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/easel.c.i
 .PHONY : easel.c.i
 
 easel.s: easel.c.s
@@ -217,7 +217,7 @@ easel.s: easel.c.s
 
 # target to generate assembly for a file
 easel.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/easel.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/easel.c.s
 .PHONY : easel.c.s
 
 esl_alphabet.o: esl_alphabet.c.o
@@ -226,7 +226,7 @@ esl_alphabet.o: esl_alphabet.c.o
 
 # target to build an object file
 esl_alphabet.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_alphabet.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_alphabet.c.o
 .PHONY : esl_alphabet.c.o
 
 esl_alphabet.i: esl_alphabet.c.i
@@ -235,7 +235,7 @@ esl_alphabet.i: esl_alphabet.c.i
 
 # target to preprocess a source file
 esl_alphabet.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_alphabet.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_alphabet.c.i
 .PHONY : esl_alphabet.c.i
 
 esl_alphabet.s: esl_alphabet.c.s
@@ -244,7 +244,7 @@ esl_alphabet.s: esl_alphabet.c.s
 
 # target to generate assembly for a file
 esl_alphabet.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_alphabet.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_alphabet.c.s
 .PHONY : esl_alphabet.c.s
 
 esl_avx.o: esl_avx.c.o
@@ -253,7 +253,7 @@ esl_avx.o: esl_avx.c.o
 
 # target to build an object file
 esl_avx.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_avx.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_avx.c.o
 .PHONY : esl_avx.c.o
 
 esl_avx.i: esl_avx.c.i
@@ -262,7 +262,7 @@ esl_avx.i: esl_avx.c.i
 
 # target to preprocess a source file
 esl_avx.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_avx.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_avx.c.i
 .PHONY : esl_avx.c.i
 
 esl_avx.s: esl_avx.c.s
@@ -271,7 +271,7 @@ esl_avx.s: esl_avx.c.s
 
 # target to generate assembly for a file
 esl_avx.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_avx.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_avx.c.s
 .PHONY : esl_avx.c.s
 
 esl_buffer.o: esl_buffer.c.o
@@ -280,7 +280,7 @@ esl_buffer.o: esl_buffer.c.o
 
 # target to build an object file
 esl_buffer.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_buffer.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_buffer.c.o
 .PHONY : esl_buffer.c.o
 
 esl_buffer.i: esl_buffer.c.i
@@ -289,7 +289,7 @@ esl_buffer.i: esl_buffer.c.i
 
 # target to preprocess a source file
 esl_buffer.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_buffer.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_buffer.c.i
 .PHONY : esl_buffer.c.i
 
 esl_buffer.s: esl_buffer.c.s
@@ -298,7 +298,7 @@ esl_buffer.s: esl_buffer.c.s
 
 # target to generate assembly for a file
 esl_buffer.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_buffer.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_buffer.c.s
 .PHONY : esl_buffer.c.s
 
 esl_cluster.o: esl_cluster.c.o
@@ -307,7 +307,7 @@ esl_cluster.o: esl_cluster.c.o
 
 # target to build an object file
 esl_cluster.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_cluster.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_cluster.c.o
 .PHONY : esl_cluster.c.o
 
 esl_cluster.i: esl_cluster.c.i
@@ -316,7 +316,7 @@ esl_cluster.i: esl_cluster.c.i
 
 # target to preprocess a source file
 esl_cluster.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_cluster.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_cluster.c.i
 .PHONY : esl_cluster.c.i
 
 esl_cluster.s: esl_cluster.c.s
@@ -325,7 +325,7 @@ esl_cluster.s: esl_cluster.c.s
 
 # target to generate assembly for a file
 esl_cluster.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_cluster.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_cluster.c.s
 .PHONY : esl_cluster.c.s
 
 esl_composition.o: esl_composition.c.o
@@ -334,7 +334,7 @@ esl_composition.o: esl_composition.c.o
 
 # target to build an object file
 esl_composition.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_composition.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_composition.c.o
 .PHONY : esl_composition.c.o
 
 esl_composition.i: esl_composition.c.i
@@ -343,7 +343,7 @@ esl_composition.i: esl_composition.c.i
 
 # target to preprocess a source file
 esl_composition.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_composition.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_composition.c.i
 .PHONY : esl_composition.c.i
 
 esl_composition.s: esl_composition.c.s
@@ -352,7 +352,7 @@ esl_composition.s: esl_composition.c.s
 
 # target to generate assembly for a file
 esl_composition.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_composition.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_composition.c.s
 .PHONY : esl_composition.c.s
 
 esl_dirichlet.o: esl_dirichlet.c.o
@@ -361,7 +361,7 @@ esl_dirichlet.o: esl_dirichlet.c.o
 
 # target to build an object file
 esl_dirichlet.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dirichlet.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dirichlet.c.o
 .PHONY : esl_dirichlet.c.o
 
 esl_dirichlet.i: esl_dirichlet.c.i
@@ -370,7 +370,7 @@ esl_dirichlet.i: esl_dirichlet.c.i
 
 # target to preprocess a source file
 esl_dirichlet.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dirichlet.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dirichlet.c.i
 .PHONY : esl_dirichlet.c.i
 
 esl_dirichlet.s: esl_dirichlet.c.s
@@ -379,7 +379,7 @@ esl_dirichlet.s: esl_dirichlet.c.s
 
 # target to generate assembly for a file
 esl_dirichlet.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dirichlet.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dirichlet.c.s
 .PHONY : esl_dirichlet.c.s
 
 esl_distance.o: esl_distance.c.o
@@ -388,7 +388,7 @@ esl_distance.o: esl_distance.c.o
 
 # target to build an object file
 esl_distance.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_distance.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_distance.c.o
 .PHONY : esl_distance.c.o
 
 esl_distance.i: esl_distance.c.i
@@ -397,7 +397,7 @@ esl_distance.i: esl_distance.c.i
 
 # target to preprocess a source file
 esl_distance.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_distance.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_distance.c.i
 .PHONY : esl_distance.c.i
 
 esl_distance.s: esl_distance.c.s
@@ -406,7 +406,7 @@ esl_distance.s: esl_distance.c.s
 
 # target to generate assembly for a file
 esl_distance.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_distance.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_distance.c.s
 .PHONY : esl_distance.c.s
 
 esl_dmatrix.o: esl_dmatrix.c.o
@@ -415,7 +415,7 @@ esl_dmatrix.o: esl_dmatrix.c.o
 
 # target to build an object file
 esl_dmatrix.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dmatrix.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dmatrix.c.o
 .PHONY : esl_dmatrix.c.o
 
 esl_dmatrix.i: esl_dmatrix.c.i
@@ -424,7 +424,7 @@ esl_dmatrix.i: esl_dmatrix.c.i
 
 # target to preprocess a source file
 esl_dmatrix.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dmatrix.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dmatrix.c.i
 .PHONY : esl_dmatrix.c.i
 
 esl_dmatrix.s: esl_dmatrix.c.s
@@ -433,7 +433,7 @@ esl_dmatrix.s: esl_dmatrix.c.s
 
 # target to generate assembly for a file
 esl_dmatrix.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dmatrix.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dmatrix.c.s
 .PHONY : esl_dmatrix.c.s
 
 esl_dsqdata.o: esl_dsqdata.c.o
@@ -442,7 +442,7 @@ esl_dsqdata.o: esl_dsqdata.c.o
 
 # target to build an object file
 esl_dsqdata.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dsqdata.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dsqdata.c.o
 .PHONY : esl_dsqdata.c.o
 
 esl_dsqdata.i: esl_dsqdata.c.i
@@ -451,7 +451,7 @@ esl_dsqdata.i: esl_dsqdata.c.i
 
 # target to preprocess a source file
 esl_dsqdata.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dsqdata.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dsqdata.c.i
 .PHONY : esl_dsqdata.c.i
 
 esl_dsqdata.s: esl_dsqdata.c.s
@@ -460,7 +460,7 @@ esl_dsqdata.s: esl_dsqdata.c.s
 
 # target to generate assembly for a file
 esl_dsqdata.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dsqdata.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_dsqdata.c.s
 .PHONY : esl_dsqdata.c.s
 
 esl_exponential.o: esl_exponential.c.o
@@ -469,7 +469,7 @@ esl_exponential.o: esl_exponential.c.o
 
 # target to build an object file
 esl_exponential.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_exponential.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_exponential.c.o
 .PHONY : esl_exponential.c.o
 
 esl_exponential.i: esl_exponential.c.i
@@ -478,7 +478,7 @@ esl_exponential.i: esl_exponential.c.i
 
 # target to preprocess a source file
 esl_exponential.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_exponential.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_exponential.c.i
 .PHONY : esl_exponential.c.i
 
 esl_exponential.s: esl_exponential.c.s
@@ -487,7 +487,7 @@ esl_exponential.s: esl_exponential.c.s
 
 # target to generate assembly for a file
 esl_exponential.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_exponential.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_exponential.c.s
 .PHONY : esl_exponential.c.s
 
 esl_fileparser.o: esl_fileparser.c.o
@@ -496,7 +496,7 @@ esl_fileparser.o: esl_fileparser.c.o
 
 # target to build an object file
 esl_fileparser.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_fileparser.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_fileparser.c.o
 .PHONY : esl_fileparser.c.o
 
 esl_fileparser.i: esl_fileparser.c.i
@@ -505,7 +505,7 @@ esl_fileparser.i: esl_fileparser.c.i
 
 # target to preprocess a source file
 esl_fileparser.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_fileparser.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_fileparser.c.i
 .PHONY : esl_fileparser.c.i
 
 esl_fileparser.s: esl_fileparser.c.s
@@ -514,7 +514,7 @@ esl_fileparser.s: esl_fileparser.c.s
 
 # target to generate assembly for a file
 esl_fileparser.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_fileparser.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_fileparser.c.s
 .PHONY : esl_fileparser.c.s
 
 esl_gamma.o: esl_gamma.c.o
@@ -523,7 +523,7 @@ esl_gamma.o: esl_gamma.c.o
 
 # target to build an object file
 esl_gamma.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gamma.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gamma.c.o
 .PHONY : esl_gamma.c.o
 
 esl_gamma.i: esl_gamma.c.i
@@ -532,7 +532,7 @@ esl_gamma.i: esl_gamma.c.i
 
 # target to preprocess a source file
 esl_gamma.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gamma.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gamma.c.i
 .PHONY : esl_gamma.c.i
 
 esl_gamma.s: esl_gamma.c.s
@@ -541,7 +541,7 @@ esl_gamma.s: esl_gamma.c.s
 
 # target to generate assembly for a file
 esl_gamma.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gamma.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gamma.c.s
 .PHONY : esl_gamma.c.s
 
 esl_gencode.o: esl_gencode.c.o
@@ -550,7 +550,7 @@ esl_gencode.o: esl_gencode.c.o
 
 # target to build an object file
 esl_gencode.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gencode.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gencode.c.o
 .PHONY : esl_gencode.c.o
 
 esl_gencode.i: esl_gencode.c.i
@@ -559,7 +559,7 @@ esl_gencode.i: esl_gencode.c.i
 
 # target to preprocess a source file
 esl_gencode.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gencode.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gencode.c.i
 .PHONY : esl_gencode.c.i
 
 esl_gencode.s: esl_gencode.c.s
@@ -568,7 +568,7 @@ esl_gencode.s: esl_gencode.c.s
 
 # target to generate assembly for a file
 esl_gencode.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gencode.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gencode.c.s
 .PHONY : esl_gencode.c.s
 
 esl_getopts.o: esl_getopts.c.o
@@ -577,7 +577,7 @@ esl_getopts.o: esl_getopts.c.o
 
 # target to build an object file
 esl_getopts.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_getopts.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_getopts.c.o
 .PHONY : esl_getopts.c.o
 
 esl_getopts.i: esl_getopts.c.i
@@ -586,7 +586,7 @@ esl_getopts.i: esl_getopts.c.i
 
 # target to preprocess a source file
 esl_getopts.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_getopts.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_getopts.c.i
 .PHONY : esl_getopts.c.i
 
 esl_getopts.s: esl_getopts.c.s
@@ -595,7 +595,7 @@ esl_getopts.s: esl_getopts.c.s
 
 # target to generate assembly for a file
 esl_getopts.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_getopts.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_getopts.c.s
 .PHONY : esl_getopts.c.s
 
 esl_gev.o: esl_gev.c.o
@@ -604,7 +604,7 @@ esl_gev.o: esl_gev.c.o
 
 # target to build an object file
 esl_gev.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gev.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gev.c.o
 .PHONY : esl_gev.c.o
 
 esl_gev.i: esl_gev.c.i
@@ -613,7 +613,7 @@ esl_gev.i: esl_gev.c.i
 
 # target to preprocess a source file
 esl_gev.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gev.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gev.c.i
 .PHONY : esl_gev.c.i
 
 esl_gev.s: esl_gev.c.s
@@ -622,7 +622,7 @@ esl_gev.s: esl_gev.c.s
 
 # target to generate assembly for a file
 esl_gev.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gev.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gev.c.s
 .PHONY : esl_gev.c.s
 
 esl_gumbel.o: esl_gumbel.c.o
@@ -631,7 +631,7 @@ esl_gumbel.o: esl_gumbel.c.o
 
 # target to build an object file
 esl_gumbel.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gumbel.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gumbel.c.o
 .PHONY : esl_gumbel.c.o
 
 esl_gumbel.i: esl_gumbel.c.i
@@ -640,7 +640,7 @@ esl_gumbel.i: esl_gumbel.c.i
 
 # target to preprocess a source file
 esl_gumbel.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gumbel.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gumbel.c.i
 .PHONY : esl_gumbel.c.i
 
 esl_gumbel.s: esl_gumbel.c.s
@@ -649,7 +649,7 @@ esl_gumbel.s: esl_gumbel.c.s
 
 # target to generate assembly for a file
 esl_gumbel.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gumbel.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_gumbel.c.s
 .PHONY : esl_gumbel.c.s
 
 esl_heap.o: esl_heap.c.o
@@ -658,7 +658,7 @@ esl_heap.o: esl_heap.c.o
 
 # target to build an object file
 esl_heap.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_heap.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_heap.c.o
 .PHONY : esl_heap.c.o
 
 esl_heap.i: esl_heap.c.i
@@ -667,7 +667,7 @@ esl_heap.i: esl_heap.c.i
 
 # target to preprocess a source file
 esl_heap.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_heap.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_heap.c.i
 .PHONY : esl_heap.c.i
 
 esl_heap.s: esl_heap.c.s
@@ -676,7 +676,7 @@ esl_heap.s: esl_heap.c.s
 
 # target to generate assembly for a file
 esl_heap.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_heap.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_heap.c.s
 .PHONY : esl_heap.c.s
 
 esl_histogram.o: esl_histogram.c.o
@@ -685,7 +685,7 @@ esl_histogram.o: esl_histogram.c.o
 
 # target to build an object file
 esl_histogram.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_histogram.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_histogram.c.o
 .PHONY : esl_histogram.c.o
 
 esl_histogram.i: esl_histogram.c.i
@@ -694,7 +694,7 @@ esl_histogram.i: esl_histogram.c.i
 
 # target to preprocess a source file
 esl_histogram.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_histogram.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_histogram.c.i
 .PHONY : esl_histogram.c.i
 
 esl_histogram.s: esl_histogram.c.s
@@ -703,7 +703,7 @@ esl_histogram.s: esl_histogram.c.s
 
 # target to generate assembly for a file
 esl_histogram.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_histogram.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_histogram.c.s
 .PHONY : esl_histogram.c.s
 
 esl_hmm.o: esl_hmm.c.o
@@ -712,7 +712,7 @@ esl_hmm.o: esl_hmm.c.o
 
 # target to build an object file
 esl_hmm.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_hmm.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_hmm.c.o
 .PHONY : esl_hmm.c.o
 
 esl_hmm.i: esl_hmm.c.i
@@ -721,7 +721,7 @@ esl_hmm.i: esl_hmm.c.i
 
 # target to preprocess a source file
 esl_hmm.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_hmm.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_hmm.c.i
 .PHONY : esl_hmm.c.i
 
 esl_hmm.s: esl_hmm.c.s
@@ -730,7 +730,7 @@ esl_hmm.s: esl_hmm.c.s
 
 # target to generate assembly for a file
 esl_hmm.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_hmm.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_hmm.c.s
 .PHONY : esl_hmm.c.s
 
 esl_hyperexp.o: esl_hyperexp.c.o
@@ -739,7 +739,7 @@ esl_hyperexp.o: esl_hyperexp.c.o
 
 # target to build an object file
 esl_hyperexp.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_hyperexp.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_hyperexp.c.o
 .PHONY : esl_hyperexp.c.o
 
 esl_hyperexp.i: esl_hyperexp.c.i
@@ -748,7 +748,7 @@ esl_hyperexp.i: esl_hyperexp.c.i
 
 # target to preprocess a source file
 esl_hyperexp.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_hyperexp.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_hyperexp.c.i
 .PHONY : esl_hyperexp.c.i
 
 esl_hyperexp.s: esl_hyperexp.c.s
@@ -757,7 +757,7 @@ esl_hyperexp.s: esl_hyperexp.c.s
 
 # target to generate assembly for a file
 esl_hyperexp.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_hyperexp.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_hyperexp.c.s
 .PHONY : esl_hyperexp.c.s
 
 esl_keyhash.o: esl_keyhash.c.o
@@ -766,7 +766,7 @@ esl_keyhash.o: esl_keyhash.c.o
 
 # target to build an object file
 esl_keyhash.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_keyhash.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_keyhash.c.o
 .PHONY : esl_keyhash.c.o
 
 esl_keyhash.i: esl_keyhash.c.i
@@ -775,7 +775,7 @@ esl_keyhash.i: esl_keyhash.c.i
 
 # target to preprocess a source file
 esl_keyhash.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_keyhash.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_keyhash.c.i
 .PHONY : esl_keyhash.c.i
 
 esl_keyhash.s: esl_keyhash.c.s
@@ -784,7 +784,7 @@ esl_keyhash.s: esl_keyhash.c.s
 
 # target to generate assembly for a file
 esl_keyhash.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_keyhash.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_keyhash.c.s
 .PHONY : esl_keyhash.c.s
 
 esl_mem.o: esl_mem.c.o
@@ -793,7 +793,7 @@ esl_mem.o: esl_mem.c.o
 
 # target to build an object file
 esl_mem.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mem.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mem.c.o
 .PHONY : esl_mem.c.o
 
 esl_mem.i: esl_mem.c.i
@@ -802,7 +802,7 @@ esl_mem.i: esl_mem.c.i
 
 # target to preprocess a source file
 esl_mem.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mem.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mem.c.i
 .PHONY : esl_mem.c.i
 
 esl_mem.s: esl_mem.c.s
@@ -811,7 +811,7 @@ esl_mem.s: esl_mem.c.s
 
 # target to generate assembly for a file
 esl_mem.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mem.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mem.c.s
 .PHONY : esl_mem.c.s
 
 esl_minimizer.o: esl_minimizer.c.o
@@ -820,7 +820,7 @@ esl_minimizer.o: esl_minimizer.c.o
 
 # target to build an object file
 esl_minimizer.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_minimizer.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_minimizer.c.o
 .PHONY : esl_minimizer.c.o
 
 esl_minimizer.i: esl_minimizer.c.i
@@ -829,7 +829,7 @@ esl_minimizer.i: esl_minimizer.c.i
 
 # target to preprocess a source file
 esl_minimizer.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_minimizer.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_minimizer.c.i
 .PHONY : esl_minimizer.c.i
 
 esl_minimizer.s: esl_minimizer.c.s
@@ -838,7 +838,7 @@ esl_minimizer.s: esl_minimizer.c.s
 
 # target to generate assembly for a file
 esl_minimizer.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_minimizer.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_minimizer.c.s
 .PHONY : esl_minimizer.c.s
 
 esl_mixgev.o: esl_mixgev.c.o
@@ -847,7 +847,7 @@ esl_mixgev.o: esl_mixgev.c.o
 
 # target to build an object file
 esl_mixgev.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mixgev.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mixgev.c.o
 .PHONY : esl_mixgev.c.o
 
 esl_mixgev.i: esl_mixgev.c.i
@@ -856,7 +856,7 @@ esl_mixgev.i: esl_mixgev.c.i
 
 # target to preprocess a source file
 esl_mixgev.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mixgev.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mixgev.c.i
 .PHONY : esl_mixgev.c.i
 
 esl_mixgev.s: esl_mixgev.c.s
@@ -865,7 +865,7 @@ esl_mixgev.s: esl_mixgev.c.s
 
 # target to generate assembly for a file
 esl_mixgev.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mixgev.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mixgev.c.s
 .PHONY : esl_mixgev.c.s
 
 esl_mpi.o: esl_mpi.c.o
@@ -874,7 +874,7 @@ esl_mpi.o: esl_mpi.c.o
 
 # target to build an object file
 esl_mpi.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mpi.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mpi.c.o
 .PHONY : esl_mpi.c.o
 
 esl_mpi.i: esl_mpi.c.i
@@ -883,7 +883,7 @@ esl_mpi.i: esl_mpi.c.i
 
 # target to preprocess a source file
 esl_mpi.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mpi.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mpi.c.i
 .PHONY : esl_mpi.c.i
 
 esl_mpi.s: esl_mpi.c.s
@@ -892,7 +892,7 @@ esl_mpi.s: esl_mpi.c.s
 
 # target to generate assembly for a file
 esl_mpi.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mpi.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_mpi.c.s
 .PHONY : esl_mpi.c.s
 
 esl_msa.o: esl_msa.c.o
@@ -901,7 +901,7 @@ esl_msa.o: esl_msa.c.o
 
 # target to build an object file
 esl_msa.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msa.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msa.c.o
 .PHONY : esl_msa.c.o
 
 esl_msa.i: esl_msa.c.i
@@ -910,7 +910,7 @@ esl_msa.i: esl_msa.c.i
 
 # target to preprocess a source file
 esl_msa.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msa.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msa.c.i
 .PHONY : esl_msa.c.i
 
 esl_msa.s: esl_msa.c.s
@@ -919,7 +919,7 @@ esl_msa.s: esl_msa.c.s
 
 # target to generate assembly for a file
 esl_msa.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msa.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msa.c.s
 .PHONY : esl_msa.c.s
 
 esl_msacluster.o: esl_msacluster.c.o
@@ -928,7 +928,7 @@ esl_msacluster.o: esl_msacluster.c.o
 
 # target to build an object file
 esl_msacluster.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msacluster.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msacluster.c.o
 .PHONY : esl_msacluster.c.o
 
 esl_msacluster.i: esl_msacluster.c.i
@@ -937,7 +937,7 @@ esl_msacluster.i: esl_msacluster.c.i
 
 # target to preprocess a source file
 esl_msacluster.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msacluster.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msacluster.c.i
 .PHONY : esl_msacluster.c.i
 
 esl_msacluster.s: esl_msacluster.c.s
@@ -946,7 +946,7 @@ esl_msacluster.s: esl_msacluster.c.s
 
 # target to generate assembly for a file
 esl_msacluster.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msacluster.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msacluster.c.s
 .PHONY : esl_msacluster.c.s
 
 esl_msafile.o: esl_msafile.c.o
@@ -955,7 +955,7 @@ esl_msafile.o: esl_msafile.c.o
 
 # target to build an object file
 esl_msafile.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile.c.o
 .PHONY : esl_msafile.c.o
 
 esl_msafile.i: esl_msafile.c.i
@@ -964,7 +964,7 @@ esl_msafile.i: esl_msafile.c.i
 
 # target to preprocess a source file
 esl_msafile.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile.c.i
 .PHONY : esl_msafile.c.i
 
 esl_msafile.s: esl_msafile.c.s
@@ -973,7 +973,7 @@ esl_msafile.s: esl_msafile.c.s
 
 # target to generate assembly for a file
 esl_msafile.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile.c.s
 .PHONY : esl_msafile.c.s
 
 esl_msafile2.o: esl_msafile2.c.o
@@ -982,7 +982,7 @@ esl_msafile2.o: esl_msafile2.c.o
 
 # target to build an object file
 esl_msafile2.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile2.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile2.c.o
 .PHONY : esl_msafile2.c.o
 
 esl_msafile2.i: esl_msafile2.c.i
@@ -991,7 +991,7 @@ esl_msafile2.i: esl_msafile2.c.i
 
 # target to preprocess a source file
 esl_msafile2.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile2.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile2.c.i
 .PHONY : esl_msafile2.c.i
 
 esl_msafile2.s: esl_msafile2.c.s
@@ -1000,7 +1000,7 @@ esl_msafile2.s: esl_msafile2.c.s
 
 # target to generate assembly for a file
 esl_msafile2.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile2.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile2.c.s
 .PHONY : esl_msafile2.c.s
 
 esl_msafile_a2m.o: esl_msafile_a2m.c.o
@@ -1009,7 +1009,7 @@ esl_msafile_a2m.o: esl_msafile_a2m.c.o
 
 # target to build an object file
 esl_msafile_a2m.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_a2m.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_a2m.c.o
 .PHONY : esl_msafile_a2m.c.o
 
 esl_msafile_a2m.i: esl_msafile_a2m.c.i
@@ -1018,7 +1018,7 @@ esl_msafile_a2m.i: esl_msafile_a2m.c.i
 
 # target to preprocess a source file
 esl_msafile_a2m.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_a2m.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_a2m.c.i
 .PHONY : esl_msafile_a2m.c.i
 
 esl_msafile_a2m.s: esl_msafile_a2m.c.s
@@ -1027,7 +1027,7 @@ esl_msafile_a2m.s: esl_msafile_a2m.c.s
 
 # target to generate assembly for a file
 esl_msafile_a2m.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_a2m.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_a2m.c.s
 .PHONY : esl_msafile_a2m.c.s
 
 esl_msafile_afa.o: esl_msafile_afa.c.o
@@ -1036,7 +1036,7 @@ esl_msafile_afa.o: esl_msafile_afa.c.o
 
 # target to build an object file
 esl_msafile_afa.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_afa.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_afa.c.o
 .PHONY : esl_msafile_afa.c.o
 
 esl_msafile_afa.i: esl_msafile_afa.c.i
@@ -1045,7 +1045,7 @@ esl_msafile_afa.i: esl_msafile_afa.c.i
 
 # target to preprocess a source file
 esl_msafile_afa.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_afa.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_afa.c.i
 .PHONY : esl_msafile_afa.c.i
 
 esl_msafile_afa.s: esl_msafile_afa.c.s
@@ -1054,7 +1054,7 @@ esl_msafile_afa.s: esl_msafile_afa.c.s
 
 # target to generate assembly for a file
 esl_msafile_afa.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_afa.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_afa.c.s
 .PHONY : esl_msafile_afa.c.s
 
 esl_msafile_clustal.o: esl_msafile_clustal.c.o
@@ -1063,7 +1063,7 @@ esl_msafile_clustal.o: esl_msafile_clustal.c.o
 
 # target to build an object file
 esl_msafile_clustal.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_clustal.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_clustal.c.o
 .PHONY : esl_msafile_clustal.c.o
 
 esl_msafile_clustal.i: esl_msafile_clustal.c.i
@@ -1072,7 +1072,7 @@ esl_msafile_clustal.i: esl_msafile_clustal.c.i
 
 # target to preprocess a source file
 esl_msafile_clustal.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_clustal.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_clustal.c.i
 .PHONY : esl_msafile_clustal.c.i
 
 esl_msafile_clustal.s: esl_msafile_clustal.c.s
@@ -1081,7 +1081,7 @@ esl_msafile_clustal.s: esl_msafile_clustal.c.s
 
 # target to generate assembly for a file
 esl_msafile_clustal.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_clustal.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_clustal.c.s
 .PHONY : esl_msafile_clustal.c.s
 
 esl_msafile_phylip.o: esl_msafile_phylip.c.o
@@ -1090,7 +1090,7 @@ esl_msafile_phylip.o: esl_msafile_phylip.c.o
 
 # target to build an object file
 esl_msafile_phylip.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_phylip.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_phylip.c.o
 .PHONY : esl_msafile_phylip.c.o
 
 esl_msafile_phylip.i: esl_msafile_phylip.c.i
@@ -1099,7 +1099,7 @@ esl_msafile_phylip.i: esl_msafile_phylip.c.i
 
 # target to preprocess a source file
 esl_msafile_phylip.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_phylip.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_phylip.c.i
 .PHONY : esl_msafile_phylip.c.i
 
 esl_msafile_phylip.s: esl_msafile_phylip.c.s
@@ -1108,7 +1108,7 @@ esl_msafile_phylip.s: esl_msafile_phylip.c.s
 
 # target to generate assembly for a file
 esl_msafile_phylip.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_phylip.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_phylip.c.s
 .PHONY : esl_msafile_phylip.c.s
 
 esl_msafile_psiblast.o: esl_msafile_psiblast.c.o
@@ -1117,7 +1117,7 @@ esl_msafile_psiblast.o: esl_msafile_psiblast.c.o
 
 # target to build an object file
 esl_msafile_psiblast.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_psiblast.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_psiblast.c.o
 .PHONY : esl_msafile_psiblast.c.o
 
 esl_msafile_psiblast.i: esl_msafile_psiblast.c.i
@@ -1126,7 +1126,7 @@ esl_msafile_psiblast.i: esl_msafile_psiblast.c.i
 
 # target to preprocess a source file
 esl_msafile_psiblast.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_psiblast.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_psiblast.c.i
 .PHONY : esl_msafile_psiblast.c.i
 
 esl_msafile_psiblast.s: esl_msafile_psiblast.c.s
@@ -1135,7 +1135,7 @@ esl_msafile_psiblast.s: esl_msafile_psiblast.c.s
 
 # target to generate assembly for a file
 esl_msafile_psiblast.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_psiblast.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_psiblast.c.s
 .PHONY : esl_msafile_psiblast.c.s
 
 esl_msafile_selex.o: esl_msafile_selex.c.o
@@ -1144,7 +1144,7 @@ esl_msafile_selex.o: esl_msafile_selex.c.o
 
 # target to build an object file
 esl_msafile_selex.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_selex.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_selex.c.o
 .PHONY : esl_msafile_selex.c.o
 
 esl_msafile_selex.i: esl_msafile_selex.c.i
@@ -1153,7 +1153,7 @@ esl_msafile_selex.i: esl_msafile_selex.c.i
 
 # target to preprocess a source file
 esl_msafile_selex.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_selex.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_selex.c.i
 .PHONY : esl_msafile_selex.c.i
 
 esl_msafile_selex.s: esl_msafile_selex.c.s
@@ -1162,7 +1162,7 @@ esl_msafile_selex.s: esl_msafile_selex.c.s
 
 # target to generate assembly for a file
 esl_msafile_selex.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_selex.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_selex.c.s
 .PHONY : esl_msafile_selex.c.s
 
 esl_msafile_stockholm.o: esl_msafile_stockholm.c.o
@@ -1171,7 +1171,7 @@ esl_msafile_stockholm.o: esl_msafile_stockholm.c.o
 
 # target to build an object file
 esl_msafile_stockholm.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_stockholm.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_stockholm.c.o
 .PHONY : esl_msafile_stockholm.c.o
 
 esl_msafile_stockholm.i: esl_msafile_stockholm.c.i
@@ -1180,7 +1180,7 @@ esl_msafile_stockholm.i: esl_msafile_stockholm.c.i
 
 # target to preprocess a source file
 esl_msafile_stockholm.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_stockholm.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_stockholm.c.i
 .PHONY : esl_msafile_stockholm.c.i
 
 esl_msafile_stockholm.s: esl_msafile_stockholm.c.s
@@ -1189,7 +1189,7 @@ esl_msafile_stockholm.s: esl_msafile_stockholm.c.s
 
 # target to generate assembly for a file
 esl_msafile_stockholm.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_stockholm.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msafile_stockholm.c.s
 .PHONY : esl_msafile_stockholm.c.s
 
 esl_msashuffle.o: esl_msashuffle.c.o
@@ -1198,7 +1198,7 @@ esl_msashuffle.o: esl_msashuffle.c.o
 
 # target to build an object file
 esl_msashuffle.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msashuffle.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msashuffle.c.o
 .PHONY : esl_msashuffle.c.o
 
 esl_msashuffle.i: esl_msashuffle.c.i
@@ -1207,7 +1207,7 @@ esl_msashuffle.i: esl_msashuffle.c.i
 
 # target to preprocess a source file
 esl_msashuffle.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msashuffle.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msashuffle.c.i
 .PHONY : esl_msashuffle.c.i
 
 esl_msashuffle.s: esl_msashuffle.c.s
@@ -1216,7 +1216,7 @@ esl_msashuffle.s: esl_msashuffle.c.s
 
 # target to generate assembly for a file
 esl_msashuffle.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msashuffle.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msashuffle.c.s
 .PHONY : esl_msashuffle.c.s
 
 esl_msaweight.o: esl_msaweight.c.o
@@ -1225,7 +1225,7 @@ esl_msaweight.o: esl_msaweight.c.o
 
 # target to build an object file
 esl_msaweight.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msaweight.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msaweight.c.o
 .PHONY : esl_msaweight.c.o
 
 esl_msaweight.i: esl_msaweight.c.i
@@ -1234,7 +1234,7 @@ esl_msaweight.i: esl_msaweight.c.i
 
 # target to preprocess a source file
 esl_msaweight.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msaweight.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msaweight.c.i
 .PHONY : esl_msaweight.c.i
 
 esl_msaweight.s: esl_msaweight.c.s
@@ -1243,7 +1243,7 @@ esl_msaweight.s: esl_msaweight.c.s
 
 # target to generate assembly for a file
 esl_msaweight.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msaweight.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_msaweight.c.s
 .PHONY : esl_msaweight.c.s
 
 esl_normal.o: esl_normal.c.o
@@ -1252,7 +1252,7 @@ esl_normal.o: esl_normal.c.o
 
 # target to build an object file
 esl_normal.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_normal.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_normal.c.o
 .PHONY : esl_normal.c.o
 
 esl_normal.i: esl_normal.c.i
@@ -1261,7 +1261,7 @@ esl_normal.i: esl_normal.c.i
 
 # target to preprocess a source file
 esl_normal.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_normal.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_normal.c.i
 .PHONY : esl_normal.c.i
 
 esl_normal.s: esl_normal.c.s
@@ -1270,7 +1270,7 @@ esl_normal.s: esl_normal.c.s
 
 # target to generate assembly for a file
 esl_normal.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_normal.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_normal.c.s
 .PHONY : esl_normal.c.s
 
 esl_paml.o: esl_paml.c.o
@@ -1279,7 +1279,7 @@ esl_paml.o: esl_paml.c.o
 
 # target to build an object file
 esl_paml.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_paml.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_paml.c.o
 .PHONY : esl_paml.c.o
 
 esl_paml.i: esl_paml.c.i
@@ -1288,7 +1288,7 @@ esl_paml.i: esl_paml.c.i
 
 # target to preprocess a source file
 esl_paml.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_paml.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_paml.c.i
 .PHONY : esl_paml.c.i
 
 esl_paml.s: esl_paml.c.s
@@ -1297,7 +1297,7 @@ esl_paml.s: esl_paml.c.s
 
 # target to generate assembly for a file
 esl_paml.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_paml.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_paml.c.s
 .PHONY : esl_paml.c.s
 
 esl_random.o: esl_random.c.o
@@ -1306,7 +1306,7 @@ esl_random.o: esl_random.c.o
 
 # target to build an object file
 esl_random.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_random.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_random.c.o
 .PHONY : esl_random.c.o
 
 esl_random.i: esl_random.c.i
@@ -1315,7 +1315,7 @@ esl_random.i: esl_random.c.i
 
 # target to preprocess a source file
 esl_random.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_random.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_random.c.i
 .PHONY : esl_random.c.i
 
 esl_random.s: esl_random.c.s
@@ -1324,7 +1324,7 @@ esl_random.s: esl_random.c.s
 
 # target to generate assembly for a file
 esl_random.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_random.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_random.c.s
 .PHONY : esl_random.c.s
 
 esl_randomseq.o: esl_randomseq.c.o
@@ -1333,7 +1333,7 @@ esl_randomseq.o: esl_randomseq.c.o
 
 # target to build an object file
 esl_randomseq.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_randomseq.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_randomseq.c.o
 .PHONY : esl_randomseq.c.o
 
 esl_randomseq.i: esl_randomseq.c.i
@@ -1342,7 +1342,7 @@ esl_randomseq.i: esl_randomseq.c.i
 
 # target to preprocess a source file
 esl_randomseq.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_randomseq.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_randomseq.c.i
 .PHONY : esl_randomseq.c.i
 
 esl_randomseq.s: esl_randomseq.c.s
@@ -1351,7 +1351,7 @@ esl_randomseq.s: esl_randomseq.c.s
 
 # target to generate assembly for a file
 esl_randomseq.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_randomseq.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_randomseq.c.s
 .PHONY : esl_randomseq.c.s
 
 esl_ratematrix.o: esl_ratematrix.c.o
@@ -1360,7 +1360,7 @@ esl_ratematrix.o: esl_ratematrix.c.o
 
 # target to build an object file
 esl_ratematrix.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_ratematrix.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_ratematrix.c.o
 .PHONY : esl_ratematrix.c.o
 
 esl_ratematrix.i: esl_ratematrix.c.i
@@ -1369,7 +1369,7 @@ esl_ratematrix.i: esl_ratematrix.c.i
 
 # target to preprocess a source file
 esl_ratematrix.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_ratematrix.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_ratematrix.c.i
 .PHONY : esl_ratematrix.c.i
 
 esl_ratematrix.s: esl_ratematrix.c.s
@@ -1378,7 +1378,7 @@ esl_ratematrix.s: esl_ratematrix.c.s
 
 # target to generate assembly for a file
 esl_ratematrix.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_ratematrix.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_ratematrix.c.s
 .PHONY : esl_ratematrix.c.s
 
 esl_recorder.o: esl_recorder.c.o
@@ -1387,7 +1387,7 @@ esl_recorder.o: esl_recorder.c.o
 
 # target to build an object file
 esl_recorder.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_recorder.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_recorder.c.o
 .PHONY : esl_recorder.c.o
 
 esl_recorder.i: esl_recorder.c.i
@@ -1396,7 +1396,7 @@ esl_recorder.i: esl_recorder.c.i
 
 # target to preprocess a source file
 esl_recorder.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_recorder.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_recorder.c.i
 .PHONY : esl_recorder.c.i
 
 esl_recorder.s: esl_recorder.c.s
@@ -1405,7 +1405,7 @@ esl_recorder.s: esl_recorder.c.s
 
 # target to generate assembly for a file
 esl_recorder.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_recorder.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_recorder.c.s
 .PHONY : esl_recorder.c.s
 
 esl_regexp.o: esl_regexp.c.o
@@ -1414,7 +1414,7 @@ esl_regexp.o: esl_regexp.c.o
 
 # target to build an object file
 esl_regexp.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_regexp.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_regexp.c.o
 .PHONY : esl_regexp.c.o
 
 esl_regexp.i: esl_regexp.c.i
@@ -1423,7 +1423,7 @@ esl_regexp.i: esl_regexp.c.i
 
 # target to preprocess a source file
 esl_regexp.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_regexp.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_regexp.c.i
 .PHONY : esl_regexp.c.i
 
 esl_regexp.s: esl_regexp.c.s
@@ -1432,7 +1432,7 @@ esl_regexp.s: esl_regexp.c.s
 
 # target to generate assembly for a file
 esl_regexp.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_regexp.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_regexp.c.s
 .PHONY : esl_regexp.c.s
 
 esl_rootfinder.o: esl_rootfinder.c.o
@@ -1441,7 +1441,7 @@ esl_rootfinder.o: esl_rootfinder.c.o
 
 # target to build an object file
 esl_rootfinder.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_rootfinder.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_rootfinder.c.o
 .PHONY : esl_rootfinder.c.o
 
 esl_rootfinder.i: esl_rootfinder.c.i
@@ -1450,7 +1450,7 @@ esl_rootfinder.i: esl_rootfinder.c.i
 
 # target to preprocess a source file
 esl_rootfinder.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_rootfinder.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_rootfinder.c.i
 .PHONY : esl_rootfinder.c.i
 
 esl_rootfinder.s: esl_rootfinder.c.s
@@ -1459,7 +1459,7 @@ esl_rootfinder.s: esl_rootfinder.c.s
 
 # target to generate assembly for a file
 esl_rootfinder.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_rootfinder.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_rootfinder.c.s
 .PHONY : esl_rootfinder.c.s
 
 esl_scorematrix.o: esl_scorematrix.c.o
@@ -1468,7 +1468,7 @@ esl_scorematrix.o: esl_scorematrix.c.o
 
 # target to build an object file
 esl_scorematrix.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_scorematrix.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_scorematrix.c.o
 .PHONY : esl_scorematrix.c.o
 
 esl_scorematrix.i: esl_scorematrix.c.i
@@ -1477,7 +1477,7 @@ esl_scorematrix.i: esl_scorematrix.c.i
 
 # target to preprocess a source file
 esl_scorematrix.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_scorematrix.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_scorematrix.c.i
 .PHONY : esl_scorematrix.c.i
 
 esl_scorematrix.s: esl_scorematrix.c.s
@@ -1486,7 +1486,7 @@ esl_scorematrix.s: esl_scorematrix.c.s
 
 # target to generate assembly for a file
 esl_scorematrix.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_scorematrix.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_scorematrix.c.s
 .PHONY : esl_scorematrix.c.s
 
 esl_sq.o: esl_sq.c.o
@@ -1495,7 +1495,7 @@ esl_sq.o: esl_sq.c.o
 
 # target to build an object file
 esl_sq.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sq.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sq.c.o
 .PHONY : esl_sq.c.o
 
 esl_sq.i: esl_sq.c.i
@@ -1504,7 +1504,7 @@ esl_sq.i: esl_sq.c.i
 
 # target to preprocess a source file
 esl_sq.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sq.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sq.c.i
 .PHONY : esl_sq.c.i
 
 esl_sq.s: esl_sq.c.s
@@ -1513,7 +1513,7 @@ esl_sq.s: esl_sq.c.s
 
 # target to generate assembly for a file
 esl_sq.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sq.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sq.c.s
 .PHONY : esl_sq.c.s
 
 esl_sqio.o: esl_sqio.c.o
@@ -1522,7 +1522,7 @@ esl_sqio.o: esl_sqio.c.o
 
 # target to build an object file
 esl_sqio.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio.c.o
 .PHONY : esl_sqio.c.o
 
 esl_sqio.i: esl_sqio.c.i
@@ -1531,7 +1531,7 @@ esl_sqio.i: esl_sqio.c.i
 
 # target to preprocess a source file
 esl_sqio.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio.c.i
 .PHONY : esl_sqio.c.i
 
 esl_sqio.s: esl_sqio.c.s
@@ -1540,7 +1540,7 @@ esl_sqio.s: esl_sqio.c.s
 
 # target to generate assembly for a file
 esl_sqio.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio.c.s
 .PHONY : esl_sqio.c.s
 
 esl_sqio_ascii.o: esl_sqio_ascii.c.o
@@ -1549,7 +1549,7 @@ esl_sqio_ascii.o: esl_sqio_ascii.c.o
 
 # target to build an object file
 esl_sqio_ascii.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio_ascii.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio_ascii.c.o
 .PHONY : esl_sqio_ascii.c.o
 
 esl_sqio_ascii.i: esl_sqio_ascii.c.i
@@ -1558,7 +1558,7 @@ esl_sqio_ascii.i: esl_sqio_ascii.c.i
 
 # target to preprocess a source file
 esl_sqio_ascii.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio_ascii.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio_ascii.c.i
 .PHONY : esl_sqio_ascii.c.i
 
 esl_sqio_ascii.s: esl_sqio_ascii.c.s
@@ -1567,7 +1567,7 @@ esl_sqio_ascii.s: esl_sqio_ascii.c.s
 
 # target to generate assembly for a file
 esl_sqio_ascii.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio_ascii.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio_ascii.c.s
 .PHONY : esl_sqio_ascii.c.s
 
 esl_sqio_ncbi.o: esl_sqio_ncbi.c.o
@@ -1576,7 +1576,7 @@ esl_sqio_ncbi.o: esl_sqio_ncbi.c.o
 
 # target to build an object file
 esl_sqio_ncbi.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio_ncbi.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio_ncbi.c.o
 .PHONY : esl_sqio_ncbi.c.o
 
 esl_sqio_ncbi.i: esl_sqio_ncbi.c.i
@@ -1585,7 +1585,7 @@ esl_sqio_ncbi.i: esl_sqio_ncbi.c.i
 
 # target to preprocess a source file
 esl_sqio_ncbi.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio_ncbi.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio_ncbi.c.i
 .PHONY : esl_sqio_ncbi.c.i
 
 esl_sqio_ncbi.s: esl_sqio_ncbi.c.s
@@ -1594,7 +1594,7 @@ esl_sqio_ncbi.s: esl_sqio_ncbi.c.s
 
 # target to generate assembly for a file
 esl_sqio_ncbi.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio_ncbi.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sqio_ncbi.c.s
 .PHONY : esl_sqio_ncbi.c.s
 
 esl_sse.o: esl_sse.c.o
@@ -1603,7 +1603,7 @@ esl_sse.o: esl_sse.c.o
 
 # target to build an object file
 esl_sse.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sse.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sse.c.o
 .PHONY : esl_sse.c.o
 
 esl_sse.i: esl_sse.c.i
@@ -1612,7 +1612,7 @@ esl_sse.i: esl_sse.c.i
 
 # target to preprocess a source file
 esl_sse.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sse.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sse.c.i
 .PHONY : esl_sse.c.i
 
 esl_sse.s: esl_sse.c.s
@@ -1621,7 +1621,7 @@ esl_sse.s: esl_sse.c.s
 
 # target to generate assembly for a file
 esl_sse.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sse.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_sse.c.s
 .PHONY : esl_sse.c.s
 
 esl_ssi.o: esl_ssi.c.o
@@ -1630,7 +1630,7 @@ esl_ssi.o: esl_ssi.c.o
 
 # target to build an object file
 esl_ssi.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_ssi.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_ssi.c.o
 .PHONY : esl_ssi.c.o
 
 esl_ssi.i: esl_ssi.c.i
@@ -1639,7 +1639,7 @@ esl_ssi.i: esl_ssi.c.i
 
 # target to preprocess a source file
 esl_ssi.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_ssi.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_ssi.c.i
 .PHONY : esl_ssi.c.i
 
 esl_ssi.s: esl_ssi.c.s
@@ -1648,7 +1648,7 @@ esl_ssi.s: esl_ssi.c.s
 
 # target to generate assembly for a file
 esl_ssi.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_ssi.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_ssi.c.s
 .PHONY : esl_ssi.c.s
 
 esl_stack.o: esl_stack.c.o
@@ -1657,7 +1657,7 @@ esl_stack.o: esl_stack.c.o
 
 # target to build an object file
 esl_stack.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stack.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stack.c.o
 .PHONY : esl_stack.c.o
 
 esl_stack.i: esl_stack.c.i
@@ -1666,7 +1666,7 @@ esl_stack.i: esl_stack.c.i
 
 # target to preprocess a source file
 esl_stack.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stack.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stack.c.i
 .PHONY : esl_stack.c.i
 
 esl_stack.s: esl_stack.c.s
@@ -1675,7 +1675,7 @@ esl_stack.s: esl_stack.c.s
 
 # target to generate assembly for a file
 esl_stack.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stack.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stack.c.s
 .PHONY : esl_stack.c.s
 
 esl_stats.o: esl_stats.c.o
@@ -1684,7 +1684,7 @@ esl_stats.o: esl_stats.c.o
 
 # target to build an object file
 esl_stats.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stats.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stats.c.o
 .PHONY : esl_stats.c.o
 
 esl_stats.i: esl_stats.c.i
@@ -1693,7 +1693,7 @@ esl_stats.i: esl_stats.c.i
 
 # target to preprocess a source file
 esl_stats.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stats.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stats.c.i
 .PHONY : esl_stats.c.i
 
 esl_stats.s: esl_stats.c.s
@@ -1702,7 +1702,7 @@ esl_stats.s: esl_stats.c.s
 
 # target to generate assembly for a file
 esl_stats.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stats.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stats.c.s
 .PHONY : esl_stats.c.s
 
 esl_stopwatch.o: esl_stopwatch.c.o
@@ -1711,7 +1711,7 @@ esl_stopwatch.o: esl_stopwatch.c.o
 
 # target to build an object file
 esl_stopwatch.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stopwatch.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stopwatch.c.o
 .PHONY : esl_stopwatch.c.o
 
 esl_stopwatch.i: esl_stopwatch.c.i
@@ -1720,7 +1720,7 @@ esl_stopwatch.i: esl_stopwatch.c.i
 
 # target to preprocess a source file
 esl_stopwatch.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stopwatch.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stopwatch.c.i
 .PHONY : esl_stopwatch.c.i
 
 esl_stopwatch.s: esl_stopwatch.c.s
@@ -1729,7 +1729,7 @@ esl_stopwatch.s: esl_stopwatch.c.s
 
 # target to generate assembly for a file
 esl_stopwatch.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stopwatch.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stopwatch.c.s
 .PHONY : esl_stopwatch.c.s
 
 esl_stretchexp.o: esl_stretchexp.c.o
@@ -1738,7 +1738,7 @@ esl_stretchexp.o: esl_stretchexp.c.o
 
 # target to build an object file
 esl_stretchexp.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stretchexp.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stretchexp.c.o
 .PHONY : esl_stretchexp.c.o
 
 esl_stretchexp.i: esl_stretchexp.c.i
@@ -1747,7 +1747,7 @@ esl_stretchexp.i: esl_stretchexp.c.i
 
 # target to preprocess a source file
 esl_stretchexp.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stretchexp.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stretchexp.c.i
 .PHONY : esl_stretchexp.c.i
 
 esl_stretchexp.s: esl_stretchexp.c.s
@@ -1756,7 +1756,7 @@ esl_stretchexp.s: esl_stretchexp.c.s
 
 # target to generate assembly for a file
 esl_stretchexp.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stretchexp.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_stretchexp.c.s
 .PHONY : esl_stretchexp.c.s
 
 esl_threads.o: esl_threads.c.o
@@ -1765,7 +1765,7 @@ esl_threads.o: esl_threads.c.o
 
 # target to build an object file
 esl_threads.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_threads.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_threads.c.o
 .PHONY : esl_threads.c.o
 
 esl_threads.i: esl_threads.c.i
@@ -1774,7 +1774,7 @@ esl_threads.i: esl_threads.c.i
 
 # target to preprocess a source file
 esl_threads.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_threads.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_threads.c.i
 .PHONY : esl_threads.c.i
 
 esl_threads.s: esl_threads.c.s
@@ -1783,7 +1783,7 @@ esl_threads.s: esl_threads.c.s
 
 # target to generate assembly for a file
 esl_threads.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_threads.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_threads.c.s
 .PHONY : esl_threads.c.s
 
 esl_tree.o: esl_tree.c.o
@@ -1792,7 +1792,7 @@ esl_tree.o: esl_tree.c.o
 
 # target to build an object file
 esl_tree.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_tree.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_tree.c.o
 .PHONY : esl_tree.c.o
 
 esl_tree.i: esl_tree.c.i
@@ -1801,7 +1801,7 @@ esl_tree.i: esl_tree.c.i
 
 # target to preprocess a source file
 esl_tree.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_tree.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_tree.c.i
 .PHONY : esl_tree.c.i
 
 esl_tree.s: esl_tree.c.s
@@ -1810,7 +1810,7 @@ esl_tree.s: esl_tree.c.s
 
 # target to generate assembly for a file
 esl_tree.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_tree.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_tree.c.s
 .PHONY : esl_tree.c.s
 
 esl_vectorops.o: esl_vectorops.c.o
@@ -1819,7 +1819,7 @@ esl_vectorops.o: esl_vectorops.c.o
 
 # target to build an object file
 esl_vectorops.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_vectorops.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_vectorops.c.o
 .PHONY : esl_vectorops.c.o
 
 esl_vectorops.i: esl_vectorops.c.i
@@ -1828,7 +1828,7 @@ esl_vectorops.i: esl_vectorops.c.i
 
 # target to preprocess a source file
 esl_vectorops.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_vectorops.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_vectorops.c.i
 .PHONY : esl_vectorops.c.i
 
 esl_vectorops.s: esl_vectorops.c.s
@@ -1837,7 +1837,7 @@ esl_vectorops.s: esl_vectorops.c.s
 
 # target to generate assembly for a file
 esl_vectorops.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_vectorops.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_vectorops.c.s
 .PHONY : esl_vectorops.c.s
 
 esl_vmx.o: esl_vmx.c.o
@@ -1846,7 +1846,7 @@ esl_vmx.o: esl_vmx.c.o
 
 # target to build an object file
 esl_vmx.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_vmx.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_vmx.c.o
 .PHONY : esl_vmx.c.o
 
 esl_vmx.i: esl_vmx.c.i
@@ -1855,7 +1855,7 @@ esl_vmx.i: esl_vmx.c.i
 
 # target to preprocess a source file
 esl_vmx.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_vmx.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_vmx.c.i
 .PHONY : esl_vmx.c.i
 
 esl_vmx.s: esl_vmx.c.s
@@ -1864,7 +1864,7 @@ esl_vmx.s: esl_vmx.c.s
 
 # target to generate assembly for a file
 esl_vmx.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_vmx.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_vmx.c.s
 .PHONY : esl_vmx.c.s
 
 esl_weibull.o: esl_weibull.c.o
@@ -1873,7 +1873,7 @@ esl_weibull.o: esl_weibull.c.o
 
 # target to build an object file
 esl_weibull.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_weibull.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_weibull.c.o
 .PHONY : esl_weibull.c.o
 
 esl_weibull.i: esl_weibull.c.i
@@ -1882,7 +1882,7 @@ esl_weibull.i: esl_weibull.c.i
 
 # target to preprocess a source file
 esl_weibull.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_weibull.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_weibull.c.i
 .PHONY : esl_weibull.c.i
 
 esl_weibull.s: esl_weibull.c.s
@@ -1891,7 +1891,7 @@ esl_weibull.s: esl_weibull.c.s
 
 # target to generate assembly for a file
 esl_weibull.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_weibull.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_weibull.c.s
 .PHONY : esl_weibull.c.s
 
 esl_workqueue.o: esl_workqueue.c.o
@@ -1900,7 +1900,7 @@ esl_workqueue.o: esl_workqueue.c.o
 
 # target to build an object file
 esl_workqueue.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_workqueue.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_workqueue.c.o
 .PHONY : esl_workqueue.c.o
 
 esl_workqueue.i: esl_workqueue.c.i
@@ -1909,7 +1909,7 @@ esl_workqueue.i: esl_workqueue.c.i
 
 # target to preprocess a source file
 esl_workqueue.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_workqueue.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_workqueue.c.i
 .PHONY : esl_workqueue.c.i
 
 esl_workqueue.s: esl_workqueue.c.s
@@ -1918,7 +1918,7 @@ esl_workqueue.s: esl_workqueue.c.s
 
 # target to generate assembly for a file
 esl_workqueue.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_workqueue.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_workqueue.c.s
 .PHONY : esl_workqueue.c.s
 
 esl_wuss.o: esl_wuss.c.o
@@ -1927,7 +1927,7 @@ esl_wuss.o: esl_wuss.c.o
 
 # target to build an object file
 esl_wuss.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_wuss.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_wuss.c.o
 .PHONY : esl_wuss.c.o
 
 esl_wuss.i: esl_wuss.c.i
@@ -1936,7 +1936,7 @@ esl_wuss.i: esl_wuss.c.i
 
 # target to preprocess a source file
 esl_wuss.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_wuss.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_wuss.c.i
 .PHONY : esl_wuss.c.i
 
 esl_wuss.s: esl_wuss.c.s
@@ -1945,7 +1945,7 @@ esl_wuss.s: esl_wuss.c.s
 
 # target to generate assembly for a file
 esl_wuss.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_wuss.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/easel/CMakeFiles/easel.dir/build.make ext/easel/CMakeFiles/easel.dir/esl_wuss.c.s
 .PHONY : esl_wuss.c.s
 
 # Help Target
@@ -2169,6 +2169,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

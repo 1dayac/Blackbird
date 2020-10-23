@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -116,7 +116,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -138,7 +138,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -148,14 +148,14 @@ package/fast: package
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/ionhammer/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/ionhammer/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/ionhammer/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/ionhammer/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/ionhammer/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/ionhammer/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/ionhammer/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/ionhammer/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/ionhammer/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/ionhammer/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 projects/ionhammer/CMakeFiles/spades-ionhammer.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/ionhammer/CMakeFiles/spades-ionhammer.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/ionhammer/CMakeFiles/spades-ionhammer.dir/rule
 .PHONY : projects/ionhammer/CMakeFiles/spades-ionhammer.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ spades-ionhammer: projects/ionhammer/CMakeFiles/spades-ionhammer.dir/rule
 
 # fast build rule for target.
 spades-ionhammer/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build
 .PHONY : spades-ionhammer/fast
 
 config_struct.o: config_struct.cpp.o
@@ -199,7 +199,7 @@ config_struct.o: config_struct.cpp.o
 
 # target to build an object file
 config_struct.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/config_struct.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/config_struct.cpp.o
 .PHONY : config_struct.cpp.o
 
 config_struct.i: config_struct.cpp.i
@@ -208,7 +208,7 @@ config_struct.i: config_struct.cpp.i
 
 # target to preprocess a source file
 config_struct.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/config_struct.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/config_struct.cpp.i
 .PHONY : config_struct.cpp.i
 
 config_struct.s: config_struct.cpp.s
@@ -217,7 +217,7 @@ config_struct.s: config_struct.cpp.s
 
 # target to generate assembly for a file
 config_struct.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/config_struct.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/config_struct.cpp.s
 .PHONY : config_struct.cpp.s
 
 err_helper_table.o: err_helper_table.cpp.o
@@ -226,7 +226,7 @@ err_helper_table.o: err_helper_table.cpp.o
 
 # target to build an object file
 err_helper_table.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/err_helper_table.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/err_helper_table.cpp.o
 .PHONY : err_helper_table.cpp.o
 
 err_helper_table.i: err_helper_table.cpp.i
@@ -235,7 +235,7 @@ err_helper_table.i: err_helper_table.cpp.i
 
 # target to preprocess a source file
 err_helper_table.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/err_helper_table.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/err_helper_table.cpp.i
 .PHONY : err_helper_table.cpp.i
 
 err_helper_table.s: err_helper_table.cpp.s
@@ -244,7 +244,7 @@ err_helper_table.s: err_helper_table.cpp.s
 
 # target to generate assembly for a file
 err_helper_table.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/err_helper_table.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/err_helper_table.cpp.s
 .PHONY : err_helper_table.cpp.s
 
 gamma_poisson_model.o: gamma_poisson_model.cpp.o
@@ -253,7 +253,7 @@ gamma_poisson_model.o: gamma_poisson_model.cpp.o
 
 # target to build an object file
 gamma_poisson_model.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/gamma_poisson_model.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/gamma_poisson_model.cpp.o
 .PHONY : gamma_poisson_model.cpp.o
 
 gamma_poisson_model.i: gamma_poisson_model.cpp.i
@@ -262,7 +262,7 @@ gamma_poisson_model.i: gamma_poisson_model.cpp.i
 
 # target to preprocess a source file
 gamma_poisson_model.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/gamma_poisson_model.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/gamma_poisson_model.cpp.i
 .PHONY : gamma_poisson_model.cpp.i
 
 gamma_poisson_model.s: gamma_poisson_model.cpp.s
@@ -271,7 +271,7 @@ gamma_poisson_model.s: gamma_poisson_model.cpp.s
 
 # target to generate assembly for a file
 gamma_poisson_model.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/gamma_poisson_model.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/gamma_poisson_model.cpp.s
 .PHONY : gamma_poisson_model.cpp.s
 
 hamcluster_1.o: hamcluster_1.cpp.o
@@ -280,7 +280,7 @@ hamcluster_1.o: hamcluster_1.cpp.o
 
 # target to build an object file
 hamcluster_1.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/hamcluster_1.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/hamcluster_1.cpp.o
 .PHONY : hamcluster_1.cpp.o
 
 hamcluster_1.i: hamcluster_1.cpp.i
@@ -289,7 +289,7 @@ hamcluster_1.i: hamcluster_1.cpp.i
 
 # target to preprocess a source file
 hamcluster_1.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/hamcluster_1.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/hamcluster_1.cpp.i
 .PHONY : hamcluster_1.cpp.i
 
 hamcluster_1.s: hamcluster_1.cpp.s
@@ -298,7 +298,7 @@ hamcluster_1.s: hamcluster_1.cpp.s
 
 # target to generate assembly for a file
 hamcluster_1.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/hamcluster_1.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/hamcluster_1.cpp.s
 .PHONY : hamcluster_1.cpp.s
 
 kmer_data.o: kmer_data.cpp.o
@@ -307,7 +307,7 @@ kmer_data.o: kmer_data.cpp.o
 
 # target to build an object file
 kmer_data.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/kmer_data.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/kmer_data.cpp.o
 .PHONY : kmer_data.cpp.o
 
 kmer_data.i: kmer_data.cpp.i
@@ -316,7 +316,7 @@ kmer_data.i: kmer_data.cpp.i
 
 # target to preprocess a source file
 kmer_data.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/kmer_data.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/kmer_data.cpp.i
 .PHONY : kmer_data.cpp.i
 
 kmer_data.s: kmer_data.cpp.s
@@ -325,7 +325,7 @@ kmer_data.s: kmer_data.cpp.s
 
 # target to generate assembly for a file
 kmer_data.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/kmer_data.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/kmer_data.cpp.s
 .PHONY : kmer_data.cpp.s
 
 kmer_helpers.o: kmer_helpers.cpp.o
@@ -334,7 +334,7 @@ kmer_helpers.o: kmer_helpers.cpp.o
 
 # target to build an object file
 kmer_helpers.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/kmer_helpers.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/kmer_helpers.cpp.o
 .PHONY : kmer_helpers.cpp.o
 
 kmer_helpers.i: kmer_helpers.cpp.i
@@ -343,7 +343,7 @@ kmer_helpers.i: kmer_helpers.cpp.i
 
 # target to preprocess a source file
 kmer_helpers.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/kmer_helpers.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/kmer_helpers.cpp.i
 .PHONY : kmer_helpers.cpp.i
 
 kmer_helpers.s: kmer_helpers.cpp.s
@@ -352,7 +352,7 @@ kmer_helpers.s: kmer_helpers.cpp.s
 
 # target to generate assembly for a file
 kmer_helpers.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/kmer_helpers.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/kmer_helpers.cpp.s
 .PHONY : kmer_helpers.cpp.s
 
 main.o: main.cpp.o
@@ -361,7 +361,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/main.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -370,7 +370,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/main.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -379,7 +379,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/main.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 normal_quality_model.o: normal_quality_model.cpp.o
@@ -388,7 +388,7 @@ normal_quality_model.o: normal_quality_model.cpp.o
 
 # target to build an object file
 normal_quality_model.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/normal_quality_model.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/normal_quality_model.cpp.o
 .PHONY : normal_quality_model.cpp.o
 
 normal_quality_model.i: normal_quality_model.cpp.i
@@ -397,7 +397,7 @@ normal_quality_model.i: normal_quality_model.cpp.i
 
 # target to preprocess a source file
 normal_quality_model.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/normal_quality_model.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/normal_quality_model.cpp.i
 .PHONY : normal_quality_model.cpp.i
 
 normal_quality_model.s: normal_quality_model.cpp.s
@@ -406,7 +406,7 @@ normal_quality_model.s: normal_quality_model.cpp.s
 
 # target to generate assembly for a file
 normal_quality_model.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/normal_quality_model.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/normal_quality_model.cpp.s
 .PHONY : normal_quality_model.cpp.s
 
 quality_metrics.o: quality_metrics.cpp.o
@@ -415,7 +415,7 @@ quality_metrics.o: quality_metrics.cpp.o
 
 # target to build an object file
 quality_metrics.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/quality_metrics.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/quality_metrics.cpp.o
 .PHONY : quality_metrics.cpp.o
 
 quality_metrics.i: quality_metrics.cpp.i
@@ -424,7 +424,7 @@ quality_metrics.i: quality_metrics.cpp.i
 
 # target to preprocess a source file
 quality_metrics.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/quality_metrics.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/quality_metrics.cpp.i
 .PHONY : quality_metrics.cpp.i
 
 quality_metrics.s: quality_metrics.cpp.s
@@ -433,7 +433,7 @@ quality_metrics.s: quality_metrics.cpp.s
 
 # target to generate assembly for a file
 quality_metrics.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/quality_metrics.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/quality_metrics.cpp.s
 .PHONY : quality_metrics.cpp.s
 
 quality_thresholds_estimator.o: quality_thresholds_estimator.cpp.o
@@ -442,7 +442,7 @@ quality_thresholds_estimator.o: quality_thresholds_estimator.cpp.o
 
 # target to build an object file
 quality_thresholds_estimator.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/quality_thresholds_estimator.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/quality_thresholds_estimator.cpp.o
 .PHONY : quality_thresholds_estimator.cpp.o
 
 quality_thresholds_estimator.i: quality_thresholds_estimator.cpp.i
@@ -451,7 +451,7 @@ quality_thresholds_estimator.i: quality_thresholds_estimator.cpp.i
 
 # target to preprocess a source file
 quality_thresholds_estimator.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/quality_thresholds_estimator.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/quality_thresholds_estimator.cpp.i
 .PHONY : quality_thresholds_estimator.cpp.i
 
 quality_thresholds_estimator.s: quality_thresholds_estimator.cpp.s
@@ -460,7 +460,7 @@ quality_thresholds_estimator.s: quality_thresholds_estimator.cpp.s
 
 # target to generate assembly for a file
 quality_thresholds_estimator.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/quality_thresholds_estimator.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/quality_thresholds_estimator.cpp.s
 .PHONY : quality_thresholds_estimator.cpp.s
 
 reference.o: reference.cpp.o
@@ -469,7 +469,7 @@ reference.o: reference.cpp.o
 
 # target to build an object file
 reference.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/reference.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/reference.cpp.o
 .PHONY : reference.cpp.o
 
 reference.i: reference.cpp.i
@@ -478,7 +478,7 @@ reference.i: reference.cpp.i
 
 # target to preprocess a source file
 reference.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/reference.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/reference.cpp.i
 .PHONY : reference.cpp.i
 
 reference.s: reference.cpp.s
@@ -487,7 +487,7 @@ reference.s: reference.cpp.s
 
 # target to generate assembly for a file
 reference.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/reference.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/reference.cpp.s
 .PHONY : reference.cpp.s
 
 seqeval/BaseHypothesisEvaluator.o: seqeval/BaseHypothesisEvaluator.cpp.o
@@ -496,7 +496,7 @@ seqeval/BaseHypothesisEvaluator.o: seqeval/BaseHypothesisEvaluator.cpp.o
 
 # target to build an object file
 seqeval/BaseHypothesisEvaluator.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/seqeval/BaseHypothesisEvaluator.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/seqeval/BaseHypothesisEvaluator.cpp.o
 .PHONY : seqeval/BaseHypothesisEvaluator.cpp.o
 
 seqeval/BaseHypothesisEvaluator.i: seqeval/BaseHypothesisEvaluator.cpp.i
@@ -505,7 +505,7 @@ seqeval/BaseHypothesisEvaluator.i: seqeval/BaseHypothesisEvaluator.cpp.i
 
 # target to preprocess a source file
 seqeval/BaseHypothesisEvaluator.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/seqeval/BaseHypothesisEvaluator.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/seqeval/BaseHypothesisEvaluator.cpp.i
 .PHONY : seqeval/BaseHypothesisEvaluator.cpp.i
 
 seqeval/BaseHypothesisEvaluator.s: seqeval/BaseHypothesisEvaluator.cpp.s
@@ -514,7 +514,7 @@ seqeval/BaseHypothesisEvaluator.s: seqeval/BaseHypothesisEvaluator.cpp.s
 
 # target to generate assembly for a file
 seqeval/BaseHypothesisEvaluator.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/seqeval/BaseHypothesisEvaluator.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/seqeval/BaseHypothesisEvaluator.cpp.s
 .PHONY : seqeval/BaseHypothesisEvaluator.cpp.s
 
 seqeval/TreephaserLite.o: seqeval/TreephaserLite.cpp.o
@@ -523,7 +523,7 @@ seqeval/TreephaserLite.o: seqeval/TreephaserLite.cpp.o
 
 # target to build an object file
 seqeval/TreephaserLite.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/seqeval/TreephaserLite.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/seqeval/TreephaserLite.cpp.o
 .PHONY : seqeval/TreephaserLite.cpp.o
 
 seqeval/TreephaserLite.i: seqeval/TreephaserLite.cpp.i
@@ -532,7 +532,7 @@ seqeval/TreephaserLite.i: seqeval/TreephaserLite.cpp.i
 
 # target to preprocess a source file
 seqeval/TreephaserLite.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/seqeval/TreephaserLite.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/seqeval/TreephaserLite.cpp.i
 .PHONY : seqeval/TreephaserLite.cpp.i
 
 seqeval/TreephaserLite.s: seqeval/TreephaserLite.cpp.s
@@ -541,7 +541,7 @@ seqeval/TreephaserLite.s: seqeval/TreephaserLite.cpp.s
 
 # target to generate assembly for a file
 seqeval/TreephaserLite.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/seqeval/TreephaserLite.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/seqeval/TreephaserLite.cpp.s
 .PHONY : seqeval/TreephaserLite.cpp.s
 
 subcluster.o: subcluster.cpp.o
@@ -550,7 +550,7 @@ subcluster.o: subcluster.cpp.o
 
 # target to build an object file
 subcluster.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/subcluster.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/subcluster.cpp.o
 .PHONY : subcluster.cpp.o
 
 subcluster.i: subcluster.cpp.i
@@ -559,7 +559,7 @@ subcluster.i: subcluster.cpp.i
 
 # target to preprocess a source file
 subcluster.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/subcluster.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/subcluster.cpp.i
 .PHONY : subcluster.cpp.i
 
 subcluster.s: subcluster.cpp.s
@@ -568,7 +568,7 @@ subcluster.s: subcluster.cpp.s
 
 # target to generate assembly for a file
 subcluster.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/subcluster.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/ionhammer/CMakeFiles/spades-ionhammer.dir/build.make projects/ionhammer/CMakeFiles/spades-ionhammer.dir/subcluster.cpp.s
 .PHONY : subcluster.cpp.s
 
 # Help Target
@@ -639,6 +639,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
