@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -116,7 +116,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -138,7 +138,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -148,14 +148,14 @@ package/fast: package
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/common/pipeline/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/pipeline/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 common/pipeline/CMakeFiles/pipeline.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/CMakeFiles/pipeline.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/pipeline/CMakeFiles/pipeline.dir/rule
 .PHONY : common/pipeline/CMakeFiles/pipeline.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ pipeline: common/pipeline/CMakeFiles/pipeline.dir/rule
 
 # fast build rule for target.
 pipeline/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/build
 .PHONY : pipeline/fast
 
 config_struct.o: config_struct.cpp.o
@@ -199,7 +199,7 @@ config_struct.o: config_struct.cpp.o
 
 # target to build an object file
 config_struct.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/config_struct.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/config_struct.cpp.o
 .PHONY : config_struct.cpp.o
 
 config_struct.i: config_struct.cpp.i
@@ -208,7 +208,7 @@ config_struct.i: config_struct.cpp.i
 
 # target to preprocess a source file
 config_struct.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/config_struct.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/config_struct.cpp.i
 .PHONY : config_struct.cpp.i
 
 config_struct.s: config_struct.cpp.s
@@ -217,7 +217,7 @@ config_struct.s: config_struct.cpp.s
 
 # target to generate assembly for a file
 config_struct.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/config_struct.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/config_struct.cpp.s
 .PHONY : config_struct.cpp.s
 
 graph_pack.o: graph_pack.cpp.o
@@ -226,7 +226,7 @@ graph_pack.o: graph_pack.cpp.o
 
 # target to build an object file
 graph_pack.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/graph_pack.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/graph_pack.cpp.o
 .PHONY : graph_pack.cpp.o
 
 graph_pack.i: graph_pack.cpp.i
@@ -235,7 +235,7 @@ graph_pack.i: graph_pack.cpp.i
 
 # target to preprocess a source file
 graph_pack.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/graph_pack.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/graph_pack.cpp.i
 .PHONY : graph_pack.cpp.i
 
 graph_pack.s: graph_pack.cpp.s
@@ -244,7 +244,7 @@ graph_pack.s: graph_pack.cpp.s
 
 # target to generate assembly for a file
 graph_pack.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/graph_pack.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/graph_pack.cpp.s
 .PHONY : graph_pack.cpp.s
 
 library.o: library.cpp.o
@@ -253,7 +253,7 @@ library.o: library.cpp.o
 
 # target to build an object file
 library.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library.cpp.o
 .PHONY : library.cpp.o
 
 library.i: library.cpp.i
@@ -262,7 +262,7 @@ library.i: library.cpp.i
 
 # target to preprocess a source file
 library.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library.cpp.i
 .PHONY : library.cpp.i
 
 library.s: library.cpp.s
@@ -271,7 +271,7 @@ library.s: library.cpp.s
 
 # target to generate assembly for a file
 library.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library.cpp.s
 .PHONY : library.cpp.s
 
 library_data.o: library_data.cpp.o
@@ -280,7 +280,7 @@ library_data.o: library_data.cpp.o
 
 # target to build an object file
 library_data.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library_data.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library_data.cpp.o
 .PHONY : library_data.cpp.o
 
 library_data.i: library_data.cpp.i
@@ -289,7 +289,7 @@ library_data.i: library_data.cpp.i
 
 # target to preprocess a source file
 library_data.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library_data.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library_data.cpp.i
 .PHONY : library_data.cpp.i
 
 library_data.s: library_data.cpp.s
@@ -298,7 +298,7 @@ library_data.s: library_data.cpp.s
 
 # target to generate assembly for a file
 library_data.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library_data.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/library_data.cpp.s
 .PHONY : library_data.cpp.s
 
 stage.o: stage.cpp.o
@@ -307,7 +307,7 @@ stage.o: stage.cpp.o
 
 # target to build an object file
 stage.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/stage.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/stage.cpp.o
 .PHONY : stage.cpp.o
 
 stage.i: stage.cpp.i
@@ -316,7 +316,7 @@ stage.i: stage.cpp.i
 
 # target to preprocess a source file
 stage.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/stage.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/stage.cpp.i
 .PHONY : stage.cpp.i
 
 stage.s: stage.cpp.s
@@ -325,7 +325,7 @@ stage.s: stage.cpp.s
 
 # target to generate assembly for a file
 stage.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/stage.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/pipeline/CMakeFiles/pipeline.dir/build.make common/pipeline/CMakeFiles/pipeline.dir/stage.cpp.s
 .PHONY : stage.cpp.s
 
 # Help Target
@@ -369,6 +369,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

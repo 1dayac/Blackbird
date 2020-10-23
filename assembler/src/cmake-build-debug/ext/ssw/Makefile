@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -116,7 +116,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -127,7 +127,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -148,14 +148,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/ssw/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ssw/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/ssw/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ssw/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ssw/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ssw/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ssw/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ssw/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ssw/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ssw/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 ext/ssw/CMakeFiles/ssw.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ssw/CMakeFiles/ssw.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/ssw/CMakeFiles/ssw.dir/rule
 .PHONY : ext/ssw/CMakeFiles/ssw.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ ssw: ext/ssw/CMakeFiles/ssw.dir/rule
 
 # fast build rule for target.
 ssw/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/build
 .PHONY : ssw/fast
 
 ssw.o: ssw.c.o
@@ -199,7 +199,7 @@ ssw.o: ssw.c.o
 
 # target to build an object file
 ssw.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/ssw.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/ssw.c.o
 .PHONY : ssw.c.o
 
 ssw.i: ssw.c.i
@@ -208,7 +208,7 @@ ssw.i: ssw.c.i
 
 # target to preprocess a source file
 ssw.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/ssw.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/ssw.c.i
 .PHONY : ssw.c.i
 
 ssw.s: ssw.c.s
@@ -217,7 +217,7 @@ ssw.s: ssw.c.s
 
 # target to generate assembly for a file
 ssw.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/ssw.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/ssw.c.s
 .PHONY : ssw.c.s
 
 ssw_cpp.o: ssw_cpp.cpp.o
@@ -226,7 +226,7 @@ ssw_cpp.o: ssw_cpp.cpp.o
 
 # target to build an object file
 ssw_cpp.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/ssw_cpp.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/ssw_cpp.cpp.o
 .PHONY : ssw_cpp.cpp.o
 
 ssw_cpp.i: ssw_cpp.cpp.i
@@ -235,7 +235,7 @@ ssw_cpp.i: ssw_cpp.cpp.i
 
 # target to preprocess a source file
 ssw_cpp.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/ssw_cpp.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/ssw_cpp.cpp.i
 .PHONY : ssw_cpp.cpp.i
 
 ssw_cpp.s: ssw_cpp.cpp.s
@@ -244,7 +244,7 @@ ssw_cpp.s: ssw_cpp.cpp.s
 
 # target to generate assembly for a file
 ssw_cpp.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/ssw_cpp.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/ssw/CMakeFiles/ssw.dir/build.make ext/ssw/CMakeFiles/ssw.dir/ssw_cpp.cpp.s
 .PHONY : ssw_cpp.cpp.s
 
 # Help Target
@@ -279,6 +279,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

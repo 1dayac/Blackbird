@@ -1,4 +1,4 @@
-# Install script for directory: /home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/gbuilder
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/src/projects/gbuilder
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xruntimex" OR NOT CMAKE_INSTALL_COMP
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spades-gbuilder"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin/spades-gbuilder")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin/spades-gbuilder")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spades-gbuilder" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spades-gbuilder")
     if(CMAKE_INSTALL_DO_STRIP)

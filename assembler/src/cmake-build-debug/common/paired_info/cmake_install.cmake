@@ -1,4 +1,4 @@
-# Install script for directory: /home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/paired_info
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/src/common/paired_info
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -70,7 +70,7 @@ package_source/fast: package_source
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -148,14 +148,14 @@ install/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 projects/mts/CMakeFiles/stats.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/CMakeFiles/stats.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/CMakeFiles/stats.dir/rule
 .PHONY : projects/mts/CMakeFiles/stats.dir/rule
 
 # Convenience name for target.
@@ -190,12 +190,12 @@ stats: projects/mts/CMakeFiles/stats.dir/rule
 
 # fast build rule for target.
 stats/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/build
 .PHONY : stats/fast
 
 # Convenience name for target.
 projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/rule
 .PHONY : projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/rule
 
 # Convenience name for target.
@@ -205,12 +205,12 @@ kmer_multiplicity_counter: projects/mts/CMakeFiles/kmer_multiplicity_counter.dir
 
 # fast build rule for target.
 kmer_multiplicity_counter/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build
 .PHONY : kmer_multiplicity_counter/fast
 
 # Convenience name for target.
 projects/mts/CMakeFiles/prop_binning.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/CMakeFiles/prop_binning.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/CMakeFiles/prop_binning.dir/rule
 .PHONY : projects/mts/CMakeFiles/prop_binning.dir/rule
 
 # Convenience name for target.
@@ -220,12 +220,12 @@ prop_binning: projects/mts/CMakeFiles/prop_binning.dir/rule
 
 # fast build rule for target.
 prop_binning/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/build
 .PHONY : prop_binning/fast
 
 # Convenience name for target.
 projects/mts/CMakeFiles/contig_abundance_counter.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/CMakeFiles/contig_abundance_counter.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 projects/mts/CMakeFiles/contig_abundance_counter.dir/rule
 .PHONY : projects/mts/CMakeFiles/contig_abundance_counter.dir/rule
 
 # Convenience name for target.
@@ -235,7 +235,7 @@ contig_abundance_counter: projects/mts/CMakeFiles/contig_abundance_counter.dir/r
 
 # fast build rule for target.
 contig_abundance_counter/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/build
 .PHONY : contig_abundance_counter/fast
 
 annotation.o: annotation.cpp.o
@@ -244,8 +244,8 @@ annotation.o: annotation.cpp.o
 
 # target to build an object file
 annotation.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/annotation.cpp.o
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/annotation.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/annotation.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/annotation.cpp.o
 .PHONY : annotation.cpp.o
 
 annotation.i: annotation.cpp.i
@@ -254,8 +254,8 @@ annotation.i: annotation.cpp.i
 
 # target to preprocess a source file
 annotation.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/annotation.cpp.i
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/annotation.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/annotation.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/annotation.cpp.i
 .PHONY : annotation.cpp.i
 
 annotation.s: annotation.cpp.s
@@ -264,8 +264,8 @@ annotation.s: annotation.cpp.s
 
 # target to generate assembly for a file
 annotation.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/annotation.cpp.s
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/annotation.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/annotation.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/annotation.cpp.s
 .PHONY : annotation.cpp.s
 
 contig_abundance.o: contig_abundance.cpp.o
@@ -274,7 +274,7 @@ contig_abundance.o: contig_abundance.cpp.o
 
 # target to build an object file
 contig_abundance.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/contig_abundance.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/contig_abundance.cpp.o
 .PHONY : contig_abundance.cpp.o
 
 contig_abundance.i: contig_abundance.cpp.i
@@ -283,7 +283,7 @@ contig_abundance.i: contig_abundance.cpp.i
 
 # target to preprocess a source file
 contig_abundance.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/contig_abundance.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/contig_abundance.cpp.i
 .PHONY : contig_abundance.cpp.i
 
 contig_abundance.s: contig_abundance.cpp.s
@@ -292,7 +292,7 @@ contig_abundance.s: contig_abundance.cpp.s
 
 # target to generate assembly for a file
 contig_abundance.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/contig_abundance.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/contig_abundance.cpp.s
 .PHONY : contig_abundance.cpp.s
 
 contig_abundance_counter.o: contig_abundance_counter.cpp.o
@@ -301,7 +301,7 @@ contig_abundance_counter.o: contig_abundance_counter.cpp.o
 
 # target to build an object file
 contig_abundance_counter.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/contig_abundance_counter.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/contig_abundance_counter.cpp.o
 .PHONY : contig_abundance_counter.cpp.o
 
 contig_abundance_counter.i: contig_abundance_counter.cpp.i
@@ -310,7 +310,7 @@ contig_abundance_counter.i: contig_abundance_counter.cpp.i
 
 # target to preprocess a source file
 contig_abundance_counter.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/contig_abundance_counter.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/contig_abundance_counter.cpp.i
 .PHONY : contig_abundance_counter.cpp.i
 
 contig_abundance_counter.s: contig_abundance_counter.cpp.s
@@ -319,7 +319,7 @@ contig_abundance_counter.s: contig_abundance_counter.cpp.s
 
 # target to generate assembly for a file
 contig_abundance_counter.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/contig_abundance_counter.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/contig_abundance_counter.dir/build.make projects/mts/CMakeFiles/contig_abundance_counter.dir/contig_abundance_counter.cpp.s
 .PHONY : contig_abundance_counter.cpp.s
 
 gzstream/gzstream.o: gzstream/gzstream.C.o
@@ -328,7 +328,7 @@ gzstream/gzstream.o: gzstream/gzstream.C.o
 
 # target to build an object file
 gzstream/gzstream.C.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/gzstream/gzstream.C.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/gzstream/gzstream.C.o
 .PHONY : gzstream/gzstream.C.o
 
 gzstream/gzstream.i: gzstream/gzstream.C.i
@@ -337,7 +337,7 @@ gzstream/gzstream.i: gzstream/gzstream.C.i
 
 # target to preprocess a source file
 gzstream/gzstream.C.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/gzstream/gzstream.C.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/gzstream/gzstream.C.i
 .PHONY : gzstream/gzstream.C.i
 
 gzstream/gzstream.s: gzstream/gzstream.C.s
@@ -346,7 +346,7 @@ gzstream/gzstream.s: gzstream/gzstream.C.s
 
 # target to generate assembly for a file
 gzstream/gzstream.C.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/gzstream/gzstream.C.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/gzstream/gzstream.C.s
 .PHONY : gzstream/gzstream.C.s
 
 kmc_api/kmc_file.o: kmc_api/kmc_file.cpp.o
@@ -355,7 +355,7 @@ kmc_api/kmc_file.o: kmc_api/kmc_file.cpp.o
 
 # target to build an object file
 kmc_api/kmc_file.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/kmc_file.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/kmc_file.cpp.o
 .PHONY : kmc_api/kmc_file.cpp.o
 
 kmc_api/kmc_file.i: kmc_api/kmc_file.cpp.i
@@ -364,7 +364,7 @@ kmc_api/kmc_file.i: kmc_api/kmc_file.cpp.i
 
 # target to preprocess a source file
 kmc_api/kmc_file.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/kmc_file.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/kmc_file.cpp.i
 .PHONY : kmc_api/kmc_file.cpp.i
 
 kmc_api/kmc_file.s: kmc_api/kmc_file.cpp.s
@@ -373,7 +373,7 @@ kmc_api/kmc_file.s: kmc_api/kmc_file.cpp.s
 
 # target to generate assembly for a file
 kmc_api/kmc_file.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/kmc_file.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/kmc_file.cpp.s
 .PHONY : kmc_api/kmc_file.cpp.s
 
 kmc_api/kmer_api.o: kmc_api/kmer_api.cpp.o
@@ -382,7 +382,7 @@ kmc_api/kmer_api.o: kmc_api/kmer_api.cpp.o
 
 # target to build an object file
 kmc_api/kmer_api.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/kmer_api.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/kmer_api.cpp.o
 .PHONY : kmc_api/kmer_api.cpp.o
 
 kmc_api/kmer_api.i: kmc_api/kmer_api.cpp.i
@@ -391,7 +391,7 @@ kmc_api/kmer_api.i: kmc_api/kmer_api.cpp.i
 
 # target to preprocess a source file
 kmc_api/kmer_api.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/kmer_api.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/kmer_api.cpp.i
 .PHONY : kmc_api/kmer_api.cpp.i
 
 kmc_api/kmer_api.s: kmc_api/kmer_api.cpp.s
@@ -400,7 +400,7 @@ kmc_api/kmer_api.s: kmc_api/kmer_api.cpp.s
 
 # target to generate assembly for a file
 kmc_api/kmer_api.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/kmer_api.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/kmer_api.cpp.s
 .PHONY : kmc_api/kmer_api.cpp.s
 
 kmc_api/mmer.o: kmc_api/mmer.cpp.o
@@ -409,7 +409,7 @@ kmc_api/mmer.o: kmc_api/mmer.cpp.o
 
 # target to build an object file
 kmc_api/mmer.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/mmer.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/mmer.cpp.o
 .PHONY : kmc_api/mmer.cpp.o
 
 kmc_api/mmer.i: kmc_api/mmer.cpp.i
@@ -418,7 +418,7 @@ kmc_api/mmer.i: kmc_api/mmer.cpp.i
 
 # target to preprocess a source file
 kmc_api/mmer.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/mmer.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/mmer.cpp.i
 .PHONY : kmc_api/mmer.cpp.i
 
 kmc_api/mmer.s: kmc_api/mmer.cpp.s
@@ -427,7 +427,7 @@ kmc_api/mmer.s: kmc_api/mmer.cpp.s
 
 # target to generate assembly for a file
 kmc_api/mmer.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/mmer.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmc_api/mmer.cpp.s
 .PHONY : kmc_api/mmer.cpp.s
 
 kmer_multiplicity_counter.o: kmer_multiplicity_counter.cpp.o
@@ -436,7 +436,7 @@ kmer_multiplicity_counter.o: kmer_multiplicity_counter.cpp.o
 
 # target to build an object file
 kmer_multiplicity_counter.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmer_multiplicity_counter.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmer_multiplicity_counter.cpp.o
 .PHONY : kmer_multiplicity_counter.cpp.o
 
 kmer_multiplicity_counter.i: kmer_multiplicity_counter.cpp.i
@@ -445,7 +445,7 @@ kmer_multiplicity_counter.i: kmer_multiplicity_counter.cpp.i
 
 # target to preprocess a source file
 kmer_multiplicity_counter.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmer_multiplicity_counter.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmer_multiplicity_counter.cpp.i
 .PHONY : kmer_multiplicity_counter.cpp.i
 
 kmer_multiplicity_counter.s: kmer_multiplicity_counter.cpp.s
@@ -454,7 +454,7 @@ kmer_multiplicity_counter.s: kmer_multiplicity_counter.cpp.s
 
 # target to generate assembly for a file
 kmer_multiplicity_counter.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmer_multiplicity_counter.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/build.make projects/mts/CMakeFiles/kmer_multiplicity_counter.dir/kmer_multiplicity_counter.cpp.s
 .PHONY : kmer_multiplicity_counter.cpp.s
 
 prop_binning.o: prop_binning.cpp.o
@@ -463,7 +463,7 @@ prop_binning.o: prop_binning.cpp.o
 
 # target to build an object file
 prop_binning.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/prop_binning.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/prop_binning.cpp.o
 .PHONY : prop_binning.cpp.o
 
 prop_binning.i: prop_binning.cpp.i
@@ -472,7 +472,7 @@ prop_binning.i: prop_binning.cpp.i
 
 # target to preprocess a source file
 prop_binning.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/prop_binning.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/prop_binning.cpp.i
 .PHONY : prop_binning.cpp.i
 
 prop_binning.s: prop_binning.cpp.s
@@ -481,7 +481,7 @@ prop_binning.s: prop_binning.cpp.s
 
 # target to generate assembly for a file
 prop_binning.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/prop_binning.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/prop_binning.cpp.s
 .PHONY : prop_binning.cpp.s
 
 propagate.o: propagate.cpp.o
@@ -490,7 +490,7 @@ propagate.o: propagate.cpp.o
 
 # target to build an object file
 propagate.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/propagate.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/propagate.cpp.o
 .PHONY : propagate.cpp.o
 
 propagate.i: propagate.cpp.i
@@ -499,7 +499,7 @@ propagate.i: propagate.cpp.i
 
 # target to preprocess a source file
 propagate.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/propagate.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/propagate.cpp.i
 .PHONY : propagate.cpp.i
 
 propagate.s: propagate.cpp.s
@@ -508,7 +508,7 @@ propagate.s: propagate.cpp.s
 
 # target to generate assembly for a file
 propagate.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/propagate.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/propagate.cpp.s
 .PHONY : propagate.cpp.s
 
 read_binning.o: read_binning.cpp.o
@@ -517,7 +517,7 @@ read_binning.o: read_binning.cpp.o
 
 # target to build an object file
 read_binning.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/read_binning.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/read_binning.cpp.o
 .PHONY : read_binning.cpp.o
 
 read_binning.i: read_binning.cpp.i
@@ -526,7 +526,7 @@ read_binning.i: read_binning.cpp.i
 
 # target to preprocess a source file
 read_binning.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/read_binning.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/read_binning.cpp.i
 .PHONY : read_binning.cpp.i
 
 read_binning.s: read_binning.cpp.s
@@ -535,7 +535,7 @@ read_binning.s: read_binning.cpp.s
 
 # target to generate assembly for a file
 read_binning.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/read_binning.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/prop_binning.dir/build.make projects/mts/CMakeFiles/prop_binning.dir/read_binning.cpp.s
 .PHONY : read_binning.cpp.s
 
 stats.o: stats.cpp.o
@@ -544,7 +544,7 @@ stats.o: stats.cpp.o
 
 # target to build an object file
 stats.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/stats.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/stats.cpp.o
 .PHONY : stats.cpp.o
 
 stats.i: stats.cpp.i
@@ -553,7 +553,7 @@ stats.i: stats.cpp.i
 
 # target to preprocess a source file
 stats.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/stats.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/stats.cpp.i
 .PHONY : stats.cpp.i
 
 stats.s: stats.cpp.s
@@ -562,7 +562,7 @@ stats.s: stats.cpp.s
 
 # target to generate assembly for a file
 stats.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/stats.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f projects/mts/CMakeFiles/stats.dir/build.make projects/mts/CMakeFiles/stats.dir/stats.cpp.s
 .PHONY : stats.cpp.s
 
 # Help Target
@@ -630,6 +630,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -113,6 +113,28 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+
+.PHONY : package/fast
+
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -124,49 +146,16 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-
-.PHONY : package/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
-
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/cityhash/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/cityhash/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/cityhash/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/cityhash/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/cityhash/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/cityhash/clean
 .PHONY : clean
 
 # The main clean target
@@ -176,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/cityhash/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/cityhash/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/cityhash/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/cityhash/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 ext/cityhash/CMakeFiles/cityhash.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/cityhash/CMakeFiles/cityhash.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/cityhash/CMakeFiles/cityhash.dir/rule
 .PHONY : ext/cityhash/CMakeFiles/cityhash.dir/rule
 
 # Convenience name for target.
@@ -201,7 +190,7 @@ cityhash: ext/cityhash/CMakeFiles/cityhash.dir/rule
 
 # fast build rule for target.
 cityhash/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/cityhash/CMakeFiles/cityhash.dir/build.make ext/cityhash/CMakeFiles/cityhash.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/cityhash/CMakeFiles/cityhash.dir/build.make ext/cityhash/CMakeFiles/cityhash.dir/build
 .PHONY : cityhash/fast
 
 city.o: city.cc.o
@@ -210,7 +199,7 @@ city.o: city.cc.o
 
 # target to build an object file
 city.cc.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/cityhash/CMakeFiles/cityhash.dir/build.make ext/cityhash/CMakeFiles/cityhash.dir/city.cc.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/cityhash/CMakeFiles/cityhash.dir/build.make ext/cityhash/CMakeFiles/cityhash.dir/city.cc.o
 .PHONY : city.cc.o
 
 city.i: city.cc.i
@@ -219,7 +208,7 @@ city.i: city.cc.i
 
 # target to preprocess a source file
 city.cc.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/cityhash/CMakeFiles/cityhash.dir/build.make ext/cityhash/CMakeFiles/cityhash.dir/city.cc.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/cityhash/CMakeFiles/cityhash.dir/build.make ext/cityhash/CMakeFiles/cityhash.dir/city.cc.i
 .PHONY : city.cc.i
 
 city.s: city.cc.s
@@ -228,7 +217,7 @@ city.s: city.cc.s
 
 # target to generate assembly for a file
 city.cc.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/cityhash/CMakeFiles/cityhash.dir/build.make ext/cityhash/CMakeFiles/cityhash.dir/city.cc.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/cityhash/CMakeFiles/cityhash.dir/build.make ext/cityhash/CMakeFiles/cityhash.dir/city.cc.s
 .PHONY : city.cc.s
 
 # Help Target
@@ -242,11 +231,10 @@ help:
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... edit_cache"
+	@echo "... package"
 	@echo "... cityhash"
 	@echo "... package_source"
-	@echo "... package"
-	@echo "... test"
+	@echo "... edit_cache"
 	@echo "... city.o"
 	@echo "... city.i"
 	@echo "... city.s"
@@ -261,6 +249,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

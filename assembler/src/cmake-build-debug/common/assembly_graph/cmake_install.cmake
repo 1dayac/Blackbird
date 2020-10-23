@@ -1,4 +1,4 @@
-# Install script for directory: /home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/assembly_graph
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/src/common/assembly_graph
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

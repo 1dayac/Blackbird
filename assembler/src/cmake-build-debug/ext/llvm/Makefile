@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -116,7 +116,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -127,7 +127,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -148,14 +148,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/llvm/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/llvm/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 ext/llvm/CMakeFiles/llvm-support.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/CMakeFiles/llvm-support.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 ext/llvm/CMakeFiles/llvm-support.dir/rule
 .PHONY : ext/llvm/CMakeFiles/llvm-support.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ llvm-support: ext/llvm/CMakeFiles/llvm-support.dir/rule
 
 # fast build rule for target.
 llvm-support/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/build
 .PHONY : llvm-support/fast
 
 APFloat.o: APFloat.cpp.o
@@ -199,7 +199,7 @@ APFloat.o: APFloat.cpp.o
 
 # target to build an object file
 APFloat.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/APFloat.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/APFloat.cpp.o
 .PHONY : APFloat.cpp.o
 
 APFloat.i: APFloat.cpp.i
@@ -208,7 +208,7 @@ APFloat.i: APFloat.cpp.i
 
 # target to preprocess a source file
 APFloat.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/APFloat.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/APFloat.cpp.i
 .PHONY : APFloat.cpp.i
 
 APFloat.s: APFloat.cpp.s
@@ -217,7 +217,7 @@ APFloat.s: APFloat.cpp.s
 
 # target to generate assembly for a file
 APFloat.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/APFloat.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/APFloat.cpp.s
 .PHONY : APFloat.cpp.s
 
 APInt.o: APInt.cpp.o
@@ -226,7 +226,7 @@ APInt.o: APInt.cpp.o
 
 # target to build an object file
 APInt.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/APInt.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/APInt.cpp.o
 .PHONY : APInt.cpp.o
 
 APInt.i: APInt.cpp.i
@@ -235,7 +235,7 @@ APInt.i: APInt.cpp.i
 
 # target to preprocess a source file
 APInt.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/APInt.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/APInt.cpp.i
 .PHONY : APInt.cpp.i
 
 APInt.s: APInt.cpp.s
@@ -244,7 +244,7 @@ APInt.s: APInt.cpp.s
 
 # target to generate assembly for a file
 APInt.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/APInt.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/APInt.cpp.s
 .PHONY : APInt.cpp.s
 
 Atomic.o: Atomic.cpp.o
@@ -253,7 +253,7 @@ Atomic.o: Atomic.cpp.o
 
 # target to build an object file
 Atomic.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Atomic.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Atomic.cpp.o
 .PHONY : Atomic.cpp.o
 
 Atomic.i: Atomic.cpp.i
@@ -262,7 +262,7 @@ Atomic.i: Atomic.cpp.i
 
 # target to preprocess a source file
 Atomic.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Atomic.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Atomic.cpp.i
 .PHONY : Atomic.cpp.i
 
 Atomic.s: Atomic.cpp.s
@@ -271,7 +271,7 @@ Atomic.s: Atomic.cpp.s
 
 # target to generate assembly for a file
 Atomic.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Atomic.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Atomic.cpp.s
 .PHONY : Atomic.cpp.s
 
 ConvertUTF.o: ConvertUTF.cpp.o
@@ -280,7 +280,7 @@ ConvertUTF.o: ConvertUTF.cpp.o
 
 # target to build an object file
 ConvertUTF.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ConvertUTF.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ConvertUTF.cpp.o
 .PHONY : ConvertUTF.cpp.o
 
 ConvertUTF.i: ConvertUTF.cpp.i
@@ -289,7 +289,7 @@ ConvertUTF.i: ConvertUTF.cpp.i
 
 # target to preprocess a source file
 ConvertUTF.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ConvertUTF.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ConvertUTF.cpp.i
 .PHONY : ConvertUTF.cpp.i
 
 ConvertUTF.s: ConvertUTF.cpp.s
@@ -298,7 +298,7 @@ ConvertUTF.s: ConvertUTF.cpp.s
 
 # target to generate assembly for a file
 ConvertUTF.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ConvertUTF.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ConvertUTF.cpp.s
 .PHONY : ConvertUTF.cpp.s
 
 CrashRecoveryContext.o: CrashRecoveryContext.cpp.o
@@ -307,7 +307,7 @@ CrashRecoveryContext.o: CrashRecoveryContext.cpp.o
 
 # target to build an object file
 CrashRecoveryContext.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/CrashRecoveryContext.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/CrashRecoveryContext.cpp.o
 .PHONY : CrashRecoveryContext.cpp.o
 
 CrashRecoveryContext.i: CrashRecoveryContext.cpp.i
@@ -316,7 +316,7 @@ CrashRecoveryContext.i: CrashRecoveryContext.cpp.i
 
 # target to preprocess a source file
 CrashRecoveryContext.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/CrashRecoveryContext.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/CrashRecoveryContext.cpp.i
 .PHONY : CrashRecoveryContext.cpp.i
 
 CrashRecoveryContext.s: CrashRecoveryContext.cpp.s
@@ -325,7 +325,7 @@ CrashRecoveryContext.s: CrashRecoveryContext.cpp.s
 
 # target to generate assembly for a file
 CrashRecoveryContext.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/CrashRecoveryContext.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/CrashRecoveryContext.cpp.s
 .PHONY : CrashRecoveryContext.cpp.s
 
 Debug.o: Debug.cpp.o
@@ -334,7 +334,7 @@ Debug.o: Debug.cpp.o
 
 # target to build an object file
 Debug.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Debug.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Debug.cpp.o
 .PHONY : Debug.cpp.o
 
 Debug.i: Debug.cpp.i
@@ -343,7 +343,7 @@ Debug.i: Debug.cpp.i
 
 # target to preprocess a source file
 Debug.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Debug.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Debug.cpp.i
 .PHONY : Debug.cpp.i
 
 Debug.s: Debug.cpp.s
@@ -352,7 +352,7 @@ Debug.s: Debug.cpp.s
 
 # target to generate assembly for a file
 Debug.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Debug.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Debug.cpp.s
 .PHONY : Debug.cpp.s
 
 Errno.o: Errno.cpp.o
@@ -361,7 +361,7 @@ Errno.o: Errno.cpp.o
 
 # target to build an object file
 Errno.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Errno.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Errno.cpp.o
 .PHONY : Errno.cpp.o
 
 Errno.i: Errno.cpp.i
@@ -370,7 +370,7 @@ Errno.i: Errno.cpp.i
 
 # target to preprocess a source file
 Errno.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Errno.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Errno.cpp.i
 .PHONY : Errno.cpp.i
 
 Errno.s: Errno.cpp.s
@@ -379,7 +379,7 @@ Errno.s: Errno.cpp.s
 
 # target to generate assembly for a file
 Errno.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Errno.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Errno.cpp.s
 .PHONY : Errno.cpp.s
 
 Error.o: Error.cpp.o
@@ -388,7 +388,7 @@ Error.o: Error.cpp.o
 
 # target to build an object file
 Error.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Error.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Error.cpp.o
 .PHONY : Error.cpp.o
 
 Error.i: Error.cpp.i
@@ -397,7 +397,7 @@ Error.i: Error.cpp.i
 
 # target to preprocess a source file
 Error.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Error.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Error.cpp.i
 .PHONY : Error.cpp.i
 
 Error.s: Error.cpp.s
@@ -406,7 +406,7 @@ Error.s: Error.cpp.s
 
 # target to generate assembly for a file
 Error.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Error.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Error.cpp.s
 .PHONY : Error.cpp.s
 
 ErrorHandling.o: ErrorHandling.cpp.o
@@ -415,7 +415,7 @@ ErrorHandling.o: ErrorHandling.cpp.o
 
 # target to build an object file
 ErrorHandling.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ErrorHandling.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ErrorHandling.cpp.o
 .PHONY : ErrorHandling.cpp.o
 
 ErrorHandling.i: ErrorHandling.cpp.i
@@ -424,7 +424,7 @@ ErrorHandling.i: ErrorHandling.cpp.i
 
 # target to preprocess a source file
 ErrorHandling.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ErrorHandling.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ErrorHandling.cpp.i
 .PHONY : ErrorHandling.cpp.i
 
 ErrorHandling.s: ErrorHandling.cpp.s
@@ -433,7 +433,7 @@ ErrorHandling.s: ErrorHandling.cpp.s
 
 # target to generate assembly for a file
 ErrorHandling.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ErrorHandling.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ErrorHandling.cpp.s
 .PHONY : ErrorHandling.cpp.s
 
 FoldingSet.o: FoldingSet.cpp.o
@@ -442,7 +442,7 @@ FoldingSet.o: FoldingSet.cpp.o
 
 # target to build an object file
 FoldingSet.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/FoldingSet.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/FoldingSet.cpp.o
 .PHONY : FoldingSet.cpp.o
 
 FoldingSet.i: FoldingSet.cpp.i
@@ -451,7 +451,7 @@ FoldingSet.i: FoldingSet.cpp.i
 
 # target to preprocess a source file
 FoldingSet.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/FoldingSet.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/FoldingSet.cpp.i
 .PHONY : FoldingSet.cpp.i
 
 FoldingSet.s: FoldingSet.cpp.s
@@ -460,7 +460,7 @@ FoldingSet.s: FoldingSet.cpp.s
 
 # target to generate assembly for a file
 FoldingSet.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/FoldingSet.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/FoldingSet.cpp.s
 .PHONY : FoldingSet.cpp.s
 
 FormatVariadic.o: FormatVariadic.cpp.o
@@ -469,7 +469,7 @@ FormatVariadic.o: FormatVariadic.cpp.o
 
 # target to build an object file
 FormatVariadic.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/FormatVariadic.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/FormatVariadic.cpp.o
 .PHONY : FormatVariadic.cpp.o
 
 FormatVariadic.i: FormatVariadic.cpp.i
@@ -478,7 +478,7 @@ FormatVariadic.i: FormatVariadic.cpp.i
 
 # target to preprocess a source file
 FormatVariadic.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/FormatVariadic.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/FormatVariadic.cpp.i
 .PHONY : FormatVariadic.cpp.i
 
 FormatVariadic.s: FormatVariadic.cpp.s
@@ -487,7 +487,7 @@ FormatVariadic.s: FormatVariadic.cpp.s
 
 # target to generate assembly for a file
 FormatVariadic.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/FormatVariadic.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/FormatVariadic.cpp.s
 .PHONY : FormatVariadic.cpp.s
 
 Hashing.o: Hashing.cpp.o
@@ -496,7 +496,7 @@ Hashing.o: Hashing.cpp.o
 
 # target to build an object file
 Hashing.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Hashing.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Hashing.cpp.o
 .PHONY : Hashing.cpp.o
 
 Hashing.i: Hashing.cpp.i
@@ -505,7 +505,7 @@ Hashing.i: Hashing.cpp.i
 
 # target to preprocess a source file
 Hashing.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Hashing.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Hashing.cpp.i
 .PHONY : Hashing.cpp.i
 
 Hashing.s: Hashing.cpp.s
@@ -514,7 +514,7 @@ Hashing.s: Hashing.cpp.s
 
 # target to generate assembly for a file
 Hashing.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Hashing.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Hashing.cpp.s
 .PHONY : Hashing.cpp.s
 
 Host.o: Host.cpp.o
@@ -523,7 +523,7 @@ Host.o: Host.cpp.o
 
 # target to build an object file
 Host.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Host.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Host.cpp.o
 .PHONY : Host.cpp.o
 
 Host.i: Host.cpp.i
@@ -532,7 +532,7 @@ Host.i: Host.cpp.i
 
 # target to preprocess a source file
 Host.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Host.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Host.cpp.i
 .PHONY : Host.cpp.i
 
 Host.s: Host.cpp.s
@@ -541,7 +541,7 @@ Host.s: Host.cpp.s
 
 # target to generate assembly for a file
 Host.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Host.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Host.cpp.s
 .PHONY : Host.cpp.s
 
 JSON.o: JSON.cpp.o
@@ -550,7 +550,7 @@ JSON.o: JSON.cpp.o
 
 # target to build an object file
 JSON.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/JSON.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/JSON.cpp.o
 .PHONY : JSON.cpp.o
 
 JSON.i: JSON.cpp.i
@@ -559,7 +559,7 @@ JSON.i: JSON.cpp.i
 
 # target to preprocess a source file
 JSON.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/JSON.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/JSON.cpp.i
 .PHONY : JSON.cpp.i
 
 JSON.s: JSON.cpp.s
@@ -568,7 +568,7 @@ JSON.s: JSON.cpp.s
 
 # target to generate assembly for a file
 JSON.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/JSON.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/JSON.cpp.s
 .PHONY : JSON.cpp.s
 
 LEB128.o: LEB128.cpp.o
@@ -577,7 +577,7 @@ LEB128.o: LEB128.cpp.o
 
 # target to build an object file
 LEB128.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LEB128.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LEB128.cpp.o
 .PHONY : LEB128.cpp.o
 
 LEB128.i: LEB128.cpp.i
@@ -586,7 +586,7 @@ LEB128.i: LEB128.cpp.i
 
 # target to preprocess a source file
 LEB128.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LEB128.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LEB128.cpp.i
 .PHONY : LEB128.cpp.i
 
 LEB128.s: LEB128.cpp.s
@@ -595,7 +595,7 @@ LEB128.s: LEB128.cpp.s
 
 # target to generate assembly for a file
 LEB128.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LEB128.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LEB128.cpp.s
 .PHONY : LEB128.cpp.s
 
 LineIterator.o: LineIterator.cpp.o
@@ -604,7 +604,7 @@ LineIterator.o: LineIterator.cpp.o
 
 # target to build an object file
 LineIterator.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LineIterator.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LineIterator.cpp.o
 .PHONY : LineIterator.cpp.o
 
 LineIterator.i: LineIterator.cpp.i
@@ -613,7 +613,7 @@ LineIterator.i: LineIterator.cpp.i
 
 # target to preprocess a source file
 LineIterator.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LineIterator.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LineIterator.cpp.i
 .PHONY : LineIterator.cpp.i
 
 LineIterator.s: LineIterator.cpp.s
@@ -622,7 +622,7 @@ LineIterator.s: LineIterator.cpp.s
 
 # target to generate assembly for a file
 LineIterator.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LineIterator.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/LineIterator.cpp.s
 .PHONY : LineIterator.cpp.s
 
 Locale.o: Locale.cpp.o
@@ -631,7 +631,7 @@ Locale.o: Locale.cpp.o
 
 # target to build an object file
 Locale.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Locale.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Locale.cpp.o
 .PHONY : Locale.cpp.o
 
 Locale.i: Locale.cpp.i
@@ -640,7 +640,7 @@ Locale.i: Locale.cpp.i
 
 # target to preprocess a source file
 Locale.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Locale.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Locale.cpp.i
 .PHONY : Locale.cpp.i
 
 Locale.s: Locale.cpp.s
@@ -649,7 +649,7 @@ Locale.s: Locale.cpp.s
 
 # target to generate assembly for a file
 Locale.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Locale.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Locale.cpp.s
 .PHONY : Locale.cpp.s
 
 MD5.o: MD5.cpp.o
@@ -658,7 +658,7 @@ MD5.o: MD5.cpp.o
 
 # target to build an object file
 MD5.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MD5.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MD5.cpp.o
 .PHONY : MD5.cpp.o
 
 MD5.i: MD5.cpp.i
@@ -667,7 +667,7 @@ MD5.i: MD5.cpp.i
 
 # target to preprocess a source file
 MD5.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MD5.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MD5.cpp.i
 .PHONY : MD5.cpp.i
 
 MD5.s: MD5.cpp.s
@@ -676,7 +676,7 @@ MD5.s: MD5.cpp.s
 
 # target to generate assembly for a file
 MD5.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MD5.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MD5.cpp.s
 .PHONY : MD5.cpp.s
 
 ManagedStatic.o: ManagedStatic.cpp.o
@@ -685,7 +685,7 @@ ManagedStatic.o: ManagedStatic.cpp.o
 
 # target to build an object file
 ManagedStatic.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ManagedStatic.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ManagedStatic.cpp.o
 .PHONY : ManagedStatic.cpp.o
 
 ManagedStatic.i: ManagedStatic.cpp.i
@@ -694,7 +694,7 @@ ManagedStatic.i: ManagedStatic.cpp.i
 
 # target to preprocess a source file
 ManagedStatic.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ManagedStatic.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ManagedStatic.cpp.i
 .PHONY : ManagedStatic.cpp.i
 
 ManagedStatic.s: ManagedStatic.cpp.s
@@ -703,7 +703,7 @@ ManagedStatic.s: ManagedStatic.cpp.s
 
 # target to generate assembly for a file
 ManagedStatic.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ManagedStatic.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ManagedStatic.cpp.s
 .PHONY : ManagedStatic.cpp.s
 
 MemAlloc.o: MemAlloc.cpp.o
@@ -712,7 +712,7 @@ MemAlloc.o: MemAlloc.cpp.o
 
 # target to build an object file
 MemAlloc.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemAlloc.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemAlloc.cpp.o
 .PHONY : MemAlloc.cpp.o
 
 MemAlloc.i: MemAlloc.cpp.i
@@ -721,7 +721,7 @@ MemAlloc.i: MemAlloc.cpp.i
 
 # target to preprocess a source file
 MemAlloc.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemAlloc.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemAlloc.cpp.i
 .PHONY : MemAlloc.cpp.i
 
 MemAlloc.s: MemAlloc.cpp.s
@@ -730,7 +730,7 @@ MemAlloc.s: MemAlloc.cpp.s
 
 # target to generate assembly for a file
 MemAlloc.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemAlloc.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemAlloc.cpp.s
 .PHONY : MemAlloc.cpp.s
 
 MemoryBuffer.o: MemoryBuffer.cpp.o
@@ -739,7 +739,7 @@ MemoryBuffer.o: MemoryBuffer.cpp.o
 
 # target to build an object file
 MemoryBuffer.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemoryBuffer.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemoryBuffer.cpp.o
 .PHONY : MemoryBuffer.cpp.o
 
 MemoryBuffer.i: MemoryBuffer.cpp.i
@@ -748,7 +748,7 @@ MemoryBuffer.i: MemoryBuffer.cpp.i
 
 # target to preprocess a source file
 MemoryBuffer.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemoryBuffer.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemoryBuffer.cpp.i
 .PHONY : MemoryBuffer.cpp.i
 
 MemoryBuffer.s: MemoryBuffer.cpp.s
@@ -757,7 +757,7 @@ MemoryBuffer.s: MemoryBuffer.cpp.s
 
 # target to generate assembly for a file
 MemoryBuffer.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemoryBuffer.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/MemoryBuffer.cpp.s
 .PHONY : MemoryBuffer.cpp.s
 
 NativeFormatting.o: NativeFormatting.cpp.o
@@ -766,7 +766,7 @@ NativeFormatting.o: NativeFormatting.cpp.o
 
 # target to build an object file
 NativeFormatting.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/NativeFormatting.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/NativeFormatting.cpp.o
 .PHONY : NativeFormatting.cpp.o
 
 NativeFormatting.i: NativeFormatting.cpp.i
@@ -775,7 +775,7 @@ NativeFormatting.i: NativeFormatting.cpp.i
 
 # target to preprocess a source file
 NativeFormatting.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/NativeFormatting.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/NativeFormatting.cpp.i
 .PHONY : NativeFormatting.cpp.i
 
 NativeFormatting.s: NativeFormatting.cpp.s
@@ -784,7 +784,7 @@ NativeFormatting.s: NativeFormatting.cpp.s
 
 # target to generate assembly for a file
 NativeFormatting.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/NativeFormatting.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/NativeFormatting.cpp.s
 .PHONY : NativeFormatting.cpp.s
 
 Path.o: Path.cpp.o
@@ -793,7 +793,7 @@ Path.o: Path.cpp.o
 
 # target to build an object file
 Path.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Path.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Path.cpp.o
 .PHONY : Path.cpp.o
 
 Path.i: Path.cpp.i
@@ -802,7 +802,7 @@ Path.i: Path.cpp.i
 
 # target to preprocess a source file
 Path.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Path.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Path.cpp.i
 .PHONY : Path.cpp.i
 
 Path.s: Path.cpp.s
@@ -811,7 +811,7 @@ Path.s: Path.cpp.s
 
 # target to generate assembly for a file
 Path.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Path.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Path.cpp.s
 .PHONY : Path.cpp.s
 
 Process.o: Process.cpp.o
@@ -820,7 +820,7 @@ Process.o: Process.cpp.o
 
 # target to build an object file
 Process.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Process.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Process.cpp.o
 .PHONY : Process.cpp.o
 
 Process.i: Process.cpp.i
@@ -829,7 +829,7 @@ Process.i: Process.cpp.i
 
 # target to preprocess a source file
 Process.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Process.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Process.cpp.i
 .PHONY : Process.cpp.i
 
 Process.s: Process.cpp.s
@@ -838,7 +838,7 @@ Process.s: Process.cpp.s
 
 # target to generate assembly for a file
 Process.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Process.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Process.cpp.s
 .PHONY : Process.cpp.s
 
 Program.o: Program.cpp.o
@@ -847,7 +847,7 @@ Program.o: Program.cpp.o
 
 # target to build an object file
 Program.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Program.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Program.cpp.o
 .PHONY : Program.cpp.o
 
 Program.i: Program.cpp.i
@@ -856,7 +856,7 @@ Program.i: Program.cpp.i
 
 # target to preprocess a source file
 Program.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Program.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Program.cpp.i
 .PHONY : Program.cpp.i
 
 Program.s: Program.cpp.s
@@ -865,7 +865,7 @@ Program.s: Program.cpp.s
 
 # target to generate assembly for a file
 Program.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Program.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Program.cpp.s
 .PHONY : Program.cpp.s
 
 Regex.o: Regex.cpp.o
@@ -874,7 +874,7 @@ Regex.o: Regex.cpp.o
 
 # target to build an object file
 Regex.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Regex.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Regex.cpp.o
 .PHONY : Regex.cpp.o
 
 Regex.i: Regex.cpp.i
@@ -883,7 +883,7 @@ Regex.i: Regex.cpp.i
 
 # target to preprocess a source file
 Regex.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Regex.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Regex.cpp.i
 .PHONY : Regex.cpp.i
 
 Regex.s: Regex.cpp.s
@@ -892,7 +892,7 @@ Regex.s: Regex.cpp.s
 
 # target to generate assembly for a file
 Regex.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Regex.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Regex.cpp.s
 .PHONY : Regex.cpp.s
 
 Signals.o: Signals.cpp.o
@@ -901,7 +901,7 @@ Signals.o: Signals.cpp.o
 
 # target to build an object file
 Signals.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Signals.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Signals.cpp.o
 .PHONY : Signals.cpp.o
 
 Signals.i: Signals.cpp.i
@@ -910,7 +910,7 @@ Signals.i: Signals.cpp.i
 
 # target to preprocess a source file
 Signals.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Signals.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Signals.cpp.i
 .PHONY : Signals.cpp.i
 
 Signals.s: Signals.cpp.s
@@ -919,7 +919,7 @@ Signals.s: Signals.cpp.s
 
 # target to generate assembly for a file
 Signals.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Signals.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Signals.cpp.s
 .PHONY : Signals.cpp.s
 
 SmallVector.o: SmallVector.cpp.o
@@ -928,7 +928,7 @@ SmallVector.o: SmallVector.cpp.o
 
 # target to build an object file
 SmallVector.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SmallVector.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SmallVector.cpp.o
 .PHONY : SmallVector.cpp.o
 
 SmallVector.i: SmallVector.cpp.i
@@ -937,7 +937,7 @@ SmallVector.i: SmallVector.cpp.i
 
 # target to preprocess a source file
 SmallVector.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SmallVector.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SmallVector.cpp.i
 .PHONY : SmallVector.cpp.i
 
 SmallVector.s: SmallVector.cpp.s
@@ -946,7 +946,7 @@ SmallVector.s: SmallVector.cpp.s
 
 # target to generate assembly for a file
 SmallVector.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SmallVector.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SmallVector.cpp.s
 .PHONY : SmallVector.cpp.s
 
 SourceMgr.o: SourceMgr.cpp.o
@@ -955,7 +955,7 @@ SourceMgr.o: SourceMgr.cpp.o
 
 # target to build an object file
 SourceMgr.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SourceMgr.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SourceMgr.cpp.o
 .PHONY : SourceMgr.cpp.o
 
 SourceMgr.i: SourceMgr.cpp.i
@@ -964,7 +964,7 @@ SourceMgr.i: SourceMgr.cpp.i
 
 # target to preprocess a source file
 SourceMgr.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SourceMgr.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SourceMgr.cpp.i
 .PHONY : SourceMgr.cpp.i
 
 SourceMgr.s: SourceMgr.cpp.s
@@ -973,7 +973,7 @@ SourceMgr.s: SourceMgr.cpp.s
 
 # target to generate assembly for a file
 SourceMgr.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SourceMgr.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/SourceMgr.cpp.s
 .PHONY : SourceMgr.cpp.s
 
 StringExtras.o: StringExtras.cpp.o
@@ -982,7 +982,7 @@ StringExtras.o: StringExtras.cpp.o
 
 # target to build an object file
 StringExtras.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringExtras.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringExtras.cpp.o
 .PHONY : StringExtras.cpp.o
 
 StringExtras.i: StringExtras.cpp.i
@@ -991,7 +991,7 @@ StringExtras.i: StringExtras.cpp.i
 
 # target to preprocess a source file
 StringExtras.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringExtras.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringExtras.cpp.i
 .PHONY : StringExtras.cpp.i
 
 StringExtras.s: StringExtras.cpp.s
@@ -1000,7 +1000,7 @@ StringExtras.s: StringExtras.cpp.s
 
 # target to generate assembly for a file
 StringExtras.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringExtras.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringExtras.cpp.s
 .PHONY : StringExtras.cpp.s
 
 StringMap.o: StringMap.cpp.o
@@ -1009,7 +1009,7 @@ StringMap.o: StringMap.cpp.o
 
 # target to build an object file
 StringMap.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringMap.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringMap.cpp.o
 .PHONY : StringMap.cpp.o
 
 StringMap.i: StringMap.cpp.i
@@ -1018,7 +1018,7 @@ StringMap.i: StringMap.cpp.i
 
 # target to preprocess a source file
 StringMap.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringMap.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringMap.cpp.i
 .PHONY : StringMap.cpp.i
 
 StringMap.s: StringMap.cpp.s
@@ -1027,7 +1027,7 @@ StringMap.s: StringMap.cpp.s
 
 # target to generate assembly for a file
 StringMap.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringMap.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringMap.cpp.s
 .PHONY : StringMap.cpp.s
 
 StringRef.o: StringRef.cpp.o
@@ -1036,7 +1036,7 @@ StringRef.o: StringRef.cpp.o
 
 # target to build an object file
 StringRef.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringRef.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringRef.cpp.o
 .PHONY : StringRef.cpp.o
 
 StringRef.i: StringRef.cpp.i
@@ -1045,7 +1045,7 @@ StringRef.i: StringRef.cpp.i
 
 # target to preprocess a source file
 StringRef.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringRef.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringRef.cpp.i
 .PHONY : StringRef.cpp.i
 
 StringRef.s: StringRef.cpp.s
@@ -1054,7 +1054,7 @@ StringRef.s: StringRef.cpp.s
 
 # target to generate assembly for a file
 StringRef.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringRef.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringRef.cpp.s
 .PHONY : StringRef.cpp.s
 
 StringSaver.o: StringSaver.cpp.o
@@ -1063,7 +1063,7 @@ StringSaver.o: StringSaver.cpp.o
 
 # target to build an object file
 StringSaver.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringSaver.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringSaver.cpp.o
 .PHONY : StringSaver.cpp.o
 
 StringSaver.i: StringSaver.cpp.i
@@ -1072,7 +1072,7 @@ StringSaver.i: StringSaver.cpp.i
 
 # target to preprocess a source file
 StringSaver.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringSaver.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringSaver.cpp.i
 .PHONY : StringSaver.cpp.i
 
 StringSaver.s: StringSaver.cpp.s
@@ -1081,7 +1081,7 @@ StringSaver.s: StringSaver.cpp.s
 
 # target to generate assembly for a file
 StringSaver.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringSaver.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/StringSaver.cpp.s
 .PHONY : StringSaver.cpp.s
 
 ThreadLocal.o: ThreadLocal.cpp.o
@@ -1090,7 +1090,7 @@ ThreadLocal.o: ThreadLocal.cpp.o
 
 # target to build an object file
 ThreadLocal.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ThreadLocal.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ThreadLocal.cpp.o
 .PHONY : ThreadLocal.cpp.o
 
 ThreadLocal.i: ThreadLocal.cpp.i
@@ -1099,7 +1099,7 @@ ThreadLocal.i: ThreadLocal.cpp.i
 
 # target to preprocess a source file
 ThreadLocal.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ThreadLocal.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ThreadLocal.cpp.i
 .PHONY : ThreadLocal.cpp.i
 
 ThreadLocal.s: ThreadLocal.cpp.s
@@ -1108,7 +1108,7 @@ ThreadLocal.s: ThreadLocal.cpp.s
 
 # target to generate assembly for a file
 ThreadLocal.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ThreadLocal.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/ThreadLocal.cpp.s
 .PHONY : ThreadLocal.cpp.s
 
 Threading.o: Threading.cpp.o
@@ -1117,7 +1117,7 @@ Threading.o: Threading.cpp.o
 
 # target to build an object file
 Threading.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Threading.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Threading.cpp.o
 .PHONY : Threading.cpp.o
 
 Threading.i: Threading.cpp.i
@@ -1126,7 +1126,7 @@ Threading.i: Threading.cpp.i
 
 # target to preprocess a source file
 Threading.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Threading.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Threading.cpp.i
 .PHONY : Threading.cpp.i
 
 Threading.s: Threading.cpp.s
@@ -1135,7 +1135,7 @@ Threading.s: Threading.cpp.s
 
 # target to generate assembly for a file
 Threading.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Threading.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Threading.cpp.s
 .PHONY : Threading.cpp.s
 
 TimeProfiler.o: TimeProfiler.cpp.o
@@ -1144,7 +1144,7 @@ TimeProfiler.o: TimeProfiler.cpp.o
 
 # target to build an object file
 TimeProfiler.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/TimeProfiler.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/TimeProfiler.cpp.o
 .PHONY : TimeProfiler.cpp.o
 
 TimeProfiler.i: TimeProfiler.cpp.i
@@ -1153,7 +1153,7 @@ TimeProfiler.i: TimeProfiler.cpp.i
 
 # target to preprocess a source file
 TimeProfiler.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/TimeProfiler.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/TimeProfiler.cpp.i
 .PHONY : TimeProfiler.cpp.i
 
 TimeProfiler.s: TimeProfiler.cpp.s
@@ -1162,7 +1162,7 @@ TimeProfiler.s: TimeProfiler.cpp.s
 
 # target to generate assembly for a file
 TimeProfiler.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/TimeProfiler.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/TimeProfiler.cpp.s
 .PHONY : TimeProfiler.cpp.s
 
 Twine.o: Twine.cpp.o
@@ -1171,7 +1171,7 @@ Twine.o: Twine.cpp.o
 
 # target to build an object file
 Twine.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Twine.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Twine.cpp.o
 .PHONY : Twine.cpp.o
 
 Twine.i: Twine.cpp.i
@@ -1180,7 +1180,7 @@ Twine.i: Twine.cpp.i
 
 # target to preprocess a source file
 Twine.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Twine.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Twine.cpp.i
 .PHONY : Twine.cpp.i
 
 Twine.s: Twine.cpp.s
@@ -1189,7 +1189,7 @@ Twine.s: Twine.cpp.s
 
 # target to generate assembly for a file
 Twine.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Twine.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Twine.cpp.s
 .PHONY : Twine.cpp.s
 
 Unicode.o: Unicode.cpp.o
@@ -1198,7 +1198,7 @@ Unicode.o: Unicode.cpp.o
 
 # target to build an object file
 Unicode.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Unicode.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Unicode.cpp.o
 .PHONY : Unicode.cpp.o
 
 Unicode.i: Unicode.cpp.i
@@ -1207,7 +1207,7 @@ Unicode.i: Unicode.cpp.i
 
 # target to preprocess a source file
 Unicode.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Unicode.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Unicode.cpp.i
 .PHONY : Unicode.cpp.i
 
 Unicode.s: Unicode.cpp.s
@@ -1216,7 +1216,7 @@ Unicode.s: Unicode.cpp.s
 
 # target to generate assembly for a file
 Unicode.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Unicode.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/Unicode.cpp.s
 .PHONY : Unicode.cpp.s
 
 WithColor.o: WithColor.cpp.o
@@ -1225,7 +1225,7 @@ WithColor.o: WithColor.cpp.o
 
 # target to build an object file
 WithColor.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/WithColor.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/WithColor.cpp.o
 .PHONY : WithColor.cpp.o
 
 WithColor.i: WithColor.cpp.i
@@ -1234,7 +1234,7 @@ WithColor.i: WithColor.cpp.i
 
 # target to preprocess a source file
 WithColor.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/WithColor.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/WithColor.cpp.i
 .PHONY : WithColor.cpp.i
 
 WithColor.s: WithColor.cpp.s
@@ -1243,7 +1243,7 @@ WithColor.s: WithColor.cpp.s
 
 # target to generate assembly for a file
 WithColor.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/WithColor.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/WithColor.cpp.s
 .PHONY : WithColor.cpp.s
 
 YAMLParser.o: YAMLParser.cpp.o
@@ -1252,7 +1252,7 @@ YAMLParser.o: YAMLParser.cpp.o
 
 # target to build an object file
 YAMLParser.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLParser.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLParser.cpp.o
 .PHONY : YAMLParser.cpp.o
 
 YAMLParser.i: YAMLParser.cpp.i
@@ -1261,7 +1261,7 @@ YAMLParser.i: YAMLParser.cpp.i
 
 # target to preprocess a source file
 YAMLParser.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLParser.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLParser.cpp.i
 .PHONY : YAMLParser.cpp.i
 
 YAMLParser.s: YAMLParser.cpp.s
@@ -1270,7 +1270,7 @@ YAMLParser.s: YAMLParser.cpp.s
 
 # target to generate assembly for a file
 YAMLParser.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLParser.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLParser.cpp.s
 .PHONY : YAMLParser.cpp.s
 
 YAMLTraits.o: YAMLTraits.cpp.o
@@ -1279,7 +1279,7 @@ YAMLTraits.o: YAMLTraits.cpp.o
 
 # target to build an object file
 YAMLTraits.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLTraits.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLTraits.cpp.o
 .PHONY : YAMLTraits.cpp.o
 
 YAMLTraits.i: YAMLTraits.cpp.i
@@ -1288,7 +1288,7 @@ YAMLTraits.i: YAMLTraits.cpp.i
 
 # target to preprocess a source file
 YAMLTraits.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLTraits.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLTraits.cpp.i
 .PHONY : YAMLTraits.cpp.i
 
 YAMLTraits.s: YAMLTraits.cpp.s
@@ -1297,7 +1297,7 @@ YAMLTraits.s: YAMLTraits.cpp.s
 
 # target to generate assembly for a file
 YAMLTraits.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLTraits.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/YAMLTraits.cpp.s
 .PHONY : YAMLTraits.cpp.s
 
 raw_os_ostream.o: raw_os_ostream.cpp.o
@@ -1306,7 +1306,7 @@ raw_os_ostream.o: raw_os_ostream.cpp.o
 
 # target to build an object file
 raw_os_ostream.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_os_ostream.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_os_ostream.cpp.o
 .PHONY : raw_os_ostream.cpp.o
 
 raw_os_ostream.i: raw_os_ostream.cpp.i
@@ -1315,7 +1315,7 @@ raw_os_ostream.i: raw_os_ostream.cpp.i
 
 # target to preprocess a source file
 raw_os_ostream.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_os_ostream.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_os_ostream.cpp.i
 .PHONY : raw_os_ostream.cpp.i
 
 raw_os_ostream.s: raw_os_ostream.cpp.s
@@ -1324,7 +1324,7 @@ raw_os_ostream.s: raw_os_ostream.cpp.s
 
 # target to generate assembly for a file
 raw_os_ostream.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_os_ostream.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_os_ostream.cpp.s
 .PHONY : raw_os_ostream.cpp.s
 
 raw_ostream.o: raw_ostream.cpp.o
@@ -1333,7 +1333,7 @@ raw_ostream.o: raw_ostream.cpp.o
 
 # target to build an object file
 raw_ostream.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_ostream.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_ostream.cpp.o
 .PHONY : raw_ostream.cpp.o
 
 raw_ostream.i: raw_ostream.cpp.i
@@ -1342,7 +1342,7 @@ raw_ostream.i: raw_ostream.cpp.i
 
 # target to preprocess a source file
 raw_ostream.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_ostream.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_ostream.cpp.i
 .PHONY : raw_ostream.cpp.i
 
 raw_ostream.s: raw_ostream.cpp.s
@@ -1351,7 +1351,7 @@ raw_ostream.s: raw_ostream.cpp.s
 
 # target to generate assembly for a file
 raw_ostream.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_ostream.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/raw_ostream.cpp.s
 .PHONY : raw_ostream.cpp.s
 
 regcomp.o: regcomp.c.o
@@ -1360,7 +1360,7 @@ regcomp.o: regcomp.c.o
 
 # target to build an object file
 regcomp.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regcomp.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regcomp.c.o
 .PHONY : regcomp.c.o
 
 regcomp.i: regcomp.c.i
@@ -1369,7 +1369,7 @@ regcomp.i: regcomp.c.i
 
 # target to preprocess a source file
 regcomp.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regcomp.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regcomp.c.i
 .PHONY : regcomp.c.i
 
 regcomp.s: regcomp.c.s
@@ -1378,7 +1378,7 @@ regcomp.s: regcomp.c.s
 
 # target to generate assembly for a file
 regcomp.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regcomp.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regcomp.c.s
 .PHONY : regcomp.c.s
 
 regerror.o: regerror.c.o
@@ -1387,7 +1387,7 @@ regerror.o: regerror.c.o
 
 # target to build an object file
 regerror.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regerror.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regerror.c.o
 .PHONY : regerror.c.o
 
 regerror.i: regerror.c.i
@@ -1396,7 +1396,7 @@ regerror.i: regerror.c.i
 
 # target to preprocess a source file
 regerror.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regerror.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regerror.c.i
 .PHONY : regerror.c.i
 
 regerror.s: regerror.c.s
@@ -1405,7 +1405,7 @@ regerror.s: regerror.c.s
 
 # target to generate assembly for a file
 regerror.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regerror.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regerror.c.s
 .PHONY : regerror.c.s
 
 regexec.o: regexec.c.o
@@ -1414,7 +1414,7 @@ regexec.o: regexec.c.o
 
 # target to build an object file
 regexec.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regexec.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regexec.c.o
 .PHONY : regexec.c.o
 
 regexec.i: regexec.c.i
@@ -1423,7 +1423,7 @@ regexec.i: regexec.c.i
 
 # target to preprocess a source file
 regexec.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regexec.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regexec.c.i
 .PHONY : regexec.c.i
 
 regexec.s: regexec.c.s
@@ -1432,7 +1432,7 @@ regexec.s: regexec.c.s
 
 # target to generate assembly for a file
 regexec.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regexec.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regexec.c.s
 .PHONY : regexec.c.s
 
 regfree.o: regfree.c.o
@@ -1441,7 +1441,7 @@ regfree.o: regfree.c.o
 
 # target to build an object file
 regfree.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regfree.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regfree.c.o
 .PHONY : regfree.c.o
 
 regfree.i: regfree.c.i
@@ -1450,7 +1450,7 @@ regfree.i: regfree.c.i
 
 # target to preprocess a source file
 regfree.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regfree.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regfree.c.i
 .PHONY : regfree.c.i
 
 regfree.s: regfree.c.s
@@ -1459,7 +1459,7 @@ regfree.s: regfree.c.s
 
 # target to generate assembly for a file
 regfree.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regfree.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regfree.c.s
 .PHONY : regfree.c.s
 
 regstrlcpy.o: regstrlcpy.c.o
@@ -1468,7 +1468,7 @@ regstrlcpy.o: regstrlcpy.c.o
 
 # target to build an object file
 regstrlcpy.c.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regstrlcpy.c.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regstrlcpy.c.o
 .PHONY : regstrlcpy.c.o
 
 regstrlcpy.i: regstrlcpy.c.i
@@ -1477,7 +1477,7 @@ regstrlcpy.i: regstrlcpy.c.i
 
 # target to preprocess a source file
 regstrlcpy.c.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regstrlcpy.c.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regstrlcpy.c.i
 .PHONY : regstrlcpy.c.i
 
 regstrlcpy.s: regstrlcpy.c.s
@@ -1486,7 +1486,7 @@ regstrlcpy.s: regstrlcpy.c.s
 
 # target to generate assembly for a file
 regstrlcpy.c.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regstrlcpy.c.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f ext/llvm/CMakeFiles/llvm-support.dir/build.make ext/llvm/CMakeFiles/llvm-support.dir/regstrlcpy.c.s
 .PHONY : regstrlcpy.c.s
 
 # Help Target
@@ -1659,6 +1659,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

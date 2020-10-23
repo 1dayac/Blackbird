@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -116,7 +116,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -138,7 +138,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -148,14 +148,14 @@ package/fast: package
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/test/include_test/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/include_test/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/test/include_test/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/include_test/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/include_test/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/include_test/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/include_test/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/include_test/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/include_test/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/include_test/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 test/include_test/CMakeFiles/include_test.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/include_test/CMakeFiles/include_test.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 test/include_test/CMakeFiles/include_test.dir/rule
 .PHONY : test/include_test/CMakeFiles/include_test.dir/rule
 
 # Convenience name for target.
@@ -190,62 +190,62 @@ include_test: test/include_test/CMakeFiles/include_test.dir/rule
 
 # fast build rule for target.
 include_test/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/build
 .PHONY : include_test/fast
 
-home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.o: home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.o: home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o
 
-.PHONY : home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.o
-
-# target to build an object file
-home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o
-.PHONY : home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o
-
-home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.i: home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i
-
-.PHONY : home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.i
-
-# target to preprocess a source file
-home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i
-.PHONY : home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i
-
-home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.s: home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s
-
-.PHONY : home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.s
-
-# target to generate assembly for a file
-home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s
-.PHONY : home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s
-
-home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.o: home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o
-
-.PHONY : home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.o
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.o
 
 # target to build an object file
-home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o
-.PHONY : home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.o
 
-home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.i: home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.i: home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i
 
-.PHONY : home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.i
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.i
 
 # target to preprocess a source file
-home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i
-.PHONY : home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.i
 
-home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.s: home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.s: home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s
 
-.PHONY : home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.s
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.s
 
 # target to generate assembly for a file
-home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s
-.PHONY : home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.cpp.s
+
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.o: home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o
+
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.o
+
+# target to build an object file
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.o
+
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.i: home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i
+
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.i
+
+# target to preprocess a source file
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.i
+
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.s: home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s
+
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.s
+
+# target to generate assembly for a file
+home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s:
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s
+.PHONY : home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.cpp.s
 
 test.o: test.cpp.o
 
@@ -253,7 +253,7 @@ test.o: test.cpp.o
 
 # target to build an object file
 test.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/test.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/test.cpp.o
 .PHONY : test.cpp.o
 
 test.i: test.cpp.i
@@ -262,7 +262,7 @@ test.i: test.cpp.i
 
 # target to preprocess a source file
 test.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/test.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/test.cpp.i
 .PHONY : test.cpp.i
 
 test.s: test.cpp.s
@@ -271,7 +271,7 @@ test.s: test.cpp.s
 
 # target to generate assembly for a file
 test.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/test.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f test/include_test/CMakeFiles/include_test.dir/build.make test/include_test/CMakeFiles/include_test.dir/test.cpp.s
 .PHONY : test.cpp.s
 
 # Help Target
@@ -289,12 +289,12 @@ help:
 	@echo "... package_source"
 	@echo "... edit_cache"
 	@echo "... package"
-	@echo "... home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.o"
-	@echo "... home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.i"
-	@echo "... home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_boost.s"
-	@echo "... home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.o"
-	@echo "... home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.i"
-	@echo "... home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include/teamcity_boost/teamcity_messages.s"
+	@echo "... home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.o"
+	@echo "... home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.i"
+	@echo "... home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_boost.s"
+	@echo "... home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.o"
+	@echo "... home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.i"
+	@echo "... home/dmm2017/Desktop/Blackbird/assembler/ext/include/teamcity_boost/teamcity_messages.s"
 	@echo "... test.o"
 	@echo "... test.i"
 	@echo "... test.s"
@@ -309,6 +309,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

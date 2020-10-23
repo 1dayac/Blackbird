@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -116,7 +116,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -127,7 +127,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -148,14 +148,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/common/modules/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/modules/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 common/modules/CMakeFiles/modules.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/CMakeFiles/modules.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/modules/CMakeFiles/modules.dir/rule
 .PHONY : common/modules/CMakeFiles/modules.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ modules: common/modules/CMakeFiles/modules.dir/rule
 
 # fast build rule for target.
 modules/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/build
 .PHONY : modules/fast
 
 alignment/bwa_index.o: alignment/bwa_index.cpp.o
@@ -199,7 +199,7 @@ alignment/bwa_index.o: alignment/bwa_index.cpp.o
 
 # target to build an object file
 alignment/bwa_index.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/bwa_index.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/bwa_index.cpp.o
 .PHONY : alignment/bwa_index.cpp.o
 
 alignment/bwa_index.i: alignment/bwa_index.cpp.i
@@ -208,7 +208,7 @@ alignment/bwa_index.i: alignment/bwa_index.cpp.i
 
 # target to preprocess a source file
 alignment/bwa_index.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/bwa_index.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/bwa_index.cpp.i
 .PHONY : alignment/bwa_index.cpp.i
 
 alignment/bwa_index.s: alignment/bwa_index.cpp.s
@@ -217,7 +217,7 @@ alignment/bwa_index.s: alignment/bwa_index.cpp.s
 
 # target to generate assembly for a file
 alignment/bwa_index.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/bwa_index.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/bwa_index.cpp.s
 .PHONY : alignment/bwa_index.cpp.s
 
 alignment/gap_info.o: alignment/gap_info.cpp.o
@@ -226,7 +226,7 @@ alignment/gap_info.o: alignment/gap_info.cpp.o
 
 # target to build an object file
 alignment/gap_info.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/gap_info.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/gap_info.cpp.o
 .PHONY : alignment/gap_info.cpp.o
 
 alignment/gap_info.i: alignment/gap_info.cpp.i
@@ -235,7 +235,7 @@ alignment/gap_info.i: alignment/gap_info.cpp.i
 
 # target to preprocess a source file
 alignment/gap_info.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/gap_info.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/gap_info.cpp.i
 .PHONY : alignment/gap_info.cpp.i
 
 alignment/gap_info.s: alignment/gap_info.cpp.s
@@ -244,7 +244,7 @@ alignment/gap_info.s: alignment/gap_info.cpp.s
 
 # target to generate assembly for a file
 alignment/gap_info.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/gap_info.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/gap_info.cpp.s
 .PHONY : alignment/gap_info.cpp.s
 
 alignment/long_read_mapper.o: alignment/long_read_mapper.cpp.o
@@ -253,7 +253,7 @@ alignment/long_read_mapper.o: alignment/long_read_mapper.cpp.o
 
 # target to build an object file
 alignment/long_read_mapper.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/long_read_mapper.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/long_read_mapper.cpp.o
 .PHONY : alignment/long_read_mapper.cpp.o
 
 alignment/long_read_mapper.i: alignment/long_read_mapper.cpp.i
@@ -262,7 +262,7 @@ alignment/long_read_mapper.i: alignment/long_read_mapper.cpp.i
 
 # target to preprocess a source file
 alignment/long_read_mapper.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/long_read_mapper.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/long_read_mapper.cpp.i
 .PHONY : alignment/long_read_mapper.cpp.i
 
 alignment/long_read_mapper.s: alignment/long_read_mapper.cpp.s
@@ -271,7 +271,7 @@ alignment/long_read_mapper.s: alignment/long_read_mapper.cpp.s
 
 # target to generate assembly for a file
 alignment/long_read_mapper.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/long_read_mapper.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/long_read_mapper.cpp.s
 .PHONY : alignment/long_read_mapper.cpp.s
 
 alignment/pacbio/g_aligner.o: alignment/pacbio/g_aligner.cpp.o
@@ -280,7 +280,7 @@ alignment/pacbio/g_aligner.o: alignment/pacbio/g_aligner.cpp.o
 
 # target to build an object file
 alignment/pacbio/g_aligner.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/g_aligner.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/g_aligner.cpp.o
 .PHONY : alignment/pacbio/g_aligner.cpp.o
 
 alignment/pacbio/g_aligner.i: alignment/pacbio/g_aligner.cpp.i
@@ -289,7 +289,7 @@ alignment/pacbio/g_aligner.i: alignment/pacbio/g_aligner.cpp.i
 
 # target to preprocess a source file
 alignment/pacbio/g_aligner.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/g_aligner.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/g_aligner.cpp.i
 .PHONY : alignment/pacbio/g_aligner.cpp.i
 
 alignment/pacbio/g_aligner.s: alignment/pacbio/g_aligner.cpp.s
@@ -298,7 +298,7 @@ alignment/pacbio/g_aligner.s: alignment/pacbio/g_aligner.cpp.s
 
 # target to generate assembly for a file
 alignment/pacbio/g_aligner.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/g_aligner.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/g_aligner.cpp.s
 .PHONY : alignment/pacbio/g_aligner.cpp.s
 
 alignment/pacbio/gap_dijkstra.o: alignment/pacbio/gap_dijkstra.cpp.o
@@ -307,7 +307,7 @@ alignment/pacbio/gap_dijkstra.o: alignment/pacbio/gap_dijkstra.cpp.o
 
 # target to build an object file
 alignment/pacbio/gap_dijkstra.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/gap_dijkstra.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/gap_dijkstra.cpp.o
 .PHONY : alignment/pacbio/gap_dijkstra.cpp.o
 
 alignment/pacbio/gap_dijkstra.i: alignment/pacbio/gap_dijkstra.cpp.i
@@ -316,7 +316,7 @@ alignment/pacbio/gap_dijkstra.i: alignment/pacbio/gap_dijkstra.cpp.i
 
 # target to preprocess a source file
 alignment/pacbio/gap_dijkstra.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/gap_dijkstra.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/gap_dijkstra.cpp.i
 .PHONY : alignment/pacbio/gap_dijkstra.cpp.i
 
 alignment/pacbio/gap_dijkstra.s: alignment/pacbio/gap_dijkstra.cpp.s
@@ -325,7 +325,7 @@ alignment/pacbio/gap_dijkstra.s: alignment/pacbio/gap_dijkstra.cpp.s
 
 # target to generate assembly for a file
 alignment/pacbio/gap_dijkstra.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/gap_dijkstra.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/gap_dijkstra.cpp.s
 .PHONY : alignment/pacbio/gap_dijkstra.cpp.s
 
 alignment/pacbio/gap_filler.o: alignment/pacbio/gap_filler.cpp.o
@@ -334,7 +334,7 @@ alignment/pacbio/gap_filler.o: alignment/pacbio/gap_filler.cpp.o
 
 # target to build an object file
 alignment/pacbio/gap_filler.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/gap_filler.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/gap_filler.cpp.o
 .PHONY : alignment/pacbio/gap_filler.cpp.o
 
 alignment/pacbio/gap_filler.i: alignment/pacbio/gap_filler.cpp.i
@@ -343,7 +343,7 @@ alignment/pacbio/gap_filler.i: alignment/pacbio/gap_filler.cpp.i
 
 # target to preprocess a source file
 alignment/pacbio/gap_filler.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/gap_filler.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/gap_filler.cpp.i
 .PHONY : alignment/pacbio/gap_filler.cpp.i
 
 alignment/pacbio/gap_filler.s: alignment/pacbio/gap_filler.cpp.s
@@ -352,7 +352,7 @@ alignment/pacbio/gap_filler.s: alignment/pacbio/gap_filler.cpp.s
 
 # target to generate assembly for a file
 alignment/pacbio/gap_filler.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/gap_filler.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/pacbio/gap_filler.cpp.s
 .PHONY : alignment/pacbio/gap_filler.cpp.s
 
 alignment/sequence_mapper.o: alignment/sequence_mapper.cpp.o
@@ -361,7 +361,7 @@ alignment/sequence_mapper.o: alignment/sequence_mapper.cpp.o
 
 # target to build an object file
 alignment/sequence_mapper.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/sequence_mapper.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/sequence_mapper.cpp.o
 .PHONY : alignment/sequence_mapper.cpp.o
 
 alignment/sequence_mapper.i: alignment/sequence_mapper.cpp.i
@@ -370,7 +370,7 @@ alignment/sequence_mapper.i: alignment/sequence_mapper.cpp.i
 
 # target to preprocess a source file
 alignment/sequence_mapper.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/sequence_mapper.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/sequence_mapper.cpp.i
 .PHONY : alignment/sequence_mapper.cpp.i
 
 alignment/sequence_mapper.s: alignment/sequence_mapper.cpp.s
@@ -379,7 +379,7 @@ alignment/sequence_mapper.s: alignment/sequence_mapper.cpp.s
 
 # target to generate assembly for a file
 alignment/sequence_mapper.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/sequence_mapper.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/sequence_mapper.cpp.s
 .PHONY : alignment/sequence_mapper.cpp.s
 
 alignment/sequence_mapper_notifier.o: alignment/sequence_mapper_notifier.cpp.o
@@ -388,7 +388,7 @@ alignment/sequence_mapper_notifier.o: alignment/sequence_mapper_notifier.cpp.o
 
 # target to build an object file
 alignment/sequence_mapper_notifier.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/sequence_mapper_notifier.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/sequence_mapper_notifier.cpp.o
 .PHONY : alignment/sequence_mapper_notifier.cpp.o
 
 alignment/sequence_mapper_notifier.i: alignment/sequence_mapper_notifier.cpp.i
@@ -397,7 +397,7 @@ alignment/sequence_mapper_notifier.i: alignment/sequence_mapper_notifier.cpp.i
 
 # target to preprocess a source file
 alignment/sequence_mapper_notifier.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/sequence_mapper_notifier.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/sequence_mapper_notifier.cpp.i
 .PHONY : alignment/sequence_mapper_notifier.cpp.i
 
 alignment/sequence_mapper_notifier.s: alignment/sequence_mapper_notifier.cpp.s
@@ -406,7 +406,7 @@ alignment/sequence_mapper_notifier.s: alignment/sequence_mapper_notifier.cpp.s
 
 # target to generate assembly for a file
 alignment/sequence_mapper_notifier.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/sequence_mapper_notifier.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/alignment/sequence_mapper_notifier.cpp.s
 .PHONY : alignment/sequence_mapper_notifier.cpp.s
 
 chromosome_remover.o: chromosome_remover.cpp.o
@@ -415,7 +415,7 @@ chromosome_remover.o: chromosome_remover.cpp.o
 
 # target to build an object file
 chromosome_remover.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/chromosome_remover.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/chromosome_remover.cpp.o
 .PHONY : chromosome_remover.cpp.o
 
 chromosome_remover.i: chromosome_remover.cpp.i
@@ -424,7 +424,7 @@ chromosome_remover.i: chromosome_remover.cpp.i
 
 # target to preprocess a source file
 chromosome_remover.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/chromosome_remover.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/chromosome_remover.cpp.i
 .PHONY : chromosome_remover.cpp.i
 
 chromosome_remover.s: chromosome_remover.cpp.s
@@ -433,7 +433,7 @@ chromosome_remover.s: chromosome_remover.cpp.s
 
 # target to generate assembly for a file
 chromosome_remover.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/chromosome_remover.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/chromosome_remover.cpp.s
 .PHONY : chromosome_remover.cpp.s
 
 genome_consistance_checker.o: genome_consistance_checker.cpp.o
@@ -442,7 +442,7 @@ genome_consistance_checker.o: genome_consistance_checker.cpp.o
 
 # target to build an object file
 genome_consistance_checker.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/genome_consistance_checker.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/genome_consistance_checker.cpp.o
 .PHONY : genome_consistance_checker.cpp.o
 
 genome_consistance_checker.i: genome_consistance_checker.cpp.i
@@ -451,7 +451,7 @@ genome_consistance_checker.i: genome_consistance_checker.cpp.i
 
 # target to preprocess a source file
 genome_consistance_checker.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/genome_consistance_checker.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/genome_consistance_checker.cpp.i
 .PHONY : genome_consistance_checker.cpp.i
 
 genome_consistance_checker.s: genome_consistance_checker.cpp.s
@@ -460,7 +460,7 @@ genome_consistance_checker.s: genome_consistance_checker.cpp.s
 
 # target to generate assembly for a file
 genome_consistance_checker.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/genome_consistance_checker.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/modules/CMakeFiles/modules.dir/build.make common/modules/CMakeFiles/modules.dir/genome_consistance_checker.cpp.s
 .PHONY : genome_consistance_checker.cpp.s
 
 # Help Target
@@ -519,6 +519,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

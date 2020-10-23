@@ -1,4 +1,4 @@
-# Install script for directory: /home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/spades
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/src/projects/spades
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xruntimex" OR NOT CMAKE_INSTALL_COMP
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spades-core"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin/spades-core")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin/spades-core")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spades-core" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/spades-core")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -54,6 +54,6 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xruntimex" OR NOT CMAKE_INSTALL_COMP
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/spades/configs" TYPE DIRECTORY FILES "/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../configs/debruijn" FILES_MATCHING REGEX "/[^/]*\\.info$")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/spades/configs" TYPE DIRECTORY FILES "/home/dmm2017/Desktop/Blackbird/assembler/src/../configs/debruijn" FILES_MATCHING REGEX "/[^/]*\\.info$")
 endif()
 

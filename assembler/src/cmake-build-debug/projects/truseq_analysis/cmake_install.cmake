@@ -1,4 +1,4 @@
-# Install script for directory: /home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/truseq_analysis
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/src/projects/truseq_analysis
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

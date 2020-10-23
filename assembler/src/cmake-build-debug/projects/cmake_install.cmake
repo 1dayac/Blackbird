@@ -1,4 +1,4 @@
-# Install script for directory: /home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/src/projects
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,20 +39,16 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/spades/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/hammer/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/ionhammer/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/corrector/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/scaffold_correction/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/kmercount/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/bin_converter/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/gbuilder/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/gmapper/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/unitig_coverage/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/spaligner/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/gsimplifier/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/cds_subgraphs/cmake_install.cmake")
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/bin_analysis/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/spades/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/hammer/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/ionhammer/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/corrector/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/scaffold_correction/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/kmercount/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/gbuilder/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/gmapper/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/spaligner/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/blackbird/cmake_install.cmake")
 
 endif()
 

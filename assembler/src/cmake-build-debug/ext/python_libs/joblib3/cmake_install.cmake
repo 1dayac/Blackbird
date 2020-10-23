@@ -1,4 +1,4 @@
-# Install script for directory: /home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,21 +39,21 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xruntimex" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/spades/joblib3" TYPE FILE FILES
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/__init__.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/disk.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/format_stack.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/func_inspect.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/_compat.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/hashing.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/logger.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/memory.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/my_exceptions.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/numpy_pickle.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/parallel.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/testing.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/_memory_helpers.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/_multiprocessing_helpers.py"
-    "/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/python_libs/joblib3/pool.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/__init__.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/disk.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/format_stack.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/func_inspect.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/_compat.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/hashing.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/logger.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/memory.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/my_exceptions.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/numpy_pickle.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/parallel.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/testing.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/_memory_helpers.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/_multiprocessing_helpers.py"
+    "/home/dmm2017/Desktop/Blackbird/assembler/ext/src/python_libs/joblib3/pool.py"
     )
 endif()
 

@@ -48,10 +48,10 @@ RM = /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src
+CMAKE_SOURCE_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug
+CMAKE_BINARY_DIR = /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -116,7 +116,7 @@ install/local/fast: preinstall/fast
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -127,7 +127,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && /home/dmm2017/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cpack --config ./CPackSourceConfig.cmake /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -148,14 +148,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/common/paired_info/CMakeFiles/progress.marks
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/paired_info/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/CMakeFiles 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/paired_info/CMakeFiles/progress.marks
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/paired_info/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/paired_info/clean
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/paired_info/clean
 .PHONY : clean
 
 # The main clean target
@@ -165,22 +165,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/paired_info/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/paired_info/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/paired_info/preinstall
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/paired_info/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 common/paired_info/CMakeFiles/paired_info.dir/rule:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/paired_info/CMakeFiles/paired_info.dir/rule
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 common/paired_info/CMakeFiles/paired_info.dir/rule
 .PHONY : common/paired_info/CMakeFiles/paired_info.dir/rule
 
 # Convenience name for target.
@@ -190,7 +190,7 @@ paired_info: common/paired_info/CMakeFiles/paired_info.dir/rule
 
 # fast build rule for target.
 paired_info/fast:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/build
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/build
 .PHONY : paired_info/fast
 
 distance_estimation.o: distance_estimation.cpp.o
@@ -199,7 +199,7 @@ distance_estimation.o: distance_estimation.cpp.o
 
 # target to build an object file
 distance_estimation.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/distance_estimation.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/distance_estimation.cpp.o
 .PHONY : distance_estimation.cpp.o
 
 distance_estimation.i: distance_estimation.cpp.i
@@ -208,7 +208,7 @@ distance_estimation.i: distance_estimation.cpp.i
 
 # target to preprocess a source file
 distance_estimation.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/distance_estimation.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/distance_estimation.cpp.i
 .PHONY : distance_estimation.cpp.i
 
 distance_estimation.s: distance_estimation.cpp.s
@@ -217,7 +217,7 @@ distance_estimation.s: distance_estimation.cpp.s
 
 # target to generate assembly for a file
 distance_estimation.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/distance_estimation.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/distance_estimation.cpp.s
 .PHONY : distance_estimation.cpp.s
 
 smoothing_distance_estimation.o: smoothing_distance_estimation.cpp.o
@@ -226,7 +226,7 @@ smoothing_distance_estimation.o: smoothing_distance_estimation.cpp.o
 
 # target to build an object file
 smoothing_distance_estimation.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/smoothing_distance_estimation.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/smoothing_distance_estimation.cpp.o
 .PHONY : smoothing_distance_estimation.cpp.o
 
 smoothing_distance_estimation.i: smoothing_distance_estimation.cpp.i
@@ -235,7 +235,7 @@ smoothing_distance_estimation.i: smoothing_distance_estimation.cpp.i
 
 # target to preprocess a source file
 smoothing_distance_estimation.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/smoothing_distance_estimation.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/smoothing_distance_estimation.cpp.i
 .PHONY : smoothing_distance_estimation.cpp.i
 
 smoothing_distance_estimation.s: smoothing_distance_estimation.cpp.s
@@ -244,7 +244,7 @@ smoothing_distance_estimation.s: smoothing_distance_estimation.cpp.s
 
 # target to generate assembly for a file
 smoothing_distance_estimation.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/smoothing_distance_estimation.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/smoothing_distance_estimation.cpp.s
 .PHONY : smoothing_distance_estimation.cpp.s
 
 weighted_distance_estimation.o: weighted_distance_estimation.cpp.o
@@ -253,7 +253,7 @@ weighted_distance_estimation.o: weighted_distance_estimation.cpp.o
 
 # target to build an object file
 weighted_distance_estimation.cpp.o:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/weighted_distance_estimation.cpp.o
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/weighted_distance_estimation.cpp.o
 .PHONY : weighted_distance_estimation.cpp.o
 
 weighted_distance_estimation.i: weighted_distance_estimation.cpp.i
@@ -262,7 +262,7 @@ weighted_distance_estimation.i: weighted_distance_estimation.cpp.i
 
 # target to preprocess a source file
 weighted_distance_estimation.cpp.i:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/weighted_distance_estimation.cpp.i
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/weighted_distance_estimation.cpp.i
 .PHONY : weighted_distance_estimation.cpp.i
 
 weighted_distance_estimation.s: weighted_distance_estimation.cpp.s
@@ -271,7 +271,7 @@ weighted_distance_estimation.s: weighted_distance_estimation.cpp.s
 
 # target to generate assembly for a file
 weighted_distance_estimation.cpp.s:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/weighted_distance_estimation.cpp.s
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(MAKE) -f common/paired_info/CMakeFiles/paired_info.dir/build.make common/paired_info/CMakeFiles/paired_info.dir/weighted_distance_estimation.cpp.s
 .PHONY : weighted_distance_estimation.cpp.s
 
 # Help Target
@@ -309,6 +309,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

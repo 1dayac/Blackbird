@@ -5,36 +5,36 @@
 		<Option title="kmer_count_filter"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\ext\;CMake Files\..\ext\src\;CMake Files\..\ext\src\bamtools\;CMake Files\..\ext\src\bamtools\api\;CMake Files\..\ext\src\bamtools\api\internal\;CMake Files\..\ext\src\bamtools\api\internal\bam\;CMake Files\..\ext\src\bamtools\api\internal\index\;CMake Files\..\ext\src\bamtools\api\internal\io\;CMake Files\..\ext\src\bamtools\api\internal\io\pbgzf\;CMake Files\..\ext\src\bamtools\api\internal\sam\;CMake Files\..\ext\src\bamtools\api\internal\utils\;CMake Files\..\ext\src\ConsensusCore\;CMake Files\..\ext\src\cppformat\;CMake Files\..\ext\src\jemalloc\;CMake Files\..\ext\src\jemalloc\build-aux\;CMake Files\..\ext\src\jemalloc\test\;CMake Files\..\ext\src\jemalloc\test\src\;CMake Files\..\ext\src\jemalloc\test\integration\;CMake Files\..\ext\src\jemalloc\test\unit\;CMake Files\..\ext\src\jemalloc\test\stress\;CMake Files\..\ext\src\jemalloc\src\;CMake Files\..\ext\src\nlopt\;CMake Files\..\ext\src\python_libs\;CMake Files\..\ext\src\python_libs\joblib2\;CMake Files\..\ext\src\python_libs\joblib3\;CMake Files\..\ext\src\python_libs\pyyaml2\;CMake Files\..\ext\src\python_libs\pyyaml3\;CMake Files\..\ext\src\samtools\;CMake Files\..\ext\src\ssw\;CMake Files\..\ext\src\getopt_pp\;CMake Files\..\ext\src\llvm\;CMake Files\..\ext\src\bwa\;CMake Files\..\ext\src\gqf\;CMake Files\..\ext\src\edlib\;CMake Files\..\ext\src\gfa1\;CMake Files\..\ext\src\easel\;CMake Files\..\ext\src\hmmer\;CMake Files\..\ext\src\hmmer\src\;CMake Files\..\ext\include\;CMake Files\..\ext\include\llvm\;CMake Files\..\..\;CMake Files\..\..\.git\;CMake Files\..\..\.git\refs\;CMake Files\..\..\.git\refs\heads\;CMake Files\cmake\;CMake Files\cmake\Modules\;CMake Files\include\;CMake Files\common\;CMake Files\common\pipeline\;CMake Files\common\sequence\;CMake Files\common\assembly_graph\;CMake Files\common\modules\;CMake Files\common\modules\path_extend\;CMake Files\common\modules\coverage_model\;CMake Files\common\paired_info\;CMake Files\common\stages\;CMake Files\common\utils\;CMake Files\common\utils\kmer_mph\;CMake Files\common\io\;CMake Files\common\io\binary\;CMake Files\common\io\graph\;CMake Files\common\hmm\;CMake Files\projects\;CMake Files\projects\spades\;CMake Files\projects\hammer\;CMake Files\projects\ionhammer\;CMake Files\projects\corrector\;CMake Files\projects\scaffold_correction\;CMake Files\projects\kmercount\;CMake Files\projects\bin_converter\;CMake Files\projects\gbuilder\;CMake Files\projects\gmapper\;CMake Files\projects\unitig_coverage\;CMake Files\projects\spaligner\;CMake Files\projects\gsimplifier\;CMake Files\projects\cds_subgraphs\;CMake Files\projects\bin_analysis\;CMake Files\projects\online_vis\;CMake Files\projects\truseq_analysis\;CMake Files\projects\mts\;CMake Files\spades_pipeline\;CMake Files\test\;CMake Files\test\include_test\;CMake Files\test\debruijn\;CMake Files\test\adt\;CMake Files\tools\;CMake Files\tools\correctionEvaluatorIon\;CMake Files\tools\correctionEvaluatorIon\cgce\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\ext\;CMake Files\..\ext\src\;CMake Files\..\ext\src\bamtools\;CMake Files\..\ext\src\bamtools\api\;CMake Files\..\ext\src\bamtools\api\internal\;CMake Files\..\ext\src\bamtools\api\internal\bam\;CMake Files\..\ext\src\bamtools\api\internal\index\;CMake Files\..\ext\src\bamtools\api\internal\io\;CMake Files\..\ext\src\bamtools\api\internal\io\pbgzf\;CMake Files\..\ext\src\bamtools\api\internal\sam\;CMake Files\..\ext\src\bamtools\api\internal\utils\;CMake Files\..\ext\src\ConsensusCore\;CMake Files\..\ext\src\cppformat\;CMake Files\..\ext\src\nlopt\;CMake Files\..\ext\src\python_libs\;CMake Files\..\ext\src\python_libs\joblib2\;CMake Files\..\ext\src\python_libs\joblib3\;CMake Files\..\ext\src\python_libs\pyyaml2\;CMake Files\..\ext\src\python_libs\pyyaml3\;CMake Files\..\ext\src\samtools\;CMake Files\..\ext\src\ssw\;CMake Files\..\ext\src\cityhash\;CMake Files\..\ext\src\getopt_pp\;CMake Files\..\ext\src\llvm\;CMake Files\..\ext\src\bwa\;CMake Files\..\ext\src\gqf\;CMake Files\..\ext\src\edlib\;CMake Files\..\ext\src\gfa1\;CMake Files\..\ext\src\easel\;CMake Files\..\ext\src\hmmer\;CMake Files\..\ext\src\hmmer\src\;CMake Files\..\ext\src\mimalloc\;CMake Files\..\ext\src\mimalloc\cmake\;CMake Files\..\ext\include\;CMake Files\..\ext\include\llvm\;CMake Files\..\..\;CMake Files\..\..\.git\;CMake Files\..\..\.git\refs\;CMake Files\..\..\.git\refs\heads\;CMake Files\cmake\;CMake Files\cmake\Modules\;CMake Files\include\;CMake Files\common\;CMake Files\common\pipeline\;CMake Files\common\sequence\;CMake Files\common\assembly_graph\;CMake Files\common\modules\;CMake Files\common\modules\path_extend\;CMake Files\common\modules\coverage_model\;CMake Files\common\paired_info\;CMake Files\common\stages\;CMake Files\common\utils\;CMake Files\common\utils\kmer_mph\;CMake Files\common\io\;CMake Files\common\io\binary\;CMake Files\common\io\graph\;CMake Files\common\hmm\;CMake Files\projects\;CMake Files\projects\spades\;CMake Files\projects\hammer\;CMake Files\projects\ionhammer\;CMake Files\projects\corrector\;CMake Files\projects\scaffold_correction\;CMake Files\projects\kmercount\;CMake Files\projects\gbuilder\;CMake Files\projects\gmapper\;CMake Files\projects\spaligner\;CMake Files\projects\blackbird\;CMake Files\projects\online_vis\;CMake Files\projects\truseq_analysis\;CMake Files\projects\mts\;CMake Files\spades_pipeline\;CMake Files\test\;CMake Files\test\include_test\;CMake Files\test\debruijn\;CMake Files\test\adt\;CMake Files\tools\;CMake Files\tools\correctionEvaluatorIon\;CMake Files\tools\correctionEvaluatorIon\cgce\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts"/>
+				<Option working_dir="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="stats">
-				<Option output="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin/stats" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin"/>
+				<Option output="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin/stats" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-DUSE_GLIBCXX_PARALLEL=1"/>
 					<Add option="-D_GLIBCXX_DEBUG"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/jemalloc/src/../include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/debruijn"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/common"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/debruijn"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/src/mimalloc/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/include"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -45,30 +45,30 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 stats"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 stats"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="stats/fast">
-				<Option output="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin/stats" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin"/>
+				<Option output="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin/stats" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-DUSE_GLIBCXX_PARALLEL=1"/>
 					<Add option="-D_GLIBCXX_DEBUG"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/jemalloc/src/../include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/debruijn"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/common"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/debruijn"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/src/mimalloc/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/include"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -79,30 +79,30 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 stats/fast"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 stats/fast"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="kmer_multiplicity_counter">
-				<Option output="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin/kmer_multiplicity_counter" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin"/>
+				<Option output="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin/kmer_multiplicity_counter" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-DUSE_GLIBCXX_PARALLEL=1"/>
 					<Add option="-D_GLIBCXX_DEBUG"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/jemalloc/src/../include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/debruijn"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/common"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/debruijn"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/src/mimalloc/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/include"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -113,30 +113,30 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 kmer_multiplicity_counter"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 kmer_multiplicity_counter"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="kmer_multiplicity_counter/fast">
-				<Option output="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin/kmer_multiplicity_counter" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin"/>
+				<Option output="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin/kmer_multiplicity_counter" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-DUSE_GLIBCXX_PARALLEL=1"/>
 					<Add option="-D_GLIBCXX_DEBUG"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/jemalloc/src/../include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/debruijn"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/common"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/debruijn"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/src/mimalloc/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/include"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -147,30 +147,30 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 kmer_multiplicity_counter/fast"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 kmer_multiplicity_counter/fast"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="prop_binning">
-				<Option output="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin/prop_binning" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin"/>
+				<Option output="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin/prop_binning" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-DUSE_GLIBCXX_PARALLEL=1"/>
 					<Add option="-D_GLIBCXX_DEBUG"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/jemalloc/src/../include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/debruijn"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/common"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/debruijn"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/src/mimalloc/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/include"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -181,30 +181,30 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 prop_binning"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 prop_binning"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="prop_binning/fast">
-				<Option output="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin/prop_binning" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin"/>
+				<Option output="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin/prop_binning" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-DUSE_GLIBCXX_PARALLEL=1"/>
 					<Add option="-D_GLIBCXX_DEBUG"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/jemalloc/src/../include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/debruijn"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/common"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/debruijn"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/src/mimalloc/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/include"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -215,30 +215,30 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 prop_binning/fast"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 prop_binning/fast"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="contig_abundance_counter">
-				<Option output="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin/contig_abundance_counter" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin"/>
+				<Option output="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin/contig_abundance_counter" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-DUSE_GLIBCXX_PARALLEL=1"/>
 					<Add option="-D_GLIBCXX_DEBUG"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/jemalloc/src/../include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/debruijn"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/common"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/debruijn"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/src/mimalloc/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/include"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -249,30 +249,30 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 contig_abundance_counter"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 contig_abundance_counter"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="contig_abundance_counter/fast">
-				<Option output="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin/contig_abundance_counter" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/bin"/>
+				<Option output="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin/contig_abundance_counter" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-DUSE_GLIBCXX_PARALLEL=1"/>
 					<Add option="-D_GLIBCXX_DEBUG"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/jemalloc/src/../include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/debruijn"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/include"/>
-					<Add directory="/home/dmm2017/Desktop/algorithmic-biology/assembler/ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/common"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/debruijn"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/src/mimalloc/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/include"/>
+					<Add directory="/home/dmm2017/Desktop/Blackbird/assembler/ext/include"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -283,367 +283,331 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 contig_abundance_counter/fast"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 contig_abundance_counter/fast"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/projects/mts/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/annotation.cpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/mimalloc/CMakeFiles/mimalloc-obj.dir/src/static.c.o">
+			<Option target="stats"/>
+			<Option target="kmer_multiplicity_counter"/>
+			<Option target="prop_binning"/>
+			<Option target="contig_abundance_counter"/>
+		</Unit>
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/annotation.cpp">
 			<Option target="stats"/>
 			<Option target="prop_binning"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/annotation.hpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/annotation.hpp">
 			<Option target="stats"/>
 			<Option target="prop_binning"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/contig_abundance.cpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/contig_abundance.cpp">
 			<Option target="contig_abundance_counter"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/contig_abundance.hpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/contig_abundance.hpp">
 			<Option target="contig_abundance_counter"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/contig_abundance_counter.cpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/contig_abundance_counter.cpp">
 			<Option target="contig_abundance_counter"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/gzstream/gzstream.C">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/gzstream/gzstream.C">
 			<Option target="prop_binning"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/gzstream/gzstream.h">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/gzstream/gzstream.h">
 			<Option target="prop_binning"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api/kmc_file.cpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api/kmc_file.cpp">
 			<Option target="kmer_multiplicity_counter"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api/kmc_file.h">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api/kmc_file.h">
 			<Option target="kmer_multiplicity_counter"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api/kmer_api.cpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api/kmer_api.cpp">
 			<Option target="kmer_multiplicity_counter"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api/kmer_api.h">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api/kmer_api.h">
 			<Option target="kmer_multiplicity_counter"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api/mmer.cpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api/mmer.cpp">
 			<Option target="kmer_multiplicity_counter"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmc_api/mmer.h">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmc_api/mmer.h">
 			<Option target="kmer_multiplicity_counter"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/kmer_multiplicity_counter.cpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/kmer_multiplicity_counter.cpp">
 			<Option target="kmer_multiplicity_counter"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/prop_binning.cpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/prop_binning.cpp">
 			<Option target="prop_binning"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/propagate.cpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/propagate.cpp">
 			<Option target="prop_binning"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/propagate.hpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/propagate.hpp">
 			<Option target="prop_binning"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/read_binning.cpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/read_binning.cpp">
 			<Option target="prop_binning"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/read_binning.hpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/read_binning.hpp">
 			<Option target="prop_binning"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/stats.cpp">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/stats.cpp">
 			<Option target="stats"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/CMakeListsInternal.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/CMakeListsInternal.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/bamtools/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/bamtools/api/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/bamtools/api/internal/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/bamtools/api/internal/bam/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/bam/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\bam\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/bamtools/api/internal/index/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/index/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\index\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/bamtools/api/internal/io/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/io/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\io\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/bamtools/api/internal/io/pbgzf/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/io/pbgzf/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\io\pbgzf\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/bamtools/api/internal/sam/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/sam/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\sam\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/bamtools/api/internal/utils/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bamtools/api/internal/utils/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bamtools\api\internal\utils\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/ConsensusCore/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/ConsensusCore/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\ConsensusCore\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/cppformat/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/cppformat/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\cppformat\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/jemalloc/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/jemalloc/build-aux/DetectCompilerFeatures.cmake">
-			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/jemalloc/build-aux/DetectOSFeatures.cmake">
-			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/jemalloc/build-aux/GetSystemAddrBits.cmake">
-			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/jemalloc/build-aux/GetSystemSizes.cmake">
-			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/jemalloc/build-aux/UserCompileOptions.cmake">
-			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/jemalloc/build-aux/Utilities.cmake">
-			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\build-aux\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/jemalloc/test/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/jemalloc/test/src/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\src\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/jemalloc/test/integration/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\integration\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/jemalloc/test/unit/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\unit\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/jemalloc/test/stress/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\test\stress\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/jemalloc/src/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\..\ext\src\jemalloc\src\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/nlopt/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/nlopt/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\nlopt\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/python_libs/joblib2/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/python_libs/joblib2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\python_libs\joblib2\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/python_libs/joblib3/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/python_libs/joblib3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\python_libs\joblib3\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/python_libs/pyyaml2/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/python_libs/pyyaml2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\python_libs\pyyaml2\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/python_libs/pyyaml3/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/python_libs/pyyaml3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\python_libs\pyyaml3\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/samtools/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/samtools/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\samtools\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/ssw/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/ssw/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\ssw\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/getopt_pp/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/cityhash/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\..\ext\src\cityhash\"/>
+		</Unit>
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/getopt_pp/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\getopt_pp\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/llvm/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/llvm/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\llvm\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/bwa/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/bwa/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\bwa\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/gqf/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/gqf/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\gqf\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/edlib/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/edlib/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\edlib\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/gfa1/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/gfa1/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\gfa1\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/easel/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/easel/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\easel\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/easel/esl_config.h.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/easel/esl_config.h.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\easel\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/hmmer/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/hmmer/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\..\ext\src\hmmer\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/src/hmmer/src/p7_config.h.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/hmmer/src/p7_config.h.cmake">
 			<Option virtualFolder="CMake Files\..\ext\src\hmmer\src\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../ext/include/llvm/Config.h.in">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/mimalloc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\..\ext\src\mimalloc\"/>
+		</Unit>
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/src/mimalloc/cmake/mimalloc-config-version.cmake">
+			<Option virtualFolder="CMake Files\..\ext\src\mimalloc\cmake\"/>
+		</Unit>
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../ext/include/llvm/Config.h.in">
 			<Option virtualFolder="CMake Files\..\ext\include\llvm\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../../.git/HEAD">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../../.git/HEAD">
 			<Option virtualFolder="CMake Files\..\..\.git\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/../../.git/refs/heads/corona">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/../../.git/refs/heads/debug_multithread">
 			<Option virtualFolder="CMake Files\..\..\.git\refs\heads\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake/deps.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/deps.cmake">
 			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake/flags.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/flags.cmake">
 			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake/includes.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/includes.cmake">
 			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake/libs.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/libs.cmake">
 			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake/options.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/options.cmake">
 			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake/pack.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/pack.cmake">
 			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake/Modules/FindCurses.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/Modules/FindCurses.cmake">
 			<Option virtualFolder="CMake Files\cmake\Modules\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake/Modules/FindReadline.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/Modules/FindReadline.cmake">
 			<Option virtualFolder="CMake Files\cmake\Modules\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake/Modules/GetGitRevisionDescription.cmake">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/Modules/GetGitRevisionDescription.cmake">
 			<Option virtualFolder="CMake Files\cmake\Modules\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake/Modules/GetGitRevisionDescription.cmake.in">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/cmake/Modules/GetGitRevisionDescription.cmake.in">
 			<Option virtualFolder="CMake Files\cmake\Modules\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/include/config.hpp.in">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/include/config.hpp.in">
 			<Option virtualFolder="CMake Files\include\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/include/k_range.hpp.in">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/include/k_range.hpp.in">
 			<Option virtualFolder="CMake Files\include\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/include/version-gen.hpp.in">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/include/version-gen.hpp.in">
 			<Option virtualFolder="CMake Files\include\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/pipeline/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/pipeline/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\pipeline\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/sequence/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/sequence/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\sequence\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/assembly_graph/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/assembly_graph/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\assembly_graph\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/modules/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/modules/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\modules\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/modules/path_extend/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/modules/path_extend/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\modules\path_extend\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/modules/coverage_model/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/modules/coverage_model/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\modules\coverage_model\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/paired_info/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/paired_info/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\paired_info\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/stages/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/stages/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\stages\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/utils/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/utils/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\utils\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/utils/kmer_mph/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/utils/kmer_mph/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\utils\kmer_mph\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/io/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/io/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\io\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/io/binary/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/io/binary/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\io\binary\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/io/graph/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/io/graph/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\io\graph\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/common/hmm/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/common/hmm/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\common\hmm\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/spades/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/spades/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\spades\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/hammer/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/hammer/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\hammer\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/ionhammer/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/ionhammer/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\ionhammer\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/corrector/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/corrector/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\corrector\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/scaffold_correction/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/scaffold_correction/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\scaffold_correction\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/kmercount/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/kmercount/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\kmercount\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/bin_converter/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\projects\bin_converter\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/gbuilder/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/gbuilder/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\gbuilder\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/gmapper/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/gmapper/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\gmapper\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/unitig_coverage/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\projects\unitig_coverage\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/spaligner/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/spaligner/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\spaligner\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/gsimplifier/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\projects\gsimplifier\"/>
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/blackbird/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\projects\blackbird\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/cds_subgraphs/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\projects\cds_subgraphs\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/bin_analysis/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\projects\bin_analysis\"/>
-		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/online_vis/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/online_vis/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\online_vis\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/truseq_analysis/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/truseq_analysis/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\truseq_analysis\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/projects/mts/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/projects/mts/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\projects\mts\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/spades_pipeline/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/spades_pipeline/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\spades_pipeline\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/test/include_test/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/test/include_test/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\test\include_test\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/test/debruijn/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/test/debruijn/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\test\debruijn\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/test/adt/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/test/adt/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\test\adt\"/>
 		</Unit>
-		<Unit filename="/home/dmm2017/Desktop/algorithmic-biology/assembler/src/tools/correctionEvaluatorIon/cgce/CMakeLists.txt">
+		<Unit filename="/home/dmm2017/Desktop/Blackbird/assembler/src/tools/correctionEvaluatorIon/cgce/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\tools\correctionEvaluatorIon\cgce\"/>
 		</Unit>
 	</Project>

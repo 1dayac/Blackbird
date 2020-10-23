@@ -1,4 +1,4 @@
-# Install script for directory: /home/dmm2017/Desktop/algorithmic-biology/assembler/ext/src/bamtools
+# Install script for directory: /home/dmm2017/Desktop/Blackbird/assembler/ext/src/bamtools
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/dmm2017/Desktop/algorithmic-biology/assembler/src/cmake-build-debug/ext/bamtools/api/cmake_install.cmake")
+  include("/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/bamtools/api/cmake_install.cmake")
 
 endif()
 
