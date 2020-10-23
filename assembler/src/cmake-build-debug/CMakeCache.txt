@@ -627,6 +627,12 @@ llvm-support_LIB_DEPENDS:STATIC=general;/usr/lib/x86_64-linux-gnu/libdl.so;
 llvm-support_SOURCE_DIR:STATIC=/home/dmm2017/Desktop/Blackbird/assembler/ext/src/llvm
 
 //Value Computed by CMake
+minimap2_BINARY_DIR:STATIC=/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/ext/minimap2
+
+//Value Computed by CMake
+minimap2_SOURCE_DIR:STATIC=/home/dmm2017/Desktop/Blackbird/assembler/ext/src/minimap2
+
+//Value Computed by CMake
 modules_BINARY_DIR:STATIC=/home/dmm2017/Desktop/Blackbird/assembler/src/cmake-build-debug/common/modules
 
 //Dependencies for the target
@@ -911,7 +917,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=64
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=65
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
