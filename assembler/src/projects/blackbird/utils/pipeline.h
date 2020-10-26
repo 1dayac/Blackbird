@@ -22,13 +22,18 @@
 #include "io/reads/fasta_fastq_gz_parser.hpp"
 #include "common/utils/parallel/openmp_wrapper.h"
 #include "common/utils/memory_limit.hpp"
-void create_console_logger(std::string log_prop_fn) {
+void create_console_logger(const std::string& dir, std::string log_prop_fn) {
     using namespace logging;
+
+    if (!fs::FileExists(log_prop_fn))
+        log_prop_fn = fs::append_path(dir, log_prop_fn);
+
     logger *lg = create_logger(fs::FileExists(log_prop_fn) ? log_prop_fn : "");
     lg->add_writer(std::make_shared<console_writer>());
     //lg->add_writer(std::make_shared<mutex_writer>(std::make_shared<console_writer>()));
     attach_logger(lg);
 }
+
 
 
 
@@ -363,7 +368,7 @@ public:
         writer_small_ = VCFWriter(OptionBase::output_folder + "/out.vcf");
         writer_inversion_ = VCFWriter(OptionBase::output_folder + "/out_inversions.vcf");
 
-        create_console_logger(log_filename);
+        create_console_logger(OptionBase::output_folder, log_filename);
         INFO("Starting Blackbird");
 
 
