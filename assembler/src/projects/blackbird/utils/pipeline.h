@@ -733,7 +733,7 @@ private:
 
     io::SingleRead CreateReadFromSeq(const Sequence &seq) {
         uniq_number++;
-        return io::SingleRead(std::to_string(uniq_number), seq.str());
+        return io::SingleRead(std::to_string(uniq_number), seq.str(), std::string(seq.size(), 'J'));
     }
 
     void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
