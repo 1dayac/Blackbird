@@ -373,8 +373,8 @@ public:
 
 
 
-        test_minimap("/scratchLocal/dmm2017/temp.fasta", "/scratchLocal/dmm2017/chr1.fasta");
-        return 0;
+//        test_minimap("/scratchLocal/dmm2017/temp.fasta", "/scratchLocal/dmm2017/chr1.fasta");
+//        return 0;
 
 
 
