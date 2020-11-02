@@ -359,6 +359,7 @@ public:
     {}
 
     int Launch() {
+        srand(113018);
         utils::perf_counter pc;
         std::string log_filename = OptionBase::output_folder + "/blackdird.log";
 
