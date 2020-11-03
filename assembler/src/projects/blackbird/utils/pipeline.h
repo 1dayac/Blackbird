@@ -740,7 +740,7 @@ private:
     void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
-        mm_idx_t *index = mm_idx_str(10, 19, 0, 8, 1, reference_array, NULL);
+        mm_idx_t *index = mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
         io::FastaFastqGzParser reference_reader(path_to_scaffolds);
         io::SingleRead contig;
         while (!reference_reader.eof()) {
