@@ -631,6 +631,15 @@ private:
             barcode_output << barcode << "\n";
         }
 
+        auto const &const_map_of_bad_read_pairs = map_of_bad_read_pairs_;
+        for (auto barcode : barcodes_count_over_threshold) {
+            if (const_map_of_bad_read_pairs.count(barcode)) {
+                for (auto const &read : const_cast<std::vector<std::pair<Sequence, Sequence>>&>(const_map_of_bad_read_pairs.at(barcode))) {
+                    out_stream << CreatePairedReadFromSeq(read.first, read.second);
+                }
+            }
+        }
+
 
         auto const &const_map_of_bad_reads = map_of_bad_reads_;
         for (auto barcode : barcodes_count_over_threshold) {
@@ -662,6 +671,12 @@ private:
     io::SingleRead CreateReadFromSeq(const Sequence &seq) {
         uniq_number++;
         return io::SingleRead(std::to_string(uniq_number), seq.str(), std::string(seq.size(), 'J'));
+    }
+
+    io::PairedRead CreatePairedReadFromSeq(const Sequence &seq, const Sequence &seq2) {
+        uniq_number++;
+        return io::PairedRead(io::SingleRead(std::to_string(uniq_number), seq.str(), std::string(seq.size(), 'J')),
+                io::SingleRead(std::to_string(uniq_number), seq2.str(), std::string(seq2.size(), 'J')), 0);
     }
 
     void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
