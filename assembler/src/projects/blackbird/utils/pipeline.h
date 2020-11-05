@@ -810,6 +810,12 @@ private:
         if (num_soft_clip/(double)alignment.Length > 0.2/*opt::max_soft_clipping*/) {
             return true;
         }
+
+        int tag;
+        alignment.GetTag("AM", tag);
+        if (tag == 0) {
+            return true;
+        }
         return false;
     }
 
