@@ -337,7 +337,7 @@ shared_ptr<SimpleExtender> ExtendersGenerator::MakePEExtender(size_t lib_index, 
                                        extension_chooser,
                                        paired_lib->GetISMax(),
                                        investigate_loops,
-                                       false /*use short loop coverage resolver*/,
+                                       true /*use short loop coverage resolver*/,
                                        opts.weight_threshold);
 }
 
