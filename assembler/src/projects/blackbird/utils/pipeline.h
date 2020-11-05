@@ -813,6 +813,7 @@ private:
 
         int tag;
         alignment.GetTag("AM", tag);
+        INFO(tag);
         if (tag == 0) {
             return true;
         }
