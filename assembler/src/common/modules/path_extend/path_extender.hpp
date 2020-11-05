@@ -296,7 +296,6 @@ private:
     void MakeBestChoice(BidirectionalPath& path, EdgeId back_cycle_edge, EdgeId loop_outgoing, EdgeId loop_incoming) const {
         EdgeId forward_cycle_edge = path.Back();
         UndoCycles(path, back_cycle_edge, loop_incoming);
-
         //Expects 0 (for no loops), 1 (for a single loop) or 2 (for many loops, will insert back_cycle_edge and Ns)
         size_t loop_count = loop_estimator_->EstimateSimpleCycleCount(path, back_cycle_edge, loop_outgoing);
         if (loop_count > 0) {
@@ -319,10 +318,12 @@ private:
                     DEBUG("Multiple cycles");
                     //If the forward edge is shorter than K, avoid overlapping bases between backward edge and outgoing edge
                     //Make sure that the N-stretch will be exactly 100 bp
-                    for(size_t i = 0; i < loop_count; i++) {
+                    for(size_t i = 0; i < loop_count - 1; i++) {
                         path.PushBack(forward_cycle_edge);
-                        path.PushBack(loop_outgoing);
+                        path.PushBack(back_cycle_edge);
                     }
+                    path.PushBack(forward_cycle_edge);
+                    path.PushBack(loop_outgoing);
                 }
             }
         }
