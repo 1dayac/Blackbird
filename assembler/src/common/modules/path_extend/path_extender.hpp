@@ -247,9 +247,11 @@ public:
         EdgeId loop_outgoing;
         EdgeId loop_incoming;
         if (path.Size() >=1 && GetLoopAndExit(g_, path.Back(), back_cycle_edge, loop_outgoing, loop_incoming)) {
+
             DEBUG("Resolving short loop...");
             MakeBestChoice(path, back_cycle_edge, loop_outgoing, loop_incoming);
             DEBUG("Resolving short loop done");
+
         }
     }
 
@@ -1105,7 +1107,20 @@ public:
 
 private:
     bool ResolveShortLoop(BidirectionalPath& p) {
-        if (use_short_loop_cov_resolver_) {
+        EdgeId back_cycle_edge;
+        EdgeId loop_exit;
+        EdgeId loop_in;
+        GetLoopAndExit(p.graph(), p.Back(), back_cycle_edge, loop_exit, loop_in);
+        int count = 0;
+        if (g_.length(back_cycle_edge) > 1000)
+            count++;
+        if (g_.length(loop_exit) > 1000)
+            count++;
+        if (g_.length(loop_in) > 1000)
+            count++;
+        if (g_.length(p.Back()) > 1000)
+            count++;
+        if (use_short_loop_cov_resolver_ && count >= 3) {
             return ResolveShortLoopByCov(p);
         } else {
             return ResolveShortLoopByPI(p);
