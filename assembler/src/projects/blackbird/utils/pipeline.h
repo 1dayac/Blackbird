@@ -545,6 +545,8 @@ private:
     void ProcessWindow(const RefWindow &window,  BamTools::BamReader &reader, BamTools::BamReader &mate_reader) {
         INFO("Processing " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ")");
         BamTools::BamRegion region(reader.GetReferenceID(window.RefName.RefName), window.WindowStart, reader.GetReferenceID(window.RefName.RefName), window.WindowEnd);
+        BamTools::BamRegion extended_region(reader.GetReferenceID(window.RefName.RefName), std::max(0, (int)window.WindowStart - 1000), reader.GetReferenceID(window.RefName.RefName), window.WindowEnd + 1000);
+
         BamTools::BamAlignment alignment;
         if (!reader.SetRegion(region)) {
             return;
@@ -597,14 +599,26 @@ private:
                 continue;
             }
             filtered_reads[alignment.Name].push_back(alignment);
-            last_entries.push_back(alignment);
-            if (last_entries.full() && alignment.Position - last_entries.front().Position < 50) {
+        }
 
-                reader.Jump(alignment.RefID, alignment.Position + 500);
-                VERBOSE_POWER(++jumps, " jumps");
+        reader.SetRegion(extended_region);
+        while (reader.GetNextAlignment(alignment)) {
+            if (alignment.Position > extended_region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
+                break;
+            }
+            if (alignment.Position < extended_region.RightPosition && alignment.Position > extended_region.LeftPosition)
+                continue;
+
+            std::string bx = "";
+            alignment.GetTag("BX", bx);
+            if (!barcodes_count_over_threshold.count(bx) || !alignment.IsPrimaryAlignment()) {
                 continue;
             }
+            if (filtered_reads[alignment.Name].size() != 1)
+                continue;
 
+            if (filtered_reads[alignment.Name].front().IsFirstMate() !=  alignment.IsFirstMate())
+                filtered_reads[alignment.Name].push_back(alignment);
         }
 
         for (auto p : filtered_reads) {
