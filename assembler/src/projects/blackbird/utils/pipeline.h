@@ -602,13 +602,13 @@ private:
         }
 
         reader.SetRegion(extended_region);
-        while (reader.GetNextAlignment(alignment)) {
+        while (reader.GetNextAlignmentCore(alignment)) {
             if (alignment.Position > extended_region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
                 break;
             }
             if (alignment.Position < extended_region.RightPosition && alignment.Position > extended_region.LeftPosition)
                 continue;
-
+            alignment.BuildCharData();
             std::string bx = "";
             alignment.GetTag("BX", bx);
             if (!barcodes_count_over_threshold.count(bx) || !alignment.IsPrimaryAlignment()) {
