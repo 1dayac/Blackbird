@@ -316,20 +316,22 @@ public:
 
             int current_refid = -1;
             INFO("Filter poorly aligned reads");
-            while(reader.GetNextAlignment(alignment)) {
-                std::string bx;
+            while(reader.GetNextAlignmentCore(alignment)) {
                 VERBOSE_POWER(++alignment_count, " alignments processed");
-                alignment.GetTag("BX", bx);
-                if (bx == "") {
-                    continue;
-                }
                 if (alignment.RefID != current_refid) {
                     current_refid = alignment.RefID;
                     DEBUG("Processing chromosome " << refid_to_ref_name_[current_refid]);
                 }
-
-                if (IsBadAlignment(alignment, refid_to_ref_name_) && alignment.IsPrimaryAlignment()) {
+                if (!alignment.IsPrimaryAlignment())
+                    continue;
+                alignment.BuildCharData();
+                if (IsBadAlignment(alignment, refid_to_ref_name_)) {
                     if (alignment.QueryBases.find("N") == std::string::npos) {
+                        std::string bx;
+                        alignment.GetTag("BX", bx);
+                        if (bx == "") {
+                            continue;
+                        }
                         if (alignment.IsFirstMate())
                             map_of_bad_first_reads_[alignment.Name] = {Sequence(alignment.QueryBases), bx};
                         else
