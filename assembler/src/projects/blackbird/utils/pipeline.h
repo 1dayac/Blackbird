@@ -453,6 +453,7 @@ private:
     std::unordered_map<std::string, std::string> reference_map_;
     std::unordered_map<int, std::string> refid_to_ref_name_;
     static int uniq_number;
+    static int jumps;
 
     void PrintInversions(const std::vector<Inversion> &vector_of_inv, VCFWriter &writer) {
         for (auto inv : vector_of_inv) {
@@ -598,7 +599,9 @@ private:
             filtered_reads[alignment.Name].push_back(alignment);
             last_entries.push_back(alignment);
             if (last_entries.full() && alignment.Position - last_entries.front().Position < 50) {
+
                 reader.Jump(alignment.RefID, alignment.Position + 500);
+                VERBOSE_POWER(++jumps, " jumps");
                 continue;
             }
 
@@ -842,6 +845,7 @@ private:
         if (alignment.IsFirstMate()) {
             std::string read_name = alignment.Name;
             first = CreateRead(alignment);
+            VERBOSE_POWER(++jumps, " jumps");
             reader.Jump(alignment.MateRefID, alignment.MatePosition);
             BamTools::BamAlignment mate_alignment;
             int jump_num = 0;
@@ -867,6 +871,7 @@ private:
         } else {
             second = CreateRead(alignment);
             std::string read_name = alignment.Name;
+            VERBOSE_POWER(++jumps, " jumps");
             reader.Jump(alignment.MateRefID, alignment.MatePosition);
             BamTools::BamAlignment mate_alignment;
             int jump_num = 0;
@@ -913,5 +918,7 @@ private:
 };
 
 int BlackBirdLauncher::uniq_number = 1;
+int BlackBirdLauncher::jumps = 0;
+
 #endif //BLACKBIRD_PIPELINE_H
 
