@@ -606,7 +606,7 @@ private:
             if (alignment.Position > extended_region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
                 break;
             }
-            if (alignment.Position < extended_region.RightPosition && alignment.Position > extended_region.LeftPosition)
+            if (alignment.Position < region.RightPosition && alignment.Position > region.LeftPosition)
                 continue;
             alignment.BuildCharData();
             std::string bx = "";
