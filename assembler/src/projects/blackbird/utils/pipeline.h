@@ -601,6 +601,7 @@ private:
             filtered_reads[alignment.Name].push_back(alignment);
         }
 
+        int count_add = 0;
         reader.SetRegion(extended_region);
         while (reader.GetNextAlignmentCore(alignment)) {
             if (alignment.Position > extended_region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
@@ -618,8 +619,12 @@ private:
                 continue;
 
             if (filtered_reads[alignment.Name].front().IsFirstMate() !=  alignment.IsFirstMate())
+            {
                 filtered_reads[alignment.Name].push_back(alignment);
+                count_add++;
+            }
         }
+        INFO("Count_add - " << count_add);
 
         for (auto p : filtered_reads) {
             if (p.second.size() == 1) {
