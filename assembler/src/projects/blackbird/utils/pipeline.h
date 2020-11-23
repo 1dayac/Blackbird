@@ -709,6 +709,7 @@ private:
         mm_idx_t *index = mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
         io::FastaFastqGzParser reference_reader(path_to_scaffolds);
         io::SingleRead contig;
+        std::set<std::pair<int, int>> found_intervals;
         while (!reference_reader.eof()) {
             reference_reader >> contig;
             std::string query = contig.GetSequenceString();
