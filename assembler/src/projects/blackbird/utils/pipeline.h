@@ -736,6 +736,7 @@ private:
                     for (int i = 0; i < r->p->n_cigar; ++i) {
                         //printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
+                            found_intervals.insert({reference_start, reference_start + r->p->cigar[i]>>4});
                             query_start += r->p->cigar[i]>>4;
                             reference_start += r->p->cigar[i]>>4;
                         }
@@ -758,6 +759,7 @@ private:
                             } else {
                                 WriteCritical(vector_of_small_del_, del);
                             }
+                            found_intervals.insert({reference_start, reference_start + r->p->cigar[i]>>4});
                             reference_start += r->p->cigar[i]>>4;
                         }
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
@@ -768,6 +770,7 @@ private:
                         //printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
                             query_start += r->p->cigar[i]>>4;
+                            found_intervals.insert({reference_start, reference_start + r->p->cigar[i]>>4});
                             reference_start += r->p->cigar[i]>>4;
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
@@ -790,6 +793,7 @@ private:
                             } else {
                                     WriteCritical(vector_of_small_del_, del);
                             }
+                            found_intervals.insert({reference_start, reference_start + r->p->cigar[i]>>4});
                             reference_start += r->p->cigar[i]>>4;
                         }
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
@@ -800,6 +804,30 @@ private:
             mm_tbuf_destroy(tbuf);
         }
         mm_idx_destroy(index);
+        std::vector<std::pair<int, int>> merged_intervals;
+        for (auto p : found_intervals) {
+            if (!merged_intervals.size()) {
+                merged_intervals.push_back(p);
+                continue;
+            }
+            auto last_interval = merged_intervals.back();
+            if (p.first > last_interval.second) {
+                merged_intervals.push_back(p);
+                continue;
+            }
+            if (p.second > last_interval.second) {
+                merged_intervals[merged_intervals.size() - 1] = {last_interval.first, p.second};
+            }
+        }
+        if (merged_intervals.size() < 2)
+            return;
+
+        for (size_t i = 0; i < merged_intervals.size() - 1; ++i) {
+            if (merged_intervals[i].second < merged_intervals[i + 1].first + 50) {
+                Deletion del(ref_name, start_pos + merged_intervals[i].second, start_pos + merged_intervals[i + 1].first, reference.substr(merged_intervals[i].second, merged_intervals[i + 1].first - merged_intervals[i].second));
+                INFO("Potential deletion - "  << del.ToString());
+            }
+        }
     }
 
 
