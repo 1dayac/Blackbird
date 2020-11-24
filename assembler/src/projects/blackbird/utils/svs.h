@@ -55,6 +55,10 @@ public:
         return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<DEL>\t"  + "SEQ=" + deletion_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_) + ";SVTYPE=DEL";
     }
 
+    bool HasN() const {
+        return (deletion_seq_.find('N') != std::string::npos);
+    }
+
     int Size() const {
         return second_ref_position_ - ref_position_;
     }
