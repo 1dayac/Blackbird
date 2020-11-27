@@ -799,37 +799,39 @@ private:
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
                 }
                 free(r->p);
+
+                std::vector<std::pair<int, int>> merged_intervals;
+                for (auto p : found_intervals) {
+                    if (!merged_intervals.size()) {
+                        merged_intervals.push_back(p);
+                        continue;
+                    }
+                    auto last_interval = merged_intervals.back();
+                    if (p.first > last_interval.second) {
+                        merged_intervals.push_back(p);
+                        continue;
+                    }
+                    if (p.second > last_interval.second) {
+                        merged_intervals[merged_intervals.size() - 1] = {last_interval.first, p.second};
+                    }
+                }
+                if (merged_intervals.size() < 2)
+                    return;
+                INFO(merged_intervals);
+                for (size_t i = 0; i < merged_intervals.size() - 1; ++i) {
+                    if (merged_intervals[i].second + 50 < merged_intervals[i + 1].first) {
+                        Deletion del(ref_name, start_pos + merged_intervals[i].second, start_pos + merged_intervals[i + 1].first, reference.substr(merged_intervals[i].second, merged_intervals[i + 1].first - merged_intervals[i].second));
+                        if (del.HasN())
+                            continue;
+                        INFO("Potential deletion - "  << del.ToString());
+                    }
+                }
             }
+
             free(hit_array);
             mm_tbuf_destroy(tbuf);
         }
         mm_idx_destroy(index);
-        std::vector<std::pair<int, int>> merged_intervals;
-        for (auto p : found_intervals) {
-            if (!merged_intervals.size()) {
-                merged_intervals.push_back(p);
-                continue;
-            }
-            auto last_interval = merged_intervals.back();
-            if (p.first > last_interval.second) {
-                merged_intervals.push_back(p);
-                continue;
-            }
-            if (p.second > last_interval.second) {
-                merged_intervals[merged_intervals.size() - 1] = {last_interval.first, p.second};
-            }
-        }
-        if (merged_intervals.size() < 2)
-            return;
-        INFO(merged_intervals);
-        for (size_t i = 0; i < merged_intervals.size() - 1; ++i) {
-            if (merged_intervals[i].second + 50 < merged_intervals[i + 1].first) {
-                Deletion del(ref_name, start_pos + merged_intervals[i].second, start_pos + merged_intervals[i + 1].first, reference.substr(merged_intervals[i].second, merged_intervals[i + 1].first - merged_intervals[i].second));
-                if (del.HasN())
-                    continue;
-                INFO("Potential deletion - "  << del.ToString());
-            }
-        }
     }
 
 
