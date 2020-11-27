@@ -726,7 +726,7 @@ private:
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             if (number_of_hits > 0) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[0];
-                //printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
+                printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 if (r->inv) {
                     ProcessInversion(r, query, ref_name, start_pos);
                 }
@@ -734,7 +734,7 @@ private:
                     int query_start = r->qs;
                     int reference_start = r->rs;
                     for (int i = 0; i < r->p->n_cigar; ++i) {
-                        //printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
+                        printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
                             found_intervals.insert({std::min(reference_start, (int)(reference_start + r->p->cigar[i]>>4)), std::max(reference_start, (int)(reference_start + r->p->cigar[i]>>4))});
                             query_start += r->p->cigar[i]>>4;
@@ -767,7 +767,7 @@ private:
                     int query_start = r->qs;
                     int reference_start = r->rs;
                     for (int i = 0; i < r->p->n_cigar; ++i) {
-                        //printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
+                        printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
                             query_start += r->p->cigar[i]>>4;
                             found_intervals.insert({std::min(reference_start, (int)(reference_start + r->p->cigar[i]>>4)), std::max(reference_start, (int)(reference_start + r->p->cigar[i]>>4))});
@@ -815,9 +815,9 @@ private:
                         merged_intervals[merged_intervals.size() - 1] = {last_interval.first, p.second};
                     }
                 }
+                INFO(merged_intervals);
                 if (merged_intervals.size() < 2)
                     return;
-                INFO(merged_intervals);
                 for (size_t i = 0; i < merged_intervals.size() - 1; ++i) {
                     if (merged_intervals[i].second + 50 < merged_intervals[i + 1].first) {
                         Deletion del(ref_name, start_pos + merged_intervals[i].second, start_pos + merged_intervals[i + 1].first, reference.substr(merged_intervals[i].second, merged_intervals[i + 1].first - merged_intervals[i].second));
