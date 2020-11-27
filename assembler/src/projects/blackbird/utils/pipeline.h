@@ -736,7 +736,7 @@ private:
                     for (int i = 0; i < r->p->n_cigar; ++i) {
                         //printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
-                            found_intervals.insert({reference_start, reference_start + r->p->cigar[i]>>4});
+                            found_intervals.insert({std::min(reference_start, (int)(reference_start + r->p->cigar[i]>>4)), std::max(reference_start, (int)(reference_start + r->p->cigar[i]>>4))});
                             query_start += r->p->cigar[i]>>4;
                             reference_start += r->p->cigar[i]>>4;
                         }
@@ -759,7 +759,7 @@ private:
                             } else {
                                 WriteCritical(vector_of_small_del_, del);
                             }
-                            found_intervals.insert({reference_start, reference_start + r->p->cigar[i]>>4});
+                            found_intervals.insert({std::min(reference_start, (int)(reference_start + r->p->cigar[i]>>4)), std::max(reference_start, (int)(reference_start + r->p->cigar[i]>>4))});
                             reference_start += r->p->cigar[i]>>4;
                         }
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
@@ -770,7 +770,7 @@ private:
                         //printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
                             query_start += r->p->cigar[i]>>4;
-                            found_intervals.insert({reference_start, reference_start + r->p->cigar[i]>>4});
+                            found_intervals.insert({std::min(reference_start, (int)(reference_start + r->p->cigar[i]>>4)), std::max(reference_start, (int)(reference_start + r->p->cigar[i]>>4))});
                             reference_start += r->p->cigar[i]>>4;
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
@@ -793,7 +793,7 @@ private:
                             } else {
                                     WriteCritical(vector_of_small_del_, del);
                             }
-                            found_intervals.insert({reference_start, reference_start + r->p->cigar[i]>>4});
+                            found_intervals.insert({std::min(reference_start, (int)(reference_start + r->p->cigar[i]>>4)), std::max(reference_start, (int)(reference_start + r->p->cigar[i]>>4))});
                             reference_start += r->p->cigar[i]>>4;
                         }
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
