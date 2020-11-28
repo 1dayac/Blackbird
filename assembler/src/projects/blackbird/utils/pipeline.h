@@ -724,8 +724,8 @@ private:
             mopt.flag |= MM_F_CIGAR;
             mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
-            if (number_of_hits > 0) { // traverse hits and print them out
-                mm_reg1_t *r = &hit_array[0];
+            for (int k = 0; k < number_of_hits; ++k) { // traverse hits and print them out
+                mm_reg1_t *r = &hit_array[k];
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 if (r->inv) {
                     ProcessInversion(r, query, ref_name, start_pos);
@@ -800,31 +800,31 @@ private:
                 }
                 free(r->p);
 
-                std::vector<std::pair<int, int>> merged_intervals;
-                for (auto p : found_intervals) {
-                    if (!merged_intervals.size()) {
-                        merged_intervals.push_back(p);
-                        continue;
-                    }
-                    auto last_interval = merged_intervals.back();
-                    if (p.first > last_interval.second) {
-                        merged_intervals.push_back(p);
-                        continue;
-                    }
-                    if (p.second > last_interval.second) {
-                        merged_intervals[merged_intervals.size() - 1] = {last_interval.first, p.second};
-                    }
+            }
+            std::vector<std::pair<int, int>> merged_intervals;
+            for (auto p : found_intervals) {
+                if (!merged_intervals.size()) {
+                    merged_intervals.push_back(p);
+                    continue;
                 }
-                INFO(merged_intervals);
-                if (merged_intervals.size() < 2)
-                    return;
-                for (size_t i = 0; i < merged_intervals.size() - 1; ++i) {
-                    if (merged_intervals[i].second + 50 < merged_intervals[i + 1].first) {
-                        Deletion del(ref_name, start_pos + merged_intervals[i].second, start_pos + merged_intervals[i + 1].first, reference.substr(merged_intervals[i].second, merged_intervals[i + 1].first - merged_intervals[i].second));
-                        if (del.HasN())
-                            continue;
-                        INFO("Potential deletion - "  << del.ToString());
-                    }
+                auto last_interval = merged_intervals.back();
+                if (p.first > last_interval.second) {
+                    merged_intervals.push_back(p);
+                    continue;
+                }
+                if (p.second > last_interval.second) {
+                    merged_intervals[merged_intervals.size() - 1] = {last_interval.first, p.second};
+                }
+            }
+            INFO(merged_intervals);
+            if (merged_intervals.size() < 2)
+                return;
+            for (size_t i = 0; i < merged_intervals.size() - 1; ++i) {
+                if (merged_intervals[i].second + 50 < merged_intervals[i + 1].first) {
+                    Deletion del(ref_name, start_pos + merged_intervals[i].second, start_pos + merged_intervals[i + 1].first, reference.substr(merged_intervals[i].second, merged_intervals[i + 1].first - merged_intervals[i].second));
+                    if (del.HasN())
+                        continue;
+                    INFO("Potential deletion - "  << del.ToString());
                 }
             }
 
