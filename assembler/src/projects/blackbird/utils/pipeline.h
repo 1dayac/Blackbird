@@ -703,6 +703,16 @@ private:
                 io::SingleRead(std::to_string(uniq_number), seq2.str(), std::string(seq2.size(), 'J')), 0);
     }
 
+    bool NoID(mm_reg1_t *r, int index) {
+        if (index + 1 == r->p->n_cigar)
+            return true;
+        if ("MIDNSH"[r->p->cigar[index]&0xf] + "MIDNSH"[r->p->cigar[index]&0xf] == 'D' + 'I') {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
@@ -742,7 +752,7 @@ private:
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
                             Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4));
                             std::string ins_seq = query.substr(query_start, r->p->cigar[i]>>4);
-                            if (ins_seq.find("N") == std::string::npos && qsize > 5000) {
+                            if (ins_seq.find("N") == std::string::npos && qsize > 5000 && NoID(r, i)) {
                                 if (ins.Size() >= 50) {
                                     WriteCritical(vector_of_ins_, ins);
                                 } else {
@@ -753,7 +763,7 @@ private:
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
-                            if (qsize > 5000) {
+                            if (qsize > 5000 && NoID(r, i)) {
                                 if (del.Size() >= 50) {
                                     WriteCritical(vector_of_del_, del);
                                 } else {
@@ -778,7 +788,7 @@ private:
 
                             Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
                             std::string ins_seq = ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4);
-                            if (ins_seq.find("N") == std::string::npos && qsize > 5000) {
+                            if (ins_seq.find("N") == std::string::npos && qsize > 5000 && NoID(r, i)) {
                                 if (ins.Size() >= 50) {
                                     WriteCritical(vector_of_ins_, ins);
                                 } else {
@@ -789,7 +799,7 @@ private:
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
-                            if (qsize > 5000) {
+                            if (qsize > 5000 && NoID(r, i)) {
                                 if (del.Size() >= 50) {
                                     WriteCritical(vector_of_del_, del);
                                 } else {
