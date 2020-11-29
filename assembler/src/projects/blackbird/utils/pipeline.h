@@ -713,7 +713,7 @@ private:
         while (!reference_reader.eof()) {
             reference_reader >> contig;
             std::string query = contig.GetSequenceString();
-            if (query.size() < 500) {
+            if (query.size() < 5000) {
                 continue;
             }
             int number_of_hits;
