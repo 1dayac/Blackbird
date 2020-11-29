@@ -713,9 +713,8 @@ private:
         while (!reference_reader.eof()) {
             reference_reader >> contig;
             std::string query = contig.GetSequenceString();
-            if (query.size() < 5000) {
-                continue;
-            }
+            size_t qsize = query.size();
+
             int number_of_hits;
             mm_tbuf_t *tbuf = mm_tbuf_init();
             mm_idxopt_t iopt;
@@ -724,7 +723,7 @@ private:
             mopt.flag |= MM_F_CIGAR;
             mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
-            for (int k = 0; k < number_of_hits; ++k) { // traverse hits and print them out
+            for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[k];
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 if (r->inv) {
@@ -743,7 +742,7 @@ private:
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
                             Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4));
                             std::string ins_seq = query.substr(query_start, r->p->cigar[i]>>4);
-                            if (ins_seq.find("N") == std::string::npos) {
+                            if (ins_seq.find("N") == std::string::npos && qsize > 5000) {
                                 if (ins.Size() >= 50) {
                                     WriteCritical(vector_of_ins_, ins);
                                 } else {
@@ -754,10 +753,12 @@ private:
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
-                            if (del.Size() >= 50) {
-                                WriteCritical(vector_of_del_, del);
-                            } else {
-                                WriteCritical(vector_of_small_del_, del);
+                            if (qsize > 5000) {
+                                if (del.Size() >= 50) {
+                                    WriteCritical(vector_of_del_, del);
+                                } else {
+                                    WriteCritical(vector_of_small_del_, del);
+                                }
                             }
                             found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i]>>4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
                             reference_start += (r->p->cigar[i]>>4);
@@ -777,7 +778,7 @@ private:
 
                             Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
                             std::string ins_seq = ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4);
-                            if (ins_seq.find("N") == std::string::npos) {
+                            if (ins_seq.find("N") == std::string::npos && qsize > 5000) {
                                 if (ins.Size() >= 50) {
                                     WriteCritical(vector_of_ins_, ins);
                                 } else {
@@ -788,10 +789,12 @@ private:
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
-                            if (del.Size() >= 50) {
+                            if (qsize > 5000) {
+                                if (del.Size() >= 50) {
                                     WriteCritical(vector_of_del_, del);
-                            } else {
+                                } else {
                                     WriteCritical(vector_of_small_del_, del);
+                                }
                             }
                             found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i]>>4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
                             reference_start += (r->p->cigar[i]>>4);
