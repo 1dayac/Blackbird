@@ -817,9 +817,7 @@ private:
                 }
             }
             INFO(merged_intervals);
-            if (merged_intervals.size() < 2)
-                return;
-            for (size_t i = 0; i < merged_intervals.size() - 1; ++i) {
+            for (int i = 0; i < (int)merged_intervals.size() - 1; ++i) {
                 if (merged_intervals[i].second + 50 < merged_intervals[i + 1].first) {
                     Deletion del(ref_name, start_pos + merged_intervals[i].second, start_pos + merged_intervals[i + 1].first, reference.substr(merged_intervals[i].second, merged_intervals[i + 1].first - merged_intervals[i].second));
                     if (del.HasN())
