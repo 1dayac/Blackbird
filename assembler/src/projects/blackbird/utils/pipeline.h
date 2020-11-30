@@ -706,10 +706,23 @@ private:
     bool NoID(mm_reg1_t *r, int index) {
         if (index + 1 == r->p->n_cigar)
             return true;
+        if (index == 0)
+            return true;
+
+        size_t size = r->p->cigar[index]>>4;
+        size_t size_next = r->p->cigar[index + 1]>>4;
+        size_t size_prev = r->p->cigar[index - 1]>>4;
+
+        if (index - 1 == 0 && size_prev < 300 && size >= 50)
+            return false;
+
+        if (index + 2 == r->p->n_cigar && size_next < 300 && size >= 50)
+            return false;
+
         if ("MIDNSH"[r->p->cigar[index]&0xf] + "MIDNSH"[r->p->cigar[index + 1]&0xf] == 'D' + 'I') {
             return false;
         }
-        if (index != 0 && "MIDNSH"[r->p->cigar[index]&0xf] + "MIDNSH"[r->p->cigar[index - 1]&0xf] == 'D' + 'I') {
+        if ("MIDNSH"[r->p->cigar[index]&0xf] + "MIDNSH"[r->p->cigar[index - 1]&0xf] == 'D' + 'I') {
             return false;
         }
         return true;
