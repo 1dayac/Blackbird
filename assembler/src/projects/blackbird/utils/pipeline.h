@@ -708,9 +708,11 @@ private:
             return true;
         if ("MIDNSH"[r->p->cigar[index]&0xf] + "MIDNSH"[r->p->cigar[index + 1]&0xf] == 'D' + 'I') {
             return false;
-        } else {
-            return true;
         }
+        if (index != 0 && "MIDNSH"[r->p->cigar[index]&0xf] + "MIDNSH"[r->p->cigar[index - 1]&0xf] == 'D' + 'I') {
+            return false;
+        }
+        return true;
     }
 
     void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
