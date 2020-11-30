@@ -706,7 +706,7 @@ private:
     bool NoID(mm_reg1_t *r, int index) {
         if (index + 1 == r->p->n_cigar)
             return true;
-        if ("MIDNSH"[r->p->cigar[index]&0xf] + "MIDNSH"[r->p->cigar[index]&0xf] == 'D' + 'I') {
+        if ("MIDNSH"[r->p->cigar[index]&0xf] + "MIDNSH"[r->p->cigar[index + 1]&0xf] == 'D' + 'I') {
             return false;
         } else {
             return true;
