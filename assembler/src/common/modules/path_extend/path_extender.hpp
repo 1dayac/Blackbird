@@ -1076,7 +1076,7 @@ public:
         DEBUG("un ch enabled " << used_storage_.UniqueCheckEnabled());
         bool result;
         LoopDetector loop_detector(&path, cov_map_);
-        if (DetectCycle(path)) {
+        if (DetectCycle(path) || loop_detector.EdgeInShortLoop(path.Back())) {
             result = false;
         } else if (TryToResolveTwoLoops(path)) {
             result = true;
@@ -1091,7 +1091,7 @@ public:
             DEBUG("Making step");
             result = MakeSimpleGrowStep(path, paths_storage);
             DEBUG("Made step");
-            if (DetectCycle(path)) {
+            if (DetectCycle(path) || loop_detector.EdgeInShortLoop(path.Back())) {
                 result = false;
             } else if (path.Size() >= 1 && InvestigateShortLoop() && loop_detector.EdgeInShortLoop(path.Back())) {
                 DEBUG("Edge in short loop");
