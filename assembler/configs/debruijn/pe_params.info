@@ -47,7 +47,7 @@ params {
     }
 
     scaffolder {
-        enabled       true
+        enabled       false
         cutoff        2
         hard_cutoff   0
         rel_cov_cutoff    0.0

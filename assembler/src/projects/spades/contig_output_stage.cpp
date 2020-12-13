@@ -171,8 +171,7 @@ void ContigOutput::run(GraphPack &gp, const char*) {
     if (output_contig_paths) {
         ContigWriter writer(graph, MakeContigNameGenerator(cfg::get().mode, gp));
 
-        bool output_broken_scaffolds = cfg::get().pe_params.param_set.scaffolder_options.enabled &&
-                                       cfg::get().use_scaffolder &&
+        bool output_broken_scaffolds = cfg::get().use_scaffolder &&
                                        cfg::get().co.obs_mode != config::output_broken_scaffolds::none &&
                                        (outputs_.count(Kind::FinalContigs) || outputs_.count(Kind::PlasmidContigs));
 
