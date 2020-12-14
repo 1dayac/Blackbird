@@ -624,20 +624,28 @@ private:
                 count_add++;
             }
         }
+
+        std::string barcode_file = temp_dir + "/barcodes.txt";
+        std::ofstream barcode_output(barcode_file.c_str(), std::ofstream::out);
+        for (auto const& barcode : barcodes_count_over_threshold) {
+            barcode_output << barcode << "\n";
+        }
+
         INFO("Count_add - " << count_add);
 
         for (auto p : filtered_reads) {
             if (p.second.size() == 1) {
-                if (alignment.MateRefID == -1) {
+                //if (alignment.MateRefID == -1) {
                     OutputSingleRead(p.second[0], single_out_stream);
-                } else {
-                    if (p.second[0].RefID == p.second[0].MateRefID && abs((int)p.second[0].Position - (int)p.second[0].MatePosition) < 500) {
-                        OutputSingleRead(p.second[0], single_out_stream);
-                        continue;
-                    }
-                    if (!OutputPairedRead(p.second[0], out_stream, mate_reader))
-                        OutputSingleRead(p.second[0], single_out_stream);
-                }
+                //}
+                //else {
+                //   if (p.second[0].RefID == p.second[0].MateRefID && abs((int)p.second[0].Position - (int)p.second[0].MatePosition) < 500) {
+                 //       OutputSingleRead(p.second[0], single_out_stream);
+                 //       continue;
+                 //   }
+                  //  if (!OutputPairedRead(p.second[0], out_stream, mate_reader))
+                  //      OutputSingleRead(p.second[0], single_out_stream);
+               // }
             }
             if (p.second.size() == 2) {
                 io::SingleRead first = CreateRead(p.second[0]);
@@ -650,11 +658,6 @@ private:
             }
         }
 
-        std::string barcode_file = temp_dir + "/barcodes.txt";
-        std::ofstream barcode_output(barcode_file.c_str(), std::ofstream::out);
-        for (auto const& barcode : barcodes_count_over_threshold) {
-            barcode_output << barcode << "\n";
-        }
 
         auto const &const_map_of_bad_read_pairs = map_of_bad_read_pairs_;
         for (auto barcode : barcodes_count_over_threshold) {
@@ -893,6 +896,10 @@ private:
             }
         }
         if (num_soft_clip/(double)alignment.Length > 0.2/*opt::max_soft_clipping*/) {
+            return true;
+        }
+
+        if (alignment.RefID != alignment.MateRefID) {
             return true;
         }
 
