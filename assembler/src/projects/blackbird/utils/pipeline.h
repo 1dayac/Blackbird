@@ -920,7 +920,7 @@ private:
 
         io::SingleRead first;
         io::SingleRead second;
-
+        INFO("Jump to " << alignment.MateRefID << " " << alignment.MatePosition);
         if (alignment.IsFirstMate()) {
             std::string read_name = alignment.Name;
             first = CreateRead(alignment);
@@ -929,6 +929,7 @@ private:
             BamTools::BamAlignment mate_alignment;
             int jump_num = 0;
             while(mate_alignment.Position < alignment.MatePosition) {
+                INFO(mate_alignment.Position);
                 ++jump_num;
                 if (jump_num > 10000) {
                     return;
@@ -951,10 +952,12 @@ private:
             second = CreateRead(alignment);
             std::string read_name = alignment.Name;
             VERBOSE_POWER(++jumps, " jumps");
+            INFO("Jump to " << alignment.MateRefID << " " << alignment.MatePosition);
             reader.Jump(alignment.MateRefID, alignment.MatePosition);
             BamTools::BamAlignment mate_alignment;
             int jump_num = 0;
             while(mate_alignment.Position < alignment.MatePosition) {
+                INFO(mate_alignment.Position);
                 ++jump_num;
                 if (jump_num > 10000) {
                     return;
