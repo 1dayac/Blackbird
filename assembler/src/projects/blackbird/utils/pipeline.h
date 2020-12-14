@@ -635,7 +635,8 @@ private:
                         OutputSingleRead(p.second[0], single_out_stream);
                         continue;
                     }
-                    OutputPairedRead(p.second[0], out_stream, mate_reader);
+                    if (!OutputPairedRead(p.second[0], out_stream, mate_reader))
+                        OutputSingleRead(p.second[0], single_out_stream);
                 }
             }
             if (p.second.size() == 2) {
@@ -916,7 +917,7 @@ private:
         return false;
     }
 
-    void OutputPairedRead(BamTools::BamAlignment &alignment, io::OPairedReadStream<std::ofstream, io::FastqWriter> &out_stream, BamTools::BamReader &reader) {
+    bool OutputPairedRead(BamTools::BamAlignment &alignment, io::OPairedReadStream<std::ofstream, io::FastqWriter> &out_stream, BamTools::BamReader &reader) {
 
         io::SingleRead first;
         io::SingleRead second;
@@ -929,22 +930,21 @@ private:
             BamTools::BamAlignment mate_alignment;
             int jump_num = 0;
             while(mate_alignment.Position < alignment.MatePosition) {
-                INFO(mate_alignment.Position);
                 ++jump_num;
                 if (jump_num > 500) {
-                    return;
+                    return false;
                 }
                 if(!reader.GetNextAlignmentCore(mate_alignment) || mate_alignment.RefID != alignment.MateRefID) {
-                    return;
+                    return false;
                 }
             }
             mate_alignment.BuildCharData();
             while(mate_alignment.Name != alignment.Name || mate_alignment.IsFirstMate() || !mate_alignment.IsPrimaryAlignment()) {
                 if(!reader.GetNextAlignment(mate_alignment)) {
-                    return;
+                    return false;
                 }
                 if (mate_alignment.Position > alignment.MatePosition || mate_alignment.RefID != alignment.MateRefID) {
-                    return;
+                    return false;
                 }
             }
             second = CreateRead(mate_alignment);
@@ -957,30 +957,30 @@ private:
             BamTools::BamAlignment mate_alignment;
             int jump_num = 0;
             while(mate_alignment.Position < alignment.MatePosition) {
-                INFO(mate_alignment.Position);
                 ++jump_num;
                 if (jump_num > 500) {
-                    return;
+                    return false;
                 }
                 if(!reader.GetNextAlignmentCore(mate_alignment) || mate_alignment.RefID != alignment.MateRefID) {
-                    return;
+                    return false;
                 }
             }
 
             mate_alignment.BuildCharData();
             while(mate_alignment.Name != alignment.Name || mate_alignment.IsSecondMate() || !mate_alignment.IsPrimaryAlignment()) {
                 if(!reader.GetNextAlignment(mate_alignment)) {
-                    return;
+                    return false;
                 }
 
                 if (mate_alignment.Position > alignment.MatePosition || mate_alignment.RefID != alignment.MateRefID) {
-                    return;
+                    return false;
                 }
             }
             first = CreateRead(mate_alignment);
         }
         io::PairedRead pair(first, second, 0);
         out_stream << pair;
+        return true;
     }
 
     io::SingleRead CreateRead(BamTools::BamAlignment &alignment) {
