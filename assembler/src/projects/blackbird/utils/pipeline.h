@@ -931,7 +931,7 @@ private:
             while(mate_alignment.Position < alignment.MatePosition) {
                 INFO(mate_alignment.Position);
                 ++jump_num;
-                if (jump_num > 10000) {
+                if (jump_num > 500) {
                     return;
                 }
                 if(!reader.GetNextAlignmentCore(mate_alignment) || mate_alignment.RefID != alignment.MateRefID) {
@@ -959,7 +959,7 @@ private:
             while(mate_alignment.Position < alignment.MatePosition) {
                 INFO(mate_alignment.Position);
                 ++jump_num;
-                if (jump_num > 10000) {
+                if (jump_num > 500) {
                     return;
                 }
                 if(!reader.GetNextAlignmentCore(mate_alignment) || mate_alignment.RefID != alignment.MateRefID) {
