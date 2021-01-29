@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "mmpriv.h"
+#include "umpriv.h"
 
 static inline int32_t get_for_qpos(int32_t qlen, const mm128_t *a)
 {
