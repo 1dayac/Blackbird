@@ -2,8 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#include "minimap.h"
-#include "mmpriv.h"
+#include "unimap.h"
+#include "umpriv.h"
 #include "ksw2.h"
 
 static void ksw_gen_simple_mat(int m, int8_t *mat, int8_t a, int8_t b, int8_t sc_ambi)
@@ -69,7 +69,7 @@ static int mm_test_zdrop(void *km, const mm_mapopt_t *opt, const uint8_t *qseq, 
 
 	// test if there is an inversion in the most dropped region
 	q_len = pos[1][1] - pos[1][0], t_len = pos[0][1] - pos[0][0];
-	if (!(opt->flag&(MM_F_SPLICE|MM_F_SR|MM_F_FOR_ONLY|MM_F_REV_ONLY)) && max_zdrop > opt->zdrop_inv && q_len < opt->max_gap && t_len < opt->max_gap) {
+	if (!(opt->flag&(MM_F_SPLICE|MM_F_FOR_ONLY|MM_F_REV_ONLY)) && max_zdrop > opt->zdrop_inv && q_len < opt->max_gap && t_len < opt->max_gap) {
 		uint8_t *qseq2;
 		void *qp;
 		int q_off, t_off;
@@ -288,7 +288,6 @@ static void mm_update_extra(mm_reg1_t *r, const uint8_t *qseq, const uint8_t *ts
 static void mm_append_cigar(mm_reg1_t *r, uint32_t n_cigar, uint32_t *cigar) // TODO: this calls the libc realloc()
 {
 	mm_extra_t *p;
-	if (n_cigar == 0) return;
 	if (r->p == 0) {
 		uint32_t capacity = n_cigar + sizeof(mm_extra_t)/4;
 		kroundup32(capacity);
@@ -299,6 +298,7 @@ static void mm_append_cigar(mm_reg1_t *r, uint32_t n_cigar, uint32_t *cigar) // 
 		kroundup32(r->p->capacity);
 		r->p = (mm_extra_t*)realloc(r->p, r->p->capacity * 4);
 	}
+	if (n_cigar == 0) return;
 	p = r->p;
 	if (p->n_cigar > 0 && (p->cigar[p->n_cigar-1]&0xf) == (cigar[0]&0xf)) { // same CIGAR op at the boundary
 		p->cigar[p->n_cigar-1] += cigar[0]>>4<<4;
@@ -456,11 +456,17 @@ static void mm_filter_bad_seeds_alt(void *km, int as1, int cnt1, mm128_t *a, int
 	kfree(km, K);
 }
 
-static void mm_fix_bad_ends(const mm_reg1_t *r, const mm128_t *a, int bw, int min_match, int32_t *as, int32_t *cnt)
+static void mm_fix_bad_ends(const mm_reg1_t *r, const mm128_t *a, int bw, float end_len_frac, float gap_flank_frac, int32_t *as, int32_t *cnt)
 {
-	int32_t i, l, m;
+	int32_t i, l, m, qlen, rlen, lthres, mthres;
 	*as = r->as, *cnt = r->cnt;
 	if (r->cnt < 3) return;
+	rlen = (int32_t)a[r->as + r->cnt - 1].x - (int32_t)a[r->as].x;
+	qlen = (int32_t)a[r->as + r->cnt - 1].y - (int32_t)a[r->as].y;
+	lthres = (qlen < rlen? qlen : rlen) * end_len_frac;
+	if (lthres > bw) lthres = bw;
+	mthres = r->mlen * end_len_frac * 1.2f;
+
 	m = l = a[r->as].y >> 32 & 0xff;
 	for (i = r->as + 1; i < r->as + r->cnt - 1; ++i) {
 		int32_t lq, lr, min, max;
@@ -470,10 +476,10 @@ static void mm_fix_bad_ends(const mm_reg1_t *r, const mm128_t *a, int bw, int mi
 		lq = (int32_t)a[i].y - (int32_t)a[i-1].y;
 		min = lr < lq? lr : lq;
 		max = lr > lq? lr : lq;
-		if (max - min > l >> 1) *as = i;
+		if (max - min > l * gap_flank_frac) *as = i;
 		l += min;
 		m += min < q_span? min : q_span;
-		if (l >= bw << 1 || (m >= min_match && m >= bw) || m >= r->mlen >> 1) break;
+		if (l >= lthres || m >= mthres) break;
 	}
 	*cnt = r->as + r->cnt - *as;
 	m = l = a[r->as + r->cnt - 1].y >> 32 & 0xff;
@@ -485,39 +491,11 @@ static void mm_fix_bad_ends(const mm_reg1_t *r, const mm128_t *a, int bw, int mi
 		lq = (int32_t)a[i+1].y - (int32_t)a[i].y;
 		min = lr < lq? lr : lq;
 		max = lr > lq? lr : lq;
-		if (max - min > l >> 1) *cnt = i + 1 - *as;
+		if (max - min > l * gap_flank_frac) *cnt = i + 1 - *as;
 		l += min;
 		m += min < q_span? min : q_span;
-		if (l >= bw << 1 || (m >= min_match && m >= bw) || m >= r->mlen >> 1) break;
+		if (l >= lthres || m >= mthres) break;
 	}
-}
-
-static void mm_max_stretch(const mm_reg1_t *r, const mm128_t *a, int32_t *as, int32_t *cnt)
-{
-	int32_t i, score, max_score, len, max_i, max_len;
-
-	*as = r->as, *cnt = r->cnt;
-	if (r->cnt < 2) return;
-
-	max_score = -1, max_i = -1, max_len = 0;
-	score = a[r->as].y >> 32 & 0xff, len = 1;
-	for (i = r->as + 1; i < r->as + r->cnt; ++i) {
-		int32_t lq, lr, q_span;
-		q_span = a[i].y >> 32 & 0xff;
-		lr = (int32_t)a[i].x - (int32_t)a[i-1].x;
-		lq = (int32_t)a[i].y - (int32_t)a[i-1].y;
-		if (lq == lr) {
-			score += lq < q_span? lq : q_span;
-			++len;
-		} else {
-			if (score > max_score)
-				max_score = score, max_len = len, max_i = i - len;
-			score = q_span, len = 1;
-		}
-	}
-	if (score > max_score)
-		max_score = score, max_len = len, max_i = i - len;
-	*as = max_i, *cnt = max_len;
 }
 
 static int mm_seed_ext_score(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, const int8_t mat[25], int qlen, uint8_t *qseq0[2], const mm128_t *a)
@@ -564,7 +542,7 @@ static void mm_fix_bad_ends_splice(void *km, const mm_mapopt_t *opt, const mm_id
 
 static void mm_align1(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int qlen, uint8_t *qseq0[2], mm_reg1_t *r, mm_reg1_t *r2, int n_a, mm128_t *a, ksw_extz_t *ez, int splice_flag)
 {
-	int is_sr = !!(opt->flag & MM_F_SR), is_splice = !!(opt->flag & MM_F_SPLICE);
+	int is_splice = !!(opt->flag & MM_F_SPLICE);
 	int32_t rid = a[r->as].x<<1>>33, rev = a[r->as].x>>63, as1, cnt1;
 	uint8_t *tseq, *qseq, *junc;
 	int32_t i, l, bw, dropped = 0, extra_flag = 0, rs0, re0, qs0, qe0;
@@ -572,31 +550,21 @@ static void mm_align1(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int 
 	int32_t rs1, qs1, re1, qe1;
 	int8_t mat[25];
 
-	if (is_sr) assert(!(mi->flag & MM_I_HPC)); // HPC won't work with SR because with HPC we can't easily tell if there is a gap
-
 	r2->cnt = 0;
 	if (r->cnt == 0) return;
 	ksw_gen_simple_mat(5, mat, opt->a, opt->b, opt->sc_ambi);
 	bw = (int)(opt->bw * 1.5 + 1.);
 
-	if (is_sr && !(mi->flag & MM_I_HPC)) {
-		mm_max_stretch(r, a, &as1, &cnt1);
-		rs = (int32_t)a[as1].x + 1 - (int32_t)(a[as1].y>>32&0xff);
-		qs = (int32_t)a[as1].y + 1 - (int32_t)(a[as1].y>>32&0xff);
-		re = (int32_t)a[as1+cnt1-1].x + 1;
-		qe = (int32_t)a[as1+cnt1-1].y + 1;
-	} else {
-		if (!(opt->flag & MM_F_NO_END_FLT)) {
-			if (is_splice)
-				mm_fix_bad_ends_splice(km, opt, mi, r, mat, qlen, qseq0, a, &as1, &cnt1);
-			else
-				mm_fix_bad_ends(r, a, opt->bw, opt->min_chain_score * 2, &as1, &cnt1);
-		} else as1 = r->as, cnt1 = r->cnt;
-		mm_filter_bad_seeds(km, as1, cnt1, a, 10, 40, opt->max_gap>>1, 10);
-		mm_filter_bad_seeds_alt(km, as1, cnt1, a, 30, opt->max_gap>>1);
-		mm_adjust_minier(mi, qseq0, &a[as1], &rs, &qs);
-		mm_adjust_minier(mi, qseq0, &a[as1 + cnt1 - 1], &re, &qe);
-	}
+	if (!(opt->flag & MM_F_NO_END_FLT)) {
+		if (is_splice)
+			mm_fix_bad_ends_splice(km, opt, mi, r, mat, qlen, qseq0, a, &as1, &cnt1);
+		else
+			mm_fix_bad_ends(r, a, opt->bw, opt->end_len_frac, opt->gap_flank_frac, &as1, &cnt1);
+	} else as1 = r->as, cnt1 = r->cnt;
+	mm_filter_bad_seeds(km, as1, cnt1, a, 10, 40, opt->max_gap>>1, 10);
+	mm_filter_bad_seeds_alt(km, as1, cnt1, a, 30, opt->max_gap>>1);
+	mm_adjust_minier(mi, qseq0, &a[as1], &rs, &qs);
+	mm_adjust_minier(mi, qseq0, &a[as1 + cnt1 - 1], &re, &qe);
 	assert(cnt1 > 0);
 
 	if (is_splice) {
@@ -610,70 +578,61 @@ static void mm_align1(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int 
 	 * clippings and lose alignable sequences. Excessively large regions
 	 * occasionally lead to large overlaps between two chains and may cause
 	 * loss of alignments in corner cases. */
-	if (is_sr) {
-		qs0 = 0, qe0 = qlen;
-		l = qs;
-		l += l * opt->a + opt->end_bonus > opt->q? (l * opt->a + opt->end_bonus - opt->q) / opt->e : 0;
-		rs0 = rs - l > 0? rs - l : 0;
-		l = qlen - qe;
-		l += l * opt->a + opt->end_bonus > opt->q? (l * opt->a + opt->end_bonus - opt->q) / opt->e : 0;
-		re0 = re + l < (int32_t)mi->seq[rid].len? re + l : mi->seq[rid].len;
-	} else {
-		// compute rs0 and qs0
-		rs0 = (int32_t)a[r->as].x + 1 - (int32_t)(a[r->as].y>>32&0xff);
-		qs0 = (int32_t)a[r->as].y + 1 - (int32_t)(a[r->as].y>>32&0xff);
-		if (rs0 < 0) rs0 = 0; // this may happen when HPC is in use
-		assert(qs0 >= 0); // this should never happen, or it is logic error
-		rs1 = qs1 = 0;
-		for (i = r->as - 1, l = 0; i >= 0 && a[i].x>>32 == a[r->as].x>>32; --i) { // inspect nearby seeds
-			int32_t x = (int32_t)a[i].x + 1 - (int32_t)(a[i].y>>32&0xff);
-			int32_t y = (int32_t)a[i].y + 1 - (int32_t)(a[i].y>>32&0xff);
-			if (x < rs0 && y < qs0) {
-				if (++l > opt->min_cnt) {
-					l = rs0 - x > qs0 - y? rs0 - x : qs0 - y;
-					rs1 = rs0 - l, qs1 = qs0 - l;
-					if (rs1 < 0) rs1 = 0; // not strictly necessary; better have this guard for explicit
-					break;
-				}
+	// compute rs0 and qs0
+	rs0 = (int32_t)a[r->as].x + 1 - (int32_t)(a[r->as].y>>32&0xff);
+	qs0 = (int32_t)a[r->as].y + 1 - (int32_t)(a[r->as].y>>32&0xff);
+	if (rs0 < 0) rs0 = 0; // this may happen when HPC is in use
+	assert(qs0 >= 0); // this should never happen, or it is logic error
+	rs1 = qs1 = 0;
+	for (i = r->as - 1, l = 0; i >= 0 && a[i].x>>32 == a[r->as].x>>32; --i) { // inspect nearby seeds
+		int32_t x = (int32_t)a[i].x + 1 - (int32_t)(a[i].y>>32&0xff);
+		int32_t y = (int32_t)a[i].y + 1 - (int32_t)(a[i].y>>32&0xff);
+		if (x < rs0 && y < qs0) {
+			if (++l > opt->min_cnt) {
+				l = rs0 - x > qs0 - y? rs0 - x : qs0 - y;
+				rs1 = rs0 - l, qs1 = qs0 - l;
+				if (rs1 < 0) rs1 = 0; // not strictly necessary; better have this guard for explicit
+				break;
 			}
 		}
-		if (qs > 0 && rs > 0) {
-			l = qs < opt->max_gap? qs : opt->max_gap;
-			qs1 = qs1 > qs - l? qs1 : qs - l;
-			qs0 = qs0 < qs1? qs0 : qs1; // at least include qs0
-			l += l * opt->a > opt->q? (l * opt->a - opt->q) / opt->e : 0;
-			l = l < opt->max_gap? l : opt->max_gap;
-			l = l < rs? l : rs;
-			rs1 = rs1 > rs - l? rs1 : rs - l;
-			rs0 = rs0 < rs1? rs0 : rs1;
-			rs0 = rs0 < rs? rs0 : rs;
-		} else rs0 = rs, qs0 = qs;
-		// compute re0 and qe0
-		re0 = (int32_t)a[r->as + r->cnt - 1].x + 1;
-		qe0 = (int32_t)a[r->as + r->cnt - 1].y + 1;
-		re1 = mi->seq[rid].len, qe1 = qlen;
-		for (i = r->as + r->cnt, l = 0; i < n_a && a[i].x>>32 == a[r->as].x>>32; ++i) { // inspect nearby seeds
-			int32_t x = (int32_t)a[i].x + 1;
-			int32_t y = (int32_t)a[i].y + 1;
-			if (x > re0 && y > qe0) {
-				if (++l > opt->min_cnt) {
-					l = x - re0 > y - qe0? x - re0 : y - qe0;
-					re1 = re0 + l, qe1 = qe0 + l;
-					break;
-				}
-			}
-		}
-		if (qe < qlen && re < (int32_t)mi->seq[rid].len) {
-			l = qlen - qe < opt->max_gap? qlen - qe : opt->max_gap;
-			qe1 = qe1 < qe + l? qe1 : qe + l;
-			qe0 = qe0 > qe1? qe0 : qe1; // at least include qe0
-			l += l * opt->a > opt->q? (l * opt->a - opt->q) / opt->e : 0;
-			l = l < opt->max_gap? l : opt->max_gap;
-			l = l < (int32_t)mi->seq[rid].len - re? l : mi->seq[rid].len - re;
-			re1 = re1 < re + l? re1 : re + l;
-			re0 = re0 > re1? re0 : re1;
-		} else re0 = re, qe0 = qe;
 	}
+	if (qs > 0 && rs > 0) {
+		l = qs < opt->max_gap? qs : opt->max_gap;
+		qs1 = qs1 > qs - l? qs1 : qs - l;
+		qs0 = qs0 < qs1? qs0 : qs1; // at least include qs0
+		l += l * opt->a > opt->q? (l * opt->a - opt->q) / opt->e : 0;
+		l = l < opt->max_gap? l : opt->max_gap;
+		l = l < rs? l : rs;
+		rs1 = rs1 > rs - l? rs1 : rs - l;
+		rs0 = rs0 < rs1? rs0 : rs1;
+		rs0 = rs0 < rs? rs0 : rs;
+	} else rs0 = rs, qs0 = qs;
+	// compute re0 and qe0
+	re0 = (int32_t)a[r->as + r->cnt - 1].x + 1;
+	qe0 = (int32_t)a[r->as + r->cnt - 1].y + 1;
+	re1 = mi->seq[rid].len, qe1 = qlen;
+	for (i = r->as + r->cnt, l = 0; i < n_a && a[i].x>>32 == a[r->as].x>>32; ++i) { // inspect nearby seeds
+		int32_t x = (int32_t)a[i].x + 1;
+		int32_t y = (int32_t)a[i].y + 1;
+		if (x > re0 && y > qe0) {
+			if (++l > opt->min_cnt) {
+				l = x - re0 > y - qe0? x - re0 : y - qe0;
+				re1 = re0 + l, qe1 = qe0 + l;
+				break;
+			}
+		}
+	}
+	if (qe < qlen && re < (int32_t)mi->seq[rid].len) {
+		l = qlen - qe < opt->max_gap? qlen - qe : opt->max_gap;
+		qe1 = qe1 < qe + l? qe1 : qe + l;
+		qe0 = qe0 > qe1? qe0 : qe1; // at least include qe0
+		l += l * opt->a > opt->q? (l * opt->a - opt->q) / opt->e : 0;
+		l = l < opt->max_gap? l : opt->max_gap;
+		l = l < (int32_t)mi->seq[rid].len - re? l : mi->seq[rid].len - re;
+		re1 = re1 < re + l? re1 : re + l;
+		re0 = re0 > re1? re0 : re1;
+	} else re0 = re, qe0 = qe;
+
 	if (a[r->as].y & MM_SEED_SELF) {
 		int max_ext = r->qs > r->rs? r->qs - r->rs : r->rs - r->qs;
 		if (r->rs - rs0 > max_ext) rs0 = r->rs - max_ext;
@@ -706,12 +665,9 @@ static void mm_align1(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int 
 	re1 = rs, qe1 = qs;
 	assert(qs1 >= 0 && rs1 >= 0);
 
-	for (i = is_sr? cnt1 - 1 : 1; i < cnt1; ++i) { // gap filling
+	for (i = 1; i < cnt1; ++i) { // gap filling
 		if ((a[as1+i].y & (MM_SEED_IGNORE|MM_SEED_TANDEM)) && i != cnt1 - 1) continue;
-		if (is_sr && !(mi->flag & MM_I_HPC)) {
-			re = (int32_t)a[as1 + i].x + 1;
-			qe = (int32_t)a[as1 + i].y + 1;
-		} else mm_adjust_minier(mi, qseq0, &a[as1 + i], &re, &qe);
+		mm_adjust_minier(mi, qseq0, &a[as1 + i], &re, &qe);
 		re1 = re, qe1 = qe;
 		if (i == cnt1 - 1 || (a[as1+i].y&MM_SEED_LONG_JOIN) || (qe - qs >= opt->min_ksw_len && re - rs >= opt->min_ksw_len)) {
 			int j, bw1 = bw, zdrop_code;
@@ -721,17 +677,8 @@ static void mm_align1(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int 
 			qseq = &qseq0[rev][qs];
 			mm_idx_getseq(mi, rid, rs, re, tseq);
 			mm_idx_bed_junc(mi, rid, rs, re, junc);
-			if (is_sr) { // perform ungapped alignment
-				assert(qe - qs == re - rs);
-				ksw_reset_extz(ez);
-				for (j = 0, ez->score = 0; j < qe - qs; ++j) {
-					if (qseq[j] >= 4 || tseq[j] >= 4) ez->score += opt->e2;
-					else ez->score += qseq[j] == tseq[j]? opt->a : -opt->b;
-				}
-				ez->cigar = ksw_push_cigar(km, &ez->n_cigar, &ez->m_cigar, ez->cigar, 0, qe - qs);
-			} else { // perform normal gapped alignment
-				mm_align_pair(km, opt, qe - qs, qseq, re - rs, tseq, junc, mat, bw1, -1, opt->zdrop, extra_flag|KSW_EZ_APPROX_MAX, ez); // first pass: with approximate Z-drop
-			}
+			// perform normal gapped alignment
+			mm_align_pair(km, opt, qe - qs, qseq, re - rs, tseq, junc, mat, bw1, -1, opt->zdrop, extra_flag|KSW_EZ_APPROX_MAX, ez); // first pass: with approximate Z-drop
 			// test Z-drop and inversion Z-drop
 			if ((zdrop_code = mm_test_zdrop(km, opt, qseq, tseq, ez->n_cigar, ez->cigar, mat)) != 0)
 				mm_align_pair(km, opt, qe - qs, qseq, re - rs, tseq, junc, mat, bw1, -1, zdrop_code == 2? opt->zdrop_inv : opt->zdrop, extra_flag, ez); // second pass: lift approximate
@@ -744,6 +691,7 @@ static void mm_align1(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int 
 						break;
 				dropped = 1;
 				if (j < 0) j = 0;
+				if (r->p == 0) mm_append_cigar(r, 0, 0);
 				r->p->dp_score += ez->max;
 				re1 = rs + (ez->max_t + 1);
 				qe1 = qs + (ez->max_q + 1);
@@ -908,6 +856,6 @@ mm_reg1_t *mm_align_skeleton(void *km, const mm_mapopt_t *opt, const mm_idx_t *m
 	kfree(km, qseq0[0]);
 	kfree(km, ez.cigar);
 	mm_filter_regs(opt, qlen, n_regs_, regs);
-	mm_hit_sort(km, n_regs_, regs);
+	mm_hit_sort(km, n_regs_, regs, opt->alt_drop);
 	return regs;
 }
