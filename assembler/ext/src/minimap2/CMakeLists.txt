@@ -24,4 +24,5 @@ add_library(minimap2
         esterr.c
         ksw2_ll_sse.c
         splitidx.c
+        yak-count.c
 )
