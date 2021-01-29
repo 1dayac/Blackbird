@@ -17,8 +17,8 @@
 #include "parallel_hashmap/phmap.h"
 #include "parallel_hashmap/phmap_fwd_decl.h"
 #include <boost/circular_buffer.hpp>
-#include <minimap2/minimap.h>
-#include "minimap2/minimap.h"
+#include <minimap2/unimap.h>
+#include "minimap2/unimap.h"
 #include "io/reads/fasta_fastq_gz_parser.hpp"
 #include "common/utils/parallel/openmp_wrapper.h"
 #include "common/utils/memory_limit.hpp"
@@ -147,7 +147,7 @@ class BlackBirdLauncher {
             mm_mapopt_update(&mopt, index);
             mopt.flag |= MM_F_CIGAR;
             std::string name = "123";
-            mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
+            mm_reg1_t *hit_array = mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
             INFO(hit_array->score);
             if (number_of_hits > 0) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[0];
@@ -227,7 +227,7 @@ class BlackBirdLauncher {
         mm_mapopt_update(&mopt, index);
         mopt.flag |= MM_F_CIGAR;
         std::string name = "123";
-        mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
+        mm_reg1_t *hit_array = mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
         INFO(hit_array->score);
     }
 
@@ -751,7 +751,7 @@ private:
             mm_set_opt(0, &iopt, &mopt);
             mopt.flag |= MM_F_CIGAR;
             mm_mapopt_update(&mopt, index);
-            mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
+            mm_reg1_t *hit_array = mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[k];
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
