@@ -25,4 +25,5 @@ add_library(minimap2
         ksw2_ll_sse.c
         splitidx.c
         yak-count.c
+        lchain.c
 )
