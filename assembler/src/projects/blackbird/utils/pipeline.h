@@ -202,7 +202,7 @@ class BlackBirdLauncher {
         }
     }
 
-    void test_minimap() {
+/*    void test_minimap() {
 
         BamTools::BamReader reader;
         reader.Open(OptionBase::bam.c_str());
@@ -230,7 +230,7 @@ class BlackBirdLauncher {
         mm_reg1_t *hit_array = mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
         INFO(hit_array->score);
     }
-
+*/
 
 public:
     BlackBirdLauncher ()
@@ -682,7 +682,7 @@ private:
         std::system(spades_command.c_str());
         auto const& const_reference_map = reference_map_;
         std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
-        RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
+        RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region, temp_dir);
         if (!OptionBase::keep_assembly_folders)
             fs::remove_dir(temp_dir.c_str());
     }
@@ -732,10 +732,14 @@ private:
         return true;
     }
 
-    void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
-        const char *reference_cstyle = reference.c_str();
-        const char **reference_array = &reference_cstyle;
-        mm_idx_t *index = mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
+    void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, const BamTools::BamRegion &region, const std::string &temp_dir) {
+        int start_pos = region.LeftPosition;
+        io::FastaWriter reference_writer;
+        std::string path_to_reference = temp_dir + "/reference.fasta";
+        std::ofstream out(path_to_reference);
+        io::SingleRead reference_read(std::to_string(region.LeftRefID) + "_" + std::to_string(start_pos), reference);
+        reference_writer.Write(out, reference_read);
+        mm_idx_t *index = um_idx_gen(path_to_reference.c_str(), 5, 15, 14, 0, 35, 1000000000, 50, 1);
         io::FastaFastqGzParser reference_reader(path_to_scaffolds);
         io::SingleRead contig;
         std::set<std::pair<int, int>> found_intervals;
