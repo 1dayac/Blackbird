@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include "kalloc.h"
-#include "umpriv.h"
+#include "mmpriv.h"
 
 static char mm_rg_id[256];
 
@@ -125,11 +125,11 @@ int mm_write_sam_hdr(const mm_idx_t *idx, const char *rg, const char *ver, int a
 			mm_sprintf_lite(&str, "@SQ\tSN:%s\tLN:%d\n", idx->seq[i].name, idx->seq[i].len);
 	}
 	if (rg) ret = sam_write_rg_line(&str, rg);
-	mm_sprintf_lite(&str, "@PG\tID:unimap\tPN:unimap");
+	mm_sprintf_lite(&str, "@PG\tID:minimap2\tPN:minimap2");
 	if (ver) mm_sprintf_lite(&str, "\tVN:%s", ver);
 	if (argc > 1) {
 		int i;
-		mm_sprintf_lite(&str, "\tCL:unimap");
+		mm_sprintf_lite(&str, "\tCL:minimap2");
 		for (i = 1; i < argc; ++i)
 			mm_sprintf_lite(&str, " %s", argv[i]);
 	}
@@ -305,7 +305,7 @@ static inline void write_tags(kstring_t *s, const mm_reg1_t *r)
 	if (r->split) mm_sprintf_lite(s, "\tzd:i:%d", r->split);
 }
 
-void mm_write_paf(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const mm_reg1_t *r, void *km, int opt_flag, int rep_len)
+void mm_write_paf3(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const mm_reg1_t *r, void *km, int opt_flag, int rep_len)
 {
 	s->l = 0;
 	if (r == 0) {
@@ -333,6 +333,11 @@ void mm_write_paf(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const m
 		mm_sprintf_lite(s, "\t%s", t->comment);
 }
 
+void mm_write_paf(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const mm_reg1_t *r, void *km, int opt_flag)
+{
+	mm_write_paf3(s, mi, t, r, km, opt_flag, -1);
+}
+
 static void sam_write_sq(kstring_t *s, char *seq, int l, int rev, int comp)
 {
 	extern unsigned char seq_comp_table[256];
@@ -345,6 +350,16 @@ static void sam_write_sq(kstring_t *s, char *seq, int l, int rev, int comp)
 		}
 		s->l += l;
 	} else str_copy(s, seq, seq + l);
+}
+
+static inline const mm_reg1_t *get_sam_pri(int n_regs, const mm_reg1_t *regs)
+{
+	int i;
+	for (i = 0; i < n_regs; ++i)
+		if (regs[i].sam_pri)
+			return &regs[i];
+	assert(n_regs == 0);
+	return NULL;
 }
 
 static void write_sam_cigar(kstring_t *s, int sam_flag, int in_tag, int qlen, const mm_reg1_t *r, int opt_flag)
@@ -373,18 +388,36 @@ static void write_sam_cigar(kstring_t *s, int sam_flag, int in_tag, int qlen, co
 	}
 }
 
-void mm_write_sam(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, int reg_idx, int n_regs, const mm_reg1_t *regs, void *km, int opt_flag, int rep_len)
+void mm_write_sam3(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, int seg_idx, int reg_idx, int n_seg, const int *n_regss, const mm_reg1_t *const* regss, void *km, int opt_flag, int rep_len)
 {
 	const int max_bam_cigar_op = 65535;
-	int flag, cigar_in_tag = 0;
+	int flag, n_regs = n_regss[seg_idx], cigar_in_tag = 0;
+	int this_rid = -1, this_pos = -1, this_rev = 0;
+	const mm_reg1_t *regs = regss[seg_idx], *r_prev = NULL, *r_next;
 	const mm_reg1_t *r = n_regs > 0 && reg_idx < n_regs && reg_idx >= 0? &regs[reg_idx] : NULL;
+
+	// find the primary of the previous and the next segments, if they are mapped
+	if (n_seg > 1) {
+		int i, next_sid = (seg_idx + 1) % n_seg;
+		r_next = get_sam_pri(n_regss[next_sid], regss[next_sid]);
+		if (n_seg > 2) {
+			for (i = 1; i <= n_seg - 1; ++i) {
+				int prev_sid = (seg_idx + n_seg - i) % n_seg;
+				if (n_regss[prev_sid] > 0) {
+					r_prev = get_sam_pri(n_regss[prev_sid], regss[prev_sid]);
+					break;
+				}
+			}
+		} else r_prev = r_next;
+	} else r_prev = r_next = NULL;
 
 	// write QNAME
 	s->l = 0;
 	mm_sprintf_lite(s, "%s", t->name);
+	if (n_seg > 1) s->l = mm_qname_len(t->name); // trim the suffix like /1 or /2
 
 	// write flag
-	flag = 0x0;
+	flag = n_seg > 1? 0x1 : 0x0;
 	if (r == 0) {
 		flag |= 0x4;
 	} else {
@@ -392,12 +425,23 @@ void mm_write_sam(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, int reg
 		if (r->parent != r->id) flag |= 0x100;
 		else if (!r->sam_pri) flag |= 0x800;
 	}
+	if (n_seg > 1) {
+		if (r && r->proper_frag) flag |= 0x2; // TODO: this doesn't work when there are more than 2 segments
+		if (seg_idx == 0) flag |= 0x40;
+		else if (seg_idx == n_seg - 1) flag |= 0x80;
+		if (r_next == NULL) flag |= 0x8;
+		else if (r_next->rev) flag |= 0x20;
+	}
 	mm_sprintf_lite(s, "\t%d", flag);
 
 	// write coordinate, MAPQ and CIGAR
 	if (r == 0) {
-		mm_sprintf_lite(s, "\t*\t0\t0\t*");
+		if (r_prev) {
+			this_rid = r_prev->rid, this_pos = r_prev->rs;
+			mm_sprintf_lite(s, "\t%s\t%d\t0\t*", mi->seq[this_rid].name, this_pos+1);
+		} else mm_sprintf_lite(s, "\t*\t0\t0\t*");
 	} else {
+		this_rid = r->rid, this_pos = r->rs, this_rev = r->rev;
 		mm_sprintf_lite(s, "\t%s\t%d\t%d\t", mi->seq[r->rid].name, r->rs+1, r->mapq);
 		if ((opt_flag & MM_F_LONG_CIGAR) && r->p && r->p->n_cigar > max_bam_cigar_op - 2) {
 			int n_cigar = r->p->n_cigar;
@@ -414,7 +458,29 @@ void mm_write_sam(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, int reg
 			mm_sprintf_lite(s, "%dS%dN", slen, r->re - r->rs);
 		} else write_sam_cigar(s, flag, 0, t->l_seq, r, opt_flag);
 	}
-	mm_sprintf_lite(s, "\t*\t0\t0\t"); // mate positions
+
+	// write mate positions
+	if (n_seg > 1) {
+		int tlen = 0;
+		if (this_rid >= 0 && r_next) {
+			if (this_rid == r_next->rid) {
+				if (r) {
+					int this_pos5 = r->rev? r->re - 1 : this_pos;
+					int next_pos5 = r_next->rev? r_next->re - 1 : r_next->rs;
+					tlen = next_pos5 - this_pos5;
+				}
+				mm_sprintf_lite(s, "\t=\t");
+			} else mm_sprintf_lite(s, "\t%s\t", mi->seq[r_next->rid].name);
+			mm_sprintf_lite(s, "%d\t", r_next->rs + 1);
+		} else if (r_next) { // && this_rid < 0
+			mm_sprintf_lite(s, "\t%s\t%d\t", mi->seq[r_next->rid].name, r_next->rs + 1);
+		} else if (this_rid >= 0) { // && r_next == NULL
+			mm_sprintf_lite(s, "\t=\t%d\t", this_pos + 1); // next segment will take r's coordinate
+		} else mm_sprintf_lite(s, "\t*\t0\t"); // neither has coordinates
+		if (tlen > 0) ++tlen;
+		else if (tlen < 0) --tlen;
+		mm_sprintf_lite(s, "%d\t", tlen);
+	} else mm_sprintf_lite(s, "\t*\t0\t0\t");
 
 	// write SEQ and QUAL
 	if (r == 0) {
@@ -440,6 +506,7 @@ void mm_write_sam(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, int reg
 
 	// write tags
 	if (mm_rg_id[0]) mm_sprintf_lite(s, "\tRG:Z:%s", mm_rg_id);
+	if (n_seg > 2) mm_sprintf_lite(s, "\tFI:i:%d", seg_idx);
 	if (r) {
 		write_tags(s, r);
 		if (r->parent == r->id && r->p && n_regs > 1 && regs && r >= regs && r - regs < n_regs) { // supplementary aln may exist
@@ -478,4 +545,17 @@ void mm_write_sam(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, int reg
 		mm_sprintf_lite(s, "\t%s", t->comment);
 
 	s->s[s->l] = 0; // we always have room for an extra byte (see str_enlarge)
+}
+
+void mm_write_sam2(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, int seg_idx, int reg_idx, int n_seg, const int *n_regss, const mm_reg1_t *const* regss, void *km, int opt_flag)
+{
+	mm_write_sam3(s, mi, t, seg_idx, reg_idx, n_seg, n_regss, regss, km, opt_flag, -1);
+}
+
+void mm_write_sam(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const mm_reg1_t *r, int n_regs, const mm_reg1_t *regs)
+{
+	int i;
+	for (i = 0; i < n_regs; ++i)
+		if (r == &regs[i]) break;
+	mm_write_sam2(s, mi, t, 0, i, 1, &n_regs, &regs, NULL, 0);
 }

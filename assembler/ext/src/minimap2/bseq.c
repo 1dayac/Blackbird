@@ -77,7 +77,7 @@ static inline void kseq2bseq(kseq_t *ks, mm_bseq1_t *s, int with_qual, int with_
 	s->l_seq = ks->seq.l;
 }
 
-mm_bseq1_t *mm_bseq_read(mm_bseq_file_t *fp, int64_t chunk_size, int with_qual, int with_comment, int *n_)
+mm_bseq1_t *mm_bseq_read3(mm_bseq_file_t *fp, int64_t chunk_size, int with_qual, int with_comment, int frag_mode, int *n_)
 {
 	int64_t size = 0;
 	int ret;
@@ -97,7 +97,18 @@ mm_bseq1_t *mm_bseq_read(mm_bseq_file_t *fp, int64_t chunk_size, int with_qual, 
 		kv_pushp(mm_bseq1_t, 0, a, &s);
 		kseq2bseq(ks, s, with_qual, with_comment);
 		size += s->l_seq;
-		if (size >= chunk_size) break;
+		if (size >= chunk_size) {
+			if (frag_mode && a.a[a.n-1].l_seq < CHECK_PAIR_THRES) {
+				while ((ret = kseq_read(ks)) >= 0) {
+					kseq2bseq(ks, &fp->s, with_qual, with_comment);
+					if (mm_qname_same(fp->s.name, a.a[a.n-1].name)) {
+						kv_push(mm_bseq1_t, 0, a, fp->s);
+						memset(&fp->s, 0, sizeof(mm_bseq1_t));
+					} else break;
+				}
+			}
+			break;
+		}
 	}
 	if (ret < -1) {
 		if (a.n) fprintf(stderr, "[WARNING]\033[1;31m failed to parse the FASTA/FASTQ record next to '%s'. Continue anyway.\033[0m\n", a.a[a.n-1].name);
@@ -105,6 +116,51 @@ mm_bseq1_t *mm_bseq_read(mm_bseq_file_t *fp, int64_t chunk_size, int with_qual, 
 	}
 	*n_ = a.n;
 	return a.a;
+}
+
+mm_bseq1_t *mm_bseq_read2(mm_bseq_file_t *fp, int64_t chunk_size, int with_qual, int frag_mode, int *n_)
+{
+	return mm_bseq_read3(fp, chunk_size, with_qual, 0, frag_mode, n_);
+}
+
+mm_bseq1_t *mm_bseq_read(mm_bseq_file_t *fp, int64_t chunk_size, int with_qual, int *n_)
+{
+	return mm_bseq_read2(fp, chunk_size, with_qual, 0, n_);
+}
+
+mm_bseq1_t *mm_bseq_read_frag2(int n_fp, mm_bseq_file_t **fp, int64_t chunk_size, int with_qual, int with_comment, int *n_)
+{
+	int i;
+	int64_t size = 0;
+	kvec_t(mm_bseq1_t) a = {0,0,0};
+	*n_ = 0;
+	if (n_fp < 1) return 0;
+	while (1) {
+		int n_read = 0;
+		for (i = 0; i < n_fp; ++i)
+			if (kseq_read(fp[i]->ks) >= 0)
+				++n_read;
+		if (n_read < n_fp) {
+			if (n_read > 0)
+				fprintf(stderr, "[W::%s]\033[1;31m query files have different number of records; extra records skipped.\033[0m\n", __func__);
+			break; // some file reaches the end
+		}
+		if (a.m == 0) kv_resize(mm_bseq1_t, 0, a, 256);
+		for (i = 0; i < n_fp; ++i) {
+			mm_bseq1_t *s;
+			kv_pushp(mm_bseq1_t, 0, a, &s);
+			kseq2bseq(fp[i]->ks, s, with_qual, with_comment);
+			size += s->l_seq;
+		}
+		if (size >= chunk_size) break;
+	}
+	*n_ = a.n;
+	return a.a;
+}
+
+mm_bseq1_t *mm_bseq_read_frag(int n_fp, mm_bseq_file_t **fp, int64_t chunk_size, int with_qual, int *n_)
+{
+	return mm_bseq_read_frag2(n_fp, fp, chunk_size, with_qual, 0, n_);
 }
 
 int mm_bseq_eof(mm_bseq_file_t *fp)

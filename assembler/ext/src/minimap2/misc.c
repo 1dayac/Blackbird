@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "umpriv.h"
+#include "mmpriv.h"
 
 int mm_verbose = 1;
 int mm_dbg_flag = 0;
