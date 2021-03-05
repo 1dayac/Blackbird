@@ -1,8 +1,9 @@
 CFLAGS=		-g -Wall -O2 -Wc++-compat #-Wextra
 CPPFLAGS=	-DHAVE_KALLOC
 INCLUDES=
-OBJS=		kthread.o kalloc.o misc.o bseq.o sketch.o options.o yak-count.o index.o lchain.o align.o hit.o map.o format.o esterr.o ksw2_ll_sse.o
-PROG=		unimap
+OBJS=		kthread.o kalloc.o misc.o bseq.o sketch.o sdust.o options.o index.o chain.o align.o hit.o map.o format.o pe.o esterr.o splitidx.o ksw2_ll_sse.o
+PROG=		minimap2
+PROG_EXTRA=	sdust minimap2-lite
 LIBS=		-lm -lz -lpthread
 
 ifeq ($(arm_neon),) # if arm_neon is not defined
@@ -39,11 +40,19 @@ endif
 
 all:$(PROG)
 
-unimap:main.o libunimap.a
-		$(CC) $(CFLAGS) main.o -o $@ -L. -lunimap $(LIBS)
+extra:all $(PROG_EXTRA)
 
-libunimap.a:$(OBJS)
+minimap2:main.o libminimap2.a
+		$(CC) $(CFLAGS) main.o -o $@ -L. -lminimap2 $(LIBS)
+
+minimap2-lite:example.o libminimap2.a
+		$(CC) $(CFLAGS) $< -o $@ -L. -lminimap2 $(LIBS)
+
+libminimap2.a:$(OBJS)
 		$(AR) -csru $@ $(OBJS)
+
+sdust:sdust.c kalloc.o kalloc.h kdq.h kvec.h kseq.h ketopt.h sdust.h
+		$(CC) -D_SDUST_MAIN $(CFLAGS) $< kalloc.o -o $@ -lz
 
 # SSE-specific targets on x86/x86_64
 
@@ -87,31 +96,33 @@ ksw2_exts2_neon.o:ksw2_exts2_sse.c ksw2.h kalloc.h
 # other non-file targets
 
 clean:
-		rm -fr gmon.out *.o a.out $(PROG) *~ *.a *.dSYM build dist mappy*.so mappy.c python/mappy.c mappy.egg*
+		rm -fr gmon.out *.o a.out $(PROG) $(PROG_EXTRA) *~ *.a *.dSYM build dist mappy*.so mappy.c python/mappy.c mappy.egg*
 
 depend:
 		(LC_ALL=C; export LC_ALL; makedepend -Y -- $(CFLAGS) $(CPPFLAGS) -- *.c)
 
 # DO NOT DELETE
 
-align.o: unimap.h umpriv.h bseq.h kseq.h ksw2.h kalloc.h
+align.o: minimap.h mmpriv.h bseq.h ksw2.h kalloc.h
 bseq.o: bseq.h kvec.h kalloc.h kseq.h
-chain.o: unimap.h umpriv.h bseq.h kseq.h kalloc.h
-esterr.o: umpriv.h unimap.h bseq.h kseq.h
-format.o: kalloc.h umpriv.h unimap.h bseq.h kseq.h
-hit.o: umpriv.h unimap.h bseq.h kseq.h kalloc.h khashl.h
-index.o: kthread.h bseq.h unimap.h umpriv.h kseq.h kvec.h kalloc.h khashl.h
-index.o: ksort.h
+chain.o: minimap.h mmpriv.h bseq.h kalloc.h
+esterr.o: mmpriv.h minimap.h bseq.h
+example.o: minimap.h kseq.h
+format.o: kalloc.h mmpriv.h minimap.h bseq.h
+hit.o: mmpriv.h minimap.h bseq.h kalloc.h khash.h
+index.o: kthread.h bseq.h minimap.h mmpriv.h kvec.h kalloc.h khash.h
 kalloc.o: kalloc.h
 ksw2_extd2_sse.o: ksw2.h kalloc.h
 ksw2_exts2_sse.o: ksw2.h kalloc.h
 ksw2_extz2_sse.o: ksw2.h kalloc.h
 ksw2_ll_sse.o: ksw2.h kalloc.h
 kthread.o: kthread.h
-lchain.o: umpriv.h unimap.h bseq.h kseq.h kalloc.h krmq.h
-main.o: bseq.h unimap.h umpriv.h kseq.h ketopt.h
-map.o: kthread.h kvec.h kalloc.h umpriv.h unimap.h bseq.h kseq.h khashl.h
-misc.o: umpriv.h unimap.h bseq.h kseq.h ksort.h
-options.o: umpriv.h unimap.h bseq.h kseq.h
-sketch.o: kvec.h kalloc.h umpriv.h unimap.h bseq.h kseq.h
-yak-count.o: umpriv.h unimap.h bseq.h kseq.h khashl.h kthread.h
+main.o: bseq.h minimap.h mmpriv.h ketopt.h
+map.o: kthread.h kvec.h kalloc.h sdust.h mmpriv.h minimap.h bseq.h khash.h
+map.o: ksort.h
+misc.o: mmpriv.h minimap.h bseq.h ksort.h
+options.o: mmpriv.h minimap.h bseq.h
+pe.o: mmpriv.h minimap.h bseq.h kvec.h kalloc.h ksort.h
+sdust.o: kalloc.h kdq.h kvec.h ketopt.h sdust.h
+sketch.o: kvec.h kalloc.h mmpriv.h minimap.h bseq.h
+splitidx.o: mmpriv.h minimap.h bseq.h
