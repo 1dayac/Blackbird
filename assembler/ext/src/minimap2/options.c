@@ -2,7 +2,7 @@
 #include <limits.h>
 #include "mmpriv.h"
 
-void mm_idxopt_init(mm_idxopt_t *opt)
+void mm_idxopt_init2(mm_idxopt_t *opt)
 {
 	memset(opt, 0, sizeof(mm_idxopt_t));
 	opt->k = 15, opt->w = 10, opt->flag = 0;
@@ -11,7 +11,7 @@ void mm_idxopt_init(mm_idxopt_t *opt)
 	opt->batch_size = 4000000000ULL;
 }
 
-void mm_mapopt_init(mm_mapopt_t *opt)
+void mm_mapopt_init2(mm_mapopt_t *opt)
 {
 	memset(opt, 0, sizeof(mm_mapopt_t));
 	opt->seed = 11;
@@ -58,14 +58,14 @@ void mm_mapopt_update2(mm_mapopt_t *opt, const mm_idx_t *mi)
 	if ((opt->flag & MM_F_SPLICE_FOR) || (opt->flag & MM_F_SPLICE_REV))
 		opt->flag |= MM_F_SPLICE;
 	if (opt->mid_occ <= 0)
-		opt->mid_occ = mm_idx_cal_max_occ(mi, opt->mid_occ_frac);
+		opt->mid_occ = mm_idx_cal_max_occ2(mi, opt->mid_occ_frac);
 	if (opt->mid_occ < opt->min_mid_occ)
 		opt->mid_occ = opt->min_mid_occ;
 	if (mm_verbose >= 3)
 		fprintf(stderr, "[M::%s::%.3f*%.2f] mid_occ = %d\n", __func__, realtime() - mm_realtime0, cputime() / (realtime() - mm_realtime0), opt->mid_occ);
 }
 
-void mm_mapopt_max_intron_len(mm_mapopt_t *opt, int max_intron_len)
+void mm_mapopt_max_intron_len2(mm_mapopt_t *opt, int max_intron_len)
 {
 	if ((opt->flag & MM_F_SPLICE) && max_intron_len > 0)
 		opt->max_gap_ref = opt->bw = max_intron_len;
@@ -74,8 +74,8 @@ void mm_mapopt_max_intron_len(mm_mapopt_t *opt, int max_intron_len)
 int mm_set_opt2(const char *preset, mm_idxopt_t *io, mm_mapopt_t *mo)
 {
 	if (preset == 0) {
-		mm_idxopt_init(io);
-		mm_mapopt_init(mo);
+		mm_idxopt_init2(io);
+		mm_mapopt_init2(mo);
 	} else if (strcmp(preset, "ava-ont") == 0) {
 		io->flag = 0, io->k = 15, io->w = 5;
 		mo->flag |= MM_F_ALL_CHAINS | MM_F_NO_DIAG | MM_F_NO_DUAL | MM_F_NO_LJOIN;
@@ -139,7 +139,7 @@ int mm_set_opt2(const char *preset, mm_idxopt_t *io, mm_mapopt_t *mo)
 	return 0;
 }
 
-int mm_check_opt(const mm_idxopt_t *io, const mm_mapopt_t *mo)
+int mm_check_opt2(const mm_idxopt_t *io, const mm_mapopt_t *mo)
 {
 	if (mo->split_prefix && (mo->flag & (MM_F_OUT_CS|MM_F_OUT_MD))) {
 		if (mm_verbose >= 1)
