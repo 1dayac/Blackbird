@@ -35,7 +35,7 @@ struct mm_bseq_file_s {
 	mm_bseq1_t s;
 };
 
-mm_bseq_file_t *mm_bseq_open(const char *fn)
+mm_bseq_file_t *mm_bseq_open2(const char *fn)
 {
 	mm_bseq_file_t *fp;
 	gzFile f;
@@ -47,7 +47,7 @@ mm_bseq_file_t *mm_bseq_open(const char *fn)
 	return fp;
 }
 
-void mm_bseq_close(mm_bseq_file_t *fp)
+void mm_bseq_close2(mm_bseq_file_t *fp)
 {
 	kseq_destroy(fp->ks);
 	gzclose(fp->fp);
@@ -123,7 +123,7 @@ mm_bseq1_t *mm_bseq_read2(mm_bseq_file_t *fp, int64_t chunk_size, int with_qual,
 	return mm_bseq_read3(fp, chunk_size, with_qual, 0, frag_mode, n_);
 }
 
-mm_bseq1_t *mm_bseq_read(mm_bseq_file_t *fp, int64_t chunk_size, int with_qual, int *n_)
+mm_bseq1_t *mm_bseq_readx(mm_bseq_file_t *fp, int64_t chunk_size, int with_qual, int *n_)
 {
 	return mm_bseq_read2(fp, chunk_size, with_qual, 0, n_);
 }

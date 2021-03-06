@@ -49,7 +49,7 @@ static inline uint64_t hash64(uint64_t key)
 	return key;
 }
 
-mm_reg1_t *mm_gen_regs(void *km, uint32_t hash, int qlen, int n_u, uint64_t *u, mm128_t *a) // convert chains to hits
+mm_reg1_t *mm_gen_regs2(void *km, uint32_t hash, int qlen, int n_u, uint64_t *u, mm128_t *a) // convert chains to hits
 {
 	mm128_t *z, tmp;
 	mm_reg1_t *r;
@@ -228,7 +228,7 @@ int mm_set_sam_pri(int n, mm_reg1_t *r)
 	return n_pri;
 }
 
-void mm_sync_regs(void *km, int n_regs, mm_reg1_t *regs) // keep mm_reg1_t::{id,parent} in sync; also reset id
+void mm_sync_regs2(void *km, int n_regs, mm_reg1_t *regs) // keep mm_reg1_t::{id,parent} in sync; also reset id
 {
 	int *tmp, i, max_id = -1, n_tmp;
 	if (n_regs <= 0) return;
@@ -271,7 +271,7 @@ void mm_select_sub(void *km, float pri_ratio, int min_diff, int best_n, int *n_,
 	}
 }
 
-void mm_filter_regs(const mm_mapopt_t *opt, int qlen, int *n_regs, mm_reg1_t *regs)
+void mm_filter_regs2(const mm_mapopt_t *opt, int qlen, int *n_regs, mm_reg1_t *regs)
 { // NB: after this call, mm_reg1_t::parent can be -1 if its parent filtered out
 	int i, k;
 	for (i = k = 0; i < *n_regs; ++i) {
@@ -312,7 +312,7 @@ int mm_squeeze_a(void *km, int n_regs, mm_reg1_t *regs, mm128_t *a)
 	return as;
 }
 
-void mm_join_long(void *km, const mm_mapopt_t *opt, int qlen, int *n_regs_, mm_reg1_t *regs, mm128_t *a)
+void mm_join_long2(void *km, const mm_mapopt_t *opt, int qlen, int *n_regs_, mm_reg1_t *regs, mm128_t *a)
 {
 	int i, n_aux, n_regs = *n_regs_, n_drop = 0;
 	uint64_t *aux;
@@ -365,12 +365,12 @@ void mm_join_long(void *km, const mm_mapopt_t *opt, int qlen, int *n_regs_, mm_r
 					r->parent = regs[r->parent].parent;
 			}
 		}
-		mm_filter_regs(opt, qlen, n_regs_, regs);
-		mm_sync_regs(km, *n_regs_, regs);
+		mm_filter_regs2(opt, qlen, n_regs_, regs);
+		mm_sync_regs2(km, *n_regs_, regs);
 	}
 }
 
-mm_seg_t *mm_seg_gen(void *km, uint32_t hash, int n_segs, const int *qlens, int n_regs0, const mm_reg1_t *regs0, int *n_regs, mm_reg1_t **regs, const mm128_t *a)
+mm_seg_t *mm_seg_gen2(void *km, uint32_t hash, int n_segs, const int *qlens, int n_regs0, const mm_reg1_t *regs0, int *n_regs, mm_reg1_t **regs, const mm128_t *a)
 {
 	int s, i, j, acc_qlen[MM_MAX_SEG+1], qlen_sum = 0;
 	mm_seg_t *seg;
@@ -416,7 +416,7 @@ mm_seg_t *mm_seg_gen(void *km, uint32_t hash, int n_segs, const int *qlens, int 
 		}
 	}
 	for (s = 0; s < n_segs; ++s) {
-		regs[s] = mm_gen_regs(km, hash, qlens[s], seg[s].n_u, seg[s].u, seg[s].a);
+		regs[s] = mm_gen_regs2(km, hash, qlens[s], seg[s].n_u, seg[s].u, seg[s].a);
 		n_regs[s] = seg[s].n_u;
 		for (i = 0; i < n_regs[s]; ++i) {
 			regs[s][i].seg_split = 1;
@@ -426,7 +426,7 @@ mm_seg_t *mm_seg_gen(void *km, uint32_t hash, int n_segs, const int *qlens, int 
 	return seg;
 }
 
-void mm_seg_free(void *km, int n_segs, mm_seg_t *segs)
+void mm_seg_free2(void *km, int n_segs, mm_seg_t *segs)
 {
 	int i;
 	for (i = 0; i < n_segs; ++i) kfree(km, segs[i].u);
@@ -434,7 +434,7 @@ void mm_seg_free(void *km, int n_segs, mm_seg_t *segs)
 	kfree(km, segs);
 }
 
-static void mm_set_inv_mapq(void *km, int n_regs, mm_reg1_t *regs)
+static void mm_set_inv_mapq2(void *km, int n_regs, mm_reg1_t *regs)
 {
 	int i, n_aux;
 	mm128_t *aux;
@@ -460,7 +460,7 @@ static void mm_set_inv_mapq(void *km, int n_regs, mm_reg1_t *regs)
 	kfree(km, aux);
 }
 
-void mm_set_mapq(void *km, int n_regs, mm_reg1_t *regs, int min_chain_sc, int match_sc, int rep_len, int is_sr)
+void mm_set_mapq2(void *km, int n_regs, mm_reg1_t *regs, int min_chain_sc, int match_sc, int rep_len, int is_sr)
 {
 	static const float q_coef = 40.0f;
 	int64_t sum_sc = 0;
@@ -504,5 +504,5 @@ void mm_set_mapq(void *km, int n_regs, mm_reg1_t *regs, int min_chain_sc, int ma
 			if (r->p && r->p->dp_max > r->p->dp_max2 && r->mapq == 0) r->mapq = 1;
 		} else r->mapq = 0;
 	}
-	mm_set_inv_mapq(km, n_regs, regs);
+	mm_set_inv_mapq2(km, n_regs, regs);
 }
