@@ -53,7 +53,7 @@ void mm_mapopt_init(mm_mapopt_t *opt)
 	opt->pe_bonus = 33;
 }
 
-void mm_mapopt_update(mm_mapopt_t *opt, const mm_idx_t *mi)
+void mm_mapopt_update2(mm_mapopt_t *opt, const mm_idx_t *mi)
 {
 	if ((opt->flag & MM_F_SPLICE_FOR) || (opt->flag & MM_F_SPLICE_REV))
 		opt->flag |= MM_F_SPLICE;
@@ -71,7 +71,7 @@ void mm_mapopt_max_intron_len(mm_mapopt_t *opt, int max_intron_len)
 		opt->max_gap_ref = opt->bw = max_intron_len;
 }
 
-int mm_set_opt(const char *preset, mm_idxopt_t *io, mm_mapopt_t *mo)
+int mm_set_opt2(const char *preset, mm_idxopt_t *io, mm_mapopt_t *mo)
 {
 	if (preset == 0) {
 		mm_idxopt_init(io);
