@@ -8,7 +8,7 @@
 #include "kseq.h"
 KSEQ_INIT2(, gzFile, gzread)
 
-unsigned char seq_comp_table[256] = {
+unsigned char seq_comp_table2[256] = {
 	  0,   1,	2,	 3,	  4,   5,	6,	 7,	  8,   9,  10,	11,	 12,  13,  14,	15,
 	 16,  17,  18,	19,	 20,  21,  22,	23,	 24,  25,  26,	27,	 28,  29,  30,	31,
 	 32,  33,  34,	35,	 36,  37,  38,	39,	 40,  41,  42,	43,	 44,  45,  46,	47,
@@ -163,7 +163,7 @@ mm_bseq1_t *mm_bseq_read_frag(int n_fp, mm_bseq_file_t **fp, int64_t chunk_size,
 	return mm_bseq_read_frag2(n_fp, fp, chunk_size, with_qual, 0, n_);
 }
 
-int mm_bseq_eof(mm_bseq_file_t *fp)
+int mm_bseq_eof2(mm_bseq_file_t *fp)
 {
 	return (ks_eof(fp->ks->f) && fp->s.seq == 0);
 }

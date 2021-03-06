@@ -140,14 +140,14 @@ typedef const char *ksstr_t;
 		if (s) { \
 			s = s > n_bits? s - n_bits : 0; \
 			for (k = b; k != be; ++k) \
-				if (k->e - k->b > RS_MIN_SIZE) rs_sort_##name(k->b, k->e, n_bits, s); \
-				else if (k->e - k->b > 1) rs_insertsort_##name(k->b, k->e); \
+				if (k->e - k->b > RS_MIN_SIZE) rs_sort2_##name(k->b, k->e, n_bits, s); \
+				else if (k->e - k->b > 1) rs_insertsort2_##name(k->b, k->e); \
 		} \
 	} \
 	void radix_sort2_##name(rstype_t *beg, rstype_t *end) \
 	{ \
 		if (end - beg <= RS_MIN_SIZE) rs_insertsort_##name(beg, end); \
-		else rs_sort_##name(beg, end, RS_MAX_BITS, (sizeof_key - 1) * RS_MAX_BITS); \
+		else rs_sort2_##name(beg, end, RS_MAX_BITS, (sizeof_key - 1) * RS_MAX_BITS); \
 	}
 
 #endif

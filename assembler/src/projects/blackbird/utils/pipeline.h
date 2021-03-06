@@ -787,9 +787,9 @@ private:
             Minimap::mm_tbuf_t *tbuf = Minimap::mm_tbuf_init2();
             Minimap::mm_idxopt_t iopt;
             Minimap::mm_mapopt_t mopt;
-            mm_set_opt2(0, &iopt, &mopt);
+            Minimap::mm_set_opt2(0, &iopt, &mopt);
             mopt.flag |= MM_F_CIGAR;
-            mm_mapopt_update2(&mopt, index);
+            Minimap::mm_mapopt_update2(&mopt, index);
             Minimap::mm_reg1_t *hit_array = mm_map2(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             max_hits = std::max(max_hits, number_of_hits);
             for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
