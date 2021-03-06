@@ -861,7 +861,7 @@ static inline mm_reg1_t *mm_insert_reg(const mm_reg1_t *r, int i, int *n_regs, m
 	return regs;
 }
 
-mm_reg1_t *mm_align_skeleton(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int qlen, const char *qstr, int *n_regs_, mm_reg1_t *regs, mm128_t *a)
+mm_reg1_t *mm_align_skeleton2(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int qlen, const char *qstr, int *n_regs_, mm_reg1_t *regs, mm128_t *a)
 {
 	extern unsigned char seq_nt4_table[256];
 	int32_t i, n_regs = *n_regs_, n_a;
