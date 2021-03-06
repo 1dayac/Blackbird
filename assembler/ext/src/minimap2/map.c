@@ -154,7 +154,7 @@ static mm128_t *collect_seed_hits_heap2(void *km, const mm_mapopt_t *opt, int ma
 	mm_match_t *m;
 	mm128_t *a, *heap;
 
-	m = collect_matches(km, &n_m, max_occ, mi, mv, n_a, rep_len, n_mini_pos, mini_pos);
+	m = collect_matches2(km, &n_m, max_occ, mi, mv, n_a, rep_len, n_mini_pos, mini_pos);
 
 	heap = (mm128_t*)kmalloc(km, n_m * sizeof(mm128_t));
 	a = (mm128_t*)kmalloc(km, *n_a * sizeof(mm128_t));
