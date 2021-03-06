@@ -145,9 +145,9 @@ class BlackBirdLauncher {
             std::string query = chrom.GetSequenceString();
             const char *reference_cstyle = reference.c_str();
             const char **reference_array = &reference_cstyle;
-            Unimap::mm_idx_t *index = Minimap::mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
+            Unimap::mm_idx_t *index = Unimap::mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
             mm_idx_stat(index);
-            Unimap::mm_tbuf_t *tbuf = Minimap::mm_tbuf_init();
+            Unimap::mm_tbuf_t *tbuf = Unimap::mm_tbuf_init();
             Unimap::mm_idxopt_t iopt;
             Unimap::mm_mapopt_t mopt;
             int number_of_hits;
@@ -158,7 +158,7 @@ class BlackBirdLauncher {
             Unimap::mm_reg1_t *hit_array = Unimap::mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
             INFO(hit_array->score);
             if (number_of_hits > 0) { // traverse hits and print them out
-                Minimap::mm_reg1_t *r = &hit_array[0];
+                Unimap::mm_reg1_t *r = &hit_array[0];
                 //printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 if (!r->rev) {
                     int query_start = r->qs;
