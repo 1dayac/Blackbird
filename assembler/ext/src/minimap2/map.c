@@ -15,7 +15,7 @@ struct mm_tbuf_s {
 	int rep_len, frag_gap;
 };
 
-mm_tbuf_t *mm_tbuf_init(void)
+mm_tbuf_t *mm_tbuf_init2(void)
 {
 	mm_tbuf_t *b;
 	b = (mm_tbuf_t*)calloc(1, sizeof(mm_tbuf_t));
@@ -23,14 +23,14 @@ mm_tbuf_t *mm_tbuf_init(void)
 	return b;
 }
 
-void mm_tbuf_destroy(mm_tbuf_t *b)
+void mm_tbuf_destroy2(mm_tbuf_t *b)
 {
 	if (b == 0) return;
 	km_destroy(b->km);
 	free(b);
 }
 
-void *mm_tbuf_get_km(mm_tbuf_t *b)
+void *mm_tbuf_get_km2(mm_tbuf_t *b)
 {
 	return b->km;
 }
@@ -541,7 +541,7 @@ static void *worker_pipeline(void *shared, int step, void *in)
 				s->seq[i].rid = p->n_processed++;
 			s->buf = (mm_tbuf_t**)calloc(p->n_threads, sizeof(mm_tbuf_t*));
 			for (i = 0; i < p->n_threads; ++i)
-				s->buf[i] = mm_tbuf_init();
+				s->buf[i] = mm_tbuf_init2();
 			s->n_reg = (int*)calloc(5 * s->n_seq, sizeof(int));
 			s->seg_off = s->n_reg + s->n_seq; // seg_off, n_seg, rep_len and frag_gap are allocated together with n_reg
 			s->n_seg = s->seg_off + s->n_seq;
@@ -564,7 +564,7 @@ static void *worker_pipeline(void *shared, int step, void *in)
 		void *km = 0;
         step_t *s = (step_t*)in;
 		const mm_idx_t *mi = p->mi;
-		for (i = 0; i < p->n_threads; ++i) mm_tbuf_destroy(s->buf[i]);
+		for (i = 0; i < p->n_threads; ++i) mm_tbuf_destroy2(s->buf[i]);
 		free(s->buf);
 		if ((p->opt->flag & MM_F_OUT_CS) && !(mm_dbg_flag & MM_DBG_NO_KALLOC)) km = km_init();
 		for (k = 0; k < s->n_frag; ++k) {
@@ -638,7 +638,7 @@ static mm_bseq_file_t **open_bseqs(int n, const char **fn)
 	return fp;
 }
 
-int mm_map_file_frag(const mm_idx_t *idx, int n_segs, const char **fn, const mm_mapopt_t *opt, int n_threads)
+int mm_map_file_frag2(const mm_idx_t *idx, int n_segs, const char **fn, const mm_mapopt_t *opt, int n_threads)
 {
 	int i, pl_threads;
 	pipeline_t pl;
@@ -663,9 +663,9 @@ int mm_map_file_frag(const mm_idx_t *idx, int n_segs, const char **fn, const mm_
 	return 0;
 }
 
-int mm_map_file(const mm_idx_t *idx, const char *fn, const mm_mapopt_t *opt, int n_threads)
+int mm_map_file2(const mm_idx_t *idx, const char *fn, const mm_mapopt_t *opt, int n_threads)
 {
-	return mm_map_file_frag(idx, 1, &fn, opt, n_threads);
+	return mm_map_file_frag2(idx, 1, &fn, opt, n_threads);
 }
 
 int mm_split_merge(int n_segs, const char **fn, const mm_mapopt_t *opt, int n_split_idx)
