@@ -620,7 +620,7 @@ int mm_idx_alt_read2(mm_idx_t *mi, const char *fn)
 	if (fp == 0) return -1;
 	ks = ks_init(fp);
 	if (mi->h == 0) mm_idx_index_name2(mi);
-	while (ks_getuntil2(ks, KS_SEP_LINE, &str, 0) >= 0) {
+	while (ks_getuntil2x(ks, KS_SEP_LINE, &str, 0) >= 0) {
 		char *p;
 		int id;
 		for (p = str.s; *p && !isspace(*p); ++p) { }
@@ -648,7 +648,7 @@ mm_idx_intv_t *mm_idx_read_bed2(const mm_idx_t *mi, const char *fn, int read_jun
 	if (fp == 0) return 0;
 	I = (mm_idx_intv_t*)calloc(mi->n_seq, sizeof(*I));
 	ks = ks_init(fp);
-	while (ks_getuntil2(ks, KS_SEP_LINE, &str, 0) >= 0) {
+	while (ks_getuntil2x(ks, KS_SEP_LINE, &str, 0) >= 0) {
 		mm_idx_intv_t *r;
 		mm_idx_intv1_t t = {-1,-1,-1,-1,0};
 		char *p, *q, *bl, *bs;

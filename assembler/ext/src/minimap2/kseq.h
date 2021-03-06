@@ -158,7 +158,7 @@ typedef struct __kstring_t {
 
 #define KSTREAM_DECLARE(type_t, __read) \
 	__KS_TYPE(type_t) \
-	extern int ks_getuntil2(kstream_t *ks, int delimiter, kstring_t *str, int *dret, int append); \
+	extern int ks_getuntil2x(kstream_t *ks, int delimiter, kstring_t *str, int *dret, int append); \
 	extern kstream_t *ks_init(type_t f); \
 	extern void ks_destroy(kstream_t *ks); \
 	__KS_INLINED(__read)
