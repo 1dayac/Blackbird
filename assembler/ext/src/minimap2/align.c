@@ -914,7 +914,7 @@ mm_reg1_t *mm_align_skeleton2(void *km, const mm_mapopt_t *opt, const mm_idx_t *
 	*n_regs_ = n_regs;
 	kfree(km, qseq0[0]);
 	kfree(km, ez.cigar);
-	mm_filter_regs(opt, qlen, n_regs_, regs);
+	mm_filter_regs2(opt, qlen, n_regs_, regs);
 	mm_hit_sort(km, n_regs_, regs, opt->alt_drop);
 	return regs;
 }
