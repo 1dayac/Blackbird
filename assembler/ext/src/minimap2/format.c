@@ -265,7 +265,7 @@ int mm_gen_MD2(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_
 	return mm_gen_cs_or_MD2(km, buf, max_len, mi, r, seq, 1, 0);
 }
 
-double mm_event_identity(const mm_reg1_t *r)
+double mm_event_identity2(const mm_reg1_t *r)
 {
 	int32_t i, n_gapo = 0, n_gap = 0;
 	if (r->p == 0) return -1.0f;
@@ -292,9 +292,9 @@ static inline void write_tags(kstring_t *s, const mm_reg1_t *r)
 	if (r->p) {
 		char buf[16];
 		double div;
-		div = 1.0 - mm_event_identity(r);
+		div = 1.0 - mm_event_identity2(r);
 		if (div == 0.0) buf[0] = '0', buf[1] = 0;
-		else snprintf(buf, 16, "%.4f", 1.0 - mm_event_identity(r));
+		else snprintf(buf, 16, "%.4f", 1.0 - mm_event_identity2(r));
 		mm_sprintf_lite(s, "\tde:f:%s", buf);
 	} else if (r->div >= 0.0f && r->div <= 1.0f) {
 		char buf[16];

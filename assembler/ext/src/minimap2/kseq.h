@@ -57,14 +57,14 @@
 #define ks_rewind(ks) ((ks)->is_eof = (ks)->begin = (ks)->end = 0)
 
 #define __KS_BASIC(SCOPE, type_t, __bufsize) \
-	SCOPE kstream_t *ks_init(type_t f) \
+	SCOPE kstream_t *ks_init2(type_t f) \
 	{ \
 		kstream_t *ks = (kstream_t*)calloc(1, sizeof(kstream_t)); \
 		ks->f = f; ks->bufsize = __bufsize; \
 		ks->buf = (unsigned char*)malloc(__bufsize); \
 		return ks; \
 	} \
-	SCOPE void ks_destroy(kstream_t *ks) \
+	SCOPE void ks_destroy2(kstream_t *ks) \
 	{ \
 		if (!ks) return; \
 		free(ks->buf); \
@@ -72,7 +72,7 @@
 	}
 
 #define __KS_INLINED(__read) \
-	static inline klib_unused int ks_getc(kstream_t *ks) \
+	static inline klib_unused int ks_getc2(kstream_t *ks) \
 	{ \
 		if (ks->is_eof && ks->begin >= ks->end) return -1; \
 		if (ks->begin >= ks->end) { \
@@ -83,8 +83,8 @@
 		} \
 		return (int)ks->buf[ks->begin++]; \
 	} \
-	static inline int ks_getuntil(kstream_t *ks, int delimiter, kstring_t *str, int *dret) \
-	{ return ks_getuntil2(ks, delimiter, str, dret, 0); }
+	static inline int ks_getuntilx(kstream_t *ks, int delimiter, kstring_t *str, int *dret) \
+	{ return ks_getuntil2x(ks, delimiter, str, dret, 0); }
 
 #ifndef KSTRING_T
 #define KSTRING_T kstring_t
@@ -99,7 +99,7 @@ typedef struct __kstring_t {
 #endif
 
 #define __KS_GETUNTIL(SCOPE, __read) \
-	SCOPE int ks_getuntil2(kstream_t *ks, int delimiter, kstring_t *str, int *dret, int append) \
+	SCOPE int ks_getuntil2x(kstream_t *ks, int delimiter, kstring_t *str, int *dret, int append) \
 	{ \
 		if (dret) *dret = 0; \
 		str->l = append? str->l : 0; \
@@ -170,7 +170,7 @@ typedef struct __kstring_t {
 #define kseq_rewind(ks) ((ks)->last_char = (ks)->f->is_eof = (ks)->f->begin = (ks)->f->end = 0)
 
 #define __KSEQ_BASIC(SCOPE, type_t) \
-	SCOPE kseq_t *kseq_init(type_t fd) \
+	SCOPE kseq_t *kseq_init2(type_t fd) \
 	{ \
 		kseq_t *s = (kseq_t*)calloc(1, sizeof(kseq_t)); \
 		s->f = ks_init(fd); \
@@ -190,7 +190,7 @@ typedef struct __kstring_t {
    -2   truncated quality string
  */
 #define __KSEQ_READ(SCOPE) \
-	SCOPE int kseq_read(kseq_t *seq) \
+	SCOPE int kseq_read2(kseq_t *seq) \
 	{ \
 		int c; \
 		kstream_t *ks = seq->f; \

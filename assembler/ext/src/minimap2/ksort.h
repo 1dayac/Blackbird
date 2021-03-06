@@ -102,7 +102,7 @@ typedef const char *ksstr_t;
 	typedef struct { \
 		rstype_t *b, *e; \
 	} rsbucket_##name##_t; \
-	void rs_insertsort_##name(rstype_t *beg, rstype_t *end) \
+	void rs_insertsort2_##name(rstype_t *beg, rstype_t *end) \
 	{ \
 		rstype_t *i; \
 		for (i = beg + 1; i < end; ++i) \
@@ -113,7 +113,7 @@ typedef const char *ksstr_t;
 				*j = tmp; \
 			} \
 	} \
-	void rs_sort_##name(rstype_t *beg, rstype_t *end, int n_bits, int s) \
+	void rs_sort2_##name(rstype_t *beg, rstype_t *end, int n_bits, int s) \
 	{ \
 		rstype_t *i; \
 		int size = 1<<n_bits, m = size - 1; \
@@ -144,7 +144,7 @@ typedef const char *ksstr_t;
 				else if (k->e - k->b > 1) rs_insertsort_##name(k->b, k->e); \
 		} \
 	} \
-	void radix_sort_##name(rstype_t *beg, rstype_t *end) \
+	void radix_sort2_##name(rstype_t *beg, rstype_t *end) \
 	{ \
 		if (end - beg <= RS_MIN_SIZE) rs_insertsort_##name(beg, end); \
 		else rs_sort_##name(beg, end, RS_MAX_BITS, (sizeof_key - 1) * RS_MAX_BITS); \
