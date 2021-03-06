@@ -19,6 +19,9 @@
 #include <boost/circular_buffer.hpp>
 #include <unimap2/unimap.h>
 #include "unimap2/unimap.h"
+
+#include <minimap2/minimap.h>
+
 #include "io/reads/fasta_fastq_gz_parser.hpp"
 #include "common/utils/parallel/openmp_wrapper.h"
 #include "common/utils/memory_limit.hpp"
