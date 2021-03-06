@@ -90,7 +90,8 @@ public:
 
 class BlackBirdLauncher {
 
-    void ProcessInversion(Minimap::mm_reg1_t *r, const std::string &query, const std::string &ref_name, int start_pos) {
+    template<typename T>
+    void ProcessInversion(T *r, const std::string &query, const std::string &ref_name, int start_pos) {
         std::string inversion_seq = "";
         INFO("Inversion");
         int query_start = r->qs;
