@@ -685,7 +685,10 @@ private:
         std::system(spades_command.c_str());
         auto const& const_reference_map = reference_map_;
         std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
-        RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region, temp_dir);
+        int hits = RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
+        if (hits > 1) {
+            RunAndProcessUnimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region, temp_dir);
+        }
         if (!OptionBase::keep_assembly_folders)
             fs::remove_dir(temp_dir.c_str());
     }
@@ -735,7 +738,133 @@ private:
         return true;
     }
 
-    void RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, const BamTools::BamRegion &region, const std::string &temp_dir) {
+    int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
+        const char *reference_cstyle = reference.c_str();
+        const char **reference_array = &reference_cstyle;
+        mm_idx_t *index = mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
+        io::FastaFastqGzParser reference_reader(path_to_scaffolds);
+        io::SingleRead contig;
+        std::set<std::pair<int, int>> found_intervals;
+        int max_hits = 0;
+        while (!reference_reader.eof()) {
+            reference_reader >> contig;
+            std::string query = contig.GetSequenceString();
+            size_t qsize = query.size();
+
+            int number_of_hits;
+            mm_tbuf_t *tbuf = mm_tbuf_init();
+            mm_idxopt_t iopt;
+            mm_mapopt_t mopt;
+            mm_set_opt(0, &iopt, &mopt);
+            mopt.flag |= MM_F_CIGAR;
+            mm_mapopt_update(&mopt, index);
+            mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
+            max_hits = std::max(max_hits, number_of_hits);
+            for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
+                mm_reg1_t *r = &hit_array[k];
+                printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
+                if (r->inv) {
+                    ProcessInversion(r, query, ref_name, start_pos);
+                }
+                else if (!r->rev) {
+                    int query_start = r->qs;
+                    int reference_start = r->rs;
+                    for (int i = 0; i < r->p->n_cigar; ++i) {
+                        printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
+                            found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i])>>4)), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
+                            query_start += (r->p->cigar[i]>>4);
+                            reference_start += (r->p->cigar[i]>>4);
+                        }
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
+                            Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4));
+                            std::string ins_seq = query.substr(query_start, r->p->cigar[i]>>4);
+                            if (ins_seq.find("N") == std::string::npos && qsize > 5000 && NoID(r, i)) {
+                                if (ins.Size() >= 50) {
+                                    WriteCritical(vector_of_ins_, ins);
+                                } else {
+                                    WriteCritical(vector_of_small_ins_, ins);
+                                }
+                            }
+                            query_start += (r->p->cigar[i]>>4);
+                        }
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
+                            Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
+                            if (qsize > 5000 && NoID(r, i)) {
+                                if (del.Size() >= 50) {
+                                    WriteCritical(vector_of_del_, del);
+                                } else {
+                                    WriteCritical(vector_of_small_del_, del);
+                                }
+                            }
+                            found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i]>>4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
+                            reference_start += (r->p->cigar[i]>>4);
+                        }
+                    }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
+                } else {
+                    int query_start = r->qs;
+                    int reference_start = r->rs;
+                    for (int i = 0; i < r->p->n_cigar; ++i) {
+                        printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
+                            query_start += (r->p->cigar[i]>>4);
+                            found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i]>>4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
+                            reference_start += (r->p->cigar[i]>>4);
+                        }
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
+
+                            Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
+                            std::string ins_seq = ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4);
+                            if (ins_seq.find("N") == std::string::npos && qsize > 5000 && NoID(r, i)) {
+                                if (ins.Size() >= 50) {
+                                    WriteCritical(vector_of_ins_, ins);
+                                } else {
+                                    WriteCritical(vector_of_small_ins_, ins);
+                                }
+                            }
+                            query_start += (r->p->cigar[i]>>4);
+                        }
+                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
+                            Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
+                            if (qsize > 5000 && NoID(r, i)) {
+                                if (del.Size() >= 50) {
+                                    WriteCritical(vector_of_del_, del);
+                                } else {
+                                    WriteCritical(vector_of_small_del_, del);
+                                }
+                            }
+                            found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i]>>4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
+                            reference_start += (r->p->cigar[i]>>4);
+                        }
+                    }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
+                }
+                free(r->p);
+
+            }
+
+            free(hit_array);
+            mm_tbuf_destroy(tbuf);
+            return max_hits;
+        }
+        std::vector<std::pair<int, int>> merged_intervals;
+        for (auto p : found_intervals) {
+            if (!merged_intervals.size()) {
+                merged_intervals.push_back(p);
+                continue;
+            }
+            auto last_interval = merged_intervals.back();
+            if (p.first > last_interval.second) {
+                merged_intervals.push_back(p);
+                continue;
+            }
+            if (p.second > last_interval.second) {
+                merged_intervals[merged_intervals.size() - 1] = {last_interval.first, p.second};
+            }
+        }
+        mm_idx_destroy(index);
+    }
+
+    void RunAndProcessUnimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, const BamTools::BamRegion &region, const std::string &temp_dir) {
         int start_pos = region.LeftPosition;
         io::FastaWriter reference_writer;
         std::string path_to_reference = temp_dir + "/reference.fasta";
