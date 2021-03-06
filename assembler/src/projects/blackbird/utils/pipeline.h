@@ -640,10 +640,11 @@ private:
         }
 
         INFO("Count_add - " << count_add);
-
+        bool have_singles = false;
         for (auto p : filtered_reads) {
             if (p.second.size() == 1) {
                 //if (alignment.MateRefID == -1) {
+                    have_singles = true;
                     OutputSingleRead(p.second[0], single_out_stream);
                 //}
                 //else {
@@ -681,12 +682,15 @@ private:
         for (auto barcode : barcodes_count_over_threshold) {
             if (const_map_of_bad_reads.count(barcode)) {
                 for (auto const &read : const_cast<std::vector<Sequence>&>(const_map_of_bad_reads.at(barcode))) {
+                    have_singles = true;
                     single_out_stream << CreateReadFromSeq(read);
                 }
             }
         }
 
         std::string spades_command = OptionBase::path_to_spades + " --only-assembler --sc -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
+        if (!have_singles)
+            spades_command = OptionBase::path_to_spades + " --only-assembler --sc -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq -o  " + temp_dir + "/assembly >/dev/null";
         std::system(spades_command.c_str());
         auto const& const_reference_map = reference_map_;
         std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
