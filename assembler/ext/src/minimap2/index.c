@@ -424,7 +424,7 @@ mm_idx_t *mm_idx_str2(int w, int k, int is_hpc, int bucket_bits, int n, const ch
 		sum_len += p->len;
 		if (p->len > 0) {
 			a.n = 0;
-			mm_sketch(0, s, p->len, w, k, i, is_hpc, &a);
+			mm_sketch2(0, s, p->len, w, k, i, is_hpc, &a);
 			mm_idx_add2(mi, a.n, a.a);
 		}
 	}
