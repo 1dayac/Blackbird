@@ -773,7 +773,7 @@ private:
     int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
-        Minimap::mm_idx_t *index = Minimap::mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
+        Minimap::mm_idx_t *index = Minimap::mm_idx_str2(10, 15, 0, 14, 1, reference_array, NULL);
         io::FastaFastqGzParser reference_reader(path_to_scaffolds);
         io::SingleRead contig;
         std::set<std::pair<int, int>> found_intervals;
@@ -784,13 +784,13 @@ private:
             size_t qsize = query.size();
 
             int number_of_hits;
-            Minimap::mm_tbuf_t *tbuf = Minimap::mm_tbuf_init();
+            Minimap::mm_tbuf_t *tbuf = Minimap::mm_tbuf_init2();
             Minimap::mm_idxopt_t iopt;
             Minimap::mm_mapopt_t mopt;
-            mm_set_opt(0, &iopt, &mopt);
+            mm_set_opt2(0, &iopt, &mopt);
             mopt.flag |= MM_F_CIGAR;
-            mm_mapopt_update(&mopt, index);
-            Minimap::mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
+            mm_mapopt_update2(&mopt, index);
+            Minimap::mm_reg1_t *hit_array = mm_map2(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             max_hits = std::max(max_hits, number_of_hits);
             for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
                 Minimap::mm_reg1_t *r = &hit_array[k];
@@ -875,7 +875,7 @@ private:
             }
 
             free(hit_array);
-            mm_tbuf_destroy(tbuf);
+            mm_tbuf_destroy2(tbuf);
             return max_hits;
         }
         std::vector<std::pair<int, int>> merged_intervals;
@@ -893,7 +893,7 @@ private:
                 merged_intervals[merged_intervals.size() - 1] = {last_interval.first, p.second};
             }
         }
-        mm_idx_destroy(index);
+        mm_idx_destroy2(index);
     }
 
     void RunAndProcessUnimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, const BamTools::BamRegion &region, const std::string &temp_dir) {

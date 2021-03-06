@@ -183,8 +183,8 @@ extern double mm_realtime0; // wall-clock timer
  *
  * @return 0 if success; -1 if _present_ unknown
  */
-int mm_set_opt(const char *preset, mm_idxopt_t *io, mm_mapopt_t *mo);
-int mm_check_opt(const mm_idxopt_t *io, const mm_mapopt_t *mo);
+int mm_set_opt2(const char *preset, mm_idxopt_t *io, mm_mapopt_t *mo);
+int mm_check_opt2(const mm_idxopt_t *io, const mm_mapopt_t *mo);
 
 /**
  * Update mm_mapopt_t::mid_occ via mm_mapopt_t::mid_occ_frac
@@ -196,9 +196,9 @@ int mm_check_opt(const mm_idxopt_t *io, const mm_mapopt_t *mo);
  * @param opt        mapping parameters
  * @param mi         minimap2 index
  */
-void mm_mapopt_update(mm_mapopt_t *opt, const mm_idx_t *mi);
+void mm_mapopt_update2(mm_mapopt_t *opt, const mm_idx_t *mi);
 
-void mm_mapopt_max_intron_len(mm_mapopt_t *opt, int max_intron_len);
+void mm_mapopt_max_intron_len2(mm_mapopt_t *opt, int max_intron_len);
 
 /**
  * Initialize an index reader
@@ -209,7 +209,7 @@ void mm_mapopt_max_intron_len(mm_mapopt_t *opt, int max_intron_len);
  *
  * @return an index reader on success; NULL if fail to open _fn_
  */
-mm_idx_reader_t *mm_idx_reader_open(const char *fn, const mm_idxopt_t *opt, const char *fn_out);
+mm_idx_reader_t *mm_idx_reader_open2(const char *fn, const mm_idxopt_t *opt, const char *fn_out);
 
 /**
  * Read/build an index
@@ -226,16 +226,16 @@ mm_idx_reader_t *mm_idx_reader_open(const char *fn, const mm_idxopt_t *opt, cons
  *
  * @return an index on success; NULL if reaching the end of the input file
  */
-mm_idx_t *mm_idx_reader_read(mm_idx_reader_t *r, int n_threads);
+mm_idx_t *mm_idx_reader_read2(mm_idx_reader_t *r, int n_threads);
 
 /**
  * Destroy/deallocate an index reader
  *
  * @param r          index reader
  */
-void mm_idx_reader_close(mm_idx_reader_t *r);
+void mm_idx_reader_close2(mm_idx_reader_t *r);
 
-int mm_idx_reader_eof(const mm_idx_reader_t *r);
+int mm_idx_reader_eof2(const mm_idx_reader_t *r);
 
 /**
  * Check whether the file contains a minimap2 index
@@ -244,7 +244,7 @@ int mm_idx_reader_eof(const mm_idx_reader_t *r);
  *
  * @return the file size if fn is an index file; 0 if fn is not.
  */
-int64_t mm_idx_is_idx(const char *fn);
+int64_t mm_idx_is_idx2(const char *fn);
 
 /**
  * Load a part of an index
@@ -257,7 +257,7 @@ int64_t mm_idx_is_idx(const char *fn);
  *
  * @return minimap2 index read from fp
  */
-mm_idx_t *mm_idx_load(FILE *fp);
+mm_idx_t *mm_idx_load2(FILE *fp);
 
 /**
  * Append an index (or one part of a full index) to file
@@ -265,7 +265,7 @@ mm_idx_t *mm_idx_load(FILE *fp);
  * @param fp         pointer to FILE object
  * @param mi         minimap2 index
  */
-void mm_idx_dump(FILE *fp, const mm_idx_t *mi);
+void mm_idx_dump2(FILE *fp, const mm_idx_t *mi);
 
 /**
  * Create an index from strings in memory
@@ -280,21 +280,21 @@ void mm_idx_dump(FILE *fp, const mm_idx_t *mi);
  *
  * @return minimap2 index
  */
-mm_idx_t *mm_idx_str(int w, int k, int is_hpc, int bucket_bits, int n, const char **seq, const char **name);
+mm_idx_t *mm_idx_str2(int w, int k, int is_hpc, int bucket_bits, int n, const char **seq, const char **name);
 
 /**
  * Print index statistics to stderr
  *
  * @param mi         minimap2 index
  */
-void mm_idx_stat(const mm_idx_t *idx);
+void mm_idx_stat2(const mm_idx_t *idx);
 
 /**
  * Destroy/deallocate an index
  *
  * @param r          minimap2 index
  */
-void mm_idx_destroy(mm_idx_t *mi);
+void mm_idx_destroy2(mm_idx_t *mi);
 
 /**
  * Initialize a thread-local buffer for mapping
@@ -306,16 +306,16 @@ void mm_idx_destroy(mm_idx_t *mi);
  *
  * @return pointer to a thread-local buffer
  */
-mm_tbuf_t *mm_tbuf_init(void);
+mm_tbuf_t *mm_tbuf_init2(void);
 
 /**
  * Destroy/deallocate a thread-local buffer for mapping
  *
  * @param b          the buffer
  */
-void mm_tbuf_destroy(mm_tbuf_t *b);
+void mm_tbuf_destroy2(mm_tbuf_t *b);
 
-void *mm_tbuf_get_km(mm_tbuf_t *b);
+void *mm_tbuf_get_km2(mm_tbuf_t *b);
 
 /**
  * Align a query sequence against an index
@@ -335,9 +335,9 @@ void *mm_tbuf_get_km(mm_tbuf_t *b);
  * @return an array of hits which need to be deallocated with free() together
  *         with mm_reg1_t::p of each element. The size is written to _n_regs_.
  */
-mm_reg1_t *mm_map(const mm_idx_t *mi, int l_seq, const char *seq, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *name);
+mm_reg1_t *mm_map2(const mm_idx_t *mi, int l_seq, const char *seq, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *name);
 
-void mm_map_frag(const mm_idx_t *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t **regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *qname);
+void mm_map_frag2(const mm_idx_t *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t **regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *qname);
 
 /**
  * Align a fasta/fastq file and print alignments to stdout
@@ -349,9 +349,9 @@ void mm_map_frag(const mm_idx_t *mi, int n_segs, const int *qlens, const char **
  *
  * @return 0 on success; -1 if _fn_ can't be read
  */
-int mm_map_file(const mm_idx_t *idx, const char *fn, const mm_mapopt_t *opt, int n_threads);
+int mm_map_file2(const mm_idx_t *idx, const char *fn, const mm_mapopt_t *opt, int n_threads);
 
-int mm_map_file_frag(const mm_idx_t *idx, int n_segs, const char **fn, const mm_mapopt_t *opt, int n_threads);
+int mm_map_file_frag2(const mm_idx_t *idx, int n_segs, const char **fn, const mm_mapopt_t *opt, int n_threads);
 
 /**
  * Generate the cs tag (new in 2.12)
@@ -366,21 +366,21 @@ int mm_map_file_frag(const mm_idx_t *idx, int n_segs, const char **fn, const mm_
  *
  * @return the length of cs
  */
-int mm_gen_cs(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t *r, const char *seq, int no_iden);
-int mm_gen_MD(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t *r, const char *seq);
+int mm_gen_cs2(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t *r, const char *seq, int no_iden);
+int mm_gen_MD2(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t *r, const char *seq);
 
 // query sequence name and sequence in the minimap2 index
-int mm_idx_index_name(mm_idx_t *mi);
-int mm_idx_name2id(const mm_idx_t *mi, const char *name);
-int mm_idx_getseq(const mm_idx_t *mi, uint32_t rid, uint32_t st, uint32_t en, uint8_t *seq);
+int mm_idx_index_name2(mm_idx_t *mi);
+int mm_idx_name2id2(const mm_idx_t *mi, const char *name);
+int mm_idx_getseq2(const mm_idx_t *mi, uint32_t rid, uint32_t st, uint32_t en, uint8_t *seq);
 
-int mm_idx_alt_read(mm_idx_t *mi, const char *fn);
-int mm_idx_bed_read(mm_idx_t *mi, const char *fn, int read_junc);
-int mm_idx_bed_junc(const mm_idx_t *mi, int32_t ctg, int32_t st, int32_t en, uint8_t *s);
+int mm_idx_alt_read2(mm_idx_t *mi, const char *fn);
+int mm_idx_bed_read2(mm_idx_t *mi, const char *fn, int read_junc);
+int mm_idx_bed_junc2(const mm_idx_t *mi, int32_t ctg, int32_t st, int32_t en, uint8_t *s);
 
 // deprecated APIs for backward compatibility
-void mm_mapopt_init(mm_mapopt_t *opt);
-mm_idx_t *mm_idx_build(const char *fn, int w, int k, int flag, int n_threads);
+void mm_mapopt_init2(mm_mapopt_t *opt);
+mm_idx_t *mm_idx_build2(const char *fn, int w, int k, int flag, int n_threads);
 
 #ifdef __cplusplus
 }

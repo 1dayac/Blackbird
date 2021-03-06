@@ -53,7 +53,7 @@ mm_idx_t *mm_idx_init(int w, int k, int b, int flag)
 	return mi;
 }
 
-void mm_idx_destroy(mm_idx_t *mi)
+void mm_idx_destroy2(mm_idx_t *mi)
 {
 	uint32_t i;
 	if (mi == 0) return;
