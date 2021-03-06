@@ -6,7 +6,7 @@
 #include "kvec.h"
 #include "mmpriv.h"
 
-unsigned char seq_nt4_table[256] = {
+unsigned char seq_nt4_table2[256] = {
 	0, 1, 2, 3,  4, 4, 4, 4,  4, 4, 4, 4,  4, 4, 4, 4,
 	4, 4, 4, 4,  4, 4, 4, 4,  4, 4, 4, 4,  4, 4, 4, 4,
 	4, 4, 4, 4,  4, 4, 4, 4,  4, 4, 4, 4,  4, 4, 4, 4,
@@ -87,15 +87,15 @@ void mm_sketch2(void *km, const char *str, int len, int w, int k, uint32_t rid, 
 	kv_resize(mm128_t, km, *p, p->n + len/w);
 
 	for (i = l = buf_pos = min_pos = 0; i < len; ++i) {
-		int c = seq_nt4_table[(uint8_t)str[i]];
+		int c = seq_nt4_table2[(uint8_t)str[i]];
 		mm128_t info = { UINT64_MAX, UINT64_MAX };
 		if (c < 4) { // not an ambiguous base
 			int z;
 			if (is_hpc) {
 				int skip_len = 1;
-				if (i + 1 < len && seq_nt4_table[(uint8_t)str[i + 1]] == c) {
+				if (i + 1 < len && seq_nt4_table2[(uint8_t)str[i + 1]] == c) {
 					for (skip_len = 2; i + skip_len < len; ++skip_len)
-						if (seq_nt4_table[(uint8_t)str[i + skip_len]] != c)
+						if (seq_nt4_table2[(uint8_t)str[i + skip_len]] != c)
 							break;
 					i += skip_len - 1; // put $i at the end of the current homopolymer run
 				}
