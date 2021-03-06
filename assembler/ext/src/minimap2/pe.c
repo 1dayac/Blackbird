@@ -100,7 +100,7 @@ void mm_pair(void *km, int max_gap_ref, int pe_bonus, int sub_diff, int match_sc
 	}
 	dp_thres -= pe_bonus;
 	if (dp_thres < 0) dp_thres = 0;
-	radix_sort_pair(a, a + n);
+	radix_sort2_pair(a, a + n);
 
 	max = -1;
 	max_idx[0] = max_idx[1] = -1;
