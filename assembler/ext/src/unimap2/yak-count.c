@@ -408,14 +408,14 @@ yak_ch_t *yak_count_file(const char *fn1, const char *fn2, const yak_copt_t *opt
 {
 	yak_ch_t *h;
 	h = yak_count(fn1, opt, 0); // if bloom filter is in use, this gets approximate counts
-	fprintf(stderr, "[M::%s::%.3f*%.2f] round 1: %ld distinct k-mers\n", __func__, realtime() - mm_realtime0, cputime() / (realtime() - mm_realtime0), (long)h->tot);
+    //fprintf(stderr, "[M::%s::%.3f*%.2f] round 1: %ld distinct k-mers\n", __func__, realtime() - mm_realtime0, cputime() / (realtime() - mm_realtime0), (long)h->tot);
 	if (opt->bf_shift > 0) { // bloom filter is in use
 		if (!keep_bf) yak_ch_destroy_bf(h); // deallocate bloom filter
 		yak_ch_clear(h, opt->n_thread); // set counts to 0
 		h = yak_count(fn2? fn2 : fn1, opt, h); // count again
 	}
 	yak_ch_shrink(h, 2, YAK_MAX_COUNT, opt->n_thread); // always drop singletons (different from the original yak)
-	fprintf(stderr, "[M::%s::%.3f*%.2f] round 2: %ld distinct k-mers\n", __func__, realtime() - mm_realtime0, cputime() / (realtime() - mm_realtime0), (long)h->tot);
+	//fprintf(stderr, "[M::%s::%.3f*%.2f] round 2: %ld distinct k-mers\n", __func__, realtime() - mm_realtime0, cputime() / (realtime() - mm_realtime0), (long)h->tot);
 	return h;
 }
 

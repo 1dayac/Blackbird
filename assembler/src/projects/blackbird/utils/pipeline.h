@@ -17,10 +17,14 @@
 #include "parallel_hashmap/phmap.h"
 #include "parallel_hashmap/phmap_fwd_decl.h"
 #include <boost/circular_buffer.hpp>
+namespace Unimap {
 #include <unimap2/unimap.h>
 #include "unimap2/unimap.h"
+}
 
+namespace Minimap {
 #include <minimap2/minimap.h>
+}
 
 #include "io/reads/fasta_fastq_gz_parser.hpp"
 #include "common/utils/parallel/openmp_wrapper.h"
@@ -86,7 +90,7 @@ public:
 
 class BlackBirdLauncher {
 
-    void ProcessInversion(mm_reg1_t *r, const std::string &query, const std::string &ref_name, int start_pos) {
+    void ProcessInversion(Minimap::mm_reg1_t *r, const std::string &query, const std::string &ref_name, int start_pos) {
         std::string inversion_seq = "";
         INFO("Inversion");
         int query_start = r->qs;
@@ -140,20 +144,20 @@ class BlackBirdLauncher {
             std::string query = chrom.GetSequenceString();
             const char *reference_cstyle = reference.c_str();
             const char **reference_array = &reference_cstyle;
-            mm_idx_t *index = mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
+            Unimap::mm_idx_t *index = Minimap::mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
             mm_idx_stat(index);
-            mm_tbuf_t *tbuf = mm_tbuf_init();
-            mm_idxopt_t iopt;
-            mm_mapopt_t mopt;
+            Unimap::mm_tbuf_t *tbuf = Minimap::mm_tbuf_init();
+            Unimap::mm_idxopt_t iopt;
+            Unimap::mm_mapopt_t mopt;
             int number_of_hits;
             mm_set_opt(0, &iopt, &mopt);
             mm_mapopt_update(&mopt, index);
             mopt.flag |= MM_F_CIGAR;
             std::string name = "123";
-            mm_reg1_t *hit_array = mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
+            Unimap::mm_reg1_t *hit_array = Unimap::mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
             INFO(hit_array->score);
             if (number_of_hits > 0) { // traverse hits and print them out
-                mm_reg1_t *r = &hit_array[0];
+                Minimap::mm_reg1_t *r = &hit_array[0];
                 //printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 if (!r->rev) {
                     int query_start = r->qs;
@@ -741,7 +745,7 @@ private:
     int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
-        mm_idx_t *index = mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
+        Minimap::mm_idx_t *index = Minimap::mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
         io::FastaFastqGzParser reference_reader(path_to_scaffolds);
         io::SingleRead contig;
         std::set<std::pair<int, int>> found_intervals;
@@ -752,16 +756,16 @@ private:
             size_t qsize = query.size();
 
             int number_of_hits;
-            mm_tbuf_t *tbuf = mm_tbuf_init();
-            mm_idxopt_t iopt;
-            mm_mapopt_t mopt;
+            Minimap::mm_tbuf_t *tbuf = Minimap::mm_tbuf_init();
+            Minimap::mm_idxopt_t iopt;
+            Minimap::mm_mapopt_t mopt;
             mm_set_opt(0, &iopt, &mopt);
             mopt.flag |= MM_F_CIGAR;
             mm_mapopt_update(&mopt, index);
-            mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
+            Minimap::mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             max_hits = std::max(max_hits, number_of_hits);
             for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
-                mm_reg1_t *r = &hit_array[k];
+                Minimap::mm_reg1_t *r = &hit_array[k];
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 if (r->inv) {
                     ProcessInversion(r, query, ref_name, start_pos);
@@ -871,7 +875,7 @@ private:
         std::ofstream out(path_to_reference);
         io::SingleRead reference_read(std::to_string(region.LeftRefID) + "_" + std::to_string(start_pos), reference);
         reference_writer.Write(out, reference_read);
-        mm_idx_t *index = um_idx_gen(path_to_reference.c_str(), 5, 15, 14, 0, 35, 1000000000, 50, 1);
+        Unimap::mm_idx_t *index = Unimap::um_idx_gen(path_to_reference.c_str(), 5, 15, 14, 0, 35, 1000000000, 50, 1);
         io::FastaFastqGzParser reference_reader(path_to_scaffolds);
         io::SingleRead contig;
         std::set<std::pair<int, int>> found_intervals;
@@ -881,15 +885,15 @@ private:
             size_t qsize = query.size();
 
             int number_of_hits;
-            mm_tbuf_t *tbuf = mm_tbuf_init();
-            mm_idxopt_t iopt;
-            mm_mapopt_t mopt;
+            Unimap::mm_tbuf_t *tbuf = Unimap::mm_tbuf_init();
+            Unimap::mm_idxopt_t iopt;
+            Unimap::mm_mapopt_t mopt;
             mm_set_opt(0, &iopt, &mopt);
             mopt.flag |= MM_F_CIGAR;
             mm_mapopt_update(&mopt, index);
-            mm_reg1_t *hit_array = mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
+            Unimap::mm_reg1_t *hit_array = mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
-                mm_reg1_t *r = &hit_array[k];
+                Unimap::mm_reg1_t *r = &hit_array[k];
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 if (r->inv) {
                     ProcessInversion(r, query, ref_name, start_pos);
