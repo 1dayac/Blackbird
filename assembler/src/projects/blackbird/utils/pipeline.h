@@ -880,7 +880,6 @@ private:
 
             free(hit_array);
             mm_tbuf_destroy2(tbuf);
-            return max_hits;
         }
         std::vector<std::pair<int, int>> merged_intervals;
         for (auto p : found_intervals) {
@@ -898,6 +897,7 @@ private:
             }
         }
         mm_idx_destroy2(index);
+        return max_hits;
     }
 
     void RunAndProcessUnimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, const BamTools::BamRegion &region, const std::string &temp_dir) {
