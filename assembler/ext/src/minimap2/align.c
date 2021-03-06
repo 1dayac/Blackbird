@@ -6,7 +6,7 @@
 #include "mmpriv.h"
 #include "ksw2.h"
 
-static void ksw_gen_simple_mat(int m, int8_t *mat, int8_t a, int8_t b, int8_t sc_ambi)
+static void ksw_gen_simple_mat2(int m, int8_t *mat, int8_t a, int8_t b, int8_t sc_ambi)
 {
 	int i, j;
 	a = a < 0? -a : a;
@@ -21,7 +21,7 @@ static void ksw_gen_simple_mat(int m, int8_t *mat, int8_t a, int8_t b, int8_t sc
 		mat[(m - 1) * m + j] = sc_ambi;
 }
 
-static inline void mm_seq_rev(uint32_t len, uint8_t *seq)
+static inline void mm_seq_rev2(uint32_t len, uint8_t *seq)
 {
 	uint32_t i;
 	uint8_t t;
@@ -29,7 +29,7 @@ static inline void mm_seq_rev(uint32_t len, uint8_t *seq)
 		t = seq[i], seq[i] = seq[len - 1 - i], seq[len - 1 - i] = t;
 }
 
-static inline void update_max_zdrop(int32_t score, int i, int j, int32_t *max, int *max_i, int *max_j, int e, int *max_zdrop, int pos[2][2])
+static inline void update_max_zdrop2(int32_t score, int i, int j, int32_t *max, int *max_i, int *max_j, int e, int *max_zdrop, int pos[2][2])
 {
 	if (score < *max) {
 		int li = i - *max_i;
@@ -56,14 +56,14 @@ static int mm_test_zdrop(void *km, const mm_mapopt_t *opt, const uint8_t *qseq, 
 		if (op == 0) {
 			for (l = 0; l < len; ++l) {
 				score += mat[tseq[i + l] * 5 + qseq[j + l]];
-				update_max_zdrop(score, i+l, j+l, &max, &max_i, &max_j, opt->e, &max_zdrop, pos);
+				update_max_zdrop2(score, i+l, j+l, &max, &max_i, &max_j, opt->e, &max_zdrop, pos);
 			}
 			i += len, j += len;
 		} else if (op == 1 || op == 2 || op == 3) {
 			score -= opt->q + opt->e * len;
 			if (op == 1) j += len; // insertion
 			else i += len;         // deletion
-			update_max_zdrop(score, i, j, &max, &max_i, &max_j, opt->e, &max_zdrop, pos);
+			update_max_zdrop2(score, i, j, &max, &max_i, &max_j, opt->e, &max_zdrop, pos);
 		}
 	}
 
@@ -285,7 +285,7 @@ static void mm_update_extra(mm_reg1_t *r, const uint8_t *qseq, const uint8_t *ts
 	if (is_eqx) mm_update_cigar_eqx(r, qseq, tseq); // NB: it has to be called here as changes to qseq and tseq are not returned
 }
 
-static void mm_append_cigar(mm_reg1_t *r, uint32_t n_cigar, uint32_t *cigar) // TODO: this calls the libc realloc()
+static void mm_append_cigar2(mm_reg1_t *r, uint32_t n_cigar, uint32_t *cigar) // TODO: this calls the libc realloc()
 {
 	mm_extra_t *p;
 	if (n_cigar == 0) return;
@@ -576,7 +576,7 @@ static void mm_align1(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int 
 
 	r2->cnt = 0;
 	if (r->cnt == 0) return;
-	ksw_gen_simple_mat(5, mat, opt->a, opt->b, opt->sc_ambi);
+	ksw_gen_simple_mat2(5, mat, opt->a, opt->b, opt->sc_ambi);
 	bw = (int)(opt->bw * 1.5 + 1.);
 
 	if (is_sr && !(mi->flag & MM_I_HPC)) {
@@ -691,17 +691,17 @@ static void mm_align1(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int 
 		qseq = &qseq0[rev][qs0];
 		mm_idx_getseq(mi, rid, rs0, rs, tseq);
 		mm_idx_bed_junc(mi, rid, rs0, rs, junc);
-		mm_seq_rev(qs - qs0, qseq);
-		mm_seq_rev(rs - rs0, tseq);
-		mm_seq_rev(rs - rs0, junc);
+		mm_seq_rev2(qs - qs0, qseq);
+		mm_seq_rev2(rs - rs0, tseq);
+		mm_seq_rev2(rs - rs0, junc);
 		mm_align_pair(km, opt, qs - qs0, qseq, rs - rs0, tseq, junc, mat, bw, opt->end_bonus, r->split_inv? opt->zdrop_inv : opt->zdrop, extra_flag|KSW_EZ_EXTZ_ONLY|KSW_EZ_RIGHT|KSW_EZ_REV_CIGAR, ez);
 		if (ez->n_cigar > 0) {
-			mm_append_cigar(r, ez->n_cigar, ez->cigar);
+			mm_append_cigar2(r, ez->n_cigar, ez->cigar);
 			r->p->dp_score += ez->max;
 		}
 		rs1 = rs - (ez->reach_end? ez->mqe_t + 1 : ez->max_t + 1);
 		qs1 = qs - (ez->reach_end? qs - qs0 : ez->max_q + 1);
-		mm_seq_rev(qs - qs0, qseq);
+		mm_seq_rev2(qs - qs0, qseq);
 	} else rs1 = rs, qs1 = qs;
 	re1 = rs, qe1 = qs;
 	assert(qs1 >= 0 && rs1 >= 0);
@@ -737,7 +737,7 @@ static void mm_align1(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int 
 				mm_align_pair(km, opt, qe - qs, qseq, re - rs, tseq, junc, mat, bw1, -1, zdrop_code == 2? opt->zdrop_inv : opt->zdrop, extra_flag, ez); // second pass: lift approximate
 			// update CIGAR
 			if (ez->n_cigar > 0)
-				mm_append_cigar(r, ez->n_cigar, ez->cigar);
+				mm_append_cigar2(r, ez->n_cigar, ez->cigar);
 			if (ez->zdropped) { // truncated by Z-drop; TODO: sometimes Z-drop kicks in because the next seed placement is wrong. This can be fixed in principle.
 				if (!r->p) {
 					assert(ez->n_cigar == 0);
@@ -770,7 +770,7 @@ static void mm_align1(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int 
 		mm_idx_bed_junc(mi, rid, re, re0, junc);
 		mm_align_pair(km, opt, qe0 - qe, qseq, re0 - re, tseq, junc, mat, bw, opt->end_bonus, opt->zdrop, extra_flag|KSW_EZ_EXTZ_ONLY, ez);
 		if (ez->n_cigar > 0) {
-			mm_append_cigar(r, ez->n_cigar, ez->cigar);
+			mm_append_cigar2(r, ez->n_cigar, ez->cigar);
 			r->p->dp_score += ez->max;
 		}
 		re1 = re + (ez->reach_end? ez->mqe_t + 1 : ez->max_t + 1);
@@ -811,23 +811,23 @@ static int mm_align1_inv(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, i
 	if (ql < opt->min_chain_score || ql > opt->max_gap) return 0;
 	if (tl < opt->min_chain_score || tl > opt->max_gap) return 0;
 
-	ksw_gen_simple_mat(5, mat, opt->a, opt->b, opt->sc_ambi);
+	ksw_gen_simple_mat2(5, mat, opt->a, opt->b, opt->sc_ambi);
 	tseq = (uint8_t*)kmalloc(km, tl);
 	mm_idx_getseq(mi, r1->rid, r1->re, r2->rs, tseq);
 	qseq = r1->rev? &qseq0[0][r2->qe] : &qseq0[1][qlen - r2->qs];
 
-	mm_seq_rev(ql, qseq);
-	mm_seq_rev(tl, tseq);
+	mm_seq_rev2(ql, qseq);
+	mm_seq_rev2(tl, tseq);
 	qp = ksw_ll_qinit(km, 2, ql, qseq, 5, mat);
 	score = ksw_ll_i16(qp, tl, tseq, opt->q, opt->e, &q_off, &t_off);
 	kfree(km, qp);
-	mm_seq_rev(ql, qseq);
-	mm_seq_rev(tl, tseq);
+	mm_seq_rev2(ql, qseq);
+	mm_seq_rev2(tl, tseq);
 	if (score < opt->min_dp_max) goto end_align1_inv;
 	q_off = ql - (q_off + 1), t_off = tl - (t_off + 1);
 	mm_align_pair(km, opt, ql - q_off, qseq + q_off, tl - t_off, tseq + t_off, 0, mat, (int)(opt->bw * 1.5), -1, opt->zdrop, KSW_EZ_EXTZ_ONLY, ez);
 	if (ez->n_cigar == 0) goto end_align1_inv; // should never be here
-	mm_append_cigar(r_inv, ez->n_cigar, ez->cigar);
+	mm_append_cigar2(r_inv, ez->n_cigar, ez->cigar);
 	r_inv->p->dp_score = ez->max;
 	r_inv->id = -1;
 	r_inv->parent = MM_PARENT_UNSET;
