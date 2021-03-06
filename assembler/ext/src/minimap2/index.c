@@ -437,7 +437,7 @@ mm_idx_t *mm_idx_str2(int w, int k, int is_hpc, int bucket_bits, int n, const ch
  * index I/O *
  *************/
 
-void mm_idx_dump(FILE *fp, const mm_idx_t *mi)
+void mm_idx_dump2(FILE *fp, const mm_idx_t *mi)
 {
 	uint64_t sum_len = 0;
 	uint32_t x[5], i;
@@ -533,7 +533,7 @@ mm_idx_t *mm_idx_load2(FILE *fp)
 	return mi;
 }
 
-int64_t mm_idx_is_idx(const char *fn)
+int64_t mm_idx_is_idx2(const char *fn)
 {
 	int fd, is_idx = 0;
 	int64_t ret, off_end;

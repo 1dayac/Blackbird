@@ -5,7 +5,7 @@
 #include "kalloc.h"
 #include "khash.h"
 
-static inline void mm_cal_fuzzy_len(mm_reg1_t *r, const mm128_t *a)
+static inline void mm_cal_fuzzy_len2(mm_reg1_t *r, const mm128_t *a)
 {
 	int i;
 	r->mlen = r->blen = 0;
@@ -20,7 +20,7 @@ static inline void mm_cal_fuzzy_len(mm_reg1_t *r, const mm128_t *a)
 	}
 }
 
-static inline void mm_reg_set_coor(mm_reg1_t *r, int32_t qlen, const mm128_t *a)
+static inline void mm_reg_set_coor2(mm_reg1_t *r, int32_t qlen, const mm128_t *a)
 { // NB: r->as and r->cnt MUST BE set correctly for this function to work
 	int32_t k = r->as, q_span = (int32_t)(a[k].y>>32&0xff);
 	r->rev = a[k].x>>63;
@@ -34,7 +34,7 @@ static inline void mm_reg_set_coor(mm_reg1_t *r, int32_t qlen, const mm128_t *a)
 		r->qs = qlen - ((int32_t)a[k + r->cnt - 1].y + 1);
 		r->qe = qlen - ((int32_t)a[k].y + 1 - q_span);
 	}
-	mm_cal_fuzzy_len(r, a);
+	mm_cal_fuzzy_len2(r, a);
 }
 
 static inline uint64_t hash64(uint64_t key)
@@ -81,13 +81,13 @@ mm_reg1_t *mm_gen_regs2(void *km, uint32_t hash, int qlen, int n_u, uint64_t *u,
 		ri->cnt = (int32_t)z[i].y;
 		ri->as = z[i].y >> 32;
 		ri->div = -1.0f;
-		mm_reg_set_coor(ri, qlen, a);
+		mm_reg_set_coor2(ri, qlen, a);
 	}
 	kfree(km, z);
 	return r;
 }
 
-void mm_mark_alt(const mm_idx_t *mi, int n, mm_reg1_t *r)
+void mm_mark_alt2(const mm_idx_t *mi, int n, mm_reg1_t *r)
 {
 	int i;
 	if (mi->n_alt == 0) return;
@@ -96,14 +96,14 @@ void mm_mark_alt(const mm_idx_t *mi, int n, mm_reg1_t *r)
 			r[i].is_alt = 1;
 }
 
-static inline int mm_alt_score(int score, float alt_diff_frac)
+static inline int mm_alt_score2(int score, float alt_diff_frac)
 {
 	if (score < 0) return score;
 	score = (int)(score * (1.0 - alt_diff_frac) + .499);
 	return score > 0? score : 1;
 }
 
-void mm_split_reg(mm_reg1_t *r, mm_reg1_t *r2, int n, int qlen, mm128_t *a)
+void mm_split_reg2(mm_reg1_t *r, mm_reg1_t *r2, int n, int qlen, mm128_t *a)
 {
 	if (n <= 0 || n >= r->cnt) return;
 	*r2 = *r;
@@ -115,14 +115,14 @@ void mm_split_reg(mm_reg1_t *r, mm_reg1_t *r2, int n, int qlen, mm128_t *a)
 	r2->score = (int32_t)(r->score * ((float)r2->cnt / r->cnt) + .499);
 	r2->as = r->as + n;
 	if (r->parent == r->id) r2->parent = MM_PARENT_TMP_PRI;
-	mm_reg_set_coor(r2, qlen, a);
+	mm_reg_set_coor2(r2, qlen, a);
 	r->cnt -= r2->cnt;
 	r->score -= r2->score;
-	mm_reg_set_coor(r, qlen, a);
+	mm_reg_set_coor2(r, qlen, a);
 	r->split |= 1, r2->split |= 2;
 }
 
-void mm_set_parent(void *km, float mask_level, int mask_len, int n, mm_reg1_t *r, int sub_diff, int hard_mask_level, float alt_diff_frac) // and compute mm_reg1_t::subsc
+void mm_set_parent2(void *km, float mask_level, int mask_len, int n, mm_reg1_t *r, int sub_diff, int hard_mask_level, float alt_diff_frac) // and compute mm_reg1_t::subsc
 {
 	int i, j, k, *w;
 	uint64_t *cov;
@@ -165,12 +165,12 @@ skip_uncov:
 			if ((float)ol / min - (float)uncov_len / max > mask_level && uncov_len <= mask_len) { // then this is a secondary hit
 				int cnt_sub = 0, sci = ri->score;
 				ri->parent = rp->parent;
-				if (!rp->is_alt && ri->is_alt) sci = mm_alt_score(sci, alt_diff_frac);
+				if (!rp->is_alt && ri->is_alt) sci = mm_alt_score2(sci, alt_diff_frac);
 				rp->subsc = rp->subsc > sci? rp->subsc : sci;
 				if (ri->cnt >= rp->cnt) cnt_sub = 1;
 				if (rp->p && ri->p && (rp->rid != ri->rid || rp->rs != ri->rs || rp->re != ri->re || ol != min)) { // the last condition excludes identical hits after DP
 					sci = ri->p->dp_max;
-					if (!rp->is_alt && ri->is_alt) sci = mm_alt_score(sci, alt_diff_frac);
+					if (!rp->is_alt && ri->is_alt) sci = mm_alt_score2(sci, alt_diff_frac);
 					rp->p->dp_max2 = rp->p->dp_max2 > sci? rp->p->dp_max2 : sci;
 					if (rp->p->dp_max - ri->p->dp_max <= sub_diff) cnt_sub = 1;
 				}
@@ -185,7 +185,7 @@ set_parent_test:
 	kfree(km, w);
 }
 
-void mm_hit_sort(void *km, int *n_regs, mm_reg1_t *r, float alt_diff_frac)
+void mm_hit_sort2(void *km, int *n_regs, mm_reg1_t *r, float alt_diff_frac)
 {
 	int32_t i, n_aux, n = *n_regs, has_cigar = 0, no_cigar = 0;
 	mm128_t *aux;
@@ -199,7 +199,7 @@ void mm_hit_sort(void *km, int *n_regs, mm_reg1_t *r, float alt_diff_frac)
 			int score;
 			if (r[i].p) score = r[i].p->dp_max, has_cigar = 1;
 			else score = r[i].score, no_cigar = 1;
-			if (r[i].is_alt) score = mm_alt_score(score, alt_diff_frac);
+			if (r[i].is_alt) score = mm_alt_score2(score, alt_diff_frac);
 			aux[n_aux].x = (uint64_t)score << 32 | r[i].hash;
 			aux[n_aux++].y = i;
 		} else if (r[i].p) {
@@ -217,7 +217,7 @@ void mm_hit_sort(void *km, int *n_regs, mm_reg1_t *r, float alt_diff_frac)
 	kfree(km, t);
 }
 
-int mm_set_sam_pri(int n, mm_reg1_t *r)
+int mm_set_sam_pri2(int n, mm_reg1_t *r)
 {
 	int i, n_pri = 0;
 	for (i = 0; i < n; ++i)
@@ -249,10 +249,10 @@ void mm_sync_regs2(void *km, int n_regs, mm_reg1_t *regs) // keep mm_reg1_t::{id
 		else r->parent = MM_PARENT_UNSET;
 	}
 	kfree(km, tmp);
-	mm_set_sam_pri(n_regs, regs);
+	mm_set_sam_pri2(n_regs, regs);
 }
 
-void mm_select_sub(void *km, float pri_ratio, int min_diff, int best_n, int *n_, mm_reg1_t *r)
+void mm_select_sub2(void *km, float pri_ratio, int min_diff, int best_n, int *n_, mm_reg1_t *r)
 {
 	if (pri_ratio > 0.0f && *n_ > 0) {
 		int i, k, n = *n_, n_2nd = 0;
@@ -266,7 +266,7 @@ void mm_select_sub(void *km, float pri_ratio, int min_diff, int best_n, int *n_,
 				else if (r[i].p) free(r[i].p);
 			} else if (r[i].p) free(r[i].p);
 		}
-		if (k != n) mm_sync_regs(km, k, r); // removing hits requires sync()
+		if (k != n) mm_sync_regs2(km, k, r); // removing hits requires sync()
 		*n_ = k;
 	}
 }
@@ -292,7 +292,7 @@ void mm_filter_regs2(const mm_mapopt_t *opt, int qlen, int *n_regs, mm_reg1_t *r
 	*n_regs = k;
 }
 
-int mm_squeeze_a(void *km, int n_regs, mm_reg1_t *regs, mm128_t *a)
+int mm_squeeze_a2(void *km, int n_regs, mm_reg1_t *regs, mm128_t *a)
 { // squeeze out regions in a[] that are not referenced by regs[]
 	int i, as = 0;
 	uint64_t *aux;
@@ -318,7 +318,7 @@ void mm_join_long2(void *km, const mm_mapopt_t *opt, int qlen, int *n_regs_, mm_
 	uint64_t *aux;
 
 	if (n_regs < 2) return; // nothing to join
-	mm_squeeze_a(km, n_regs, regs, a);
+	mm_squeeze_a2(km, n_regs, regs, a);
 
 	aux = (uint64_t*)kmalloc(km, n_regs * 8);
 	for (i = n_aux = 0; i < n_regs; ++i)
@@ -350,7 +350,7 @@ void mm_join_long2(void *km, const mm_mapopt_t *opt, int qlen, int *n_regs_, mm_
 		// all conditions satisfied; join
 		a[r1->as].y |= MM_SEED_LONG_JOIN;
 		r0->cnt += r1->cnt, r0->score += r1->score;
-		mm_reg_set_coor(r0, qlen, a);
+		mm_reg_set_coor2(r0, qlen, a);
 		r1->cnt = 0;
 		r1->parent = r0->id;
 		++n_drop;
