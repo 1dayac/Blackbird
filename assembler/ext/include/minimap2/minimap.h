@@ -168,7 +168,7 @@ typedef struct {
 } mm_idx_reader_t;
 
 // memory buffer for thread-local storage during mapping
-typedef struct mm_tbuf_s mm_tbuf_t;
+typedef struct mm_tbuf_s mm_tbuf_t2;
 
 // global variables
 extern int mm_verbose, mm_dbg_flag; // verbose level: 0 for no info, 1 for error, 2 for warning, 3 for message (default); debugging flag

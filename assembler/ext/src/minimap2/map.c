@@ -10,7 +10,7 @@
 #include "bseq.h"
 #include "khash.h"
 
-struct mm_tbuf_s {
+struct mm_tbuf_s2 {
 	void *km;
 	int rep_len, frag_gap;
 };
