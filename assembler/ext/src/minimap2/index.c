@@ -557,7 +557,7 @@ int64_t mm_idx_is_idx2(const char *fn)
 	return is_idx? off_end : 0;
 }
 
-mm_idx_reader_t *mm_idx_reader_open(const char *fn, const mm_idxopt_t *opt, const char *fn_out)
+mm_idx_reader_t *mm_idx_reader_open(const char *fn, const mm_idxopt_t2 *opt, const char *fn_out)
 {
 	int64_t is_idx;
 	mm_idx_reader_t *r;
