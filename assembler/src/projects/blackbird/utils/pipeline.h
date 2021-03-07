@@ -794,10 +794,10 @@ private:
             Minimap::mm_set_opt2(0, &iopt, &mopt);
             mopt.flag |= MM_F_CIGAR;
             Minimap::mm_mapopt_update2(&mopt, index);
-            Minimap::mm_reg1_t *hit_array = mm_map2(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
+            Minimap::mm_reg1_t2 *hit_array = mm_map2(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             max_hits = std::max(max_hits, number_of_hits);
             for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
-                Minimap::mm_reg1_t *r = &hit_array[k];
+                Minimap::mm_reg1_t2 *r = &hit_array[k];
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 if (r->inv) {
                     ProcessInversion(r, query, ref_name, start_pos);
