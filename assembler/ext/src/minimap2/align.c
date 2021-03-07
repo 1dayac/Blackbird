@@ -88,7 +88,7 @@ static int mm_test_zdrop(void *km, const mm_mapopt_t *opt, const uint8_t *qseq, 
 	return max_zdrop > opt->zdrop? 1 : 0;
 }
 
-static void mm_fix_cigar2(mm_reg1_t *r, const uint8_t *qseq, const uint8_t *tseq, int *qshift, int *tshift)
+static void mm_fix_cigar2(mm_reg1_t2 *r, const uint8_t *qseq, const uint8_t *tseq, int *qshift, int *tshift)
 {
 	mm_extra_t *p = r->p;
 	int32_t toff = 0, qoff = 0, to_shrink = 0;
@@ -166,7 +166,7 @@ static void mm_fix_cigar2(mm_reg1_t *r, const uint8_t *qseq, const uint8_t *tseq
 	}
 }
 
-static void mm_update_cigar_eqx2(mm_reg1_t *r, const uint8_t *qseq, const uint8_t *tseq) // written by @armintoepfer
+static void mm_update_cigar_eqx2(mm_reg1_t2 *r, const uint8_t *qseq, const uint8_t *tseq) // written by @armintoepfer
 {
 	uint32_t n_EQX = 0;
 	uint32_t k, l, m, cap, toff = 0, qoff = 0, n_M = 0;
@@ -237,7 +237,7 @@ static void mm_update_cigar_eqx2(mm_reg1_t *r, const uint8_t *qseq, const uint8_
 	r->p = p;
 }
 
-static void mm_update_extra2(mm_reg1_t *r, const uint8_t *qseq, const uint8_t *tseq, const int8_t *mat, int8_t q, int8_t e, int is_eqx)
+static void mm_update_extra2(mm_reg1_t2 *r, const uint8_t *qseq, const uint8_t *tseq, const int8_t *mat, int8_t q, int8_t e, int is_eqx)
 {
 	uint32_t k, l;
 	int32_t s = 0, max = 0, qshift, tshift, toff = 0, qoff = 0;
@@ -285,7 +285,7 @@ static void mm_update_extra2(mm_reg1_t *r, const uint8_t *qseq, const uint8_t *t
 	if (is_eqx) mm_update_cigar_eqx2(r, qseq, tseq); // NB: it has to be called here as changes to qseq and tseq are not returned
 }
 
-static void mm_append_cigar2(mm_reg1_t *r, uint32_t n_cigar, uint32_t *cigar) // TODO: this calls the libc realloc()
+static void mm_append_cigar2(mm_reg1_t2 *r, uint32_t n_cigar, uint32_t *cigar) // TODO: this calls the libc realloc()
 {
 	mm_extra_t *p;
 	if (n_cigar == 0) return;
@@ -456,7 +456,7 @@ static void mm_filter_bad_seeds_alt(void *km, int as1, int cnt1, mm128_t *a, int
 	kfree(km, K);
 }
 
-static void mm_fix_bad_ends(const mm_reg1_t *r, const mm128_t *a, int bw, int min_match, int32_t *as, int32_t *cnt)
+static void mm_fix_bad_ends(const mm_reg1_t2 *r, const mm128_t *a, int bw, int min_match, int32_t *as, int32_t *cnt)
 {
 	int32_t i, l, m;
 	*as = r->as, *cnt = r->cnt;
@@ -492,7 +492,7 @@ static void mm_fix_bad_ends(const mm_reg1_t *r, const mm128_t *a, int bw, int mi
 	}
 }
 
-static void mm_max_stretch2(const mm_reg1_t *r, const mm128_t *a, int32_t *as, int32_t *cnt)
+static void mm_max_stretch2(const mm_reg1_t2 *r, const mm128_t *a, int32_t *as, int32_t *cnt)
 {
 	int32_t i, score, max_score, len, max_i, max_len;
 
@@ -542,7 +542,7 @@ static int mm_seed_ext_score(void *km, const mm_mapopt_t *opt, const mm_idx_t *m
 	return score;
 }
 
-static void mm_fix_bad_ends_splice(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, const mm_reg1_t *r, const int8_t mat[25], int qlen, uint8_t *qseq0[2], const mm128_t *a, int *as1, int *cnt1)
+static void mm_fix_bad_ends_splice(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, const mm_reg1_t2 *r, const int8_t mat[25], int qlen, uint8_t *qseq0[2], const mm128_t *a, int *as1, int *cnt1)
 { // this assumes a very crude k-mer based mode; it is not necessary to use a good model just for filtering bounary exons
 	int score;
 	double log_gap;
@@ -562,7 +562,7 @@ static void mm_fix_bad_ends_splice(void *km, const mm_mapopt_t *opt, const mm_id
 	}
 }
 
-static void mm_align12(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int qlen, uint8_t *qseq0[2], mm_reg1_t *r, mm_reg1_t *r2, int n_a, mm128_t *a, ksw_extz_t *ez, int splice_flag)
+static void mm_align12(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int qlen, uint8_t *qseq0[2], mm_reg1_t2 *r, mm_reg1_t2 *r2, int n_a, mm128_t *a, ksw_extz_t *ez, int splice_flag)
 {
 	int is_sr = !!(opt->flag & MM_F_SR), is_splice = !!(opt->flag & MM_F_SPLICE);
 	int32_t rid = a[r->as].x<<1>>33, rev = a[r->as].x>>63, as1, cnt1;
@@ -794,14 +794,14 @@ static void mm_align12(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int
 	kfree(km, junc);
 }
 
-static int mm_align1_inv2(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int qlen, uint8_t *qseq0[2], const mm_reg1_t *r1, const mm_reg1_t *r2, mm_reg1_t *r_inv, ksw_extz_t *ez)
+static int mm_align1_inv2(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int qlen, uint8_t *qseq0[2], const mm_reg1_t2 *r1, const mm_reg1_t2 *r2, mm_reg1_t2 *r_inv, ksw_extz_t *ez)
 {
 	int tl, ql, score, ret = 0, q_off, t_off;
 	uint8_t *tseq, *qseq;
 	int8_t mat[25];
 	void *qp;
 
-	memset(r_inv, 0, sizeof(mm_reg1_t));
+	memset(r_inv, 0, sizeof(mm_reg1_t2));
 	if (!(r1->split&1) || !(r2->split&2)) return 0;
 	if (r1->id != r1->parent && r1->parent != MM_PARENT_TMP_PRI) return 0;
 	if (r2->id != r2->parent && r2->parent != MM_PARENT_TMP_PRI) return 0;
@@ -851,17 +851,17 @@ end_align1_inv:
 	return ret;
 }
 
-static inline mm_reg1_t *mm_insert_reg(const mm_reg1_t *r, int i, int *n_regs, mm_reg1_t *regs)
+static inline mm_reg1_t2 *mm_insert_reg(const mm_reg1_t2 *r, int i, int *n_regs, mm_reg1_t2 *regs)
 {
-	regs = (mm_reg1_t*)realloc(regs, (*n_regs + 1) * sizeof(mm_reg1_t));
+	regs = (mm_reg1_t2*)realloc(regs, (*n_regs + 1) * sizeof(mm_reg1_t2));
 	if (i + 1 != *n_regs)
-		memmove(&regs[i + 2], &regs[i + 1], sizeof(mm_reg1_t) * (*n_regs - i - 1));
+		memmove(&regs[i + 2], &regs[i + 1], sizeof(mm_reg1_t2) * (*n_regs - i - 1));
 	regs[i + 1] = *r;
 	++*n_regs;
 	return regs;
 }
 
-mm_reg1_t *mm_align_skeleton2(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int qlen, const char *qstr, int *n_regs_, mm_reg1_t *regs, mm128_t *a)
+mm_reg1_t2 *mm_align_skeleton2(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int qlen, const char *qstr, int *n_regs_, mm_reg1_t2 *regs, mm128_t *a)
 {
 	extern unsigned char seq_nt4_table[256];
 	int32_t i, n_regs = *n_regs_, n_a;
@@ -880,9 +880,9 @@ mm_reg1_t *mm_align_skeleton2(void *km, const mm_mapopt_t *opt, const mm_idx_t *
 	n_a = mm_squeeze_a(km, n_regs, regs, a);
 	memset(&ez, 0, sizeof(ksw_extz_t));
 	for (i = 0; i < n_regs; ++i) {
-		mm_reg1_t r2;
+		mm_reg1_t2 r2;
 		if ((opt->flag&MM_F_SPLICE) && (opt->flag&MM_F_SPLICE_FOR) && (opt->flag&MM_F_SPLICE_REV)) { // then do two rounds of alignments for both strands
-			mm_reg1_t s[2], s2[2];
+			mm_reg1_t2 s[2], s2[2];
 			int which, trans_strand;
 			s[0] = s[1] = regs[i];
 			mm_align12(km, opt, mi, qlen, qseq0, &s[0], &s2[0], n_a, a, &ez, MM_F_SPLICE_FOR);

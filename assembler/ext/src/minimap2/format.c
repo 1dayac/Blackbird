@@ -138,7 +138,7 @@ int mm_write_sam_hdr2(const mm_idx_t *idx, const char *rg, const char *ver, int 
 	return ret;
 }
 
-static void write_cs_core(kstring_t *s, const uint8_t *tseq, const uint8_t *qseq, const mm_reg1_t *r, char *tmp, int no_iden, int write_tag)
+static void write_cs_core(kstring_t *s, const uint8_t *tseq, const uint8_t *qseq, const mm_reg1_t2 *r, char *tmp, int no_iden, int write_tag)
 {
 	int i, q_off, t_off;
 	if (write_tag) mm_sprintf_lite(s, "\tcs:Z:");
@@ -186,7 +186,7 @@ static void write_cs_core(kstring_t *s, const uint8_t *tseq, const uint8_t *qseq
 	assert(t_off == r->re - r->rs && q_off == r->qe - r->qs);
 }
 
-static void write_MD_core(kstring_t *s, const uint8_t *tseq, const uint8_t *qseq, const mm_reg1_t *r, char *tmp, int write_tag)
+static void write_MD_core(kstring_t *s, const uint8_t *tseq, const uint8_t *qseq, const mm_reg1_t2 *r, char *tmp, int write_tag)
 {
 	int i, q_off, t_off, l_MD = 0;
 	if (write_tag) mm_sprintf_lite(s, "\tMD:Z:");
@@ -217,7 +217,7 @@ static void write_MD_core(kstring_t *s, const uint8_t *tseq, const uint8_t *qseq
 	assert(t_off == r->re - r->rs && q_off == r->qe - r->qs);
 }
 
-static void write_cs_or_MD2(void *km, kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const mm_reg1_t *r, int no_iden, int is_MD, int write_tag)
+static void write_cs_or_MD2(void *km, kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const mm_reg1_t2 *r, int no_iden, int is_MD, int write_tag)
 {
 	extern unsigned char seq_nt4_table[256];
 	int i;
@@ -242,7 +242,7 @@ static void write_cs_or_MD2(void *km, kstring_t *s, const mm_idx_t *mi, const mm
 	kfree(km, qseq); kfree(km, tseq); kfree(km, tmp);
 }
 
-int mm_gen_cs_or_MD2(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t *r, const char *seq, int is_MD, int no_iden)
+int mm_gen_cs_or_MD2(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t2 *r, const char *seq, int is_MD, int no_iden)
 {
 	mm_bseq1_t t;
 	kstring_t str;
@@ -255,17 +255,17 @@ int mm_gen_cs_or_MD2(void *km, char **buf, int *max_len, const mm_idx_t *mi, con
 	return str.l;
 }
 
-int mm_gen_cs2(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t *r, const char *seq, int no_iden)
+int mm_gen_cs2(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t2 *r, const char *seq, int no_iden)
 {
 	return mm_gen_cs_or_MD2(km, buf, max_len, mi, r, seq, 0, no_iden);
 }
 
-int mm_gen_MD2(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t *r, const char *seq)
+int mm_gen_MD2(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t2 *r, const char *seq)
 {
 	return mm_gen_cs_or_MD2(km, buf, max_len, mi, r, seq, 1, 0);
 }
 
-double mm_event_identity2(const mm_reg1_t *r)
+double mm_event_identity2(const mm_reg1_t2 *r)
 {
 	int32_t i, n_gapo = 0, n_gap = 0;
 	if (r->p == 0) return -1.0f;
@@ -277,7 +277,7 @@ double mm_event_identity2(const mm_reg1_t *r)
 	return (double)r->mlen / (r->blen + r->p->n_ambi - n_gap + n_gapo);
 }
 
-static inline void write_tags(kstring_t *s, const mm_reg1_t *r)
+static inline void write_tags(kstring_t *s, const mm_reg1_t2 *r)
 {
 	int type;
 	if (r->id == r->parent) type = r->inv? 'I' : 'P';
@@ -305,7 +305,7 @@ static inline void write_tags(kstring_t *s, const mm_reg1_t *r)
 	if (r->split) mm_sprintf_lite(s, "\tzd:i:%d", r->split);
 }
 
-void mm_write_paf3(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const mm_reg1_t *r, void *km, int opt_flag, int rep_len)
+void mm_write_paf3(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const mm_reg1_t2 *r, void *km, int opt_flag, int rep_len)
 {
 	s->l = 0;
 	if (r == 0) {
@@ -333,7 +333,7 @@ void mm_write_paf3(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const 
 		mm_sprintf_lite(s, "\t%s", t->comment);
 }
 
-void mm_write_paf2(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const mm_reg1_t *r, void *km, int opt_flag)
+void mm_write_paf2(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const mm_reg1_t2 *r, void *km, int opt_flag)
 {
 	mm_write_paf3(s, mi, t, r, km, opt_flag, -1);
 }
@@ -352,7 +352,7 @@ static void sam_write_sq(kstring_t *s, char *seq, int l, int rev, int comp)
 	} else str_copy(s, seq, seq + l);
 }
 
-static inline const mm_reg1_t *get_sam_pri(int n_regs, const mm_reg1_t *regs)
+static inline const mm_reg1_t2 *get_sam_pri(int n_regs, const mm_reg1_t2 *regs)
 {
 	int i;
 	for (i = 0; i < n_regs; ++i)
@@ -362,7 +362,7 @@ static inline const mm_reg1_t *get_sam_pri(int n_regs, const mm_reg1_t *regs)
 	return NULL;
 }
 
-static void write_sam_cigar(kstring_t *s, int sam_flag, int in_tag, int qlen, const mm_reg1_t *r, int opt_flag)
+static void write_sam_cigar(kstring_t *s, int sam_flag, int in_tag, int qlen, const mm_reg1_t2 *r, int opt_flag)
 {
 	if (r->p == 0) {
 		mm_sprintf_lite(s, "*");
@@ -388,13 +388,13 @@ static void write_sam_cigar(kstring_t *s, int sam_flag, int in_tag, int qlen, co
 	}
 }
 
-void mm_write_sam3(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, int seg_idx, int reg_idx, int n_seg, const int *n_regss, const mm_reg1_t *const* regss, void *km, int opt_flag, int rep_len)
+void mm_write_sam3(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, int seg_idx, int reg_idx, int n_seg, const int *n_regss, const mm_reg1_t2 *const* regss, void *km, int opt_flag, int rep_len)
 {
 	const int max_bam_cigar_op = 65535;
 	int flag, n_regs = n_regss[seg_idx], cigar_in_tag = 0;
 	int this_rid = -1, this_pos = -1, this_rev = 0;
-	const mm_reg1_t *regs = regss[seg_idx], *r_prev = NULL, *r_next;
-	const mm_reg1_t *r = n_regs > 0 && reg_idx < n_regs && reg_idx >= 0? &regs[reg_idx] : NULL;
+	const mm_reg1_t2 *regs = regss[seg_idx], *r_prev = NULL, *r_next;
+	const mm_reg1_t2 *r = n_regs > 0 && reg_idx < n_regs && reg_idx >= 0? &regs[reg_idx] : NULL;
 
 	// find the primary of the previous and the next segments, if they are mapped
 	if (n_seg > 1) {
@@ -517,7 +517,7 @@ void mm_write_sam3(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, int se
 			if (n_sa > 0) {
 				mm_sprintf_lite(s, "\tSA:Z:");
 				for (i = 0; i < n_regs; ++i) {
-					const mm_reg1_t *q = &regs[i];
+					const mm_reg1_t2 *q = &regs[i];
 					int l_M, l_I = 0, l_D = 0, clip5 = 0, clip3 = 0;
 					if (r == q || q->parent != q->id || q->p == 0) continue;
 					if (q->qe - q->qs < q->re - q->rs) l_M = q->qe - q->qs, l_D = (q->re - q->rs) - l_M;
@@ -547,12 +547,12 @@ void mm_write_sam3(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, int se
 	s->s[s->l] = 0; // we always have room for an extra byte (see str_enlarge)
 }
 
-void mm_write_sam2(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, int seg_idx, int reg_idx, int n_seg, const int *n_regss, const mm_reg1_t *const* regss, void *km, int opt_flag)
+void mm_write_sam2(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, int seg_idx, int reg_idx, int n_seg, const int *n_regss, const mm_reg1_t2 *const* regss, void *km, int opt_flag)
 {
 	mm_write_sam3(s, mi, t, seg_idx, reg_idx, n_seg, n_regss, regss, km, opt_flag, -1);
 }
 
-void mm_write_samx(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const mm_reg1_t *r, int n_regs, const mm_reg1_t *regs)
+void mm_write_samx(kstring_t *s, const mm_idx_t *mi, const mm_bseq1_t *t, const mm_reg1_t2 *r, int n_regs, const mm_reg1_t2 *regs)
 {
 	int i;
 	for (i = 0; i < n_regs; ++i)

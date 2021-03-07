@@ -5,7 +5,7 @@
 #include "kalloc.h"
 #include "khash.h"
 
-static inline void mm_cal_fuzzy_len2(mm_reg1_t *r, const mm128_t *a)
+static inline void mm_cal_fuzzy_len2(mm_reg1_t2 *r, const mm128_t *a)
 {
 	int i;
 	r->mlen = r->blen = 0;
@@ -20,7 +20,7 @@ static inline void mm_cal_fuzzy_len2(mm_reg1_t *r, const mm128_t *a)
 	}
 }
 
-static inline void mm_reg_set_coor2(mm_reg1_t *r, int32_t qlen, const mm128_t *a)
+static inline void mm_reg_set_coor2(mm_reg1_t2 *r, int32_t qlen, const mm128_t *a)
 { // NB: r->as and r->cnt MUST BE set correctly for this function to work
 	int32_t k = r->as, q_span = (int32_t)(a[k].y>>32&0xff);
 	r->rev = a[k].x>>63;
@@ -49,10 +49,10 @@ static inline uint64_t hash64(uint64_t key)
 	return key;
 }
 
-mm_reg1_t *mm_gen_regs2(void *km, uint32_t hash, int qlen, int n_u, uint64_t *u, mm128_t *a) // convert chains to hits
+mm_reg1_t2 *mm_gen_regs2(void *km, uint32_t hash, int qlen, int n_u, uint64_t *u, mm128_t *a) // convert chains to hits
 {
 	mm128_t *z, tmp;
-	mm_reg1_t *r;
+	mm_reg1_t2 *r;
 	int i, k;
 
 	if (n_u == 0) return 0;
@@ -71,9 +71,9 @@ mm_reg1_t *mm_gen_regs2(void *km, uint32_t hash, int qlen, int n_u, uint64_t *u,
 		tmp = z[i], z[i] = z[n_u-1-i], z[n_u-1-i] = tmp;
 
 	// populate r[]
-	r = (mm_reg1_t*)calloc(n_u, sizeof(mm_reg1_t));
+	r = (mm_reg1_t2*)calloc(n_u, sizeof(mm_reg1_t2));
 	for (i = 0; i < n_u; ++i) {
-		mm_reg1_t *ri = &r[i];
+		mm_reg1_t2 *ri = &r[i];
 		ri->id = i;
 		ri->parent = MM_PARENT_UNSET;
 		ri->score = ri->score0 = z[i].x >> 32;
@@ -87,7 +87,7 @@ mm_reg1_t *mm_gen_regs2(void *km, uint32_t hash, int qlen, int n_u, uint64_t *u,
 	return r;
 }
 
-void mm_mark_alt2(const mm_idx_t *mi, int n, mm_reg1_t *r)
+void mm_mark_alt2(const mm_idx_t *mi, int n, mm_reg1_t2 *r)
 {
 	int i;
 	if (mi->n_alt == 0) return;
@@ -103,7 +103,7 @@ static inline int mm_alt_score2(int score, float alt_diff_frac)
 	return score > 0? score : 1;
 }
 
-void mm_split_reg2(mm_reg1_t *r, mm_reg1_t *r2, int n, int qlen, mm128_t *a)
+void mm_split_reg2(mm_reg1_t2 *r, mm_reg1_t2 *r2, int n, int qlen, mm128_t *a)
 {
 	if (n <= 0 || n >= r->cnt) return;
 	*r2 = *r;
@@ -122,7 +122,7 @@ void mm_split_reg2(mm_reg1_t *r, mm_reg1_t *r2, int n, int qlen, mm128_t *a)
 	r->split |= 1, r2->split |= 2;
 }
 
-void mm_set_parent2(void *km, float mask_level, int mask_len, int n, mm_reg1_t *r, int sub_diff, int hard_mask_level, float alt_diff_frac) // and compute mm_reg1_t::subsc
+void mm_set_parent2(void *km, float mask_level, int mask_len, int n, mm_reg1_t2 *r, int sub_diff, int hard_mask_level, float alt_diff_frac) // and compute mm_reg1_t2::subsc
 {
 	int i, j, k, *w;
 	uint64_t *cov;
@@ -132,11 +132,11 @@ void mm_set_parent2(void *km, float mask_level, int mask_len, int n, mm_reg1_t *
 	w = (int*)kmalloc(km, n * sizeof(int));
 	w[0] = 0, r[0].parent = 0;
 	for (i = 1, k = 1; i < n; ++i) {
-		mm_reg1_t *ri = &r[i];
+		mm_reg1_t2 *ri = &r[i];
 		int si = ri->qs, ei = ri->qe, n_cov = 0, uncov_len = 0;
 		if (hard_mask_level) goto skip_uncov;
 		for (j = 0; j < k; ++j) { // traverse existing primary hits to find overlapping hits
-			mm_reg1_t *rp = &r[w[j]];
+			mm_reg1_t2 *rp = &r[w[j]];
 			int sj = rp->qs, ej = rp->qe;
 			if (ej <= si || sj >= ei) continue;
 			if (sj < si) sj = si;
@@ -156,7 +156,7 @@ void mm_set_parent2(void *km, float mask_level, int mask_len, int n, mm_reg1_t *
 		}
 skip_uncov:
 		for (j = 0; j < k; ++j) { // traverse existing primary hits again
-			mm_reg1_t *rp = &r[w[j]];
+			mm_reg1_t2 *rp = &r[w[j]];
 			int sj = rp->qs, ej = rp->qe, min, max, ol;
 			if (ej <= si || sj >= ei) continue; // no overlap
 			min = ej - sj < ei - si? ej - sj : ei - si;
@@ -185,15 +185,15 @@ set_parent_test:
 	kfree(km, w);
 }
 
-void mm_hit_sort2(void *km, int *n_regs, mm_reg1_t *r, float alt_diff_frac)
+void mm_hit_sort2(void *km, int *n_regs, mm_reg1_t2 *r, float alt_diff_frac)
 {
 	int32_t i, n_aux, n = *n_regs, has_cigar = 0, no_cigar = 0;
 	mm128_t *aux;
-	mm_reg1_t *t;
+	mm_reg1_t2 *t;
 
 	if (n <= 1) return;
 	aux = (mm128_t*)kmalloc(km, n * 16);
-	t = (mm_reg1_t*)kmalloc(km, n * sizeof(mm_reg1_t));
+	t = (mm_reg1_t2*)kmalloc(km, n * sizeof(mm_reg1_t2));
 	for (i = n_aux = 0; i < n; ++i) {
 		if (r[i].inv || r[i].cnt > 0) { // squeeze out elements with cnt==0 (soft deleted)
 			int score;
@@ -211,13 +211,13 @@ void mm_hit_sort2(void *km, int *n_regs, mm_reg1_t *r, float alt_diff_frac)
 	radix_sort_128x(aux, aux + n_aux);
 	for (i = n_aux - 1; i >= 0; --i)
 		t[n_aux - 1 - i] = r[aux[i].y];
-	memcpy(r, t, sizeof(mm_reg1_t) * n_aux);
+	memcpy(r, t, sizeof(mm_reg1_t2) * n_aux);
 	*n_regs = n_aux;
 	kfree(km, aux);
 	kfree(km, t);
 }
 
-int mm_set_sam_pri2(int n, mm_reg1_t *r)
+int mm_set_sam_pri2(int n, mm_reg1_t2 *r)
 {
 	int i, n_pri = 0;
 	for (i = 0; i < n; ++i)
@@ -228,11 +228,11 @@ int mm_set_sam_pri2(int n, mm_reg1_t *r)
 	return n_pri;
 }
 
-void mm_sync_regs2(void *km, int n_regs, mm_reg1_t *regs) // keep mm_reg1_t::{id,parent} in sync; also reset id
+void mm_sync_regs2(void *km, int n_regs, mm_reg1_t2 *regs) // keep mm_reg1_t2::{id,parent} in sync; also reset id
 {
 	int *tmp, i, max_id = -1, n_tmp;
 	if (n_regs <= 0) return;
-	for (i = 0; i < n_regs; ++i) // NB: doesn't work if mm_reg1_t::id is negative
+	for (i = 0; i < n_regs; ++i) // NB: doesn't work if mm_reg1_t2::id is negative
 		max_id = max_id > regs[i].id? max_id : regs[i].id;
 	n_tmp = max_id + 1;
 	tmp = (int*)kmalloc(km, n_tmp * sizeof(int));
@@ -240,7 +240,7 @@ void mm_sync_regs2(void *km, int n_regs, mm_reg1_t *regs) // keep mm_reg1_t::{id
 	for (i = 0; i < n_regs; ++i)
 		if (regs[i].id >= 0) tmp[regs[i].id] = i;
 	for (i = 0; i < n_regs; ++i) {
-		mm_reg1_t *r = &regs[i];
+		mm_reg1_t2 *r = &regs[i];
 		r->id = i;
 		if (r->parent == MM_PARENT_TMP_PRI)
 			r->parent = i;
@@ -252,7 +252,7 @@ void mm_sync_regs2(void *km, int n_regs, mm_reg1_t *regs) // keep mm_reg1_t::{id
 	mm_set_sam_pri2(n_regs, regs);
 }
 
-void mm_select_sub2(void *km, float pri_ratio, int min_diff, int best_n, int *n_, mm_reg1_t *r)
+void mm_select_sub2(void *km, float pri_ratio, int min_diff, int best_n, int *n_, mm_reg1_t2 *r)
 {
 	if (pri_ratio > 0.0f && *n_ > 0) {
 		int i, k, n = *n_, n_2nd = 0;
@@ -271,11 +271,11 @@ void mm_select_sub2(void *km, float pri_ratio, int min_diff, int best_n, int *n_
 	}
 }
 
-void mm_filter_regs2(const mm_mapopt_t *opt, int qlen, int *n_regs, mm_reg1_t *regs)
-{ // NB: after this call, mm_reg1_t::parent can be -1 if its parent filtered out
+void mm_filter_regs2(const mm_mapopt_t *opt, int qlen, int *n_regs, mm_reg1_t2 *regs)
+{ // NB: after this call, mm_reg1_t2::parent can be -1 if its parent filtered out
 	int i, k;
 	for (i = k = 0; i < *n_regs; ++i) {
-		mm_reg1_t *r = &regs[i];
+		mm_reg1_t2 *r = &regs[i];
 		int flt = 0;
 		if (!r->inv && !r->seg_split && r->cnt < opt->min_cnt) flt = 1;
 		if (r->p) { // these filters are only applied when base-alignment is available
@@ -292,7 +292,7 @@ void mm_filter_regs2(const mm_mapopt_t *opt, int qlen, int *n_regs, mm_reg1_t *r
 	*n_regs = k;
 }
 
-int mm_squeeze_a2(void *km, int n_regs, mm_reg1_t *regs, mm128_t *a)
+int mm_squeeze_a2(void *km, int n_regs, mm_reg1_t2 *regs, mm128_t *a)
 { // squeeze out regions in a[] that are not referenced by regs[]
 	int i, as = 0;
 	uint64_t *aux;
@@ -301,7 +301,7 @@ int mm_squeeze_a2(void *km, int n_regs, mm_reg1_t *regs, mm128_t *a)
 		aux[i] = (uint64_t)regs[i].as << 32 | i;
 	radix_sort_64(aux, aux + n_regs);
 	for (i = 0; i < n_regs; ++i) {
-		mm_reg1_t *r = &regs[(int32_t)aux[i]];
+		mm_reg1_t2 *r = &regs[(int32_t)aux[i]];
 		if (r->as != as) {
 			memmove(&a[as], &a[r->as], r->cnt * 16);
 			r->as = as;
@@ -312,7 +312,7 @@ int mm_squeeze_a2(void *km, int n_regs, mm_reg1_t *regs, mm128_t *a)
 	return as;
 }
 
-void mm_join_long2(void *km, const mm_mapopt_t *opt, int qlen, int *n_regs_, mm_reg1_t *regs, mm128_t *a)
+void mm_join_long2(void *km, const mm_mapopt_t *opt, int qlen, int *n_regs_, mm_reg1_t2 *regs, mm128_t *a)
 {
 	int i, n_aux, n_regs = *n_regs_, n_drop = 0;
 	uint64_t *aux;
@@ -327,7 +327,7 @@ void mm_join_long2(void *km, const mm_mapopt_t *opt, int qlen, int *n_regs_, mm_
 	radix_sort_64(aux, aux + n_aux);
 
 	for (i = n_aux - 1; i >= 1; --i) {
-		mm_reg1_t *r0 = &regs[(int32_t)aux[i-1]], *r1 = &regs[(int32_t)aux[i]];
+		mm_reg1_t2 *r0 = &regs[(int32_t)aux[i-1]], *r1 = &regs[(int32_t)aux[i]];
 		mm128_t *a0e, *a1s;
 		int max_gap, min_gap, sc_thres, min_flank_len;
 
@@ -358,8 +358,8 @@ void mm_join_long2(void *km, const mm_mapopt_t *opt, int qlen, int *n_regs_, mm_
 	kfree(km, aux);
 
 	if (n_drop > 0) { // then fix the hits hierarchy
-		for (i = 0; i < n_regs; ++i) { // adjust the mm_reg1_t::parent
-			mm_reg1_t *r = &regs[i];
+		for (i = 0; i < n_regs; ++i) { // adjust the mm_reg1_t2::parent
+			mm_reg1_t2 *r = &regs[i];
 			if (r->parent >= 0 && r->id != r->parent) { // fix for secondary hits only
 				if (regs[r->parent].parent >= 0 && regs[r->parent].parent != r->parent)
 					r->parent = regs[r->parent].parent;
@@ -370,7 +370,7 @@ void mm_join_long2(void *km, const mm_mapopt_t *opt, int qlen, int *n_regs_, mm_
 	}
 }
 
-mm_seg_t *mm_seg_gen2(void *km, uint32_t hash, int n_segs, const int *qlens, int n_regs0, const mm_reg1_t *regs0, int *n_regs, mm_reg1_t **regs, const mm128_t *a)
+mm_seg_t *mm_seg_gen2(void *km, uint32_t hash, int n_segs, const int *qlens, int n_regs0, const mm_reg1_t2 *regs0, int *n_regs, mm_reg1_t2 **regs, const mm128_t *a)
 {
 	int s, i, j, acc_qlen[MM_MAX_SEG+1], qlen_sum = 0;
 	mm_seg_t *seg;
@@ -387,7 +387,7 @@ mm_seg_t *mm_seg_gen2(void *km, uint32_t hash, int n_segs, const int *qlens, int
 			seg[s].u[i] = (uint64_t)regs0[i].score << 32;
 	}
 	for (i = 0; i < n_regs0; ++i) {
-		const mm_reg1_t *r = &regs0[i];
+		const mm_reg1_t2 *r = &regs0[i];
 		for (j = 0; j < r->cnt; ++j) {
 			int sid = (a[r->as + j].y&MM_SEED_SEG_MASK)>>MM_SEED_SEG_SHIFT;
 			++seg[sid].u[i];
@@ -404,7 +404,7 @@ mm_seg_t *mm_seg_gen2(void *km, uint32_t hash, int n_segs, const int *qlens, int
 	}
 
 	for (i = 0; i < n_regs0; ++i) {
-		const mm_reg1_t *r = &regs0[i];
+		const mm_reg1_t2 *r = &regs0[i];
 		for (j = 0; j < r->cnt; ++j) {
 			int sid = (a[r->as + j].y&MM_SEED_SEG_MASK)>>MM_SEED_SEG_SHIFT;
 			mm128_t a1 = a[r->as + j];
@@ -434,7 +434,7 @@ void mm_seg_free2(void *km, int n_segs, mm_seg_t *segs)
 	kfree(km, segs);
 }
 
-static void mm_set_inv_mapq2(void *km, int n_regs, mm_reg1_t *regs)
+static void mm_set_inv_mapq2(void *km, int n_regs, mm_reg1_t2 *regs)
 {
 	int i, n_aux;
 	mm128_t *aux;
@@ -450,17 +450,17 @@ static void mm_set_inv_mapq2(void *km, int n_regs, mm_reg1_t *regs)
 	radix_sort_128x(aux, aux + n_aux);
 
 	for (i = 1; i < n_aux - 1; ++i) {
-		mm_reg1_t *inv = &regs[aux[i].y];
+		mm_reg1_t2 *inv = &regs[aux[i].y];
 		if (inv->inv) {
-			mm_reg1_t *l = &regs[aux[i-1].y];
-			mm_reg1_t *r = &regs[aux[i+1].y];
+			mm_reg1_t2 *l = &regs[aux[i-1].y];
+			mm_reg1_t2 *r = &regs[aux[i+1].y];
 			inv->mapq = l->mapq < r->mapq? l->mapq : r->mapq;
 		}
 	}
 	kfree(km, aux);
 }
 
-void mm_set_mapq2(void *km, int n_regs, mm_reg1_t *regs, int min_chain_sc, int match_sc, int rep_len, int is_sr)
+void mm_set_mapq2(void *km, int n_regs, mm_reg1_t2 *regs, int min_chain_sc, int match_sc, int rep_len, int is_sr)
 {
 	static const float q_coef = 40.0f;
 	int64_t sum_sc = 0;
@@ -472,7 +472,7 @@ void mm_set_mapq2(void *km, int n_regs, mm_reg1_t *regs, int min_chain_sc, int m
 			sum_sc += regs[i].score;
 	uniq_ratio = (float)sum_sc / (sum_sc + rep_len);
 	for (i = 0; i < n_regs; ++i) {
-		mm_reg1_t *r = &regs[i];
+		mm_reg1_t2 *r = &regs[i];
 		if (r->inv) {
 			r->mapq = 0;
 		} else if (r->parent == r->id) {

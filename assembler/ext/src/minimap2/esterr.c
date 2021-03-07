@@ -27,7 +27,7 @@ static int get_mini_idx(int qlen, const mm128_t *a, int32_t n, const uint64_t *m
 	return -1;
 }
 
-void mm_est_err(const mm_idx_t *mi, int qlen, int n_regs, mm_reg1_t *regs, const mm128_t *a, int32_t n, const uint64_t *mini_pos)
+void mm_est_err(const mm_idx_t *mi, int qlen, int n_regs, mm_reg1_t2 *regs, const mm128_t *a, int32_t n, const uint64_t *mini_pos)
 {
 	int i;
 	uint64_t sum_k = 0;
@@ -39,7 +39,7 @@ void mm_est_err(const mm_idx_t *mi, int qlen, int n_regs, mm_reg1_t *regs, const
 	avg_k = (float)sum_k / n;
 
 	for (i = 0; i < n_regs; ++i) {
-		mm_reg1_t *r = &regs[i];
+		mm_reg1_t2 *r = &regs[i];
 		int32_t st, en, j, k, n_match, n_tot, l_ref;
 		r->div = -1.0f;
 		if (r->cnt == 0) continue;
