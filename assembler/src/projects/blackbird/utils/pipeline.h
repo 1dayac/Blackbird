@@ -696,7 +696,7 @@ private:
         std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
         int hits = RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
         if (hits > 1) {
-            RunAndProcessUnimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region, temp_dir);
+            //RunAndProcessUnimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region, temp_dir);
         }
         if (!OptionBase::keep_assembly_folders)
             fs::remove_dir(temp_dir.c_str());
@@ -782,6 +782,7 @@ private:
         io::SingleRead contig;
         std::set<std::pair<int, int>> found_intervals;
         int max_hits = 0;
+        std::cout << ("Here1");
         while (!reference_reader.eof()) {
             reference_reader >> contig;
             std::string query = contig.GetSequenceString();
@@ -791,11 +792,14 @@ private:
             Minimap::mm_tbuf_t2 *tbuf = Minimap::mm_tbuf_init2();
             Minimap::mm_idxopt_t2 iopt;
             Minimap::mm_mapopt_t2 mopt;
+            std::cout << ("Here2");
+
             Minimap::mm_set_opt2(0, &iopt, &mopt);
             mopt.flag |= MM_F_CIGAR;
             Minimap::mm_mapopt_update2(&mopt, index);
             Minimap::mm_reg1_t2 *hit_array = mm_map2(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             max_hits = std::max(max_hits, number_of_hits);
+            std::cout << ("Here3");
             for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
                 Minimap::mm_reg1_t2 *r = &hit_array[k];
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
@@ -920,9 +924,9 @@ private:
             Unimap::mm_tbuf_t *tbuf = Unimap::mm_tbuf_init();
             Unimap::mm_idxopt_t iopt;
             Unimap::mm_mapopt_t mopt;
-            mm_set_opt(0, &iopt, &mopt);
+            Unimap::mm_set_opt(0, &iopt, &mopt);
             mopt.flag |= MM_F_CIGAR;
-            mm_mapopt_update(&mopt, index);
+            Unimap::mm_mapopt_update(&mopt, index);
             Unimap::mm_reg1_t *hit_array = mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
                 Unimap::mm_reg1_t *r = &hit_array[k];
@@ -1007,7 +1011,7 @@ private:
             }
 
             free(hit_array);
-            mm_tbuf_destroy(tbuf);
+            Unimap::mm_tbuf_destroy(tbuf);
         }
         std::vector<std::pair<int, int>> merged_intervals;
         for (auto p : found_intervals) {
@@ -1034,7 +1038,7 @@ private:
             }
         }
 
-        mm_idx_destroy(index);
+        Unimap::mm_idx_destroy(index);
     }
 
 
