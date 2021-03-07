@@ -37,7 +37,7 @@ void mm_select_sub_multi(void *km, float pri_ratio, float pri1, float pri2, int 
 			if (to_keep) r[k++] = r[i];
 			else if (r[i].p) free(r[i].p);
 		}
-		if (k != n) mm_sync_regs(km, k, r); // removing hits requires sync()
+		if (k != n) mm_sync_regs2(km, k, r); // removing hits requires sync()
 		*n_ = k;
 	}
 }

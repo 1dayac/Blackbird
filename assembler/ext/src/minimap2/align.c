@@ -863,7 +863,7 @@ static inline mm_reg1_t2 *mm_insert_reg(const mm_reg1_t2 *r, int i, int *n_regs,
 
 mm_reg1_t2 *mm_align_skeleton2(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, int qlen, const char *qstr, int *n_regs_, mm_reg1_t2 *regs, mm128_t *a)
 {
-	extern unsigned char seq_nt4_table[256];
+	extern unsigned char seq_nt4_table2[256];
 	int32_t i, n_regs = *n_regs_, n_a;
 	uint8_t *qseq0[2];
 	ksw_extz_t ez;
@@ -872,7 +872,7 @@ mm_reg1_t2 *mm_align_skeleton2(void *km, const mm_mapopt_t2 *opt, const mm_idx_t
 	qseq0[0] = (uint8_t*)kmalloc(km, qlen * 2);
 	qseq0[1] = qseq0[0] + qlen;
 	for (i = 0; i < qlen; ++i) {
-		qseq0[0][i] = seq_nt4_table[(uint8_t)qstr[i]];
+		qseq0[0][i] = seq_nt4_table2[(uint8_t)qstr[i]];
 		qseq0[1][qlen - 1 - i] = qseq0[0][i] < 4? 3 - qseq0[0][i] : 4;
 	}
 

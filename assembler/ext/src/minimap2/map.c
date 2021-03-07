@@ -242,7 +242,7 @@ static mm128_t *collect_seed_hits2(void *km, const mm_mapopt_t2 *opt, int max_oc
 		}
 	}
 	kfree(km, m);
-	radix_sort_128x(a, a + (*n_a));
+	radix_sort2_128x(a, a + (*n_a));
 	return a;
 }
 
