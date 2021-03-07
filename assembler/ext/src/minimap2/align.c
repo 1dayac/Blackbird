@@ -456,7 +456,7 @@ static void mm_filter_bad_seeds_alt(void *km, int as1, int cnt1, mm128_t *a, int
 	kfree(km, K);
 }
 
-static void mm_fix_bad_ends(const mm_reg1_t2 *r, const mm128_t *a, int bw, int min_match, int32_t *as, int32_t *cnt)
+static void mm_fix_bad_ends2(const mm_reg1_t2 *r, const mm128_t *a, int bw, int min_match, int32_t *as, int32_t *cnt)
 {
 	int32_t i, l, m;
 	*as = r->as, *cnt = r->cnt;
@@ -542,7 +542,7 @@ static int mm_seed_ext_score(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 
 	return score;
 }
 
-static void mm_fix_bad_ends_splice(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, const mm_reg1_t2 *r, const int8_t mat[25], int qlen, uint8_t *qseq0[2], const mm128_t *a, int *as1, int *cnt1)
+static void mm_fix_bad_ends_splice2(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, const mm_reg1_t2 *r, const int8_t mat[25], int qlen, uint8_t *qseq0[2], const mm128_t *a, int *as1, int *cnt1)
 { // this assumes a very crude k-mer based mode; it is not necessary to use a good model just for filtering bounary exons
 	int score;
 	double log_gap;
@@ -588,9 +588,9 @@ static void mm_align12(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, i
 	} else {
 		if (!(opt->flag & MM_F_NO_END_FLT)) {
 			if (is_splice)
-				mm_fix_bad_ends_splice(km, opt, mi, r, mat, qlen, qseq0, a, &as1, &cnt1);
+				mm_fix_bad_ends_splice2(km, opt, mi, r, mat, qlen, qseq0, a, &as1, &cnt1);
 			else
-				mm_fix_bad_ends(r, a, opt->bw, opt->min_chain_score * 2, &as1, &cnt1);
+				mm_fix_bad_ends2(r, a, opt->bw, opt->min_chain_score * 2, &as1, &cnt1);
 		} else as1 = r->as, cnt1 = r->cnt;
 		mm_filter_bad_seeds(km, as1, cnt1, a, 10, 40, opt->max_gap>>1, 10);
 		mm_filter_bad_seeds_alt(km, as1, cnt1, a, 30, opt->max_gap>>1);
@@ -915,6 +915,6 @@ mm_reg1_t2 *mm_align_skeleton2(void *km, const mm_mapopt_t2 *opt, const mm_idx_t
 	kfree(km, qseq0[0]);
 	kfree(km, ez.cigar);
 	mm_filter_regs2(opt, qlen, n_regs_, regs);
-	mm_hit_sort(km, n_regs_, regs, opt->alt_drop);
+	mm_hit_sort2(km, n_regs_, regs, opt->alt_drop);
 	return regs;
 }

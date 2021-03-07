@@ -344,7 +344,7 @@ void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char 
 	regs0 = mm_gen_regs(b->km, hash, qlen_sum, n_regs0, u, a);
 	if (mi->n_alt) {
 		mm_mark_alt(mi, n_regs0, regs0);
-		mm_hit_sort(b->km, &n_regs0, regs0, opt->alt_drop); // this step can be merged into mm_gen_regs(); will do if this shows up in profile
+		mm_hit_sort2(b->km, &n_regs0, regs0, opt->alt_drop); // this step can be merged into mm_gen_regs(); will do if this shows up in profile
 	}
 
 	if (mm_dbg_flag & MM_DBG_PRINT_SEED)
@@ -508,7 +508,7 @@ static void merge_hits(step_t2 *s)
 					}
 				}
 			}
-			mm_hit_sort(km, &s->n_reg[k], s->reg[k], opt->alt_drop);
+			mm_hit_sort2(km, &s->n_reg[k], s->reg[k], opt->alt_drop);
 			mm_set_parent(km, opt->mask_level, opt->mask_len, s->n_reg[k], s->reg[k], opt->a * 2 + opt->b, opt->flag&MM_F_HARD_MLEVEL, opt->alt_drop);
 			if (!(opt->flag & MM_F_ALL_CHAINS)) {
 				mm_select_sub(km, opt->pri_ratio, s->p->mi->k*2, opt->best_n, &s->n_reg[k], s->reg[k]);
