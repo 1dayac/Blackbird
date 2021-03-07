@@ -209,7 +209,7 @@ typedef struct __kstring_t {
 		while ((c = ks_getc2(ks)) != -1 && c != '>' && c != '+' && c != '@') { \
 			if (c == '\n') continue; /* skip empty lines */ \
 			seq->seq.s[seq->seq.l++] = c; /* this is safe: we always have enough space for 1 char */ \
-			ks_getuntil2(ks, KS_SEP_LINE, &seq->seq, 0, 1); /* read the rest of the line */ \
+			ks_getuntil2x(ks, KS_SEP_LINE, &seq->seq, 0, 1); /* read the rest of the line */ \
 		} \
 		if (c == '>' || c == '@') seq->last_char = c; /* the first header char has been read */ \
 		if (seq->seq.l + 1 >= seq->seq.m) { /* seq->seq.s[seq->seq.l] below may be out of boundary */ \
@@ -225,7 +225,7 @@ typedef struct __kstring_t {
 		} \
 		while ((c = ks_getc2(ks)) != -1 && c != '\n'); /* skip the rest of '+' line */ \
 		if (c == -1) return -2; /* error: no quality string */ \
-		while (ks_getuntil2(ks, KS_SEP_LINE, &seq->qual, 0, 1) >= 0 && seq->qual.l < seq->seq.l); \
+		while (ks_getuntil2x(ks, KS_SEP_LINE, &seq->qual, 0, 1) >= 0 && seq->qual.l < seq->seq.l); \
 		seq->last_char = 0;	/* we have not come to the next header line */ \
 		if (seq->seq.l != seq->qual.l) return -2; /* error: qual string is of a different length */ \
 		return seq->seq.l; \
