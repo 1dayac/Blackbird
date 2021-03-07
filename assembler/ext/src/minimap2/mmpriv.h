@@ -59,7 +59,7 @@ void mm_write_sam(kstring_t *s, const mm_idx_t2 *mi, const mm_bseq1_t *t, const 
 void mm_write_sam2(kstring_t *s, const mm_idx_t2 *mi, const mm_bseq1_t *t, int seg_idx, int reg_idx, int n_seg, const int *n_regs, const mm_reg1_t2 *const* regs, void *km, int opt_flag);
 void mm_write_sam3(kstring_t *s, const mm_idx_t2 *mi, const mm_bseq1_t *t, int seg_idx, int reg_idx, int n_seg, const int *n_regss, const mm_reg1_t2 *const* regss, void *km, int opt_flag, int rep_len);
 
-void mm_idxopt_init(mm_idxopt_t *opt);
+void mm_idxopt_init(mm_idxopt_t2 *opt);
 const uint64_t *mm_idx_get(const mm_idx_t2 *mi, uint64_t minier, int *n);
 int32_t mm_idx_cal_max_occ(const mm_idx_t2 *mi, float f);
 mm128_t *mm_chain_dp(int max_dist_x, int max_dist_y, int bw, int max_skip, int max_iter, int min_cnt, int min_sc, float gap_scale, int is_cdna, int n_segs, int64_t n, mm128_t *a, int *n_u_, uint64_t **_u, void *km);

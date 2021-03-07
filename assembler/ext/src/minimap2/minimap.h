@@ -104,7 +104,7 @@ typedef struct {
 	short k, w, flag, bucket_bits;
 	int64_t mini_batch_size;
 	uint64_t batch_size;
-} mm_idxopt_t;
+} mm_idxopt_t2;
 
 typedef struct {
 	int64_t flag;    // see MM_F_* macros
@@ -159,7 +159,7 @@ typedef struct {
 typedef struct {
 	int is_idx, n_parts;
 	int64_t idx_size;
-	mm_idxopt_t opt;
+	mm_idxopt_t2 opt;
 	FILE *fp_out;
 	union {
 		struct mm_bseq_file_s *seq;
@@ -183,8 +183,8 @@ extern double mm_realtime0; // wall-clock timer
  *
  * @return 0 if success; -1 if _present_ unknown
  */
-int mm_set_opt(const char *preset, mm_idxopt_t *io, mm_mapopt_t *mo);
-int mm_check_opt(const mm_idxopt_t *io, const mm_mapopt_t *mo);
+int mm_set_opt(const char *preset, mm_idxopt_t2 *io, mm_mapopt_t *mo);
+int mm_check_opt(const mm_idxopt_t2 *io, const mm_mapopt_t *mo);
 
 /**
  * Update mm_mapopt_t::mid_occ via mm_mapopt_t::mid_occ_frac
@@ -209,14 +209,14 @@ void mm_mapopt_max_intron_len(mm_mapopt_t *opt, int max_intron_len);
  *
  * @return an index reader on success; NULL if fail to open _fn_
  */
-mm_idx_reader_t *mm_idx_reader_open(const char *fn, const mm_idxopt_t *opt, const char *fn_out);
+mm_idx_reader_t *mm_idx_reader_open(const char *fn, const mm_idxopt_t2 *opt, const char *fn_out);
 
 /**
  * Read/build an index
  *
  * If the input file is an index file, this function reads one part of the
  * index and returns. If the input file is a sequence file (fasta or fastq),
- * this function constructs the index for about mm_idxopt_t::batch_size bases.
+ * this function constructs the index for about mm_idxopt_t2::batch_size bases.
  * Importantly, for a huge collection of sequences, this function may only
  * return an index for part of sequences. It needs to be repeatedly called
  * to traverse the entire index/sequence file.
