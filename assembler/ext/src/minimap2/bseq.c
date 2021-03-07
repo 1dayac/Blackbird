@@ -43,13 +43,13 @@ mm_bseq_file_t *mm_bseq_open2(const char *fn)
 	if (f == 0) return 0;
 	fp = (mm_bseq_file_t*)calloc(1, sizeof(mm_bseq_file_t));
 	fp->fp = f;
-	fp->ks = kseq_init(fp->fp);
+	fp->ks = kseq_init2(fp->fp);
 	return fp;
 }
 
 void mm_bseq_close2(mm_bseq_file_t *fp)
 {
-	kseq_destroy(fp->ks);
+	kseq_destroy2(fp->ks);
 	gzclose(fp->fp);
 	free(fp);
 }

@@ -160,7 +160,7 @@ typedef struct __kstring_t {
 	__KS_TYPE(type_t) \
 	extern int ks_getuntil2x(kstream_t *ks, int delimiter, kstring_t *str, int *dret, int append); \
 	extern kstream_t *ks_init2(type_t f); \
-	extern void ks_destroy(kstream_t *ks); \
+	extern void ks_destroy2(kstream_t *ks); \
 	__KS_INLINED(__read)
 
 /******************
@@ -180,7 +180,7 @@ typedef struct __kstring_t {
 	{ \
 		if (!ks) return; \
 		free(ks->name.s); free(ks->comment.s); free(ks->seq.s);	free(ks->qual.s); \
-		ks_destroy(ks->f); \
+		ks_destroy2(ks->f); \
 		free(ks); \
 	}
 

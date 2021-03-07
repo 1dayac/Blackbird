@@ -285,7 +285,7 @@ static void *worker_pipeline(void *shared, int step, void *in)
         step_t2 *s;
 		if (p->sum_len > p->batch_size) return 0;
         s = (step_t2*)calloc(1, sizeof(step_t2));
-		s->seq = mm_bseq_read(p->fp, p->mini_batch_size, 0, &s->n_seq); // read a mini-batch
+		s->seq = mm_bseq_read2(p->fp, p->mini_batch_size, 0, &s->n_seq); // read a mini-batch
 		if (s->seq) {
 			uint32_t old_m, m;
 			assert((uint64_t)p->mi->n_seq + s->n_seq <= UINT32_MAX); // to prevent integer overflow
@@ -711,7 +711,7 @@ mm_idx_intv_t *mm_idx_read_bed2(const mm_idx_t2 *mi, const char *fn, int read_ju
 		}
 	}
 	free(str.s);
-	ks_destroy(ks);
+	ks_destroy2(ks);
 	gzclose(fp);
 	return I;
 }
