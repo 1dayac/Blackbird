@@ -246,7 +246,7 @@ static mm128_t *collect_seed_hits2(void *km, const mm_mapopt_t *opt, int max_occ
 	return a;
 }
 
-static void chain_post(const mm_mapopt_t *opt, int max_chain_gap_ref, const mm_idx_t *mi, void *km, int qlen, int n_segs, const int *qlens, int *n_regs, mm_reg1_t *regs, mm128_t *a)
+static void chain_post(const mm_mapopt_t *opt, int max_chain_gap_ref, const mm_idx_t *mi, void *km, int qlen, int n_segs, const int *qlens, int *n_regs, mm_reg1_t2 *regs, mm128_t *a)
 {
 	if (!(opt->flag & MM_F_ALL_CHAINS)) { // don't choose primary mapping(s)
 		mm_set_parent(km, opt->mask_level, opt->mask_len, *n_regs, regs, opt->a * 2 + opt->b, opt->flag&MM_F_HARD_MLEVEL, opt->alt_drop);
@@ -257,7 +257,7 @@ static void chain_post(const mm_mapopt_t *opt, int max_chain_gap_ref, const mm_i
 	}
 }
 
-static mm_reg1_t *align_regs2(const mm_mapopt_t *opt, const mm_idx_t *mi, void *km, int qlen, const char *seq, int *n_regs, mm_reg1_t *regs, mm128_t *a)
+static mm_reg1_t2 *align_regs2(const mm_mapopt_t *opt, const mm_idx_t *mi, void *km, int qlen, const char *seq, int *n_regs, mm_reg1_t2 *regs, mm128_t *a)
 {
 	if (!(opt->flag & MM_F_CIGAR)) return regs;
 	regs = mm_align_skeleton2(km, opt, mi, qlen, seq, n_regs, regs, a); // this calls mm_filter_regs()
@@ -269,7 +269,7 @@ static mm_reg1_t *align_regs2(const mm_mapopt_t *opt, const mm_idx_t *mi, void *
 	return regs;
 }
 
-void mm_map_frag2(const mm_idx_t *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t **regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *qname)
+void mm_map_frag2(const mm_idx_t *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t2 **regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *qname)
 {
 	int i, j, rep_len, qlen_sum, n_regs0, n_mini_pos;
 	int max_chain_gap_qry, max_chain_gap_ref, is_splice = !!(opt->flag & MM_F_SPLICE), is_sr = !!(opt->flag & MM_F_SR);
@@ -278,7 +278,7 @@ void mm_map_frag2(const mm_idx_t *mi, int n_segs, const int *qlens, const char *
 	uint64_t *u, *mini_pos;
 	mm128_t *a;
 	mm128_v mv = {0,0,0};
-	mm_reg1_t *regs0;
+	mm_reg1_t2 *regs0;
 	km_stat_t kmst;
 
 	for (i = 0, qlen_sum = 0; i < n_segs; ++i)
@@ -365,7 +365,7 @@ void mm_map_frag2(const mm_idx_t *mi, int n_segs, const int *qlens, const char *
 		seg = mm_seg_gen2(b->km, hash, n_segs, qlens, n_regs0, regs0, n_regs, regs, a); // split fragment chain to separate segment chains
 		free(regs0);
 		for (i = 0; i < n_segs; ++i) {
-			mm_set_parent(b->km, opt->mask_level, opt->mask_len, n_regs[i], regs[i], opt->a * 2 + opt->b, opt->flag&MM_F_HARD_MLEVEL, opt->alt_drop); // update mm_reg1_t::parent
+			mm_set_parent(b->km, opt->mask_level, opt->mask_len, n_regs[i], regs[i], opt->a * 2 + opt->b, opt->flag&MM_F_HARD_MLEVEL, opt->alt_drop); // update mm_reg1_t2::parent
 			regs[i] = align_regs2(opt, mi, b->km, qlens[i], seqs[i], &n_regs[i], regs[i], seg[i].a);
 			mm_set_mapq(b->km, n_regs[i], regs[i], opt->min_chain_score, opt->a, rep_len, is_sr);
 		}
@@ -391,9 +391,9 @@ void mm_map_frag2(const mm_idx_t *mi, int n_segs, const int *qlens, const char *
 	}
 }
 
-mm_reg1_t *mm_map2(const mm_idx_t *mi, int qlen, const char *seq, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *qname)
+mm_reg1_t2 *mm_map2(const mm_idx_t *mi, int qlen, const char *seq, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *qname)
 {
-	mm_reg1_t *regs;
+	mm_reg1_t2 *regs;
 	mm_map_frag2(mi, 1, &qlen, &seq, n_regs, &regs, b, opt, qname);
 	return regs;
 }
@@ -420,7 +420,7 @@ typedef struct {
     int n_seq, n_frag;
 	mm_bseq1_t *seq;
 	int *n_reg, *seg_off, *n_seg, *rep_len, *frag_gap;
-	mm_reg1_t **reg;
+	mm_reg1_t2 **reg;
 	mm_tbuf_t **buf;
 } step_t;
 
@@ -457,7 +457,7 @@ static void worker_for(void *_data, long i, int tid) // kt_for() callback
 			int k, t;
 			mm_revcomp_bseq(&s->seq[off + j]);
 			for (k = 0; k < s->n_reg[off + j]; ++k) {
-				mm_reg1_t *r = &s->reg[off + j][k];
+				mm_reg1_t2 *r = &s->reg[off + j][k];
 				t = r->qs;
 				r->qs = qlens[j] - r->qe;
 				r->qe = qlens[j] - t;
@@ -493,12 +493,12 @@ static void merge_hits(step_t *s)
 				if (rep_len < rep_len_part[j])
 					rep_len = rep_len_part[j];
 			}
-			s->reg[k] = CALLOC(mm_reg1_t, s->n_reg[k]);
+			s->reg[k] = CALLOC(mm_reg1_t2, s->n_reg[k]);
 			for (j = 0, l = 0; j < s->p->n_parts; ++j) {
 				for (t = 0; t < n_reg_part[j]; ++t, ++l) {
-					mm_reg1_t *r = &s->reg[k][l];
+					mm_reg1_t2 *r = &s->reg[k][l];
 					uint32_t capacity;
-					mm_err_fread(r, sizeof(mm_reg1_t), 1, fp[j]);
+					mm_err_fread(r, sizeof(mm_reg1_t2), 1, fp[j]);
 					r->rid += s->p->rid_shift[j];
 					if (opt->flag & MM_F_CIGAR) {
 						mm_err_fread(&capacity, 4, 1, fp[j]);
@@ -547,7 +547,7 @@ static void *worker_pipeline(void *shared, int step, void *in)
 			s->n_seg = s->seg_off + s->n_seq;
 			s->rep_len = s->n_seg + s->n_seq;
 			s->frag_gap = s->rep_len + s->n_seq;
-			s->reg = (mm_reg1_t**)calloc(s->n_seq, sizeof(mm_reg1_t*));
+			s->reg = (mm_reg1_t2**)calloc(s->n_seq, sizeof(mm_reg1_t2*));
 			for (i = 1, j = 0; i <= s->n_seq; ++i)
 				if (i == s->n_seq || !frag_mode || !mm_qname_same(s->seq[i-1].name, s->seq[i].name)) {
 					s->n_seg[s->n_frag] = i - j;
@@ -576,8 +576,8 @@ static void *worker_pipeline(void *shared, int step, void *in)
 					mm_err_fwrite(&s->rep_len[i],  sizeof(int), 1, p->fp_split);
 					mm_err_fwrite(&s->frag_gap[i], sizeof(int), 1, p->fp_split);
 					for (j = 0; j < s->n_reg[i]; ++j) {
-						mm_reg1_t *r = &s->reg[i][j];
-						mm_err_fwrite(r, sizeof(mm_reg1_t), 1, p->fp_split);
+						mm_reg1_t2 *r = &s->reg[i][j];
+						mm_err_fwrite(r, sizeof(mm_reg1_t2), 1, p->fp_split);
 						if (p->opt->flag & MM_F_CIGAR) {
 							mm_err_fwrite(&r->p->capacity, 4, 1, p->fp_split);
 							mm_err_fwrite(r->p, r->p->capacity, 4, p->fp_split);
@@ -585,19 +585,19 @@ static void *worker_pipeline(void *shared, int step, void *in)
 					}
 				} else if (s->n_reg[i] > 0) { // the query has at least one hit
 					for (j = 0; j < s->n_reg[i]; ++j) {
-						mm_reg1_t *r = &s->reg[i][j];
+						mm_reg1_t2 *r = &s->reg[i][j];
 						assert(!r->sam_pri || r->id == r->parent);
 						if ((p->opt->flag & MM_F_NO_PRINT_2ND) && r->id != r->parent)
 							continue;
 						if (p->opt->flag & MM_F_OUT_SAM)
-							mm_write_sam3(&p->str, mi, t, i - seg_st, j, s->n_seg[k], &s->n_reg[seg_st], (const mm_reg1_t*const*)&s->reg[seg_st], km, p->opt->flag, s->rep_len[i]);
+							mm_write_sam3(&p->str, mi, t, i - seg_st, j, s->n_seg[k], &s->n_reg[seg_st], (const mm_reg1_t2*const*)&s->reg[seg_st], km, p->opt->flag, s->rep_len[i]);
 						else
 							mm_write_paf3(&p->str, mi, t, r, km, p->opt->flag, s->rep_len[i]);
 						mm_err_puts(p->str.s);
 					}
 				} else if ((p->opt->flag & MM_F_PAF_NO_HIT) || ((p->opt->flag & MM_F_OUT_SAM) && !(p->opt->flag & MM_F_SAM_HIT_ONLY))) { // output an empty hit, if requested
 					if (p->opt->flag & MM_F_OUT_SAM)
-						mm_write_sam3(&p->str, mi, t, i - seg_st, -1, s->n_seg[k], &s->n_reg[seg_st], (const mm_reg1_t*const*)&s->reg[seg_st], km, p->opt->flag, s->rep_len[i]);
+						mm_write_sam3(&p->str, mi, t, i - seg_st, -1, s->n_seg[k], &s->n_reg[seg_st], (const mm_reg1_t2*const*)&s->reg[seg_st], km, p->opt->flag, s->rep_len[i]);
 					else
 						mm_write_paf3(&p->str, mi, t, 0, 0, p->opt->flag, s->rep_len[i]);
 					mm_err_puts(p->str.s);

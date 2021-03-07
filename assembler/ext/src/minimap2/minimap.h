@@ -97,7 +97,7 @@ typedef struct {
 	uint32_t hash;
 	float div;
 	mm_extra_t *p;
-} mm_reg1_t;
+} mm_reg1_t2;
 
 // indexing and mapping options
 typedef struct {
@@ -321,7 +321,7 @@ void *mm_tbuf_get_km(mm_tbuf_t *b);
  * Align a query sequence against an index
  *
  * This function possibly finds multiple alignments of the query sequence.
- * The returned array and the mm_reg1_t::p field of each element are allocated
+ * The returned array and the mm_reg1_t2::p field of each element are allocated
  * with malloc().
  *
  * @param mi         minimap2 index
@@ -333,11 +333,11 @@ void *mm_tbuf_get_km(mm_tbuf_t *b);
  * @param name       query name, used for all-vs-all overlapping and debugging
  *
  * @return an array of hits which need to be deallocated with free() together
- *         with mm_reg1_t::p of each element. The size is written to _n_regs_.
+ *         with mm_reg1_t2::p of each element. The size is written to _n_regs_.
  */
-mm_reg1_t *mm_map(const mm_idx_t *mi, int l_seq, const char *seq, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *name);
+mm_reg1_t2 *mm_map(const mm_idx_t *mi, int l_seq, const char *seq, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *name);
 
-void mm_map_frag(const mm_idx_t *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t **regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *qname);
+void mm_map_frag(const mm_idx_t *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t2 **regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *qname);
 
 /**
  * Align a fasta/fastq file and print alignments to stdout
@@ -366,8 +366,8 @@ int mm_map_file_frag(const mm_idx_t *idx, int n_segs, const char **fn, const mm_
  *
  * @return the length of cs
  */
-int mm_gen_cs(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t *r, const char *seq, int no_iden);
-int mm_gen_MD(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t *r, const char *seq);
+int mm_gen_cs(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t2 *r, const char *seq, int no_iden);
+int mm_gen_MD(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t2 *r, const char *seq);
 
 // query sequence name and sequence in the minimap2 index
 int mm_idx_index_name(mm_idx_t *mi);
