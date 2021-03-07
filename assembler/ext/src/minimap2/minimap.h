@@ -372,11 +372,11 @@ int mm_gen_MD(void *km, char **buf, int *max_len, const mm_idx_t2 *mi, const mm_
 // query sequence name and sequence in the minimap2 index
 int mm_idx_index_name(mm_idx_t2 *mi);
 int mm_idx_name2id(const mm_idx_t2 *mi, const char *name);
-int mm_idx_getseq(const mm_idx_t2 *mi, uint32_t rid, uint32_t st, uint32_t en, uint8_t *seq);
+int mm_idx_getseq2(const mm_idx_t2 *mi, uint32_t rid, uint32_t st, uint32_t en, uint8_t *seq);
 
 int mm_idx_alt_read(mm_idx_t2 *mi, const char *fn);
 int mm_idx_bed_read(mm_idx_t2 *mi, const char *fn, int read_junc);
-int mm_idx_bed_junc(const mm_idx_t2 *mi, int32_t ctg, int32_t st, int32_t en, uint8_t *s);
+int mm_idx_bed_junc2(const mm_idx_t2 *mi, int32_t ctg, int32_t st, int32_t en, uint8_t *s);
 
 // deprecated APIs for backward compatibility
 void mm_mapopt_init(mm_mapopt_t2 *opt);
