@@ -271,7 +271,7 @@ void mm_select_sub2(void *km, float pri_ratio, int min_diff, int best_n, int *n_
 	}
 }
 
-void mm_filter_regs2(const mm_mapopt_t *opt, int qlen, int *n_regs, mm_reg1_t2 *regs)
+void mm_filter_regs2(const mm_mapopt_t2 *opt, int qlen, int *n_regs, mm_reg1_t2 *regs)
 { // NB: after this call, mm_reg1_t2::parent can be -1 if its parent filtered out
 	int i, k;
 	for (i = k = 0; i < *n_regs; ++i) {
@@ -312,7 +312,7 @@ int mm_squeeze_a2(void *km, int n_regs, mm_reg1_t2 *regs, mm128_t *a)
 	return as;
 }
 
-void mm_join_long2(void *km, const mm_mapopt_t *opt, int qlen, int *n_regs_, mm_reg1_t2 *regs, mm128_t *a)
+void mm_join_long2(void *km, const mm_mapopt_t2 *opt, int qlen, int *n_regs_, mm_reg1_t2 *regs, mm128_t *a)
 {
 	int i, n_aux, n_regs = *n_regs_, n_drop = 0;
 	uint64_t *aux;

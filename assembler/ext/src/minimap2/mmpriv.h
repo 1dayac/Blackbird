@@ -63,7 +63,7 @@ void mm_idxopt_init(mm_idxopt_t2 *opt);
 const uint64_t *mm_idx_get(const mm_idx_t2 *mi, uint64_t minier, int *n);
 int32_t mm_idx_cal_max_occ(const mm_idx_t2 *mi, float f);
 mm128_t *mm_chain_dp(int max_dist_x, int max_dist_y, int bw, int max_skip, int max_iter, int min_cnt, int min_sc, float gap_scale, int is_cdna, int n_segs, int64_t n, mm128_t *a, int *n_u_, uint64_t **_u, void *km);
-mm_reg1_t2 *mm_align_skeleton(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *mi, int qlen, const char *qstr, int *n_regs_, mm_reg1_t2 *regs, mm128_t *a);
+mm_reg1_t2 *mm_align_skeleton(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, int qlen, const char *qstr, int *n_regs_, mm_reg1_t2 *regs, mm128_t *a);
 
 mm_reg1_t2 *mm_gen_regs(void *km, uint32_t hash, int qlen, int n_u, uint64_t *u, mm128_t *a);
 void mm_mark_alt(const mm_idx_t2 *mi, int n, mm_reg1_t2 *r);
@@ -74,8 +74,8 @@ int mm_set_sam_pri(int n, mm_reg1_t2 *r);
 void mm_set_parent(void *km, float mask_level, int mask_len, int n, mm_reg1_t2 *r, int sub_diff, int hard_mask_level, float alt_diff_frac);
 void mm_select_sub(void *km, float pri_ratio, int min_diff, int best_n, int *n_, mm_reg1_t2 *r);
 void mm_select_sub_multi(void *km, float pri_ratio, float pri1, float pri2, int max_gap_ref, int min_diff, int best_n, int n_segs, const int *qlens, int *n_, mm_reg1_t2 *r);
-void mm_filter_regs(const mm_mapopt_t *opt, int qlen, int *n_regs, mm_reg1_t2 *regs);
-void mm_join_long(void *km, const mm_mapopt_t *opt, int qlen, int *n_regs, mm_reg1_t2 *regs, mm128_t *a);
+void mm_filter_regs(const mm_mapopt_t2 *opt, int qlen, int *n_regs, mm_reg1_t2 *regs);
+void mm_join_long(void *km, const mm_mapopt_t2 *opt, int qlen, int *n_regs, mm_reg1_t2 *regs, mm128_t *a);
 void mm_hit_sort(void *km, int *n_regs, mm_reg1_t2 *r, float alt_diff_frac);
 void mm_set_mapq(void *km, int n_regs, mm_reg1_t2 *regs, int min_chain_sc, int match_sc, int rep_len, int is_sr);
 
@@ -87,7 +87,7 @@ void mm_pair(void *km, int max_gap_ref, int dp_bonus, int sub_diff, int match_sc
 
 FILE *mm_split_init(const char *prefix, const mm_idx_t2 *mi);
 mm_idx_t2 *mm_split_merge_prep(const char *prefix, int n_splits, FILE **fp, uint32_t *n_seq_part);
-int mm_split_merge(int n_segs, const char **fn, const mm_mapopt_t *opt, int n_split_idx);
+int mm_split_merge(int n_segs, const char **fn, const mm_mapopt_t2 *opt, int n_split_idx);
 void mm_split_rm_tmp(const char *prefix, int n_splits);
 
 void mm_err_puts(const char *str);
