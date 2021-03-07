@@ -71,7 +71,7 @@ mm_idx_t2 *mm_split_merge_prep(const char *prefix, int n_splits, FILE **fp, uint
 	return mi;
 }
 
-void mm_split_rm_tmp(const char *prefix, int n_splits)
+void mm_split_rm_tmp2(const char *prefix, int n_splits)
 {
 	int i;
 	char *fn;

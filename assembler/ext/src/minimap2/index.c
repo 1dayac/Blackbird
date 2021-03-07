@@ -198,7 +198,7 @@ static void worker_post(void *g, long i, int tid)
 	if (b->a.n == 0) return;
 
 	// sort by minimizer
-	radix_sort_128x(b->a.a, b->a.a + b->a.n);
+	radix_sort2_128x(b->a.a, b->a.a + b->a.n);
 
 	// count and preallocate
 	for (j = 1, n = 1, n_keys = 0, b->n = 0; j <= b->a.n; ++j) {
@@ -227,7 +227,7 @@ static void worker_post(void *g, long i, int tid)
 				int k;
 				for (k = 0; k < n; ++k)
 					b->p[start_p + k] = b->a.a[start_a + k].y;
-				radix_sort_64(&b->p[start_p], &b->p[start_p + n]); // sort by position; needed as in-place radix_sort_128x() is not stable
+				radix_sort2_64(&b->p[start_p], &b->p[start_p + n]); // sort by position; needed as in-place radix_sort_128x() is not stable
 				kh_val(h, itr) = (uint64_t)start_p<<32 | n;
 				start_p += n;
 			}
@@ -285,7 +285,7 @@ static void *worker_pipeline(void *shared, int step, void *in)
         step_t2 *s;
 		if (p->sum_len > p->batch_size) return 0;
         s = (step_t2*)calloc(1, sizeof(step_t2));
-		s->seq = mm_bseq_read(p->fp, p->mini_batch_size, 0, &s->n_seq); // read a mini-batch
+		s->seq = mm_bseq_read2(p->fp, p->mini_batch_size, 0, &s->n_seq); // read a mini-batch
 		if (s->seq) {
 			uint32_t old_m, m;
 			assert((uint64_t)p->mi->n_seq + s->n_seq <= UINT32_MAX); // to prevent integer overflow
@@ -376,10 +376,10 @@ mm_idx_t2 *mm_idx_build2(const char *fn, int w, int k, int flag, int n_threads) 
 {
 	mm_bseq_file_t *fp;
 	mm_idx_t2 *mi;
-	fp = mm_bseq_open(fn);
+	fp = mm_bseq_open2(fn);
 	if (fp == 0) return 0;
 	mi = mm_idx_gen2(fp, w, k, 14, flag, 1<<18, n_threads, UINT64_MAX);
-	mm_bseq_close(fp);
+	mm_bseq_close2(fp);
 	return mi;
 }
 
@@ -561,16 +561,16 @@ mm_idx_reader_t *mm_idx_reader_open(const char *fn, const mm_idxopt_t2 *opt, con
 {
 	int64_t is_idx;
 	mm_idx_reader_t *r;
-	is_idx = mm_idx_is_idx(fn);
+	is_idx = mm_idx_is_idx2(fn);
 	if (is_idx < 0) return 0; // failed to open the index
 	r = (mm_idx_reader_t*)calloc(1, sizeof(mm_idx_reader_t));
 	r->is_idx = is_idx;
 	if (opt) r->opt = *opt;
-	else mm_idxopt_init(&r->opt);
+	else mm_idxopt_init2(&r->opt);
 	if (r->is_idx) {
 		r->fp.idx = fopen(fn, "rb");
 		r->idx_size = is_idx;
-	} else r->fp.seq = mm_bseq_open(fn);
+	} else r->fp.seq = mm_bseq_open2(fn);
 	if (fn_out) r->fp_out = fopen(fn_out, "wb");
 	return r;
 }
@@ -578,7 +578,7 @@ mm_idx_reader_t *mm_idx_reader_open(const char *fn, const mm_idxopt_t2 *opt, con
 void mm_idx_reader_close(mm_idx_reader_t *r)
 {
 	if (r->is_idx) fclose(r->fp.idx);
-	else mm_bseq_close(r->fp.seq);
+	else mm_bseq_close2(r->fp.seq);
 	if (r->fp_out) fclose(r->fp_out);
 	free(r);
 }
@@ -593,7 +593,7 @@ mm_idx_t2 *mm_idx_reader_read(mm_idx_reader_t *r, int n_threads)
 	} else
 		mi = mm_idx_gen2(r->fp.seq, r->opt.w, r->opt.k, r->opt.bucket_bits, r->opt.flag, r->opt.mini_batch_size, n_threads, r->opt.batch_size);
 	if (mi) {
-		if (r->fp_out) mm_idx_dump(r->fp_out, mi);
+		if (r->fp_out) mm_idx_dump2(r->fp_out, mi);
 		mi->index = r->n_parts++;
 	}
 	return mi;
@@ -723,7 +723,7 @@ int mm_idx_bed_read2(mm_idx_t2 *mi, const char *fn, int read_junc)
 	mi->I = mm_idx_read_bed2(mi, fn, read_junc);
 	if (mi->I == 0) return -1;
 	for (i = 0; i < mi->n_seq; ++i) // TODO: eliminate redundant intervals
-		radix_sort_bed(mi->I[i].a, mi->I[i].a + mi->I[i].n);
+		radix_sort2_bed(mi->I[i].a, mi->I[i].a + mi->I[i].n);
 	return 0;
 }
 

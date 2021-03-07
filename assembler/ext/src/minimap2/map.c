@@ -626,11 +626,11 @@ static mm_bseq_file_t **open_bseqs(int n, const char **fn)
 	int i, j;
 	fp = (mm_bseq_file_t**)calloc(n, sizeof(mm_bseq_file_t*));
 	for (i = 0; i < n; ++i) {
-		if ((fp[i] = mm_bseq_open(fn[i])) == 0) {
+		if ((fp[i] = mm_bseq_open2(fn[i])) == 0) {
 			if (mm_verbose >= 1)
 				fprintf(stderr, "ERROR: failed to open file '%s': %s\n", fn[i], strerror(errno));
 			for (j = 0; j < i; ++j)
-				mm_bseq_close(fp[j]);
+				mm_bseq_close2(fp[j]);
 			free(fp);
 			return 0;
 		}
@@ -658,7 +658,7 @@ int mm_map_file_frag2(const mm_idx_t2 *idx, int n_segs, const char **fn, const m
 	free(pl.str.s);
 	if (pl.fp_split) fclose(pl.fp_split);
 	for (i = 0; i < pl.n_fp; ++i)
-		mm_bseq_close(pl.fp[i]);
+		mm_bseq_close2(pl.fp[i]);
 	free(pl.fp);
 	return 0;
 }
@@ -707,8 +707,8 @@ int mm_split_merge(int n_segs, const char **fn, const mm_mapopt_t2 *opt, int n_s
 		fclose(pl.fp_parts[i]);
 	free(pl.fp_parts);
 	for (i = 0; i < pl.n_fp; ++i)
-		mm_bseq_close(pl.fp[i]);
+		mm_bseq_close2(pl.fp[i]);
 	free(pl.fp);
-	mm_split_rm_tmp(opt->split_prefix, n_split_idx);
+	mm_split_rm_tmp2(opt->split_prefix, n_split_idx);
 	return 0;
 }
