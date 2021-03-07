@@ -44,7 +44,7 @@ static inline void update_max_zdrop2(int32_t score, int i, int j, int32_t *max, 
 	} else *max = score, *max_i = i, *max_j = j;
 }
 
-static int mm_test_zdrop(void *km, const mm_mapopt_t *opt, const uint8_t *qseq, const uint8_t *tseq, uint32_t n_cigar, uint32_t *cigar, const int8_t *mat)
+static int mm_test_zdrop(void *km, const mm_mapopt_t2 *opt, const uint8_t *qseq, const uint8_t *tseq, uint32_t n_cigar, uint32_t *cigar, const int8_t *mat)
 {
 	uint32_t k;
 	int32_t score = 0, max = INT32_MIN, max_i = -1, max_j = -1, i = 0, j = 0, max_zdrop = 0;
@@ -310,7 +310,7 @@ static void mm_append_cigar2(mm_reg1_t2 *r, uint32_t n_cigar, uint32_t *cigar) /
 	}
 }
 
-static void mm_align_pair2(void *km, const mm_mapopt_t *opt, int qlen, const uint8_t *qseq, int tlen, const uint8_t *tseq, const uint8_t *junc, const int8_t *mat, int w, int end_bonus, int zdrop, int flag, ksw_extz_t *ez)
+static void mm_align_pair2(void *km, const mm_mapopt_t2 *opt, int qlen, const uint8_t *qseq, int tlen, const uint8_t *tseq, const uint8_t *junc, const int8_t *mat, int w, int end_bonus, int zdrop, int flag, ksw_extz_t *ez)
 {
 	if (mm_dbg_flag & MM_DBG_PRINT_ALN_SEQ) {
 		int i;
@@ -520,7 +520,7 @@ static void mm_max_stretch2(const mm_reg1_t2 *r, const mm128_t *a, int32_t *as, 
 	*as = max_i, *cnt = max_len;
 }
 
-static int mm_seed_ext_score(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *mi, const int8_t mat[25], int qlen, uint8_t *qseq0[2], const mm128_t *a)
+static int mm_seed_ext_score(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, const int8_t mat[25], int qlen, uint8_t *qseq0[2], const mm128_t *a)
 {
 	uint8_t *qseq, *tseq;
 	int q_span = a->y>>32&0xff, qs, qe, rs, re, rid, score, q_off, t_off, ext_len = opt->anchor_ext_len;
@@ -542,7 +542,7 @@ static int mm_seed_ext_score(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *
 	return score;
 }
 
-static void mm_fix_bad_ends_splice(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *mi, const mm_reg1_t2 *r, const int8_t mat[25], int qlen, uint8_t *qseq0[2], const mm128_t *a, int *as1, int *cnt1)
+static void mm_fix_bad_ends_splice(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, const mm_reg1_t2 *r, const int8_t mat[25], int qlen, uint8_t *qseq0[2], const mm128_t *a, int *as1, int *cnt1)
 { // this assumes a very crude k-mer based mode; it is not necessary to use a good model just for filtering bounary exons
 	int score;
 	double log_gap;
@@ -562,7 +562,7 @@ static void mm_fix_bad_ends_splice(void *km, const mm_mapopt_t *opt, const mm_id
 	}
 }
 
-static void mm_align12(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *mi, int qlen, uint8_t *qseq0[2], mm_reg1_t2 *r, mm_reg1_t2 *r2, int n_a, mm128_t *a, ksw_extz_t *ez, int splice_flag)
+static void mm_align12(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, int qlen, uint8_t *qseq0[2], mm_reg1_t2 *r, mm_reg1_t2 *r2, int n_a, mm128_t *a, ksw_extz_t *ez, int splice_flag)
 {
 	int is_sr = !!(opt->flag & MM_F_SR), is_splice = !!(opt->flag & MM_F_SPLICE);
 	int32_t rid = a[r->as].x<<1>>33, rev = a[r->as].x>>63, as1, cnt1;
@@ -794,7 +794,7 @@ static void mm_align12(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *mi, in
 	kfree(km, junc);
 }
 
-static int mm_align1_inv2(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *mi, int qlen, uint8_t *qseq0[2], const mm_reg1_t2 *r1, const mm_reg1_t2 *r2, mm_reg1_t2 *r_inv, ksw_extz_t *ez)
+static int mm_align1_inv2(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, int qlen, uint8_t *qseq0[2], const mm_reg1_t2 *r1, const mm_reg1_t2 *r2, mm_reg1_t2 *r_inv, ksw_extz_t *ez)
 {
 	int tl, ql, score, ret = 0, q_off, t_off;
 	uint8_t *tseq, *qseq;
@@ -861,7 +861,7 @@ static inline mm_reg1_t2 *mm_insert_reg(const mm_reg1_t2 *r, int i, int *n_regs,
 	return regs;
 }
 
-mm_reg1_t2 *mm_align_skeleton2(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *mi, int qlen, const char *qstr, int *n_regs_, mm_reg1_t2 *regs, mm128_t *a)
+mm_reg1_t2 *mm_align_skeleton2(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, int qlen, const char *qstr, int *n_regs_, mm_reg1_t2 *regs, mm128_t *a)
 {
 	extern unsigned char seq_nt4_table[256];
 	int32_t i, n_regs = *n_regs_, n_a;

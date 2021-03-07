@@ -153,7 +153,7 @@ typedef struct {
 	int64_t max_sw_mat;
 
 	const char *split_prefix;
-} mm_mapopt_t;
+} mm_mapopt_t2;
 
 // index reader
 typedef struct {
@@ -183,22 +183,22 @@ extern double mm_realtime0; // wall-clock timer
  *
  * @return 0 if success; -1 if _present_ unknown
  */
-int mm_set_opt(const char *preset, mm_idxopt_t2 *io, mm_mapopt_t *mo);
-int mm_check_opt(const mm_idxopt_t2 *io, const mm_mapopt_t *mo);
+int mm_set_opt(const char *preset, mm_idxopt_t2 *io, mm_mapopt_t2 *mo);
+int mm_check_opt(const mm_idxopt_t2 *io, const mm_mapopt_t2 *mo);
 
 /**
- * Update mm_mapopt_t::mid_occ via mm_mapopt_t::mid_occ_frac
+ * Update mm_mapopt_t2::mid_occ via mm_mapopt_t2::mid_occ_frac
  *
- * If mm_mapopt_t::mid_occ is 0, this function sets it to a number such that no
- * more than mm_mapopt_t::mid_occ_frac of minimizers in the index have a higher
+ * If mm_mapopt_t2::mid_occ is 0, this function sets it to a number such that no
+ * more than mm_mapopt_t2::mid_occ_frac of minimizers in the index have a higher
  * occurrence.
  *
  * @param opt        mapping parameters
  * @param mi         minimap2 index
  */
-void mm_mapopt_update(mm_mapopt_t *opt, const mm_idx_t2 *mi);
+void mm_mapopt_update(mm_mapopt_t2 *opt, const mm_idx_t2 *mi);
 
-void mm_mapopt_max_intron_len(mm_mapopt_t *opt, int max_intron_len);
+void mm_mapopt_max_intron_len(mm_mapopt_t2 *opt, int max_intron_len);
 
 /**
  * Initialize an index reader
@@ -335,9 +335,9 @@ void *mm_tbuf_get_km(mm_tbuf_t *b);
  * @return an array of hits which need to be deallocated with free() together
  *         with mm_reg1_t2::p of each element. The size is written to _n_regs_.
  */
-mm_reg1_t2 *mm_map(const mm_idx_t2 *mi, int l_seq, const char *seq, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *name);
+mm_reg1_t2 *mm_map(const mm_idx_t2 *mi, int l_seq, const char *seq, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t2 *opt, const char *name);
 
-void mm_map_frag(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t2 **regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *qname);
+void mm_map_frag(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t2 **regs, mm_tbuf_t *b, const mm_mapopt_t2 *opt, const char *qname);
 
 /**
  * Align a fasta/fastq file and print alignments to stdout
@@ -349,9 +349,9 @@ void mm_map_frag(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char *
  *
  * @return 0 on success; -1 if _fn_ can't be read
  */
-int mm_map_file(const mm_idx_t2 *idx, const char *fn, const mm_mapopt_t *opt, int n_threads);
+int mm_map_file(const mm_idx_t2 *idx, const char *fn, const mm_mapopt_t2 *opt, int n_threads);
 
-int mm_map_file_frag(const mm_idx_t2 *idx, int n_segs, const char **fn, const mm_mapopt_t *opt, int n_threads);
+int mm_map_file_frag(const mm_idx_t2 *idx, int n_segs, const char **fn, const mm_mapopt_t2 *opt, int n_threads);
 
 /**
  * Generate the cs tag (new in 2.12)
@@ -379,7 +379,7 @@ int mm_idx_bed_read(mm_idx_t2 *mi, const char *fn, int read_junc);
 int mm_idx_bed_junc(const mm_idx_t2 *mi, int32_t ctg, int32_t st, int32_t en, uint8_t *s);
 
 // deprecated APIs for backward compatibility
-void mm_mapopt_init(mm_mapopt_t *opt);
+void mm_mapopt_init(mm_mapopt_t2 *opt);
 mm_idx_t2 *mm_idx_build(const char *fn, int w, int k, int flag, int n_threads);
 
 #ifdef __cplusplus

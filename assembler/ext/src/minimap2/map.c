@@ -61,7 +61,7 @@ static int mm_dust_minier2(void *km, int n, mm128_t *a, int l_seq, const char *s
 	return k; // the new size
 }
 
-static void collect_minimizers2(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *mi, int n_segs, const int *qlens, const char **seqs, mm128_v *mv)
+static void collect_minimizers2(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, int n_segs, const int *qlens, const char **seqs, mm128_v *mv)
 {
 	int i, n, sum = 0;
 	mv->n = 0;
@@ -146,7 +146,7 @@ static inline int skip_seed(int flag, uint64_t r, const mm_match_t *q, const cha
 	return 0;
 }
 
-static mm128_t *collect_seed_hits_heap2(void *km, const mm_mapopt_t *opt, int max_occ, const mm_idx_t2 *mi, const char *qname, const mm128_v *mv, int qlen, int64_t *n_a, int *rep_len,
+static mm128_t *collect_seed_hits_heap2(void *km, const mm_mapopt_t2 *opt, int max_occ, const mm_idx_t2 *mi, const char *qname, const mm128_v *mv, int qlen, int64_t *n_a, int *rep_len,
 								  int *n_mini_pos, uint64_t **mini_pos)
 {
 	int i, n_m, heap_size = 0;
@@ -212,7 +212,7 @@ static mm128_t *collect_seed_hits_heap2(void *km, const mm_mapopt_t *opt, int ma
 	return a;
 }
 
-static mm128_t *collect_seed_hits2(void *km, const mm_mapopt_t *opt, int max_occ, const mm_idx_t2 *mi, const char *qname, const mm128_v *mv, int qlen, int64_t *n_a, int *rep_len,
+static mm128_t *collect_seed_hits2(void *km, const mm_mapopt_t2 *opt, int max_occ, const mm_idx_t2 *mi, const char *qname, const mm128_v *mv, int qlen, int64_t *n_a, int *rep_len,
 								  int *n_mini_pos, uint64_t **mini_pos)
 {
 	int i, n_m;
@@ -246,7 +246,7 @@ static mm128_t *collect_seed_hits2(void *km, const mm_mapopt_t *opt, int max_occ
 	return a;
 }
 
-static void chain_post(const mm_mapopt_t *opt, int max_chain_gap_ref, const mm_idx_t2 *mi, void *km, int qlen, int n_segs, const int *qlens, int *n_regs, mm_reg1_t2 *regs, mm128_t *a)
+static void chain_post(const mm_mapopt_t2 *opt, int max_chain_gap_ref, const mm_idx_t2 *mi, void *km, int qlen, int n_segs, const int *qlens, int *n_regs, mm_reg1_t2 *regs, mm128_t *a)
 {
 	if (!(opt->flag & MM_F_ALL_CHAINS)) { // don't choose primary mapping(s)
 		mm_set_parent(km, opt->mask_level, opt->mask_len, *n_regs, regs, opt->a * 2 + opt->b, opt->flag&MM_F_HARD_MLEVEL, opt->alt_drop);
@@ -257,7 +257,7 @@ static void chain_post(const mm_mapopt_t *opt, int max_chain_gap_ref, const mm_i
 	}
 }
 
-static mm_reg1_t2 *align_regs2(const mm_mapopt_t *opt, const mm_idx_t2 *mi, void *km, int qlen, const char *seq, int *n_regs, mm_reg1_t2 *regs, mm128_t *a)
+static mm_reg1_t2 *align_regs2(const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, void *km, int qlen, const char *seq, int *n_regs, mm_reg1_t2 *regs, mm128_t *a)
 {
 	if (!(opt->flag & MM_F_CIGAR)) return regs;
 	regs = mm_align_skeleton2(km, opt, mi, qlen, seq, n_regs, regs, a); // this calls mm_filter_regs()
@@ -269,7 +269,7 @@ static mm_reg1_t2 *align_regs2(const mm_mapopt_t *opt, const mm_idx_t2 *mi, void
 	return regs;
 }
 
-void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t2 **regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *qname)
+void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t2 **regs, mm_tbuf_t *b, const mm_mapopt_t2 *opt, const char *qname)
 {
 	int i, j, rep_len, qlen_sum, n_regs0, n_mini_pos;
 	int max_chain_gap_qry, max_chain_gap_ref, is_splice = !!(opt->flag & MM_F_SPLICE), is_sr = !!(opt->flag & MM_F_SR);
@@ -307,7 +307,7 @@ void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char 
 		max_chain_gap_qry = qlen_sum > opt->max_gap? qlen_sum : opt->max_gap;
 	else max_chain_gap_qry = opt->max_gap;
 	if (opt->max_gap_ref > 0) {
-		max_chain_gap_ref = opt->max_gap_ref; // always honor mm_mapopt_t::max_gap_ref if set
+		max_chain_gap_ref = opt->max_gap_ref; // always honor mm_mapopt_t2::max_gap_ref if set
 	} else if (opt->max_frag_len > 0) {
 		max_chain_gap_ref = opt->max_frag_len - qlen_sum;
 		if (max_chain_gap_ref < opt->max_gap) max_chain_gap_ref = opt->max_gap;
@@ -391,7 +391,7 @@ void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char 
 	}
 }
 
-mm_reg1_t2 *mm_map2(const mm_idx_t2 *mi, int qlen, const char *seq, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *qname)
+mm_reg1_t2 *mm_map2(const mm_idx_t2 *mi, int qlen, const char *seq, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t2 *opt, const char *qname)
 {
 	mm_reg1_t2 *regs;
 	mm_map_frag2(mi, 1, &qlen, &seq, n_regs, &regs, b, opt, qname);
@@ -405,7 +405,7 @@ mm_reg1_t2 *mm_map2(const mm_idx_t2 *mi, int qlen, const char *seq, int *n_regs,
 typedef struct {
 	int n_processed, n_threads, n_fp;
 	int64_t mini_batch_size;
-	const mm_mapopt_t *opt;
+	const mm_mapopt_t2 *opt;
 	mm_bseq_file_t **fp;
 	const mm_idx_t2 *mi;
 	kstring_t str;
@@ -471,7 +471,7 @@ static void merge_hits(step_t *s)
 	int f, i, k0, k, max_seg = 0, *n_reg_part, *rep_len_part, *frag_gap_part, *qlens;
 	void *km;
 	FILE **fp = s->p->fp_parts;
-	const mm_mapopt_t *opt = s->p->opt;
+	const mm_mapopt_t2 *opt = s->p->opt;
 
 	km = km_init();
 	for (f = 0; f < s->n_frag; ++f)
@@ -638,7 +638,7 @@ static mm_bseq_file_t **open_bseqs(int n, const char **fn)
 	return fp;
 }
 
-int mm_map_file_frag2(const mm_idx_t2 *idx, int n_segs, const char **fn, const mm_mapopt_t *opt, int n_threads)
+int mm_map_file_frag2(const mm_idx_t2 *idx, int n_segs, const char **fn, const mm_mapopt_t2 *opt, int n_threads)
 {
 	int i, pl_threads;
 	pipeline_t pl;
@@ -663,12 +663,12 @@ int mm_map_file_frag2(const mm_idx_t2 *idx, int n_segs, const char **fn, const m
 	return 0;
 }
 
-int mm_map_file2(const mm_idx_t2 *idx, const char *fn, const mm_mapopt_t *opt, int n_threads)
+int mm_map_file2(const mm_idx_t2 *idx, const char *fn, const mm_mapopt_t2 *opt, int n_threads)
 {
 	return mm_map_file_frag2(idx, 1, &fn, opt, n_threads);
 }
 
-int mm_split_merge(int n_segs, const char **fn, const mm_mapopt_t *opt, int n_split_idx)
+int mm_split_merge(int n_segs, const char **fn, const mm_mapopt_t2 *opt, int n_split_idx)
 {
 	int i;
 	pipeline_t pl;

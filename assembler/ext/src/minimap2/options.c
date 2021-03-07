@@ -11,9 +11,9 @@ void mm_idxopt_init2(mm_idxopt_t2 *opt)
 	opt->batch_size = 4000000000ULL;
 }
 
-void mm_mapopt_init2(mm_mapopt_t *opt)
+void mm_mapopt_init2(mm_mapopt_t2 *opt)
 {
-	memset(opt, 0, sizeof(mm_mapopt_t));
+	memset(opt, 0, sizeof(mm_mapopt_t2));
 	opt->seed = 11;
 	opt->mid_occ_frac = 2e-4f;
 	opt->sdust_thres = 0; // no SDUST masking
@@ -53,7 +53,7 @@ void mm_mapopt_init2(mm_mapopt_t *opt)
 	opt->pe_bonus = 33;
 }
 
-void mm_mapopt_update2(mm_mapopt_t *opt, const mm_idx_t2 *mi)
+void mm_mapopt_update2(mm_mapopt_t2 *opt, const mm_idx_t2 *mi)
 {
 	if ((opt->flag & MM_F_SPLICE_FOR) || (opt->flag & MM_F_SPLICE_REV))
 		opt->flag |= MM_F_SPLICE;
@@ -65,13 +65,13 @@ void mm_mapopt_update2(mm_mapopt_t *opt, const mm_idx_t2 *mi)
 		fprintf(stderr, "[M::%s::%.3f*%.2f] mid_occ = %d\n", __func__, realtime() - mm_realtime0, cputime() / (realtime() - mm_realtime0), opt->mid_occ);
 }
 
-void mm_mapopt_max_intron_len2(mm_mapopt_t *opt, int max_intron_len)
+void mm_mapopt_max_intron_len2(mm_mapopt_t2 *opt, int max_intron_len)
 {
 	if ((opt->flag & MM_F_SPLICE) && max_intron_len > 0)
 		opt->max_gap_ref = opt->bw = max_intron_len;
 }
 
-int mm_set_opt2(const char *preset, mm_idxopt_t2 *io, mm_mapopt_t *mo)
+int mm_set_opt2(const char *preset, mm_idxopt_t2 *io, mm_mapopt_t2 *mo)
 {
 	if (preset == 0) {
 		mm_idxopt_init2(io);
@@ -139,7 +139,7 @@ int mm_set_opt2(const char *preset, mm_idxopt_t2 *io, mm_mapopt_t *mo)
 	return 0;
 }
 
-int mm_check_opt2(const mm_idxopt_t2 *io, const mm_mapopt_t *mo)
+int mm_check_opt2(const mm_idxopt_t2 *io, const mm_mapopt_t2 *mo)
 {
 	if (mo->split_prefix && (mo->flag & (MM_F_OUT_CS|MM_F_OUT_MD))) {
 		if (mm_verbose >= 1)
