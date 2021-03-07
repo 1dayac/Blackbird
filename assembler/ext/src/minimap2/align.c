@@ -755,7 +755,7 @@ static void mm_align12(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, i
 				re1 = rs + (ez->max_t + 1);
 				qe1 = qs + (ez->max_q + 1);
 				if (cnt1 - (j + 1) >= opt->min_cnt) {
-					mm_split_reg(r, r2, as1 + j + 1 - r->as, qlen, a);
+					mm_split_reg2(r, r2, as1 + j + 1 - r->as, qlen, a);
 					if (zdrop_code == 2) r2->split_inv = 1;
 				}
 				break;
@@ -877,7 +877,7 @@ mm_reg1_t2 *mm_align_skeleton2(void *km, const mm_mapopt_t2 *opt, const mm_idx_t
 	}
 
 	// align through seed hits
-	n_a = mm_squeeze_a(km, n_regs, regs, a);
+	n_a = mm_squeeze_a2(km, n_regs, regs, a);
 	memset(&ez, 0, sizeof(ksw_extz_t));
 	for (i = 0; i < n_regs; ++i) {
 		mm_reg1_t2 r2;
