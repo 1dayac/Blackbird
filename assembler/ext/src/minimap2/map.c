@@ -61,7 +61,7 @@ static int mm_dust_minier2(void *km, int n, mm128_t *a, int l_seq, const char *s
 	return k; // the new size
 }
 
-static void collect_minimizers(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int n_segs, const int *qlens, const char **seqs, mm128_v *mv)
+static void collect_minimizers2(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int n_segs, const int *qlens, const char **seqs, mm128_v *mv)
 {
 	int i, n, sum = 0;
 	mv->n = 0;
@@ -291,7 +291,7 @@ void mm_map_frag2(const mm_idx_t *mi, int n_segs, const int *qlens, const char *
 	hash ^= __ac_Wang_hash(qlen_sum) + __ac_Wang_hash(opt->seed);
 	hash  = __ac_Wang_hash(hash);
 
-	collect_minimizers(b->km, opt, mi, n_segs, qlens, seqs, &mv);
+	collect_minimizers2(b->km, opt, mi, n_segs, qlens, seqs, &mv);
 	if (opt->flag & MM_F_HEAP_SORT) a = collect_seed_hits_heap2(b->km, opt, opt->mid_occ, mi, qname, &mv, qlen_sum, &n_a, &rep_len, &n_mini_pos, &mini_pos);
 	else a = collect_seed_hits2(b->km, opt, opt->mid_occ, mi, qname, &mv, qlen_sum, &n_a, &rep_len, &n_mini_pos, &mini_pos);
 
