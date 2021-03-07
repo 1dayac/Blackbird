@@ -90,7 +90,7 @@ mm_bseq1_t *mm_bseq_read3(mm_bseq_file_t *fp, int64_t chunk_size, int with_qual,
 		size = fp->s.l_seq;
 		memset(&fp->s, 0, sizeof(mm_bseq1_t));
 	}
-	while ((ret = kseq_read(ks)) >= 0) {
+	while ((ret = kseq_read2(ks)) >= 0) {
 		mm_bseq1_t *s;
 		assert(ks->seq.l <= INT32_MAX);
 		if (a.m == 0) kv_resize(mm_bseq1_t, 0, a, 256);
@@ -99,7 +99,7 @@ mm_bseq1_t *mm_bseq_read3(mm_bseq_file_t *fp, int64_t chunk_size, int with_qual,
 		size += s->l_seq;
 		if (size >= chunk_size) {
 			if (frag_mode && a.a[a.n-1].l_seq < CHECK_PAIR_THRES) {
-				while ((ret = kseq_read(ks)) >= 0) {
+				while ((ret = kseq_read2(ks)) >= 0) {
 					kseq2bseq(ks, &fp->s, with_qual, with_comment);
 					if (mm_qname_same(fp->s.name, a.a[a.n-1].name)) {
 						kv_push(mm_bseq1_t, 0, a, fp->s);
@@ -138,7 +138,7 @@ mm_bseq1_t *mm_bseq_read_frag2(int n_fp, mm_bseq_file_t **fp, int64_t chunk_size
 	while (1) {
 		int n_read = 0;
 		for (i = 0; i < n_fp; ++i)
-			if (kseq_read(fp[i]->ks) >= 0)
+			if (kseq_read2(fp[i]->ks) >= 0)
 				++n_read;
 		if (n_read < n_fp) {
 			if (n_read > 0)

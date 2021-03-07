@@ -129,7 +129,7 @@ void mm_pair2(void *km, int max_gap_ref, int pe_bonus, int sub_diff, int match_s
 		}
 	}
 	if (sc.n > 1)
-		radix_sort_64(sc.a, sc.a + sc.n);
+		radix_sort2_64(sc.a, sc.a + sc.n);
 
 	if (sc.n > 0 && max > 0) { // found at least one pair
 		int n_sub = 0, mapq_pe;

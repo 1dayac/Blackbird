@@ -321,7 +321,7 @@ static void *worker_pipeline(void *shared, int step, void *in)
 				if (!(p->mi->flag & MM_I_NO_SEQ)) {
 					for (j = 0; j < seq->len; ++j) { // TODO: this is not the fastest way, but let's first see if speed matters here
 						uint64_t o = p->sum_len + j;
-						int c = seq_nt4_table[(uint8_t)s->seq[i].seq[j]];
+						int c = seq_nt4_table2[(uint8_t)s->seq[i].seq[j]];
 						mm_seq4_set(p->mi->S, o, c);
 					}
 				}
@@ -354,7 +354,7 @@ static void *worker_pipeline(void *shared, int step, void *in)
 mm_idx_t2 *mm_idx_gen2(mm_bseq_file_t *fp, int w, int k, int b, int flag, int mini_batch_size, int n_threads, uint64_t batch_size)
 {
 	pipeline_t2 pl;
-	if (fp == 0 || mm_bseq_eof(fp)) return 0;
+	if (fp == 0 || mm_bseq_eof2(fp)) return 0;
 	memset(&pl, 0, sizeof(pipeline_t2));
 	pl.mini_batch_size = (uint64_t)mini_batch_size < batch_size? mini_batch_size : batch_size;
 	pl.batch_size = batch_size;
@@ -417,7 +417,7 @@ mm_idx_t2 *mm_idx_str2(int w, int k, int is_hpc, int bucket_bits, int n, const c
 		p->len = strlen(s);
 		p->is_alt = 0;
 		for (j = 0; j < p->len; ++j) {
-			int c = seq_nt4_table[(uint8_t)s[j]];
+			int c = seq_nt4_table2[(uint8_t)s[j]];
 			uint64_t o = sum_len + j;
 			mm_seq4_set(mi->S, o, c);
 		}
@@ -599,9 +599,9 @@ mm_idx_t2 *mm_idx_reader_read(mm_idx_reader_t *r, int n_threads)
 	return mi;
 }
 
-int mm_idx_reader_eof(const mm_idx_reader_t *r) // TODO: in extremely rare cases, mm_bseq_eof() might not work
+int mm_idx_reader_eof(const mm_idx_reader_t *r) // TODO: in extremely rare cases, mm_bseq_eof2() might not work
 {
-	return r->is_idx? (feof(r->fp.idx) || ftell(r->fp.idx) == r->idx_size) : mm_bseq_eof(r->fp.seq);
+	return r->is_idx? (feof(r->fp.idx) || ftell(r->fp.idx) == r->idx_size) : mm_bseq_eof2(r->fp.seq);
 }
 
 #include <ctype.h>
@@ -618,7 +618,7 @@ int mm_idx_alt_read2(mm_idx_t2 *mi, const char *fn)
 	kstring_t str = {0,0,0};
 	fp = fn && strcmp(fn, "-")? gzopen(fn, "r") : gzdopen(fileno(stdin), "r");
 	if (fp == 0) return -1;
-	ks = ks_init(fp);
+	ks = ks_init2(fp);
 	if (mi->h == 0) mm_idx_index_name2(mi);
 	while (ks_getuntilx(ks, KS_SEP_LINE, &str, 0) >= 0) {
 		char *p;
@@ -647,7 +647,7 @@ mm_idx_intv_t *mm_idx_read_bed2(const mm_idx_t2 *mi, const char *fn, int read_ju
 	fp = fn && strcmp(fn, "-")? gzopen(fn, "r") : gzdopen(fileno(stdin), "r");
 	if (fp == 0) return 0;
 	I = (mm_idx_intv_t*)calloc(mi->n_seq, sizeof(*I));
-	ks = ks_init(fp);
+	ks = ks_init2(fp);
 	while (ks_getuntilx(ks, KS_SEP_LINE, &str, 0) >= 0) {
 		mm_idx_intv_t *r;
 		mm_idx_intv1_t t = {-1,-1,-1,-1,0};
