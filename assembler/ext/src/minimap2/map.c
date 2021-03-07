@@ -15,22 +15,22 @@ struct mm_tbuf_s2 {
 	int rep_len, frag_gap;
 };
 
-mm_tbuf_t *mm_tbuf_init2(void)
+mm_tbuf_t2 *mm_tbuf_init2(void)
 {
-	mm_tbuf_t *b;
-	b = (mm_tbuf_t*)calloc(1, sizeof(mm_tbuf_t));
+	mm_tbuf_t2 *b;
+	b = (mm_tbuf_t2*)calloc(1, sizeof(mm_tbuf_t2));
 	if (!(mm_dbg_flag & 1)) b->km = km_init();
 	return b;
 }
 
-void mm_tbuf_destroy2(mm_tbuf_t *b)
+void mm_tbuf_destroy2(mm_tbuf_t2 *b)
 {
 	if (b == 0) return;
 	km_destroy(b->km);
 	free(b);
 }
 
-void *mm_tbuf_get_km2(mm_tbuf_t *b)
+void *mm_tbuf_get_km2(mm_tbuf_t2 *b)
 {
 	return b->km;
 }
@@ -269,7 +269,7 @@ static mm_reg1_t2 *align_regs2(const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, voi
 	return regs;
 }
 
-void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t2 **regs, mm_tbuf_t *b, const mm_mapopt_t2 *opt, const char *qname)
+void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t2 **regs, mm_tbuf_t2 *b, const mm_mapopt_t2 *opt, const char *qname)
 {
 	int i, j, rep_len, qlen_sum, n_regs0, n_mini_pos;
 	int max_chain_gap_qry, max_chain_gap_ref, is_splice = !!(opt->flag & MM_F_SPLICE), is_sr = !!(opt->flag & MM_F_SR);
@@ -391,7 +391,7 @@ void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char 
 	}
 }
 
-mm_reg1_t2 *mm_map2(const mm_idx_t2 *mi, int qlen, const char *seq, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t2 *opt, const char *qname)
+mm_reg1_t2 *mm_map2(const mm_idx_t2 *mi, int qlen, const char *seq, int *n_regs, mm_tbuf_t2 *b, const mm_mapopt_t2 *opt, const char *qname)
 {
 	mm_reg1_t2 *regs;
 	mm_map_frag2(mi, 1, &qlen, &seq, n_regs, &regs, b, opt, qname);
@@ -421,7 +421,7 @@ typedef struct {
 	mm_bseq1_t *seq;
 	int *n_reg, *seg_off, *n_seg, *rep_len, *frag_gap;
 	mm_reg1_t2 **reg;
-	mm_tbuf_t **buf;
+	mm_tbuf_t2 **buf;
 } step_t;
 
 static void worker_for(void *_data, long i, int tid) // kt_for() callback
@@ -429,7 +429,7 @@ static void worker_for(void *_data, long i, int tid) // kt_for() callback
     step_t *s = (step_t*)_data;
 	int qlens[MM_MAX_SEG], j, off = s->seg_off[i], pe_ori = s->p->opt->pe_ori;
 	const char *qseqs[MM_MAX_SEG];
-	mm_tbuf_t *b = s->buf[tid];
+	mm_tbuf_t2 *b = s->buf[tid];
 	assert(s->n_seg[i] <= MM_MAX_SEG);
 	if (mm_dbg_flag & MM_DBG_PRINT_QNAME)
 		fprintf(stderr, "QR\t%s\t%d\t%d\n", s->seq[off].name, tid, s->seq[off].l_seq);
@@ -539,7 +539,7 @@ static void *worker_pipeline(void *shared, int step, void *in)
 			s->p = p;
 			for (i = 0; i < s->n_seq; ++i)
 				s->seq[i].rid = p->n_processed++;
-			s->buf = (mm_tbuf_t**)calloc(p->n_threads, sizeof(mm_tbuf_t*));
+			s->buf = (mm_tbuf_t2**)calloc(p->n_threads, sizeof(mm_tbuf_t2*));
 			for (i = 0; i < p->n_threads; ++i)
 				s->buf[i] = mm_tbuf_init2();
 			s->n_reg = (int*)calloc(5 * s->n_seq, sizeof(int));
