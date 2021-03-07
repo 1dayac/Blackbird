@@ -219,7 +219,7 @@ static void write_MD_core(kstring_t *s, const uint8_t *tseq, const uint8_t *qseq
 
 static void write_cs_or_MD2(void *km, kstring_t *s, const mm_idx_t2 *mi, const mm_bseq1_t *t, const mm_reg1_t2 *r, int no_iden, int is_MD, int write_tag)
 {
-	extern unsigned char seq_nt4_table[256];
+	extern unsigned char seq_nt4_table2[256];
 	int i;
 	uint8_t *qseq, *tseq;
 	char *tmp;
@@ -227,13 +227,13 @@ static void write_cs_or_MD2(void *km, kstring_t *s, const mm_idx_t2 *mi, const m
 	qseq = (uint8_t*)kmalloc(km, r->qe - r->qs);
 	tseq = (uint8_t*)kmalloc(km, r->re - r->rs);
 	tmp = (char*)kmalloc(km, r->re - r->rs > r->qe - r->qs? r->re - r->rs + 1 : r->qe - r->qs + 1);
-	mm_idx_getseq(mi, r->rid, r->rs, r->re, tseq);
+	mm_idx_getseq2(mi, r->rid, r->rs, r->re, tseq);
 	if (!r->rev) {
 		for (i = r->qs; i < r->qe; ++i)
-			qseq[i - r->qs] = seq_nt4_table[(uint8_t)t->seq[i]];
+			qseq[i - r->qs] = seq_nt4_table2[(uint8_t)t->seq[i]];
 	} else {
 		for (i = r->qs; i < r->qe; ++i) {
-			uint8_t c = seq_nt4_table[(uint8_t)t->seq[i]];
+			uint8_t c = seq_nt4_table2[(uint8_t)t->seq[i]];
 			qseq[r->qe - i - 1] = c >= 4? 4 : 3 - c;
 		}
 	}
@@ -340,13 +340,13 @@ void mm_write_paf2(kstring_t *s, const mm_idx_t2 *mi, const mm_bseq1_t *t, const
 
 static void sam_write_sq(kstring_t *s, char *seq, int l, int rev, int comp)
 {
-	extern unsigned char seq_comp_table[256];
+	extern unsigned char seq_comp_table2[256];
 	if (rev) {
 		int i;
 		str_enlarge(s, l);
 		for (i = 0; i < l; ++i) {
 			int c = seq[l - 1 - i];
-			s->s[s->l + i] = c < 128 && comp? seq_comp_table[c] : c;
+			s->s[s->l + i] = c < 128 && comp? seq_comp_table2[c] : c;
 		}
 		s->l += l;
 	} else str_copy(s, seq, seq + l);

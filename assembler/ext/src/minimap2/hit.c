@@ -66,7 +66,7 @@ mm_reg1_t2 *mm_gen_regs2(void *km, uint32_t hash, int qlen, int n_u, uint64_t *u
 		z[i].y = (uint64_t)k << 32 | (int32_t)u[i];
 		k += (int32_t)u[i];
 	}
-	radix_sort_128x(z, z + n_u);
+	radix_sort2_128x(z, z + n_u);
 	for (i = 0; i < n_u>>1; ++i) // reverse, s.t. larger score first
 		tmp = z[i], z[i] = z[n_u-1-i], z[n_u-1-i] = tmp;
 
@@ -147,7 +147,7 @@ void mm_set_parent2(void *km, float mask_level, int mask_len, int n, mm_reg1_t2 
 			goto set_parent_test; // no overlapping primary hits; then i is a new primary hit
 		} else if (n_cov > 0) { // there are overlapping primary hits; find the length not covered by existing primary hits
 			int j, x = si;
-			radix_sort_64(cov, cov + n_cov);
+			radix_sort2_64(cov, cov + n_cov);
 			for (j = 0; j < n_cov; ++j) {
 				if ((int)(cov[j]>>32) > x) uncov_len += (cov[j]>>32) - x;
 				x = (int32_t)cov[j] > x? (int32_t)cov[j] : x;
@@ -208,7 +208,7 @@ void mm_hit_sort2(void *km, int *n_regs, mm_reg1_t2 *r, float alt_diff_frac)
 		}
 	}
 	assert(has_cigar + no_cigar == 1);
-	radix_sort_128x(aux, aux + n_aux);
+	radix_sort2_128x(aux, aux + n_aux);
 	for (i = n_aux - 1; i >= 0; --i)
 		t[n_aux - 1 - i] = r[aux[i].y];
 	memcpy(r, t, sizeof(mm_reg1_t2) * n_aux);
@@ -299,7 +299,7 @@ int mm_squeeze_a2(void *km, int n_regs, mm_reg1_t2 *regs, mm128_t *a)
 	aux = (uint64_t*)kmalloc(km, n_regs * 8);
 	for (i = 0; i < n_regs; ++i)
 		aux[i] = (uint64_t)regs[i].as << 32 | i;
-	radix_sort_64(aux, aux + n_regs);
+	radix_sort2_64(aux, aux + n_regs);
 	for (i = 0; i < n_regs; ++i) {
 		mm_reg1_t2 *r = &regs[(int32_t)aux[i]];
 		if (r->as != as) {
@@ -324,7 +324,7 @@ void mm_join_long2(void *km, const mm_mapopt_t2 *opt, int qlen, int *n_regs_, mm
 	for (i = n_aux = 0; i < n_regs; ++i)
 		if (regs[i].parent == i || regs[i].parent < 0)
 			aux[n_aux++] = (uint64_t)regs[i].as << 32 | i;
-	radix_sort_64(aux, aux + n_aux);
+	radix_sort2_64(aux, aux + n_aux);
 
 	for (i = n_aux - 1; i >= 1; --i) {
 		mm_reg1_t2 *r0 = &regs[(int32_t)aux[i-1]], *r1 = &regs[(int32_t)aux[i]];
@@ -447,7 +447,7 @@ static void mm_set_inv_mapq2(void *km, int n_regs, mm_reg1_t2 *regs)
 	for (i = n_aux = 0; i < n_regs; ++i)
 		if (regs[i].parent == i || regs[i].parent < 0)
 			aux[n_aux].y = i, aux[n_aux++].x = (uint64_t)regs[i].rid << 32 | regs[i].rs;
-	radix_sort_128x(aux, aux + n_aux);
+	radix_sort2_128x(aux, aux + n_aux);
 
 	for (i = 1; i < n_aux - 1; ++i) {
 		mm_reg1_t2 *inv = &regs[aux[i].y];

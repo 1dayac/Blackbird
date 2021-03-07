@@ -159,7 +159,7 @@ typedef struct __kstring_t {
 #define KSTREAM_DECLARE(type_t, __read) \
 	__KS_TYPE(type_t) \
 	extern int ks_getuntil2x(kstream_t *ks, int delimiter, kstring_t *str, int *dret, int append); \
-	extern kstream_t *ks_init(type_t f); \
+	extern kstream_t *ks_init2(type_t f); \
 	extern void ks_destroy(kstream_t *ks); \
 	__KS_INLINED(__read)
 
@@ -173,7 +173,7 @@ typedef struct __kstring_t {
 	SCOPE kseq_t *kseq_init2(type_t fd) \
 	{ \
 		kseq_t *s = (kseq_t*)calloc(1, sizeof(kseq_t)); \
-		s->f = ks_init(fd); \
+		s->f = ks_init2(fd); \
 		return s; \
 	} \
 	SCOPE void kseq_destroy2(kseq_t *ks) \
