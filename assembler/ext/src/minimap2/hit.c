@@ -87,7 +87,7 @@ mm_reg1_t2 *mm_gen_regs2(void *km, uint32_t hash, int qlen, int n_u, uint64_t *u
 	return r;
 }
 
-void mm_mark_alt2(const mm_idx_t *mi, int n, mm_reg1_t2 *r)
+void mm_mark_alt2(const mm_idx_t2 *mi, int n, mm_reg1_t2 *r)
 {
 	int i;
 	if (mi->n_alt == 0) return;

@@ -338,7 +338,7 @@ static void mm_align_pair2(void *km, const mm_mapopt_t *opt, int qlen, const uin
 	}
 }
 
-static inline int mm_get_hplen_back(const mm_idx_t *mi, uint32_t rid, uint32_t x)
+static inline int mm_get_hplen_back(const mm_idx_t2 *mi, uint32_t rid, uint32_t x)
 {
 	int64_t i, off0 = mi->seq[rid].offset, off = off0 + x;
 	int c = mm_seq4_get(mi->S, off);
@@ -347,7 +347,7 @@ static inline int mm_get_hplen_back(const mm_idx_t *mi, uint32_t rid, uint32_t x
 	return (int)(off - i);
 }
 
-static inline void mm_adjust_minier(const mm_idx_t *mi, uint8_t *const qseq0[2], mm128_t *a, int32_t *r, int32_t *q)
+static inline void mm_adjust_minier(const mm_idx_t2 *mi, uint8_t *const qseq0[2], mm128_t *a, int32_t *r, int32_t *q)
 {
 	if (mi->flag & MM_I_HPC) {
 		const uint8_t *qseq = qseq0[a->x>>63];
@@ -520,7 +520,7 @@ static void mm_max_stretch2(const mm_reg1_t2 *r, const mm128_t *a, int32_t *as, 
 	*as = max_i, *cnt = max_len;
 }
 
-static int mm_seed_ext_score(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, const int8_t mat[25], int qlen, uint8_t *qseq0[2], const mm128_t *a)
+static int mm_seed_ext_score(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *mi, const int8_t mat[25], int qlen, uint8_t *qseq0[2], const mm128_t *a)
 {
 	uint8_t *qseq, *tseq;
 	int q_span = a->y>>32&0xff, qs, qe, rs, re, rid, score, q_off, t_off, ext_len = opt->anchor_ext_len;
@@ -542,7 +542,7 @@ static int mm_seed_ext_score(void *km, const mm_mapopt_t *opt, const mm_idx_t *m
 	return score;
 }
 
-static void mm_fix_bad_ends_splice(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, const mm_reg1_t2 *r, const int8_t mat[25], int qlen, uint8_t *qseq0[2], const mm128_t *a, int *as1, int *cnt1)
+static void mm_fix_bad_ends_splice(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *mi, const mm_reg1_t2 *r, const int8_t mat[25], int qlen, uint8_t *qseq0[2], const mm128_t *a, int *as1, int *cnt1)
 { // this assumes a very crude k-mer based mode; it is not necessary to use a good model just for filtering bounary exons
 	int score;
 	double log_gap;
@@ -562,7 +562,7 @@ static void mm_fix_bad_ends_splice(void *km, const mm_mapopt_t *opt, const mm_id
 	}
 }
 
-static void mm_align12(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int qlen, uint8_t *qseq0[2], mm_reg1_t2 *r, mm_reg1_t2 *r2, int n_a, mm128_t *a, ksw_extz_t *ez, int splice_flag)
+static void mm_align12(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *mi, int qlen, uint8_t *qseq0[2], mm_reg1_t2 *r, mm_reg1_t2 *r2, int n_a, mm128_t *a, ksw_extz_t *ez, int splice_flag)
 {
 	int is_sr = !!(opt->flag & MM_F_SR), is_splice = !!(opt->flag & MM_F_SPLICE);
 	int32_t rid = a[r->as].x<<1>>33, rev = a[r->as].x>>63, as1, cnt1;
@@ -794,7 +794,7 @@ static void mm_align12(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int
 	kfree(km, junc);
 }
 
-static int mm_align1_inv2(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int qlen, uint8_t *qseq0[2], const mm_reg1_t2 *r1, const mm_reg1_t2 *r2, mm_reg1_t2 *r_inv, ksw_extz_t *ez)
+static int mm_align1_inv2(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *mi, int qlen, uint8_t *qseq0[2], const mm_reg1_t2 *r1, const mm_reg1_t2 *r2, mm_reg1_t2 *r_inv, ksw_extz_t *ez)
 {
 	int tl, ql, score, ret = 0, q_off, t_off;
 	uint8_t *tseq, *qseq;
@@ -861,7 +861,7 @@ static inline mm_reg1_t2 *mm_insert_reg(const mm_reg1_t2 *r, int i, int *n_regs,
 	return regs;
 }
 
-mm_reg1_t2 *mm_align_skeleton2(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int qlen, const char *qstr, int *n_regs_, mm_reg1_t2 *regs, mm128_t *a)
+mm_reg1_t2 *mm_align_skeleton2(void *km, const mm_mapopt_t *opt, const mm_idx_t2 *mi, int qlen, const char *qstr, int *n_regs_, mm_reg1_t2 *regs, mm128_t *a)
 {
 	extern unsigned char seq_nt4_table[256];
 	int32_t i, n_regs = *n_regs_, n_a;
