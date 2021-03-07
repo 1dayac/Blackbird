@@ -788,7 +788,7 @@ private:
             size_t qsize = query.size();
 
             int number_of_hits;
-            Minimap::mm_tbuf_t *tbuf = Minimap::mm_tbuf_init2();
+            Minimap::mm_tbuf_t2 *tbuf = Minimap::mm_tbuf_init2();
             Minimap::mm_idxopt_t2 iopt;
             Minimap::mm_mapopt_t2 mopt;
             Minimap::mm_set_opt2(0, &iopt, &mopt);

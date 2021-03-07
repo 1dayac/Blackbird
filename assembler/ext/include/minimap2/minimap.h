@@ -168,7 +168,7 @@ typedef struct {
 } mm_idx_reader_t;
 
 // memory buffer for thread-local storage during mapping
-typedef struct mm_tbuf_s mm_tbuf_t2;
+typedef struct mm_tbuf_s2 mm_tbuf_t2;
 
 // global variables
 extern int mm_verbose, mm_dbg_flag; // verbose level: 0 for no info, 1 for error, 2 for warning, 3 for message (default); debugging flag
@@ -306,16 +306,16 @@ void mm_idx_destroy2(mm_idx_t2 *mi);
  *
  * @return pointer to a thread-local buffer
  */
-mm_tbuf_t *mm_tbuf_init2(void);
+mm_tbuf_t2 *mm_tbuf_init2(void);
 
 /**
  * Destroy/deallocate a thread-local buffer for mapping
  *
  * @param b          the buffer
  */
-void mm_tbuf_destroy2(mm_tbuf_t *b);
+void mm_tbuf_destroy2(mm_tbuf_t2 *b);
 
-void *mm_tbuf_get_km2(mm_tbuf_t *b);
+void *mm_tbuf_get_km2(mm_tbuf_t2 *b);
 
 /**
  * Align a query sequence against an index
@@ -335,9 +335,9 @@ void *mm_tbuf_get_km2(mm_tbuf_t *b);
  * @return an array of hits which need to be deallocated with free() together
  *         with mm_reg1_t2::p of each element. The size is written to _n_regs_.
  */
-mm_reg1_t2 *mm_map2(const mm_idx_t2 *mi, int l_seq, const char *seq, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t2 *opt, const char *name);
+mm_reg1_t2 *mm_map2(const mm_idx_t2 *mi, int l_seq, const char *seq, int *n_regs, mm_tbuf_t2 *b, const mm_mapopt_t2 *opt, const char *name);
 
-void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t2 **regs, mm_tbuf_t *b, const mm_mapopt_t2 *opt, const char *qname);
+void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t2 **regs, mm_tbuf_t2 *b, const mm_mapopt_t2 *opt, const char *qname);
 
 /**
  * Align a fasta/fastq file and print alignments to stdout
