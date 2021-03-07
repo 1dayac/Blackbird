@@ -25,7 +25,7 @@ mm_bseq1_t *mm_bseq_read_frag2(int n_fp, mm_bseq_file_t **fp, int64_t chunk_size
 mm_bseq1_t *mm_bseq_read_frag(int n_fp, mm_bseq_file_t **fp, int64_t chunk_size, int with_qual, int *n_);
 int mm_bseq_eof(mm_bseq_file_t *fp);
 
-extern unsigned char seq_nt4_table[256];
+extern unsigned char seq_nt4_table2[256];
 extern unsigned char seq_comp_table2[256];
 
 static inline int mm_qname_len(const char *s)
