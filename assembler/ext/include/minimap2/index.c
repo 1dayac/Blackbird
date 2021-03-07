@@ -149,7 +149,7 @@ int mm_idx_name2id(const mm_idx_t *mi, const char *name)
 	return k == kh_end(h)? -1 : kh_val(h, k);
 }
 
-int mm_idx_getseq(const mm_idx_t *mi, uint32_t rid, uint32_t st, uint32_t en, uint8_t *seq)
+int mm_idx_getseq2(const mm_idx_t2 *mi, uint32_t rid, uint32_t st, uint32_t en, uint8_t *seq)
 {
 	uint64_t i, st1, en1;
 	if (rid >= mi->n_seq || st >= mi->seq[rid].len) return -1;

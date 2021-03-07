@@ -533,7 +533,7 @@ static int mm_seed_ext_score(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 
 	re = re + ext_len < (int32_t)mi->seq[rid].len? re + ext_len : mi->seq[rid].len;
 	qe = qe + ext_len < qlen? qe + ext_len : qlen;
 	tseq = (uint8_t*)kmalloc(km, re - rs);
-	mm_idx_getseq(mi, rid, rs, re, tseq);
+	mm_idx_getseq2(mi, rid, rs, re, tseq);
 	qseq = qseq0[a->x>>63] + qs;
 	qp = ksw_ll_qinit(km, 2, qe - qs, qseq, 5, mat);
 	score = ksw_ll_i16(qp, re - rs, tseq, opt->q, opt->e, &q_off, &t_off);
@@ -689,8 +689,8 @@ static void mm_align12(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, i
 
 	if (qs > 0 && rs > 0) { // left extension; probably the condition can be changed to "qs > qs0 && rs > rs0"
 		qseq = &qseq0[rev][qs0];
-		mm_idx_getseq(mi, rid, rs0, rs, tseq);
-		mm_idx_bed_junc(mi, rid, rs0, rs, junc);
+		mm_idx_getseq2(mi, rid, rs0, rs, tseq);
+		mm_idx_bed_junc2(mi, rid, rs0, rs, junc);
 		mm_seq_rev2(qs - qs0, qseq);
 		mm_seq_rev2(rs - rs0, tseq);
 		mm_seq_rev2(rs - rs0, junc);
@@ -719,8 +719,8 @@ static void mm_align12(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, i
 				bw1 = qe - qs > re - rs? qe - qs : re - rs;
 			// perform alignment
 			qseq = &qseq0[rev][qs];
-			mm_idx_getseq(mi, rid, rs, re, tseq);
-			mm_idx_bed_junc(mi, rid, rs, re, junc);
+			mm_idx_getseq2(mi, rid, rs, re, tseq);
+			mm_idx_bed_junc2(mi, rid, rs, re, junc);
 			if (is_sr) { // perform ungapped alignment
 				assert(qe - qs == re - rs);
 				ksw_reset_extz(ez);
@@ -766,8 +766,8 @@ static void mm_align12(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, i
 
 	if (!dropped && qe < qe0 && re < re0) { // right extension
 		qseq = &qseq0[rev][qe];
-		mm_idx_getseq(mi, rid, re, re0, tseq);
-		mm_idx_bed_junc(mi, rid, re, re0, junc);
+		mm_idx_getseq2(mi, rid, re, re0, tseq);
+		mm_idx_bed_junc2(mi, rid, re, re0, junc);
 		mm_align_pair2(km, opt, qe0 - qe, qseq, re0 - re, tseq, junc, mat, bw, opt->end_bonus, opt->zdrop, extra_flag|KSW_EZ_EXTZ_ONLY, ez);
 		if (ez->n_cigar > 0) {
 			mm_append_cigar2(r, ez->n_cigar, ez->cigar);
@@ -784,7 +784,7 @@ static void mm_align12(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi, i
 
 	assert(re1 - rs1 <= re0 - rs0);
 	if (r->p) {
-		mm_idx_getseq(mi, rid, rs1, re1, tseq);
+		mm_idx_getseq2(mi, rid, rs1, re1, tseq);
 		mm_update_extra2(r, &qseq0[r->rev][qs1], tseq, mat, opt->q, opt->e, opt->flag & MM_F_EQX);
 		if (rev && r->p->trans_strand)
 			r->p->trans_strand ^= 3; // flip to the read strand
@@ -813,7 +813,7 @@ static int mm_align1_inv2(void *km, const mm_mapopt_t2 *opt, const mm_idx_t2 *mi
 
 	ksw_gen_simple_mat2(5, mat, opt->a, opt->b, opt->sc_ambi);
 	tseq = (uint8_t*)kmalloc(km, tl);
-	mm_idx_getseq(mi, r1->rid, r1->re, r2->rs, tseq);
+	mm_idx_getseq2(mi, r1->rid, r1->re, r2->rs, tseq);
 	qseq = r1->rev? &qseq0[0][r2->qe] : &qseq0[1][qlen - r2->qs];
 
 	mm_seq_rev2(ql, qseq);

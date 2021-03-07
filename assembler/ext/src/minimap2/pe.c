@@ -73,7 +73,7 @@ typedef struct {
 #define sort_key_pair(a) ((a).key)
 KRADIX_SORT_INIT(pair, pair_arr_t, sort_key_pair, 8)
 
-void mm_pair(void *km, int max_gap_ref, int pe_bonus, int sub_diff, int match_sc, const int *qlens, int *n_regs, mm_reg1_t2 **regs)
+void mm_pair2(void *km, int max_gap_ref, int pe_bonus, int sub_diff, int match_sc, const int *qlens, int *n_regs, mm_reg1_t2 **regs)
 {
 	int i, j, s, n, last[2], dp_thres, segs = 0, max_idx[2];
 	int64_t max;
