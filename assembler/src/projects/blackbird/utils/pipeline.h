@@ -777,7 +777,7 @@ private:
     int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
-        Minimap::mm_idx_t *index = Minimap::mm_idx_str2(10, 15, 0, 14, 1, reference_array, NULL);
+        Minimap::mm_idx_t2 *index = Minimap::mm_idx_str2(10, 15, 0, 14, 1, reference_array, NULL);
         io::FastaFastqGzParser reference_reader(path_to_scaffolds);
         io::SingleRead contig;
         std::set<std::pair<int, int>> found_intervals;
@@ -789,8 +789,8 @@ private:
 
             int number_of_hits;
             Minimap::mm_tbuf_t *tbuf = Minimap::mm_tbuf_init2();
-            Minimap::mm_idxopt_t iopt;
-            Minimap::mm_mapopt_t mopt;
+            Minimap::mm_idxopt_t2 iopt;
+            Minimap::mm_mapopt_t2 mopt;
             Minimap::mm_set_opt2(0, &iopt, &mopt);
             mopt.flag |= MM_F_CIGAR;
             Minimap::mm_mapopt_update2(&mopt, index);
