@@ -260,13 +260,13 @@ typedef struct {
 	uint64_t batch_size, sum_len;
 	mm_bseq_file_t *fp;
 	mm_idx_t2 *mi;
-} pipeline_t;
+} pipeline_t2;
 
 typedef struct {
     int n_seq;
 	mm_bseq1_t *seq;
 	mm128_v a;
-} step_t;
+} step_t2;
 
 static void mm_idx_add2(mm_idx_t2 *mi, int n, const mm128_t *a)
 {
@@ -280,11 +280,11 @@ static void mm_idx_add2(mm_idx_t2 *mi, int n, const mm128_t *a)
 static void *worker_pipeline(void *shared, int step, void *in)
 {
 	int i;
-    pipeline_t *p = (pipeline_t*)shared;
+    pipeline_t2 *p = (pipeline_t2*)shared;
     if (step == 0) { // step 0: read sequences
-        step_t *s;
+        step_t2 *s;
 		if (p->sum_len > p->batch_size) return 0;
-        s = (step_t*)calloc(1, sizeof(step_t));
+        s = (step_t2*)calloc(1, sizeof(step_t2));
 		s->seq = mm_bseq_read(p->fp, p->mini_batch_size, 0, &s->n_seq); // read a mini-batch
 		if (s->seq) {
 			uint32_t old_m, m;
@@ -332,7 +332,7 @@ static void *worker_pipeline(void *shared, int step, void *in)
 			return s;
 		} else free(s);
     } else if (step == 1) { // step 1: compute sketch
-        step_t *s = (step_t*)in;
+        step_t2 *s = (step_t2*)in;
 		for (i = 0; i < s->n_seq; ++i) {
 			mm_bseq1_t *t = &s->seq[i];
 			if (t->l_seq > 0)
@@ -344,7 +344,7 @@ static void *worker_pipeline(void *shared, int step, void *in)
 		free(s->seq); s->seq = 0;
 		return s;
     } else if (step == 2) { // dispatch sketch to buckets
-        step_t *s = (step_t*)in;
+        step_t2 *s = (step_t2*)in;
 		mm_idx_add2(p->mi, s->a.n, s->a.a);
 		kfree(0, s->a.a); free(s);
 	}
@@ -353,9 +353,9 @@ static void *worker_pipeline(void *shared, int step, void *in)
 
 mm_idx_t2 *mm_idx_gen2(mm_bseq_file_t *fp, int w, int k, int b, int flag, int mini_batch_size, int n_threads, uint64_t batch_size)
 {
-	pipeline_t pl;
+	pipeline_t2 pl;
 	if (fp == 0 || mm_bseq_eof(fp)) return 0;
-	memset(&pl, 0, sizeof(pipeline_t));
+	memset(&pl, 0, sizeof(pipeline_t2));
 	pl.mini_batch_size = (uint64_t)mini_batch_size < batch_size? mini_batch_size : batch_size;
 	pl.batch_size = batch_size;
 	pl.fp = fp;

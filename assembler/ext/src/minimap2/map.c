@@ -413,20 +413,20 @@ typedef struct {
 	int n_parts;
 	uint32_t *rid_shift;
 	FILE *fp_split, **fp_parts;
-} pipeline_t;
+} pipeline_t2;
 
 typedef struct {
-	const pipeline_t *p;
+	const pipeline_t2 *p;
     int n_seq, n_frag;
 	mm_bseq1_t *seq;
 	int *n_reg, *seg_off, *n_seg, *rep_len, *frag_gap;
 	mm_reg1_t2 **reg;
 	mm_tbuf_t2 **buf;
-} step_t;
+} step_t2;
 
 static void worker_for(void *_data, long i, int tid) // kt_for() callback
 {
-    step_t *s = (step_t*)_data;
+    step_t2 *s = (step_t2*)_data;
 	int qlens[MM_MAX_SEG], j, off = s->seg_off[i], pe_ori = s->p->opt->pe_ori;
 	const char *qseqs[MM_MAX_SEG];
 	mm_tbuf_t2 *b = s->buf[tid];
@@ -466,7 +466,7 @@ static void worker_for(void *_data, long i, int tid) // kt_for() callback
 		}
 }
 
-static void merge_hits(step_t *s)
+static void merge_hits(step_t2 *s)
 {
 	int f, i, k0, k, max_seg = 0, *n_reg_part, *rep_len_part, *frag_gap_part, *qlens;
 	void *km;
@@ -526,13 +526,13 @@ static void merge_hits(step_t *s)
 static void *worker_pipeline(void *shared, int step, void *in)
 {
 	int i, j, k;
-    pipeline_t *p = (pipeline_t*)shared;
+    pipeline_t2 *p = (pipeline_t2*)shared;
     if (step == 0) { // step 0: read sequences
 		int with_qual = (!!(p->opt->flag & MM_F_OUT_SAM) && !(p->opt->flag & MM_F_NO_QUAL));
 		int with_comment = !!(p->opt->flag & MM_F_COPY_COMMENT);
 		int frag_mode = (p->n_fp > 1 || !!(p->opt->flag & MM_F_FRAG_MODE));
-        step_t *s;
-        s = (step_t*)calloc(1, sizeof(step_t));
+        step_t2 *s;
+        s = (step_t2*)calloc(1, sizeof(step_t2));
 		if (p->n_fp > 1) s->seq = mm_bseq_read_frag2(p->n_fp, p->fp, p->mini_batch_size, with_qual, with_comment, &s->n_seq);
 		else s->seq = mm_bseq_read3(p->fp[0], p->mini_batch_size, with_qual, with_comment, frag_mode, &s->n_seq);
 		if (s->seq) {
@@ -557,12 +557,12 @@ static void *worker_pipeline(void *shared, int step, void *in)
 			return s;
 		} else free(s);
     } else if (step == 1) { // step 1: map
-		if (p->n_parts > 0) merge_hits((step_t*)in);
-		else kt_for(p->n_threads, worker_for, in, ((step_t*)in)->n_frag);
+		if (p->n_parts > 0) merge_hits((step_t2*)in);
+		else kt_for(p->n_threads, worker_for, in, ((step_t2*)in)->n_frag);
 		return in;
     } else if (step == 2) { // step 2: output
 		void *km = 0;
-        step_t *s = (step_t*)in;
+        step_t2 *s = (step_t2*)in;
 		const mm_idx_t2 *mi = p->mi;
 		for (i = 0; i < p->n_threads; ++i) mm_tbuf_destroy2(s->buf[i]);
 		free(s->buf);
@@ -641,9 +641,9 @@ static mm_bseq_file_t **open_bseqs(int n, const char **fn)
 int mm_map_file_frag2(const mm_idx_t2 *idx, int n_segs, const char **fn, const mm_mapopt_t2 *opt, int n_threads)
 {
 	int i, pl_threads;
-	pipeline_t pl;
+	pipeline_t2 pl;
 	if (n_segs < 1) return -1;
-	memset(&pl, 0, sizeof(pipeline_t));
+	memset(&pl, 0, sizeof(pipeline_t2));
 	pl.n_fp = n_segs;
 	pl.fp = open_bseqs(pl.n_fp, fn);
 	if (pl.fp == 0) return -1;
@@ -671,10 +671,10 @@ int mm_map_file2(const mm_idx_t2 *idx, const char *fn, const mm_mapopt_t2 *opt, 
 int mm_split_merge(int n_segs, const char **fn, const mm_mapopt_t2 *opt, int n_split_idx)
 {
 	int i;
-	pipeline_t pl;
+	pipeline_t2 pl;
 	mm_idx_t2 *mi;
 	if (n_segs < 1 || n_split_idx < 1) return -1;
-	memset(&pl, 0, sizeof(pipeline_t));
+	memset(&pl, 0, sizeof(pipeline_t2));
 	pl.n_fp = n_segs;
 	pl.fp = open_bseqs(pl.n_fp, fn);
 	if (pl.fp == 0) return -1;
