@@ -183,8 +183,8 @@ extern double mm_realtime0; // wall-clock timer
  *
  * @return 0 if success; -1 if _present_ unknown
  */
-int mm_set_opt(const char *preset, mm_idxopt_t2 *io, mm_mapopt_t2 *mo);
-int mm_check_opt(const mm_idxopt_t2 *io, const mm_mapopt_t2 *mo);
+int mm_set_opt2(const char *preset, mm_idxopt_t2 *io, mm_mapopt_t2 *mo);
+int mm_check_opt2(const mm_idxopt_t2 *io, const mm_mapopt_t2 *mo);
 
 /**
  * Update mm_mapopt_t2::mid_occ via mm_mapopt_t2::mid_occ_frac
@@ -196,9 +196,9 @@ int mm_check_opt(const mm_idxopt_t2 *io, const mm_mapopt_t2 *mo);
  * @param opt        mapping parameters
  * @param mi         minimap2 index
  */
-void mm_mapopt_update(mm_mapopt_t2 *opt, const mm_idx_t2 *mi);
+void mm_mapopt_update2(mm_mapopt_t2 *opt, const mm_idx_t2 *mi);
 
-void mm_mapopt_max_intron_len(mm_mapopt_t2 *opt, int max_intron_len);
+void mm_mapopt_max_intron_len2(mm_mapopt_t2 *opt, int max_intron_len);
 
 /**
  * Initialize an index reader
