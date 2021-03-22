@@ -323,7 +323,7 @@ void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char 
 	} else max_chain_gap_ref = opt->max_gap;
     fprintf(stdout, "223");
     fflush(stdout);
-	a = mm_chain_dp(max_chain_gap_ref, max_chain_gap_qry, opt->bw, opt->max_chain_skip, opt->max_chain_iter, opt->min_cnt, opt->min_chain_score, opt->chain_gap_scale, is_splice, n_segs, n_a, a, &n_regs0, &u, b->km);
+	a = mm_chain_dp2(max_chain_gap_ref, max_chain_gap_qry, opt->bw, opt->max_chain_skip, opt->max_chain_iter, opt->min_cnt, opt->min_chain_score, opt->chain_gap_scale, is_splice, n_segs, n_a, a, &n_regs0, &u, b->km);
     fprintf(stdout, "423");
     fflush(stdout);
 
