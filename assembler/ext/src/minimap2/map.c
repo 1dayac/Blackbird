@@ -227,13 +227,22 @@ static mm128_t *collect_seed_hits2(void *km, const mm_mapopt_t2 *opt, int max_oc
     fflush(stdout);
 
     a = (mm128_t*)kmalloc(km, *n_a * sizeof(mm128_t));
-	for (i = 0, *n_a = 0; i < n_m; ++i) {
+    fprintf(stdout, "1");
+    fflush(stdout);
+
+    for (i = 0, *n_a = 0; i < n_m; ++i) {
 		mm_match_t *q = &m[i];
-		const uint64_t *r = q->cr;
+        fprintf(stdout, "1");
+        fflush(stdout);
+        const uint64_t *r = q->cr;
 		uint32_t k;
-		for (k = 0; k < q->n; ++k) {
+        fprintf(stdout, "1");
+        fflush(stdout);
+        for (k = 0; k < q->n; ++k) {
 			int32_t is_self, rpos = (uint32_t)r[k] >> 1;
-			mm128_t *p;
+            fprintf(stdout, "1");
+            fflush(stdout);
+            mm128_t *p;
             fprintf(stdout, "6223");
             fflush(stdout);
             if (skip_seed(opt->flag, r[k], q, qname, qlen, mi, &is_self)) continue;
@@ -251,8 +260,13 @@ static mm128_t *collect_seed_hits2(void *km, const mm_mapopt_t2 *opt, int max_oc
 		}
 	}
 	kfree(km, m);
-	radix_sort2_128x(a, a + (*n_a));
-	return a;
+    fprintf(stdout, "x");
+    fflush(stdout);
+    radix_sort2_128x(a, a + (*n_a));
+    fprintf(stdout, "x");
+    fflush(stdout);
+
+    return a;
 }
 
 static void chain_post2(const mm_mapopt_t2 *opt, int max_chain_gap_ref, const mm_idx_t2 *mi, void *km, int qlen, int n_segs, const int *qlens, int *n_regs, mm_reg1_t2 *regs, mm128_t *a)
