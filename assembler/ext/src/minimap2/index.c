@@ -390,7 +390,7 @@ mm_idx_t2 *mm_idx_str2(int w, int k, int is_hpc, int bucket_bits, int n, const c
 	mm_idx_t2 *mi;
 	khash_t(str) *h;
 	int i, flag = 0;
-
+    fprintf(stdout, "123");
 	if (n <= 0) return 0;
 	for (i = 0; i < n; ++i) // get the total length
 		sum_len += strlen(seq[i]);
@@ -398,11 +398,14 @@ mm_idx_t2 *mm_idx_str2(int w, int k, int is_hpc, int bucket_bits, int n, const c
 	if (name == 0) flag |= MM_I_NO_NAME;
 	if (bucket_bits < 0) bucket_bits = 14;
 	mi = mm_idx_init2(w, k, bucket_bits, flag);
-	mi->n_seq = n;
+    fprintf(stdout, "1234");
+    mi->n_seq = n;
 	mi->seq = (mm_idx_seq_t*)kcalloc(mi->km, n, sizeof(mm_idx_seq_t)); // ->seq is allocated from km
 	mi->S = (uint32_t*)calloc((sum_len + 7) / 8, 4);
 	mi->h = h = kh_init(str);
-	for (i = 0, sum_len = 0; i < n; ++i) {
+    fprintf(stdout, "12345");
+
+    for (i = 0, sum_len = 0; i < n; ++i) {
 		const char *s = seq[i];
 		mm_idx_seq_t *p = &mi->seq[i];
 		uint32_t j;
@@ -421,14 +424,17 @@ mm_idx_t2 *mm_idx_str2(int w, int k, int is_hpc, int bucket_bits, int n, const c
 			uint64_t o = sum_len + j;
 			mm_seq4_set(mi->S, o, c);
 		}
-		sum_len += p->len;
+        fprintf(stdout, "1234567");
+        sum_len += p->len;
 		if (p->len > 0) {
 			a.n = 0;
 			mm_sketch2(0, s, p->len, w, k, i, is_hpc, &a);
 			mm_idx_add2(mi, a.n, a.a);
 		}
 	}
-	free(a.a);
+    fprintf(stdout, "123456");
+
+    free(a.a);
 	mm_idx_post2(mi, 1);
 	return mi;
 }
