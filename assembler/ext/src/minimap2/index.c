@@ -386,8 +386,11 @@ mm_idx_t2 *mm_idx_build2(const char *fn, int w, int k, int flag, int n_threads) 
 mm_idx_t2 *mm_idx_str2(int w, int k, int is_hpc, int bucket_bits, int n, const char **seq, const char **name)
 {
 	uint64_t sum_len = 0;
-	mm128_v a = {0,0,0};
-	mm_idx_t2 *mi;
+    fprintf(stdout, "123");
+    mm128_v a = {0,0,0};
+    fprintf(stdout, "123");
+    mm_idx_t2 *mi;
+    fprintf(stdout, "123");
 	khash_t(str) *h;
 	int i, flag = 0;
     fprintf(stdout, "123");
