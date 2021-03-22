@@ -692,9 +692,13 @@ private:
         if (!have_singles)
             spades_command = OptionBase::path_to_spades + " --only-assembler --sc -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq -o  " + temp_dir + "/assembly >/dev/null";
         std::system(spades_command.c_str());
+        INFO(554);
         auto const& const_reference_map = reference_map_;
+        INFO(554);
         std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
+        INFO(554);
         int hits = RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
+        INFO(554);
         if (hits > 1) {
             //RunAndProcessUnimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region, temp_dir);
         }
