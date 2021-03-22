@@ -1,4 +1,4 @@
-project(minimap2 C)
+project(Unimap2 C)
 cmake_minimum_required(VERSION 3.8)
 
 
