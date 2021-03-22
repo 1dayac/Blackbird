@@ -124,7 +124,7 @@ static mm_match_t *collect_matches2(void *km, int *_n_m, int max_occ, const mm_i
 	return m;
 }
 
-static inline int skip_seed(int flag, uint64_t r, const mm_match_t *q, const char *qname, int qlen, const mm_idx_t2 *mi, int *is_self)
+static inline int skip_seed2(int flag, uint64_t r, const mm_match_t *q, const char *qname, int qlen, const mm_idx_t2 *mi, int *is_self)
 {
 	*is_self = 0;
 	if (qname && (flag & (MM_F_NO_DIAG|MM_F_NO_DUAL))) {
@@ -174,7 +174,7 @@ static mm128_t *collect_seed_hits_heap2(void *km, const mm_mapopt_t2 *opt, int m
 		mm128_t *p;
 		uint64_t r = heap->x;
 		int32_t is_self, rpos = (uint32_t)r >> 1;
-		if (!skip_seed(opt->flag, r, q, qname, qlen, mi, &is_self)) {
+		if (!skip_seed2(opt->flag, r, q, qname, qlen, mi, &is_self)) {
 			if ((r&1) == (q->q_pos&1)) { // forward strand
 				p = &a[n_for++];
 				p->x = (r&0xffffffff00000000ULL) | rpos;
@@ -240,12 +240,12 @@ static mm128_t *collect_seed_hits2(void *km, const mm_mapopt_t2 *opt, int max_oc
         fflush(stdout);
         for (k = 0; k < q->n; ++k) {
 			int32_t is_self, rpos = (uint32_t)r[k] >> 1;
-            fprintf(stdout, "1");
+            fprintf(stdout, "2");
             fflush(stdout);
             mm128_t *p;
             fprintf(stdout, "6223");
             fflush(stdout);
-            if (skip_seed(opt->flag, r[k], q, qname, qlen, mi, &is_self)) continue;
+            if (skip_seed2(opt->flag, r[k], q, qname, qlen, mi, &is_self)) continue;
 			p = &a[(*n_a)++];
 			if ((r[k]&1) == (q->q_pos&1)) { // forward strand
 				p->x = (r[k]&0xffffffff00000000ULL) | rpos;
