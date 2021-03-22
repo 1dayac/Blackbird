@@ -227,23 +227,24 @@ static mm128_t *collect_seed_hits2(void *km, const mm_mapopt_t2 *opt, int max_oc
     fflush(stdout);
 
     a = (mm128_t*)kmalloc(km, *n_a * sizeof(mm128_t));
-    fprintf(stdout, "1");
+    fprintf(stdout, "abc");
     fflush(stdout);
 
     for (i = 0, *n_a = 0; i < n_m; ++i) {
-		mm_match_t *q = &m[i];
-        fprintf(stdout, "1");
+        fprintf(stdout, "d");
+        mm_match_t *q = &m[i];
+        fprintf(stdout, "a");
         fflush(stdout);
         const uint64_t *r = q->cr;
 		uint32_t k;
-        fprintf(stdout, "1");
+        fprintf(stdout, "ab");
         fflush(stdout);
         for (k = 0; k < q->n; ++k) {
 			int32_t is_self, rpos = (uint32_t)r[k] >> 1;
-            fprintf(stdout, "2");
+            fprintf(stdout, "2\n");
             fflush(stdout);
             mm128_t *p;
-            fprintf(stdout, "6223");
+            fprintf(stdout, "9223\n");
             fflush(stdout);
             if (skip_seed2(opt->flag, r[k], q, qname, qlen, mi, &is_self)) continue;
 			p = &a[(*n_a)++];
