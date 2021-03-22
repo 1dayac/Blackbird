@@ -779,17 +779,17 @@ private:
     }
 
     int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
-        std::cout << ("Here1");
+        INFO("Here1");
         const char *reference_cstyle = reference.c_str();
-        std::cout << ("Here1");
+        INFO("Here1");
         const char **reference_array = &reference_cstyle;
-        std::cout << ("Here1");
+        INFO("Here1");
         Minimap::mm_idx_t2 *index = Minimap::mm_idx_str2(10, 15, 0, 14, 1, reference_array, NULL);
         io::FastaFastqGzParser reference_reader(path_to_scaffolds);
         io::SingleRead contig;
         std::set<std::pair<int, int>> found_intervals;
         int max_hits = 0;
-        std::cout << ("Here1");
+        INFO("Here1");
         while (!reference_reader.eof()) {
             reference_reader >> contig;
             std::string query = contig.GetSequenceString();
