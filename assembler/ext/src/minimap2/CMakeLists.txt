@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.8)
 
 
 
-add_library(minimap2
+add_library(minimap2 STATIC
         kthread.c
         kalloc.c
         ksw2_extz2_sse.c
