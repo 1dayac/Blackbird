@@ -796,17 +796,22 @@ private:
             size_t qsize = query.size();
 
             int number_of_hits;
+            INFO("Here2");
             Minimap::mm_tbuf_t2 *tbuf = Minimap::mm_tbuf_init2();
+            INFO("Here2");
             Minimap::mm_idxopt_t2 iopt;
+            INFO("Here2");
             Minimap::mm_mapopt_t2 mopt;
-            std::cout << ("Here2");
+            INFO("Here2");
 
             Minimap::mm_set_opt2(0, &iopt, &mopt);
             mopt.flag |= MM_F_CIGAR;
+            INFO("Here2");
             Minimap::mm_mapopt_update2(&mopt, index);
+            INFO("Here2");
             Minimap::mm_reg1_t2 *hit_array = mm_map2(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             max_hits = std::max(max_hits, number_of_hits);
-            std::cout << ("Here3");
+            INFO("Here3");
             for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
                 Minimap::mm_reg1_t2 *r = &hit_array[k];
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
