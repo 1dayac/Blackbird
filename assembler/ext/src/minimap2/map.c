@@ -87,16 +87,16 @@ typedef struct {
 	uint32_t q_pos, q_span;
 	uint32_t seg_id:31, is_tandem:1;
 	const uint64_t *cr;
-} mm_match_t;
+} mm_match_t2;
 
-static mm_match_t *collect_matches2(void *km, int *_n_m, int max_occ, const mm_idx_t2 *mi, const mm128_v *mv, int64_t *n_a, int *rep_len, int *n_mini_pos, uint64_t **mini_pos)
+static mm_match_t2 *collect_matches2(void *km, int *_n_m, int max_occ, const mm_idx_t2 *mi, const mm128_v *mv, int64_t *n_a, int *rep_len, int *n_mini_pos, uint64_t **mini_pos)
 {
 	int rep_st = 0, rep_en = 0, n_m;
 	size_t i;
-	mm_match_t *m;
+	mm_match_t2 *m;
 	*n_mini_pos = 0;
 	*mini_pos = (uint64_t*)kmalloc(km, mv->n * sizeof(uint64_t));
-	m = (mm_match_t*)kmalloc(km, mv->n * sizeof(mm_match_t));
+	m = (mm_match_t2*)kmalloc(km, mv->n * sizeof(mm_match_t2));
 	for (i = 0, n_m = 0, *rep_len = 0, *n_a = 0; i < mv->n; ++i) {
 		const uint64_t *cr;
 		mm128_t *p = &mv->a[i];
@@ -110,7 +110,7 @@ static mm_match_t *collect_matches2(void *km, int *_n_m, int max_occ, const mm_i
 				rep_st = st, rep_en = en;
 			} else rep_en = en;
 		} else {
-			mm_match_t *q = &m[n_m++];
+			mm_match_t2 *q = &m[n_m++];
 			q->q_pos = q_pos, q->q_span = q_span, q->cr = cr, q->n = t, q->seg_id = p->y >> 32;
 			q->is_tandem = 0;
 			if (i > 0 && p->x>>8 == mv->a[i - 1].x>>8) q->is_tandem = 1;
@@ -124,7 +124,7 @@ static mm_match_t *collect_matches2(void *km, int *_n_m, int max_occ, const mm_i
 	return m;
 }
 
-static inline int skip_seed2(int flag, uint64_t r, const mm_match_t *q, const char *qname, int qlen, const mm_idx_t2 *mi, int *is_self)
+static inline int skip_seed2(int flag, uint64_t r, const mm_match_t2 *q, const char *qname, int qlen, const mm_idx_t2 *mi, int *is_self)
 {
 	*is_self = 0;
 	if (qname && (flag & (MM_F_NO_DIAG|MM_F_NO_DUAL))) {
@@ -153,7 +153,7 @@ static mm128_t *collect_seed_hits_heap2(void *km, const mm_mapopt_t2 *opt, int m
 {
 	int i, n_m, heap_size = 0;
 	int64_t j, n_for = 0, n_rev = 0;
-	mm_match_t *m;
+	mm_match_t2 *m;
 	mm128_t *a, *heap;
 
 	m = collect_matches2(km, &n_m, max_occ, mi, mv, n_a, rep_len, n_mini_pos, mini_pos);
@@ -170,7 +170,7 @@ static mm128_t *collect_seed_hits_heap2(void *km, const mm_mapopt_t2 *opt, int m
 	}
 	ks_heapmake_heap(heap_size, heap);
 	while (heap_size > 0) {
-		mm_match_t *q = &m[heap->y>>32];
+		mm_match_t2 *q = &m[heap->y>>32];
 		mm128_t *p;
 		uint64_t r = heap->x;
 		int32_t is_self, rpos = (uint32_t)r >> 1;
@@ -218,7 +218,7 @@ static mm128_t *collect_seed_hits2(void *km, const mm_mapopt_t2 *opt, int max_oc
 								  int *n_mini_pos, uint64_t **mini_pos)
 {
 	int i, n_m;
-	mm_match_t *m;
+	mm_match_t2 *m;
 	mm128_t *a;
     fprintf(stdout, "6223");
     fflush(stdout);
@@ -232,13 +232,18 @@ static mm128_t *collect_seed_hits2(void *km, const mm_mapopt_t2 *opt, int max_oc
 
     for (i = 0, *n_a = 0; i < n_m; ++i) {
         fprintf(stdout, "d");
-        mm_match_t *q = &m[i];
+        mm_match_t2 *q = &m[i];
         fprintf(stdout, "a");
         fflush(stdout);
         const uint64_t *r = q->cr;
 		uint32_t k;
         fprintf(stdout, "ab");
         fflush(stdout);
+        fprintf(stdout, q->n);
+        fflush(stdout);
+        fprintf(stdout, r[0]);
+
+
         for (k = 0; k < q->n; ++k) {
 			int32_t is_self, rpos = (uint32_t)r[k] >> 1;
             fprintf(stdout, "2\n");
