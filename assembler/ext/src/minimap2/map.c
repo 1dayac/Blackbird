@@ -68,7 +68,9 @@ static void collect_minimizers2(void *km, const mm_mapopt_t2 *opt, const mm_idx_
 	for (i = n = 0; i < n_segs; ++i) {
 		size_t j;
 		mm_sketch2(km, seqs[i], qlens[i], mi->w, mi->k, i, mi->flag&MM_I_HPC, mv);
-		for (j = n; j < mv->n; ++j)
+        fprintf(stdout, "9");
+        fflush(stdout);
+        for (j = n; j < mv->n; ++j)
 			mv->a[j].y += sum << 1;
 		if (opt->sdust_thres > 0) // mask low-complexity minimizers
 			mv->n = n + mm_dust_minier2(km, mv->n - n, mv->a + n, qlens[i], seqs[i], opt->sdust_thres);
@@ -218,8 +220,13 @@ static mm128_t *collect_seed_hits2(void *km, const mm_mapopt_t2 *opt, int max_oc
 	int i, n_m;
 	mm_match_t *m;
 	mm128_t *a;
-	m = collect_matches2(km, &n_m, max_occ, mi, mv, n_a, rep_len, n_mini_pos, mini_pos);
-	a = (mm128_t*)kmalloc(km, *n_a * sizeof(mm128_t));
+    fprintf(stdout, "6223");
+    fflush(stdout);
+    m = collect_matches2(km, &n_m, max_occ, mi, mv, n_a, rep_len, n_mini_pos, mini_pos);
+    fprintf(stdout, "6223");
+    fflush(stdout);
+
+    a = (mm128_t*)kmalloc(km, *n_a * sizeof(mm128_t));
 	for (i = 0, *n_a = 0; i < n_m; ++i) {
 		mm_match_t *q = &m[i];
 		const uint64_t *r = q->cr;
@@ -227,7 +234,9 @@ static mm128_t *collect_seed_hits2(void *km, const mm_mapopt_t2 *opt, int max_oc
 		for (k = 0; k < q->n; ++k) {
 			int32_t is_self, rpos = (uint32_t)r[k] >> 1;
 			mm128_t *p;
-			if (skip_seed(opt->flag, r[k], q, qname, qlen, mi, &is_self)) continue;
+            fprintf(stdout, "6223");
+            fflush(stdout);
+            if (skip_seed(opt->flag, r[k], q, qname, qlen, mi, &is_self)) continue;
 			p = &a[(*n_a)++];
 			if ((r[k]&1) == (q->q_pos&1)) { // forward strand
 				p->x = (r[k]&0xffffffff00000000ULL) | rpos;
@@ -297,7 +306,10 @@ void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char 
     fflush(stdout);
 
 	collect_minimizers2(b->km, opt, mi, n_segs, qlens, seqs, &mv);
-	if (opt->flag & MM_F_HEAP_SORT) a = collect_seed_hits_heap2(b->km, opt, opt->mid_occ, mi, qname, &mv, qlen_sum, &n_a, &rep_len, &n_mini_pos, &mini_pos);
+    fprintf(stdout, "1223");
+    fflush(stdout);
+
+    if (opt->flag & MM_F_HEAP_SORT) a = collect_seed_hits_heap2(b->km, opt, opt->mid_occ, mi, qname, &mv, qlen_sum, &n_a, &rep_len, &n_mini_pos, &mini_pos);
 	else a = collect_seed_hits2(b->km, opt, opt->mid_occ, mi, qname, &mv, qlen_sum, &n_a, &rep_len, &n_mini_pos, &mini_pos);
     fprintf(stdout, "223");
     fflush(stdout);
