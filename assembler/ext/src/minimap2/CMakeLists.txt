@@ -25,3 +25,5 @@ add_library(minimap2 STATIC
         ksw2_ll_sse.c
         splitidx.c
 )
+
+set_target_properties(minimap2 PROPERTIES PUBLIC_HEADER minimap.h)

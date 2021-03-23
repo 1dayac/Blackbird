@@ -27,3 +27,5 @@ add_library(unimap2 STATIC
         yak-count.c
         lchain.c
 )
+
+set_target_properties(unimap2 PROPERTIES PUBLIC_HEADER unimap.h)
