@@ -15,7 +15,6 @@ add_library(minimap2
         sdust.c
         options.c
         index.c
-        chain.c
         align.c
         hit.c
         map.c
