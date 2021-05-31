@@ -11,6 +11,7 @@ add_library(minimap2
         ksw2_exts2_sse.c
         misc.c
         bseq.c
+        seed.c
         sketch.c
         sdust.c
         options.c
