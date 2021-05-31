@@ -1,6 +1,6 @@
 #!/usr/bin/env k8
 
-var paftools_version = '2.17-r982-dirty';
+var paftools_version = '2.20-r1061';
 
 /*****************************
  ***** Library functions *****
@@ -2372,25 +2372,40 @@ function paf_junceval(args)
 	var re_cigar = /(\d+)([MIDNSHX=])/g;
 	while (file.readline(buf) >= 0) {
 		var m, t = buf.toString().split("\t");
+		var ctg_name = null, cigar = null, pos = null, qname = t[0];
 
 		if (t[0].charAt(0) == '@') continue;
-		if (chr_only && !/^(chr)?([0-9]+|X|Y)$/.test(t[2])) continue;
-		var flag = parseInt(t[1]);
-		if (flag&0x100) continue;
-		if (first_only && last_qname == t[0]) continue;
-		if (t[2] == '*') {
+		if (t[4] == '+' || t[4] == '-' || t[4] == '*') { // PAF
+			ctg_name = t[5], pos = parseInt(t[7]);
+			var type = 'P';
+			for (i = 12; i < t.length; ++i) {
+				if ((m = /^(tp:A|cg:Z):(\S+)/.exec(t[i])) != null) {
+					if (m[1] == 'tp:A') type = m[2];
+					else cigar = m[2];
+				}
+			}
+			if (type == 'S') continue; // secondary
+		} else { // SAM
+			ctg_name = t[2], pos = parseInt(t[3]) - 1, cigar = t[5];
+			var flag = parseInt(t[1]);
+			if (flag&0x100) continue; // secondary
+		}
+
+		if (chr_only && !/^(chr)?([0-9]+|X|Y)$/.test(ctg_name)) continue;
+		if (first_only && last_qname == qname) continue;
+		if (ctg_name == '*') { // unmapped
 			++n_unmapped;
 			continue;
 		} else {
 			++n_pri;
-			if (last_qname != t[0]) {
+			if (last_qname != qname) {
 				++n_mapped;
-				last_qname = t[0];
+				last_qname = qname;
 			}
 		}
 
-		var pos = parseInt(t[3]) - 1, intron = [];
-		while ((m = re_cigar.exec(t[5])) != null) {
+		var intron = [];
+		while ((m = re_cigar.exec(cigar)) != null) {
 			var len = parseInt(m[1]), op = m[2];
 			if (op == 'N') {
 				intron.push([pos, pos + len]);
@@ -2403,7 +2418,7 @@ function paf_junceval(args)
 		}
 		n_splice += intron.length;
 
-		var chr = anno[t[2]];
+		var chr = anno[ctg_name];
 		if (chr != null) {
 			for (var i = 0; i < intron.length; ++i) {
 				var o = Interval.find_ovlp(chr, intron[i][0], intron[i][1]);
@@ -2427,12 +2442,12 @@ function paf_junceval(args)
 							x += '(' + o[j][0] + "," + o[j][1] + ')';
 						}
 						x += ']';
-						print(type, t[0], i+1, t[2], intron[i][0], intron[i][1], x);
+						print(type, qname, i+1, ctg_name, intron[i][0], intron[i][1], x);
 					}
 				} else {
 					++n_splice_novel;
 					if (print_ovlp)
-						print('N', t[0], i+1, t[2], intron[i][0], intron[i][1]);
+						print('N',  qname, i+1, ctg_name, intron[i][0], intron[i][1]);
 				}
 			}
 		} else {
@@ -2604,12 +2619,13 @@ function paf_parseNum(s) {
 
 function paf_misjoin(args)
 {
-	var c, min_seg_len = 1000000, max_gap = 1000000, fn_cen = null, show_long = false, show_err = false;
+	var c, min_seg_len = 1000000, max_gap = 1000000, fn_cen = null, show_long = false, show_err = false, cen_ratio = 0.5;
 	var n_diff = [0, 0], n_gap = [0, 0], n_inv = [0, 0], n_inv_end = [0, 0];
-	while ((c = getopt(args, "l:g:c:pe")) != null) {
+	while ((c = getopt(args, "l:g:c:per:")) != null) {
 		if (c == 'l') min_seg_len = paf_parseNum(getopt.arg);
 		else if (c == 'g') max_gap = paf_parseNum(getopt.arg);
 		else if (c == 'c') fn_cen = getopt.arg;
+		else if (c == 'r') cen_ratio = parseFloat(getopt.arg);
 		else if (c == 'p') show_long = true;
 		else if (c == 'e') show_err = true;
 	}
@@ -2617,6 +2633,7 @@ function paf_misjoin(args)
 		print("Usage: paftools.js misjoin [options] <in.paf>");
 		print("Options:");
 		print("  -c FILE   BED for centromeres []");
+		print("  -r FLOAT  count a centromeric event if overlap ratio > FLOAT [" + cen_ratio + "]");
 		print("  -l NUM    min alignment block length [1m]");
 		print("  -g NUM    max gap size [1m]");
 		print("  -e        output misjoins not involving centromeres");
@@ -2636,12 +2653,15 @@ function paf_misjoin(args)
 	}
 
 	function test_cen(cen, chr, st, en) {
-		var b = cen[chr];
+		var b = cen[chr], len = 0;
 		if (b == null) return false;
 		for (var j = 0; j < b.length; ++j)
-			if (b[j][0] < en && b[j][1] > st)
-				return true;
-		return false;
+			if (b[j][0] < en && b[j][1] > st) {
+				var s = b[j][0] > st? b[j][0] : st;
+				var e = b[j][1] < en? b[j][1] : en;
+				len += e - s;
+			}
+		return len < (en - st) * cen_ratio? false : true;
 	}
 
 	function process(a) {
@@ -2672,6 +2692,10 @@ function paf_misjoin(args)
 				var gap = dr > dq? dr - dq : dq - dr;
 				if (gap > max_gap) {
 					if (ov[0] || ov[1]) ++n_gap[1];
+					else if (show_err) {
+						print("G", a[i-1].slice(0, 12).join("\t"));
+						print("G", a[i].slice(0, 12).join("\t"));
+					}
 					++n_gap[0];
 				}
 			} else if (i + 1 < a.length && a[i+1][4] == a[i-1][4]) { // bracketed inversion
@@ -2709,23 +2733,50 @@ function paf_misjoin(args)
 	print("# candidate inversions at contig ends: " + n_inv_end.join(","));
 }
 
+function _paf_get_alen(t)
+{
+	var svlen = null, alen = null;
+	if ((m = /(^|;)SVLEN=(-?\d+)/.exec(t[7])) != null)
+		svlen = parseInt(m[2]);
+	var s = t[4].split(",");
+	var min_abs_diff = 1<<30, max_abs_diff = 0;
+	if (svlen != null && svlen != 0)
+		alen = svlen, min_abs_diff = max_abs_diff = svlen > 0? svlen : -svlen;
+	var rlen = t[3].length;
+	for (var i = 0; i < s.length; ++i) {
+		if (/^<\S+>$/.test(s[i])) continue;
+		var diff = s[i].length - rlen;
+		var abs_diff = diff > 0? diff : -diff;
+		min_abs_diff = min_abs_diff < abs_diff? min_abs_diff : abs_diff;
+		if (max_abs_diff < abs_diff)
+			max_abs_diff = abs_diff, alen = diff;
+	}
+	return [alen, min_abs_diff, max_abs_diff];
+}
+
 function paf_sveval(args)
 {
-	var c, min_flt = 30, min_size = 50, max_size = 10000, win_size = 500, print_err = false;
-	while ((c = getopt(args, "f:i:x:w:e")) != null) {
+	var c, min_flt = 30, min_size = 50, max_size = 100000, win_size = 500, print_err = false, print_match = false, bed_fn = null;
+	var len_diff_ratio = 0.5;
+	while ((c = getopt(args, "f:i:x:w:er:pd:")) != null) {
 		if (c == 'f') min_flt = paf_parseNum(getopt.arg);
 		else if (c == 'i') min_size = paf_parseNum(getopt.arg);
 		else if (c == 'x') max_size = paf_parseNum(getopt.arg);
 		else if (c == 'w') win_size = paf_parseNum(getopt.arg);
+		else if (c == 'd') len_diff_ratio = parseFloat(getopt.arg);
+		else if (c == 'r') bed_fn = getopt.arg;
 		else if (c == 'e') print_err = true;
+		else if (c == 'p') print_match = true;
 	}
-	if (args.length - getopt.ind < 3) {
-		print("Usage: paftools.js sveval [options] <conf.bed> <base.vcf> <call.vcf>");
+	if (args.length - getopt.ind < 2) {
+		print("Usage: paftools.js sveval [options] <base.vcf> <call.vcf>");
 		print("Options:");
+		print("  -r FILE    confident region in BED []");
 		print("  -f INT     min length to discard [" + min_flt + "]");
 		print("  -i INT     min SV length [" + min_size + "]");
 		print("  -x INT     max SV length [" + max_size + "]");
 		print("  -w INT     fuzzy windown size [" + win_size + "]");
+		print("  -d FLOAT   max allele diff if there is a single allele in the window [" + len_diff_ratio + "]");
 		print("  -e         print errors");
 		return;
 	}
@@ -2749,7 +2800,7 @@ function paf_sveval(args)
 		return bed;
 	}
 
-	var bed = read_bed(args[getopt.ind]);
+	var bed = bed_fn != null? read_bed(bed_fn) : null;
 
 	function read_vcf(fn, bed) {
 		var buf = new Bytes();
@@ -2758,27 +2809,22 @@ function paf_sveval(args)
 		while (file.readline(buf) >= 0) {
 			var m, t = buf.toString().split("\t");
 			if (t[0][0] == '#') continue;
-			if (bed[t[0]] == null) continue;
+			if (bed != null && bed[t[0]] == null) continue;
 			if (t[4] == '<INV>' || t[4] == '<INVDUP>') continue; // no inversion
+			if (/[\[\]]/.test(t[4])) continue; // no break points
 			var st = parseInt(t[1]) - 1, en = st + t[3].length;
-			if ((m = /((;END)|(^END))=(\d+)/.exec(t[7])) != null)
-				en = parseInt(m[4]);
-			if (Interval.find_ovlp(bed[t[0]], st, en).length == 0) continue;
-			// determine svlen
-			var s = t[4].split(","), max_del = 0, max_ins = 0;
-			for (var i = 0; i < s.length; ++i) {
-				var l = s[i].length - t[3].length;
-				if (l > 0)
-					max_ins = max_ins > l? max_ins : l;
-				else if (l < 0)
-					max_del = max_del > -l? max_del : -l;
-			}
-			if (max_ins < min_flt && max_del < min_flt) continue;
-			var svlen = max_ins > max_del? max_ins : -max_del;
-			if ((m = /((;SVLEN)|(^SVLEN))=(\d+)/.exec(t[7])) != null)
-				svlen = parseInt(m[4]);
-			var abslen = svlen > 0? svlen : -svlen;
+			// parse svlen
+			var b = _paf_get_alen(t), svlen = b[0];
+			var abslen = svlen == null? 0 : svlen > 0? svlen : -svlen;
 			if (abslen < min_flt || abslen > max_size) continue;
+			// update end
+			if ((m = /(^|;)END=(\d+)/.exec(t[7])) != null)
+				en = parseInt(m[2]);
+			else if (svlen != null && svlen < 0)
+				en = st + (-svlen);
+			if (en < st) en = st;
+			if (st == en) --st, ++en;
+			if (bed != null && Interval.find_ovlp(bed[t[0]], st, en).length == 0) continue;
 			// insert
 			if (v[t[0]] == null) v[t[0]] = [];
 			v[t[0]].push([st, en, svlen, abslen]);
@@ -2800,22 +2846,88 @@ function paf_sveval(args)
 				if (a1[i][3] < min_size) continue;
 				++n;
 				if (a0 == null) continue;
-				var st = a1[i][0] > win_size? a1[i][0] - win_size : 0;
-				b = Interval.find_ovlp(a0, st, a1[i][1] + win_size);
-				if (b.length > 0) ++m;
-				else if (print_err) print(label, x, a1[i].slice(0, 3).join("\t"));
+				var ws = win_size + (a1[i][3]>>1);
+				var st = a1[i][0] > ws? a1[i][0] - ws : 0;
+				b = Interval.find_ovlp(a0, st, a1[i][1] + ws);
+				var n_ins = 0, n_del = 0, sv_del = null, sv_ins = null;
+				for (var j = 0; j < b.length; ++j) {
+					if (b[j][2] < 0) ++n_del, sv_del = -b[j][2];
+					else if (b[j][2] > 0) ++n_ins, sv_ins = b[j][2];
+					if (print_match)
+						print("MA", x, a1[i].slice(0, 3).join("\t"), b[j].slice(0, 3).join("\t"));
+				}
+				var match = false;
+				if (a1[i][2] > 0) { // insertion
+					if (n_ins == 1) {
+						var diff = sv_ins - a1[i][3];
+						if (diff < 0) diff = -diff;
+						if (diff < min_size || diff / a1[i][3] < len_diff_ratio)
+							match = true;
+					} else if (n_ins > 1) match = true; // multiple insertions; ambiguous
+				} else if (a1[i][2] < 0) {
+					if (n_del == 1) { // deletion
+						var diff = sv_del - a1[i][3];
+						if (diff < 0) diff = -diff;
+						if (diff < min_size || diff / a1[i][3] < len_diff_ratio)
+							match = true;
+					} else if (n_del > 1) match = true; // multiple deletions; ambiguous
+				}
+				if (match) ++m;
+				else if (print_err) {
+					if ((a1[i][2] > 0 && n_ins > 0) || (a1[i][2] < 0 && n_del > 0))
+						print("MM", x, a1[i].slice(0, 3).join("\t"));
+					print(label, x, a1[i].slice(0, 3).join("\t"));
+				}
 			}
 		}
 		return [n, m];
 	}
 
-	var v_base = read_vcf(args[getopt.ind+1], bed);
-	var v_call = read_vcf(args[getopt.ind+2], bed);
+	var v_base = read_vcf(args[getopt.ind+0], bed);
+	var v_call = read_vcf(args[getopt.ind+1], bed);
 	var fn = compare_vcf(v_call, v_base, 'FN');
 	var fp = compare_vcf(v_base, v_call, 'FP');
 	print('SN', fn[0], fn[1], (fn[1] / fn[0]).toFixed(6));
 	print('PC', fp[0], fp[1], (fp[1] / fp[0]).toFixed(6));
 	print('F1', ((fn[1] / fn[0] + fp[1] / fp[0]) / 2).toFixed(6));
+}
+
+function paf_vcfsel(args)
+{
+	var c, min_l = 0, max_l = 1<<30;
+	while ((c = getopt(args, "l:L:")) != null) {
+		if (c == 'l') min_l = parseInt(getopt.arg);
+		else if (c == 'L') max_l = parseInt(getopt.arg);
+	}
+
+	var buf = new Bytes();
+	if (getopt.ind == args.length) {
+		print("Usage: paftools.js vcfsel [options] <in.vcf>");
+		return 1;
+	}
+	var file = args[getopt.ind] == "-"? new File() : new File(args[getopt.ind]);
+	while (file.readline(buf) >= 0) {
+		var m, line = buf.toString();
+		if (line[0] == '#') {
+			print(line);
+			continue;
+		}
+		var t = line.split("\t");
+		var st = parseInt(t[1]), en = st + t[3].length - 1;
+		if ((m = /(^|;)END=(\d+)/.exec(t[7])) != null)
+			en = parseInt(m[2]);
+		if (en < st) {
+			warn("END is smaller than POS: " + en + " < " + st);
+			en = st;
+		}
+		var b = _paf_get_alen(t);
+		var alen = b[0], min_abs_diff = b[1], max_abs_diff = b[2];
+		if (max_abs_diff < min_l || min_abs_diff > max_l)
+			continue;
+		print(line);
+	}
+	file.close();
+	buf.destroy();
 }
 
 /*************************
@@ -2873,6 +2985,7 @@ function main(args)
 	else if (cmd == 'ov-eval') paf_ov_eval(args);
 	else if (cmd == 'vcfstat') paf_vcfstat(args);
 	else if (cmd == 'sveval') paf_sveval(args);
+	else if (cmd == 'vcfsel') paf_vcfsel(args);
 	else if (cmd == 'version') print(paftools_version);
 	else throw Error("unrecognized command: " + cmd);
 }

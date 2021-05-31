@@ -5,7 +5,7 @@
 #include <errno.h>
 #include "mmpriv.h"
 
-FILE *mm_split_init(const char *prefix, const mm_idx_t2 *mi)
+FILE *mm_split_init(const char *prefix, const mm_idx_t *mi)
 {
 	char *fn;
 	FILE *fp;
@@ -30,9 +30,9 @@ FILE *mm_split_init(const char *prefix, const mm_idx_t2 *mi)
 	return fp;
 }
 
-mm_idx_t2 *mm_split_merge_prep(const char *prefix, int n_splits, FILE **fp, uint32_t *n_seq_part)
+mm_idx_t *mm_split_merge_prep(const char *prefix, int n_splits, FILE **fp, uint32_t *n_seq_part)
 {
-	mm_idx_t2 *mi = 0;
+	mm_idx_t *mi = 0;
 	char *fn;
 	int i, j;
 
@@ -51,7 +51,7 @@ mm_idx_t2 *mm_split_merge_prep(const char *prefix, int n_splits, FILE **fp, uint
 	}
 	free(fn);
 
-	mi = CALLOC(mm_idx_t2, 1);
+	mi = CALLOC(mm_idx_t, 1);
 	for (i = 0; i < n_splits; ++i) {
 		mm_err_fread(&mi->k, 4, 1, fp[i]); // TODO: check if k is all the same
 		mm_err_fread(&n_seq_part[i], 4, 1, fp[i]);
@@ -71,7 +71,7 @@ mm_idx_t2 *mm_split_merge_prep(const char *prefix, int n_splits, FILE **fp, uint
 	return mi;
 }
 
-void mm_split_rm_tmp2(const char *prefix, int n_splits)
+void mm_split_rm_tmp(const char *prefix, int n_splits)
 {
 	int i;
 	char *fn;

@@ -36,6 +36,7 @@
 #define MM_F_NO_END_FLT    0x10000000
 #define MM_F_HARD_MLEVEL   0x20000000
 #define MM_F_SAM_HIT_ONLY  0x40000000
+#define MM_F_RMQ           0x80000000LL
 
 #define MM_I_HPC          0x1
 #define MM_I_NO_SEQ       0x2
@@ -56,7 +57,7 @@ typedef struct { size_t n, m; mm128_t *a; } mm128_v;
 // minimap2 index
 typedef struct {
 	char *name;      // name of the db sequence
-	uint64_t offset; // offset in mm_idx_t2::S
+	uint64_t offset; // offset in mm_idx_t::S
 	uint32_t len;    // length
 	uint32_t is_alt;
 } mm_idx_seq_t;
@@ -71,7 +72,7 @@ typedef struct {
 	struct mm_idx_bucket_s *B; // index (hidden)
 	struct mm_idx_intv_s *I;   // intervals (hidden)
 	void *km, *h;
-} mm_idx_t2;
+} mm_idx_t;
 
 // minimap2 alignment
 typedef struct {
@@ -97,14 +98,14 @@ typedef struct {
 	uint32_t hash;
 	float div;
 	mm_extra_t *p;
-} mm_reg1_t2;
+} mm_reg1_t;
 
 // indexing and mapping options
 typedef struct {
 	short k, w, flag, bucket_bits;
 	int64_t mini_batch_size;
 	uint64_t batch_size;
-} mm_idxopt_t2;
+} mm_idxopt_t;
 
 typedef struct {
 	int64_t flag;    // see MM_F_* macros
@@ -113,22 +114,21 @@ typedef struct {
 
 	int max_qlen;    // max query length
 
-	int bw;          // bandwidth
+	int bw, bw_long; // bandwidth
 	int max_gap, max_gap_ref; // break a chain if there are no minimizers in a max_gap window
 	int max_frag_len;
 	int max_chain_skip, max_chain_iter;
 	int min_cnt;         // min number of minimizers on each chain
 	int min_chain_score; // min chaining score
 	float chain_gap_scale;
+	int rmq_size_cap, rmq_inner_dist;
+	int rmq_rescue_size;
+	float rmq_rescue_ratio;
 
 	float mask_level;
 	int mask_len;
 	float pri_ratio;
 	int best_n;      // top best_n chains are subjected to DP alignment
-
-	int max_join_long, max_join_short;
-	int min_join_flank_sc;
-	float min_join_flank_ratio;
 
 	float alt_drop;
 
@@ -146,20 +146,20 @@ typedef struct {
 	int pe_ori, pe_bonus;
 
 	float mid_occ_frac;  // only used by mm_mapopt_update(); see below
-	int32_t min_mid_occ;
+	int32_t min_mid_occ, max_mid_occ;
 	int32_t mid_occ;     // ignore seeds with occurrences above this threshold
-	int32_t max_occ;
+	int32_t max_occ, max_max_occ, occ_dist;
 	int64_t mini_batch_size; // size of a batch of query bases to process in parallel
 	int64_t max_sw_mat;
 
 	const char *split_prefix;
-} mm_mapopt_t2;
+} mm_mapopt_t;
 
 // index reader
 typedef struct {
 	int is_idx, n_parts;
 	int64_t idx_size;
-	mm_idxopt_t2 opt;
+	mm_idxopt_t opt;
 	FILE *fp_out;
 	union {
 		struct mm_bseq_file_s *seq;
@@ -168,7 +168,7 @@ typedef struct {
 } mm_idx_reader_t;
 
 // memory buffer for thread-local storage during mapping
-typedef struct mm_tbuf_s2 mm_tbuf_t2;
+typedef struct mm_tbuf_s mm_tbuf_t;
 
 // global variables
 extern int mm_verbose, mm_dbg_flag; // verbose level: 0 for no info, 1 for error, 2 for warning, 3 for message (default); debugging flag
@@ -183,22 +183,22 @@ extern double mm_realtime0; // wall-clock timer
  *
  * @return 0 if success; -1 if _present_ unknown
  */
-int mm_set_opt2(const char *preset, mm_idxopt_t2 *io, mm_mapopt_t2 *mo);
-int mm_check_opt2(const mm_idxopt_t2 *io, const mm_mapopt_t2 *mo);
+int mm_set_opt(const char *preset, mm_idxopt_t *io, mm_mapopt_t *mo);
+int mm_check_opt(const mm_idxopt_t *io, const mm_mapopt_t *mo);
 
 /**
- * Update mm_mapopt_t2::mid_occ via mm_mapopt_t2::mid_occ_frac
+ * Update mm_mapopt_t::mid_occ via mm_mapopt_t::mid_occ_frac
  *
- * If mm_mapopt_t2::mid_occ is 0, this function sets it to a number such that no
- * more than mm_mapopt_t2::mid_occ_frac of minimizers in the index have a higher
+ * If mm_mapopt_t::mid_occ is 0, this function sets it to a number such that no
+ * more than mm_mapopt_t::mid_occ_frac of minimizers in the index have a higher
  * occurrence.
  *
  * @param opt        mapping parameters
  * @param mi         minimap2 index
  */
-void mm_mapopt_update2(mm_mapopt_t2 *opt, const mm_idx_t2 *mi);
+void mm_mapopt_update(mm_mapopt_t *opt, const mm_idx_t *mi);
 
-void mm_mapopt_max_intron_len2(mm_mapopt_t2 *opt, int max_intron_len);
+void mm_mapopt_max_intron_len(mm_mapopt_t *opt, int max_intron_len);
 
 /**
  * Initialize an index reader
@@ -209,14 +209,14 @@ void mm_mapopt_max_intron_len2(mm_mapopt_t2 *opt, int max_intron_len);
  *
  * @return an index reader on success; NULL if fail to open _fn_
  */
-mm_idx_reader_t *mm_idx_reader_open(const char *fn, const mm_idxopt_t2 *opt, const char *fn_out);
+mm_idx_reader_t *mm_idx_reader_open(const char *fn, const mm_idxopt_t *opt, const char *fn_out);
 
 /**
  * Read/build an index
  *
  * If the input file is an index file, this function reads one part of the
  * index and returns. If the input file is a sequence file (fasta or fastq),
- * this function constructs the index for about mm_idxopt_t2::batch_size bases.
+ * this function constructs the index for about mm_idxopt_t::batch_size bases.
  * Importantly, for a huge collection of sequences, this function may only
  * return an index for part of sequences. It needs to be repeatedly called
  * to traverse the entire index/sequence file.
@@ -226,16 +226,16 @@ mm_idx_reader_t *mm_idx_reader_open(const char *fn, const mm_idxopt_t2 *opt, con
  *
  * @return an index on success; NULL if reaching the end of the input file
  */
-mm_idx_t2 *mm_idx_reader_read2(mm_idx_reader_t *r, int n_threads);
+mm_idx_t *mm_idx_reader_read(mm_idx_reader_t *r, int n_threads);
 
 /**
  * Destroy/deallocate an index reader
  *
  * @param r          index reader
  */
-void mm_idx_reader_close2(mm_idx_reader_t *r);
+void mm_idx_reader_close(mm_idx_reader_t *r);
 
-int mm_idx_reader_eof2(const mm_idx_reader_t *r);
+int mm_idx_reader_eof(const mm_idx_reader_t *r);
 
 /**
  * Check whether the file contains a minimap2 index
@@ -244,7 +244,7 @@ int mm_idx_reader_eof2(const mm_idx_reader_t *r);
  *
  * @return the file size if fn is an index file; 0 if fn is not.
  */
-int64_t mm_idx_is_idx2(const char *fn);
+int64_t mm_idx_is_idx(const char *fn);
 
 /**
  * Load a part of an index
@@ -257,7 +257,7 @@ int64_t mm_idx_is_idx2(const char *fn);
  *
  * @return minimap2 index read from fp
  */
-mm_idx_t2 *mm_idx_load2(FILE *fp);
+mm_idx_t *mm_idx_load(FILE *fp);
 
 /**
  * Append an index (or one part of a full index) to file
@@ -265,7 +265,7 @@ mm_idx_t2 *mm_idx_load2(FILE *fp);
  * @param fp         pointer to FILE object
  * @param mi         minimap2 index
  */
-void mm_idx_dump2(FILE *fp, const mm_idx_t2 *mi);
+void mm_idx_dump(FILE *fp, const mm_idx_t *mi);
 
 /**
  * Create an index from strings in memory
@@ -280,21 +280,21 @@ void mm_idx_dump2(FILE *fp, const mm_idx_t2 *mi);
  *
  * @return minimap2 index
  */
-mm_idx_t2 *mm_idx_str2(int w, int k, int is_hpc, int bucket_bits, int n, const char **seq, const char **name);
+mm_idx_t *mm_idx_str(int w, int k, int is_hpc, int bucket_bits, int n, const char **seq, const char **name);
 
 /**
  * Print index statistics to stderr
  *
  * @param mi         minimap2 index
  */
-void mm_idx_stat2(const mm_idx_t2 *idx);
+void mm_idx_stat(const mm_idx_t *idx);
 
 /**
  * Destroy/deallocate an index
  *
  * @param r          minimap2 index
  */
-void mm_idx_destroy2(mm_idx_t2 *mi);
+void mm_idx_destroy(mm_idx_t *mi);
 
 /**
  * Initialize a thread-local buffer for mapping
@@ -306,22 +306,22 @@ void mm_idx_destroy2(mm_idx_t2 *mi);
  *
  * @return pointer to a thread-local buffer
  */
-mm_tbuf_t2 *mm_tbuf_init2(void);
+mm_tbuf_t *mm_tbuf_init(void);
 
 /**
  * Destroy/deallocate a thread-local buffer for mapping
  *
  * @param b          the buffer
  */
-void mm_tbuf_destroy2(mm_tbuf_t2 *b);
+void mm_tbuf_destroy(mm_tbuf_t *b);
 
-void *mm_tbuf_get_km2(mm_tbuf_t2 *b);
+void *mm_tbuf_get_km(mm_tbuf_t *b);
 
 /**
  * Align a query sequence against an index
  *
  * This function possibly finds multiple alignments of the query sequence.
- * The returned array and the mm_reg1_t2::p field of each element are allocated
+ * The returned array and the mm_reg1_t::p field of each element are allocated
  * with malloc().
  *
  * @param mi         minimap2 index
@@ -333,11 +333,11 @@ void *mm_tbuf_get_km2(mm_tbuf_t2 *b);
  * @param name       query name, used for all-vs-all overlapping and debugging
  *
  * @return an array of hits which need to be deallocated with free() together
- *         with mm_reg1_t2::p of each element. The size is written to _n_regs_.
+ *         with mm_reg1_t::p of each element. The size is written to _n_regs_.
  */
-mm_reg1_t2 *mm_map2(const mm_idx_t2 *mi, int l_seq, const char *seq, int *n_regs, mm_tbuf_t2 *b, const mm_mapopt_t2 *opt, const char *name);
+mm_reg1_t *mm_map(const mm_idx_t *mi, int l_seq, const char *seq, int *n_regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *name);
 
-void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t2 **regs, mm_tbuf_t2 *b, const mm_mapopt_t2 *opt, const char *qname);
+void mm_map_frag(const mm_idx_t *mi, int n_segs, const int *qlens, const char **seqs, int *n_regs, mm_reg1_t **regs, mm_tbuf_t *b, const mm_mapopt_t *opt, const char *qname);
 
 /**
  * Align a fasta/fastq file and print alignments to stdout
@@ -349,9 +349,9 @@ void mm_map_frag2(const mm_idx_t2 *mi, int n_segs, const int *qlens, const char 
  *
  * @return 0 on success; -1 if _fn_ can't be read
  */
-int mm_map_file2(const mm_idx_t2 *idx, const char *fn, const mm_mapopt_t2 *opt, int n_threads);
+int mm_map_file(const mm_idx_t *idx, const char *fn, const mm_mapopt_t *opt, int n_threads);
 
-int mm_map_file_frag2(const mm_idx_t2 *idx, int n_segs, const char **fn, const mm_mapopt_t2 *opt, int n_threads);
+int mm_map_file_frag(const mm_idx_t *idx, int n_segs, const char **fn, const mm_mapopt_t *opt, int n_threads);
 
 /**
  * Generate the cs tag (new in 2.12)
@@ -366,21 +366,21 @@ int mm_map_file_frag2(const mm_idx_t2 *idx, int n_segs, const char **fn, const m
  *
  * @return the length of cs
  */
-int mm_gen_cs2(void *km, char **buf, int *max_len, const mm_idx_t2 *mi, const mm_reg1_t2 *r, const char *seq, int no_iden);
-int mm_gen_MD2(void *km, char **buf, int *max_len, const mm_idx_t2 *mi, const mm_reg1_t2 *r, const char *seq);
+int mm_gen_cs(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t *r, const char *seq, int no_iden);
+int mm_gen_MD(void *km, char **buf, int *max_len, const mm_idx_t *mi, const mm_reg1_t *r, const char *seq);
 
 // query sequence name and sequence in the minimap2 index
-int mm_idx_index_name2(mm_idx_t2 *mi);
-int mm_idx_name2id2(const mm_idx_t2 *mi, const char *name);
-int mm_idx_getseq2(const mm_idx_t2 *mi, uint32_t rid, uint32_t st, uint32_t en, uint8_t *seq);
+int mm_idx_index_name(mm_idx_t *mi);
+int mm_idx_name2id(const mm_idx_t *mi, const char *name);
+int mm_idx_getseq(const mm_idx_t *mi, uint32_t rid, uint32_t st, uint32_t en, uint8_t *seq);
 
-int mm_idx_alt_read2(mm_idx_t2 *mi, const char *fn);
-int mm_idx_bed_read2(mm_idx_t2 *mi, const char *fn, int read_junc);
-int mm_idx_bed_junc2(const mm_idx_t2 *mi, int32_t ctg, int32_t st, int32_t en, uint8_t *s);
+int mm_idx_alt_read(mm_idx_t *mi, const char *fn);
+int mm_idx_bed_read(mm_idx_t *mi, const char *fn, int read_junc);
+int mm_idx_bed_junc(const mm_idx_t *mi, int32_t ctg, int32_t st, int32_t en, uint8_t *s);
 
 // deprecated APIs for backward compatibility
-void mm_mapopt_init2(mm_mapopt_t2 *opt);
-mm_idx_t2 *mm_idx_build2(const char *fn, int w, int k, int flag, int n_threads);
+void mm_mapopt_init(mm_mapopt_t *opt);
+mm_idx_t *mm_idx_build(const char *fn, int w, int k, int flag, int n_threads);
 
 #ifdef __cplusplus
 }
