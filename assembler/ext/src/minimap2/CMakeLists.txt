@@ -19,6 +19,7 @@ add_library(minimap2
         align.c
         hit.c
         map.c
+        lchain.c
         format.c
         pe.c
         esterr.c
