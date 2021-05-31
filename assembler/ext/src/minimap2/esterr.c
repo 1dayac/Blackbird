@@ -27,7 +27,7 @@ static int get_mini_idx(int qlen, const mm128_t *a, int32_t n, const uint64_t *m
 	return -1;
 }
 
-void mm_est_err2(const mm_idx_t2 *mi, int qlen, int n_regs, mm_reg1_t2 *regs, const mm128_t *a, int32_t n, const uint64_t *mini_pos)
+void mm_est_err(const mm_idx_t *mi, int qlen, int n_regs, mm_reg1_t *regs, const mm128_t *a, int32_t n, const uint64_t *mini_pos)
 {
 	int i;
 	uint64_t sum_k = 0;
@@ -39,7 +39,7 @@ void mm_est_err2(const mm_idx_t2 *mi, int qlen, int n_regs, mm_reg1_t2 *regs, co
 	avg_k = (float)sum_k / n;
 
 	for (i = 0; i < n_regs; ++i) {
-		mm_reg1_t2 *r = &regs[i];
+		mm_reg1_t *r = &regs[i];
 		int32_t st, en, j, k, n_match, n_tot, l_ref;
 		r->div = -1.0f;
 		if (r->cnt == 0) continue;
@@ -59,6 +59,6 @@ void mm_est_err2(const mm_idx_t2 *mi, int qlen, int n_regs, mm_reg1_t2 *regs, co
 		n_tot = en - st + 1;
 		if (r->qs > avg_k && r->rs > avg_k) ++n_tot;
 		if (qlen - r->qs > avg_k && l_ref - r->re > avg_k) ++n_tot;
-		r->div = logf((float)n_tot / n_match) / avg_k;
+		r->div = n_match >= n_tot? 0.0f : (float)(1.0 - pow((double)n_match / n_tot, 1.0 / avg_k));
 	}
 }

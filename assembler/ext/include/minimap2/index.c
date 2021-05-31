@@ -149,7 +149,7 @@ int mm_idx_name2id(const mm_idx_t *mi, const char *name)
 	return k == kh_end(h)? -1 : kh_val(h, k);
 }
 
-int mm_idx_getseq2(const mm_idx_t2 *mi, uint32_t rid, uint32_t st, uint32_t en, uint8_t *seq)
+int mm_idx_getseq(const mm_idx_t *mi, uint32_t rid, uint32_t st, uint32_t en, uint8_t *seq)
 {
 	uint64_t i, st1, en1;
 	if (rid >= mi->n_seq || st >= mi->seq[rid].len) return -1;
@@ -383,23 +383,20 @@ mm_idx_t *mm_idx_build(const char *fn, int w, int k, int flag, int n_threads) //
 	return mi;
 }
 
-mm_idx_t2 *mm_idx_str2(int w, int k, int is_hpc, int bucket_bits, int n, const char **seq, const char **name)
+mm_idx_t *mm_idx_str(int w, int k, int is_hpc, int bucket_bits, int n, const char **seq, const char **name)
 {
 	uint64_t sum_len = 0;
-    fprintf(stdout, "2123");
 	mm128_v a = {0,0,0};
 	mm_idx_t *mi;
-    fprintf(stdout, "2123");
-    khash_t(str) *h;
+	khash_t(str) *h;
 	int i, flag = 0;
-    fprintf(stdout, "2123");
+
 	if (n <= 0) return 0;
 	for (i = 0; i < n; ++i) // get the total length
 		sum_len += strlen(seq[i]);
 	if (is_hpc) flag |= MM_I_HPC;
 	if (name == 0) flag |= MM_I_NO_NAME;
 	if (bucket_bits < 0) bucket_bits = 14;
-    fprintf(stdout, "2123");
 	mi = mm_idx_init(w, k, bucket_bits, flag);
 	mi->n_seq = n;
 	mi->seq = (mm_idx_seq_t*)kcalloc(mi->km, n, sizeof(mm_idx_seq_t)); // ->seq is allocated from km
@@ -657,7 +654,7 @@ mm_idx_intv_t *mm_idx_read_bed(const mm_idx_t *mi, const char *fn, int read_junc
 		char *p, *q, *bl, *bs;
 		int32_t i, id = -1, n_blk = 0;
 		for (p = q = str.s, i = 0;; ++p) {
-			if (*p == 0 || isspace(*p)) {
+			if (*p == 0 || *p == '\t') {
 				int32_t c = *p;
 				*p = 0;
 				if (i == 0) { // chr

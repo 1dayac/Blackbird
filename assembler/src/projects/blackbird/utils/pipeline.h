@@ -17,14 +17,8 @@
 #include "parallel_hashmap/phmap.h"
 #include "parallel_hashmap/phmap_fwd_decl.h"
 #include <boost/circular_buffer.hpp>
-namespace Unimap {
-#include <unimap2/unimap.h>
-#include "unimap2/unimap.h"
-}
 
-namespace Minimap {
 #include <minimap2/minimap.h>
-}
 
 #include "io/reads/fasta_fastq_gz_parser.hpp"
 #include "common/utils/parallel/openmp_wrapper.h"
@@ -145,20 +139,19 @@ class BlackBirdLauncher {
             std::string query = chrom.GetSequenceString();
             const char *reference_cstyle = reference.c_str();
             const char **reference_array = &reference_cstyle;
-            Unimap::mm_idx_t *index = Unimap::mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
+            mm_idx_t *index = mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
             mm_idx_stat(index);
-            Unimap::mm_tbuf_t *tbuf = Unimap::mm_tbuf_init();
-            Unimap::mm_idxopt_t iopt;
-            Unimap::mm_mapopt_t mopt;
+            mm_tbuf_t *tbuf = mm_tbuf_init();
+            mm_idxopt_t iopt;
+            mm_mapopt_t mopt;
             int number_of_hits;
             mm_set_opt(0, &iopt, &mopt);
             mm_mapopt_update(&mopt, index);
             mopt.flag |= MM_F_CIGAR;
-            std::string name = "123";
-            Unimap::mm_reg1_t *hit_array = Unimap::mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
+            mm_reg1_t *hit_array = mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
             INFO(hit_array->score);
             if (number_of_hits > 0) { // traverse hits and print them out
-                Unimap::mm_reg1_t *r = &hit_array[0];
+                mm_reg1_t *r = &hit_array[0];
                 //printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 if (!r->rev) {
                     int query_start = r->qs;
@@ -692,16 +685,9 @@ private:
         if (!have_singles)
             spades_command = OptionBase::path_to_spades + " --only-assembler --sc -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq -o  " + temp_dir + "/assembly >/dev/null";
         std::system(spades_command.c_str());
-        INFO(554);
         auto const& const_reference_map = reference_map_;
-        INFO(554);
         std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
-        INFO(554);
         int hits = RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
-        INFO(554);
-        if (hits > 1) {
-            //RunAndProcessUnimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region, temp_dir);
-        }
         if (!OptionBase::keep_assembly_folders)
             fs::remove_dir(temp_dir.c_str());
     }
@@ -727,7 +713,7 @@ private:
     }
 
 
-    bool NoID(Unimap::mm_reg1_t *r, int index) {
+    bool NoID(mm_reg1_t *r, int index) {
         if (index + 1 == r->p->n_cigar)
             return true;
         if (index == 0)
@@ -779,17 +765,13 @@ private:
     }
 
     int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
-        INFO("Here1");
         const char *reference_cstyle = reference.c_str();
-        INFO("Here1");
         const char **reference_array = &reference_cstyle;
-        INFO("Here1");
         Minimap::mm_idx_t2 *index = Minimap::mm_idx_str2(10, 15, 0, 14, 1, reference_array, NULL);
         io::FastaFastqGzParser reference_reader(path_to_scaffolds);
         io::SingleRead contig;
         std::set<std::pair<int, int>> found_intervals;
         int max_hits = 0;
-        INFO("Here1");
         while (!reference_reader.eof()) {
             reference_reader >> contig;
             std::string query = contig.GetSequenceString();
@@ -916,142 +898,6 @@ private:
         return max_hits;
     }
 
-    void RunAndProcessUnimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, const BamTools::BamRegion &region, const std::string &temp_dir) {
-        int start_pos = region.LeftPosition;
-        io::FastaWriter reference_writer;
-        std::string path_to_reference = temp_dir + "/reference.fasta";
-        std::ofstream out(path_to_reference);
-        io::SingleRead reference_read(std::to_string(region.LeftRefID) + "_" + std::to_string(start_pos), reference);
-        reference_writer.Write(out, reference_read);
-        Unimap::mm_idx_t *index = Unimap::um_idx_gen(path_to_reference.c_str(), 5, 15, 14, 0, 35, 1000000000, 50, 1);
-        io::FastaFastqGzParser reference_reader(path_to_scaffolds);
-        io::SingleRead contig;
-        std::set<std::pair<int, int>> found_intervals;
-        while (!reference_reader.eof()) {
-            reference_reader >> contig;
-            std::string query = contig.GetSequenceString();
-            size_t qsize = query.size();
-
-            int number_of_hits;
-            Unimap::mm_tbuf_t *tbuf = Unimap::mm_tbuf_init();
-            Unimap::mm_idxopt_t iopt;
-            Unimap::mm_mapopt_t mopt;
-            Unimap::mm_set_opt(0, &iopt, &mopt);
-            mopt.flag |= MM_F_CIGAR;
-            Unimap::mm_mapopt_update(&mopt, index);
-            Unimap::mm_reg1_t *hit_array = mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
-            for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
-                Unimap::mm_reg1_t *r = &hit_array[k];
-                printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
-                if (r->inv) {
-                    ProcessInversion(r, query, ref_name, start_pos);
-                }
-                else if (!r->rev) {
-                    int query_start = r->qs;
-                    int reference_start = r->rs;
-                    for (int i = 0; i < r->p->n_cigar; ++i) {
-                        printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
-                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
-                            found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i])>>4)), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
-                            query_start += (r->p->cigar[i]>>4);
-                            reference_start += (r->p->cigar[i]>>4);
-                        }
-                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
-                            Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4));
-                            std::string ins_seq = query.substr(query_start, r->p->cigar[i]>>4);
-                            if (ins_seq.find("N") == std::string::npos && qsize > 5000 && NoID(r, i)) {
-                                if (ins.Size() >= 50) {
-                                    WriteCritical(vector_of_ins_, ins);
-                                } else {
-                                    WriteCritical(vector_of_small_ins_, ins);
-                                }
-                            }
-                            query_start += (r->p->cigar[i]>>4);
-                        }
-                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
-                            Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
-                            if (qsize > 5000 && NoID(r, i)) {
-                                if (del.Size() >= 50) {
-                                    WriteCritical(vector_of_del_, del);
-                                } else {
-                                    WriteCritical(vector_of_small_del_, del);
-                                }
-                            }
-                            found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i]>>4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
-                            reference_start += (r->p->cigar[i]>>4);
-                        }
-                    }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
-                } else {
-                    int query_start = r->qs;
-                    int reference_start = r->rs;
-                    for (int i = 0; i < r->p->n_cigar; ++i) {
-                        printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
-                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
-                            query_start += (r->p->cigar[i]>>4);
-                            found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i]>>4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
-                            reference_start += (r->p->cigar[i]>>4);
-                        }
-                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
-
-                            Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
-                            std::string ins_seq = ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4);
-                            if (ins_seq.find("N") == std::string::npos && qsize > 5000 && NoID(r, i)) {
-                                if (ins.Size() >= 50) {
-                                    WriteCritical(vector_of_ins_, ins);
-                                } else {
-                                    WriteCritical(vector_of_small_ins_, ins);
-                                }
-                            }
-                            query_start += (r->p->cigar[i]>>4);
-                        }
-                        if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
-                            Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
-                            if (qsize > 5000 && NoID(r, i)) {
-                                if (del.Size() >= 50) {
-                                    WriteCritical(vector_of_del_, del);
-                                } else {
-                                    WriteCritical(vector_of_small_del_, del);
-                                }
-                            }
-                            found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i]>>4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
-                            reference_start += (r->p->cigar[i]>>4);
-                        }
-                    }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
-                }
-                free(r->p);
-
-            }
-
-            free(hit_array);
-            Unimap::mm_tbuf_destroy(tbuf);
-        }
-        std::vector<std::pair<int, int>> merged_intervals;
-        for (auto p : found_intervals) {
-            if (!merged_intervals.size()) {
-                merged_intervals.push_back(p);
-                continue;
-            }
-            auto last_interval = merged_intervals.back();
-            if (p.first > last_interval.second) {
-                merged_intervals.push_back(p);
-                continue;
-            }
-            if (p.second > last_interval.second) {
-                merged_intervals[merged_intervals.size() - 1] = {last_interval.first, p.second};
-            }
-        }
-        INFO(merged_intervals);
-        for (int i = 0; i < (int)merged_intervals.size() - 1; ++i) {
-            if (merged_intervals[i].second + 50 < merged_intervals[i + 1].first) {
-                Deletion del(ref_name, start_pos + merged_intervals[i].second, start_pos + merged_intervals[i + 1].first, reference.substr(merged_intervals[i].second, merged_intervals[i + 1].first - merged_intervals[i].second));
-                if (del.HasN())
-                    continue;
-                INFO("Potential deletion - "  << del.ToString());
-            }
-        }
-
-        Unimap::mm_idx_destroy(index);
-    }
 
 
     bool IsGoodRef(const std::string &ref_name) {

@@ -3,7 +3,7 @@
 #include "mmpriv.h"
 #include "kvec.h"
 
-void mm_select_sub_multi(void *km, float pri_ratio, float pri1, float pri2, int max_gap_ref, int min_diff, int best_n, int n_segs, const int *qlens, int *n_, mm_reg1_t2 *r)
+void mm_select_sub_multi(void *km, float pri_ratio, float pri1, float pri2, int max_gap_ref, int min_diff, int best_n, int n_segs, const int *qlens, int *n_, mm_reg1_t *r)
 {
 	if (pri_ratio > 0.0f && *n_ > 0) {
 		int i, k, n = *n_, n_2nd = 0;
@@ -15,7 +15,7 @@ void mm_select_sub_multi(void *km, float pri_ratio, float pri1, float pri2, int 
 			} else if (r[i].score + min_diff >= r[r[i].parent].score) {
 				to_keep = 1;
 			} else {
-				mm_reg1_t2 *p = &r[r[i].parent], *q = &r[i];
+				mm_reg1_t *p = &r[r[i].parent], *q = &r[i];
 				if (p->rev == q->rev && p->rid == q->rid && q->re - p->rs < max_dist && p->re - q->rs < max_dist) { // child and parent are close on the ref
 					if (q->score >= p->score * pri1)
 						to_keep = 1;
@@ -37,12 +37,12 @@ void mm_select_sub_multi(void *km, float pri_ratio, float pri1, float pri2, int 
 			if (to_keep) r[k++] = r[i];
 			else if (r[i].p) free(r[i].p);
 		}
-		if (k != n) mm_sync_regs2(km, k, r); // removing hits requires sync()
+		if (k != n) mm_sync_regs(km, k, r); // removing hits requires sync()
 		*n_ = k;
 	}
 }
 
-void mm_set_pe_thru(const int *qlens, int *n_regs, mm_reg1_t2 **regs)
+void mm_set_pe_thru(const int *qlens, int *n_regs, mm_reg1_t **regs)
 {
 	int s, i, n_pri[2], pri[2];
 	n_pri[0] = n_pri[1] = 0;
@@ -52,8 +52,8 @@ void mm_set_pe_thru(const int *qlens, int *n_regs, mm_reg1_t2 **regs)
 			if (regs[s][i].id == regs[s][i].parent)
 				++n_pri[s], pri[s] = i;
 	if (n_pri[0] == 1 && n_pri[1] == 1) {
-		mm_reg1_t2 *p = &regs[0][pri[0]];
-		mm_reg1_t2 *q = &regs[1][pri[1]];
+		mm_reg1_t *p = &regs[0][pri[0]];
+		mm_reg1_t *q = &regs[1][pri[1]];
 		if (p->rid == q->rid && p->rev == q->rev && abs(p->rs - q->rs) < 3 && abs(p->re - q->re) < 3
 			&& ((p->qs == 0 && qlens[1] - q->qe == 0) || (q->qs == 0 && qlens[0] - p->qe == 0)))
 		{
@@ -67,13 +67,13 @@ void mm_set_pe_thru(const int *qlens, int *n_regs, mm_reg1_t2 **regs)
 typedef struct {
 	int s, rev;
 	uint64_t key;
-	mm_reg1_t2 *r;
+	mm_reg1_t *r;
 } pair_arr_t;
 
 #define sort_key_pair(a) ((a).key)
 KRADIX_SORT_INIT(pair, pair_arr_t, sort_key_pair, 8)
 
-void mm_pair2(void *km, int max_gap_ref, int pe_bonus, int sub_diff, int match_sc, const int *qlens, int *n_regs, mm_reg1_t2 **regs)
+void mm_pair(void *km, int max_gap_ref, int pe_bonus, int sub_diff, int match_sc, const int *qlens, int *n_regs, mm_reg1_t **regs)
 {
 	int i, j, s, n, last[2], dp_thres, segs = 0, max_idx[2];
 	int64_t max;
@@ -100,7 +100,7 @@ void mm_pair2(void *km, int max_gap_ref, int pe_bonus, int sub_diff, int match_s
 	}
 	dp_thres -= pe_bonus;
 	if (dp_thres < 0) dp_thres = 0;
-	radix_sort2_pair(a, a + n);
+	radix_sort_pair(a, a + n);
 
 	max = -1;
 	max_idx[0] = max_idx[1] = -1;
@@ -108,7 +108,7 @@ void mm_pair2(void *km, int max_gap_ref, int pe_bonus, int sub_diff, int match_s
 	kv_resize(uint64_t, km, sc, (size_t)n);
 	for (i = 0; i < n; ++i) {
 		if (a[i].key & 1) { // reverse first read or forward second read
-			mm_reg1_t2 *q, *r;
+			mm_reg1_t *q, *r;
 			if (last[a[i].rev] < 0) continue;
 			r = a[i].r;
 			q = a[last[a[i].rev]].r;
@@ -129,16 +129,16 @@ void mm_pair2(void *km, int max_gap_ref, int pe_bonus, int sub_diff, int match_s
 		}
 	}
 	if (sc.n > 1)
-		radix_sort2_64(sc.a, sc.a + sc.n);
+		radix_sort_64(sc.a, sc.a + sc.n);
 
 	if (sc.n > 0 && max > 0) { // found at least one pair
 		int n_sub = 0, mapq_pe;
-		mm_reg1_t2 *r[2];
+		mm_reg1_t *r[2];
 		r[0] = a[max_idx[0]].r, r[1] = a[max_idx[1]].r;
 		r[0]->proper_frag = r[1]->proper_frag = 1;
 		for (s = 0; s < 2; ++s) {
 			if (r[s]->id != r[s]->parent) { // then lift to primary and update parent
-				mm_reg1_t2 *p = &regs[s][r[s]->parent];
+				mm_reg1_t *p = &regs[s][r[s]->parent];
 				for (i = 0; i < n_regs[s]; ++i)
 					if (regs[s][i].parent == p->id)
 						regs[s][i].parent = r[s]->id;

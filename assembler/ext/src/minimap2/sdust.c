@@ -40,7 +40,7 @@ unsigned char seq_nt4_table[256] = {
 	4, 4, 4, 4,  4, 4, 4, 4,  4, 4, 4, 4,  4, 4, 4, 4
 };
 #else
-extern unsigned char seq_nt4_table2[256];
+extern unsigned char seq_nt4_table[256];
 #endif
 
 struct sdust_buf_s {
@@ -143,7 +143,7 @@ const uint64_t *sdust_core(const uint8_t *seq, int l_seq, int T, int W, int *n, 
 	memset(cw, 0, SD_WTOT * sizeof(int));
 	if (l_seq < 0) l_seq = strlen((const char*)seq);
 	for (i = l = t = 0; i <= l_seq; ++i) {
-		int b = i < l_seq? seq_nt4_table2[seq[i]] : 4;
+		int b = i < l_seq? seq_nt4_table[seq[i]] : 4;
 		if (b < 4) { // an A/C/G/T base
 			++l, t = (t<<2 | b) & SD_WMSK;
 			if (l >= SD_WLEN) { // we have seen a word

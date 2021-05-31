@@ -7,7 +7,7 @@
 #include "mmpriv.h"
 #include "ketopt.h"
 
-#define MM_VERSION "2.17-r974-dirty"
+#define MM_VERSION "2.20-r1061"
 
 #ifdef __linux__
 #include <sys/resource.h>
@@ -71,6 +71,7 @@ static ko_longopt_t long_options[] = {
 	{ "alt",            ko_required_argument, 344 },
 	{ "alt-drop",       ko_required_argument, 345 },
 	{ "mask-len",       ko_required_argument, 346 },
+	{ "rmq",            ko_optional_argument, 347 },
 	{ "help",           ko_no_argument,       'h' },
 	{ "max-intron-len", ko_required_argument, 'G' },
 	{ "version",        ko_no_argument,       'V' },
@@ -82,15 +83,21 @@ static ko_longopt_t long_options[] = {
 	{ 0, 0, 0 }
 };
 
-static inline int64_t mm_parse_num(const char *str)
+static inline int64_t mm_parse_num2(const char *str, char **q)
 {
 	double x;
 	char *p;
 	x = strtod(str, &p);
-	if (*p == 'G' || *p == 'g') x *= 1e9;
-	else if (*p == 'M' || *p == 'm') x *= 1e6;
-	else if (*p == 'K' || *p == 'k') x *= 1e3;
+	if (*p == 'G' || *p == 'g') x *= 1e9, ++p;
+	else if (*p == 'M' || *p == 'm') x *= 1e6, ++p;
+	else if (*p == 'K' || *p == 'k') x *= 1e3, ++p;
+	if (q) *q = p;
 	return (int64_t)(x + .499);
+}
+
+static inline int64_t mm_parse_num(const char *str)
+{
+	return mm_parse_num2(str, 0);
 }
 
 static inline void yes_or_no(mm_mapopt_t *opt, int flag, int long_idx, const char *arg, int yes_to_set)
@@ -108,7 +115,7 @@ static inline void yes_or_no(mm_mapopt_t *opt, int flag, int long_idx, const cha
 
 int main(int argc, char *argv[])
 {
-	const char *opt_str = "2aSDw:k:K:t:r:f:Vv:g:G:I:d:XT:s:x:Hcp:M:n:z:A:B:O:E:m:N:Qu:R:hF:LC:yYPo:";
+	const char *opt_str = "2aSDw:k:K:t:r:f:Vv:g:G:I:d:XT:s:x:Hcp:M:n:z:A:B:O:E:m:N:Qu:R:hF:LC:yYPo:e:U:";
 	ketopt_t o = KETOPT_INIT;
 	mm_mapopt_t opt;
 	mm_idxopt_t ipt;
@@ -144,7 +151,6 @@ int main(int argc, char *argv[])
 		else if (c == 'k') ipt.k = atoi(o.arg);
 		else if (c == 'H') ipt.flag |= MM_I_HPC;
 		else if (c == 'd') fnw = o.arg; // the above are indexing related options, except -I
-		else if (c == 'r') opt.bw = (int)mm_parse_num(o.arg);
 		else if (c == 't') n_threads = atoi(o.arg);
 		else if (c == 'v') mm_verbose = atoi(o.arg);
 		else if (c == 'g') opt.max_gap = (int)mm_parse_num(o.arg);
@@ -171,6 +177,7 @@ int main(int argc, char *argv[])
 		else if (c == 'C') opt.noncan = atoi(o.arg);
 		else if (c == 'I') ipt.batch_size = mm_parse_num(o.arg);
 		else if (c == 'K') opt.mini_batch_size = mm_parse_num(o.arg);
+		else if (c == 'e') opt.occ_dist = mm_parse_num(o.arg);
 		else if (c == 'R') rg = o.arg;
 		else if (c == 'h') fp_help = stdout;
 		else if (c == '2') opt.flag |= MM_F_2_IO_THREADS;
@@ -203,7 +210,6 @@ int main(int argc, char *argv[])
 		else if (c == 327) opt.max_clip_ratio = atof(o.arg); // --max-clip-ratio
 		else if (c == 328) opt.min_mid_occ = atoi(o.arg); // --min-occ-floor
 		else if (c == 329) opt.flag |= MM_F_OUT_MD; // --MD
-		else if (c == 330) opt.min_join_flank_ratio = atof(o.arg); // --lj-min-ratio
 		else if (c == 331) opt.sc_ambi = atoi(o.arg); // --score-N
 		else if (c == 332) opt.flag |= MM_F_EQX; // --eqx
 		else if (c == 333) opt.flag |= MM_F_PAF_NO_HIT; // --paf-no-hit
@@ -219,7 +225,9 @@ int main(int argc, char *argv[])
 		else if (c == 344) alt_list = o.arg; // --alt
 		else if (c == 345) opt.alt_drop = atof(o.arg); // --alt-drop
 		else if (c == 346) opt.mask_len = mm_parse_num(o.arg); // --mask-len
-		else if (c == 314) { // --frag
+		else if (c == 330) {
+			fprintf(stderr, "[WARNING] \033[1;31m --lj-min-ratio has been deprecated.\033[0m\n");
+		} else if (c == 314) { // --frag
 			yes_or_no(&opt, MM_F_FRAG_MODE, o.longidx, o.arg, 1);
 		} else if (c == 315) { // --secondary
 			yes_or_no(&opt, MM_F_NO_PRINT_2ND, o.longidx, o.arg, 0);
@@ -240,6 +248,8 @@ int main(int argc, char *argv[])
 			yes_or_no(&opt, MM_F_HEAP_SORT, o.longidx, o.arg, 1);
 		} else if (c == 326) { // --dual
 			yes_or_no(&opt, MM_F_NO_DUAL, o.longidx, o.arg, 0);
+		} else if (c == 347) { // --rmq
+			yes_or_no(&opt, MM_F_RMQ, o.longidx, o.arg, 1);
 		} else if (c == 'S') {
 			opt.flag |= MM_F_OUT_CS | MM_F_CIGAR | MM_F_OUT_CS_LONG;
 			if (mm_verbose >= 2)
@@ -247,6 +257,12 @@ int main(int argc, char *argv[])
 		} else if (c == 'V') {
 			puts(MM_VERSION);
 			return 0;
+		} else if (c == 'r') {
+			opt.bw = (int)mm_parse_num2(o.arg, &s);
+			if (*s == ',') opt.bw_long = (int)mm_parse_num2(s + 1, &s);
+		} else if (c == 'U') {
+			opt.min_mid_occ = strtol(o.arg, &s, 10);
+			if (*s == ',') opt.max_mid_occ = strtol(s + 1, &s, 10);
 		} else if (c == 'f') {
 			double x;
 			char *p;
@@ -301,7 +317,7 @@ int main(int argc, char *argv[])
 		fprintf(fp_help, "    -g NUM       stop chain enlongation if there are no minimizers in INT-bp [%d]\n", opt.max_gap);
 		fprintf(fp_help, "    -G NUM       max intron length (effective with -xsplice; changing -r) [200k]\n");
 		fprintf(fp_help, "    -F NUM       max fragment length (effective with -xsr or in the fragment mode) [800]\n");
-		fprintf(fp_help, "    -r NUM       bandwidth used in chaining and DP-based alignment [%d]\n", opt.bw);
+		fprintf(fp_help, "    -r NUM[,NUM] chaining/alignment bandwidth and long-join bandwidth [%d,%d]\n", opt.bw, opt.bw_long);
 		fprintf(fp_help, "    -n INT       minimal number of minimizers on a chain [%d]\n", opt.min_cnt);
 		fprintf(fp_help, "    -m INT       minimal chaining score (matching bases minus log gap penalty) [%d]\n", opt.min_chain_score);
 //		fprintf(fp_help, "    -T INT       SDUST threshold; 0 to disable SDUST [%d]\n", opt.sdust_thres); // TODO: this option is never used; might be buggy
@@ -332,7 +348,8 @@ int main(int argc, char *argv[])
 		fprintf(fp_help, "    --version    show version number\n");
 		fprintf(fp_help, "  Preset:\n");
 		fprintf(fp_help, "    -x STR       preset (always applied before other options; see minimap2.1 for details) []\n");
-		fprintf(fp_help, "                 - map-pb/map-ont - PacBio/Nanopore vs reference mapping\n");
+		fprintf(fp_help, "                 - map-pb/map-ont - PacBio CLR/Nanopore vs reference mapping\n");
+		fprintf(fp_help, "                 - map-hifi - PacBio HiFi reads vs reference mapping\n");
 		fprintf(fp_help, "                 - ava-pb/ava-ont - PacBio/Nanopore read overlap\n");
 		fprintf(fp_help, "                 - asm5/asm10/asm20 - asm-to-ref mapping, for ~0.1/1/5%% sequence divergence\n");
 		fprintf(fp_help, "                 - splice/splice:hq - long-read/Pacbio-CCS spliced alignment\n");
@@ -389,6 +406,7 @@ int main(int argc, char *argv[])
 		if (mm_verbose >= 3) mm_idx_stat(mi);
 		if (junc_bed) mm_idx_bed_read(mi, junc_bed, 1);
 		if (alt_list) mm_idx_alt_read(mi, alt_list);
+		if (argc - (o.ind + 1) == 0) continue; // no query files
 		ret = 0;
 		if (!(opt.flag & MM_F_FRAG_MODE)) {
 			for (i = o.ind + 1; i < argc; ++i) {
