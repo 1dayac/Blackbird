@@ -19,6 +19,7 @@
 #include <boost/circular_buffer.hpp>
 
 #include <minimap2/minimap.h>
+#include <bamtools/api/BamWriter.h>
 
 #include "io/reads/fasta_fastq_gz_parser.hpp"
 #include "common/utils/parallel/openmp_wrapper.h"
@@ -207,13 +208,35 @@ public:
             reference_map_[name] = chrom.GetSequenceString();
         }
 
+        std::string bam_filename = OptionBase::bam.find_last_of("/") == std::string::npos ? OptionBase::bam : OptionBase::bam.substr(OptionBase::bam.find_last_of("/") + 1);
+        std::string new_bam_name = OptionBase::output_folder + "/" + bam_filename.substr(0, bam_filename.length() - 4).c_str() + "filtered.bam";
 
+        BamTools::BamReader preliminary_reader;
+        preliminary_reader.Open(OptionBase::bam.c_str());
+
+        BamTools::BamWriter writer;
+        writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
+        BamTools::BamAlignment alignment;
+        long long total = 0;
+        while(preliminary_reader.GetNextAlignmentCore(alignment)) {
+            int tag;
+            alignment.GetTag("AM", tag);
+            if (tag - '0' == 0) {
+                total++;
+                continue;
+            }
+            writer.SaveAlignment(alignment);
+        }
+        writer.Close();
+        INFO(total << " reads filtered.");
         BamTools::BamReader reader;
         BamTools::BamReader mate_reader;
 
 
-        reader.Open(OptionBase::bam.c_str());
-        mate_reader.Open(OptionBase::bam.c_str());
+        reader.Open(new_bam_name.c_str());
+        INFO("Creating index file...");
+        reader.CreateIndex(BamTools::BamIndex::STANDARD);
+        mate_reader.Open(new_bam_name.c_str());
 
         auto ref_data = reader.GetReferenceData();
 
@@ -235,7 +258,6 @@ public:
                             phmap::container_internal::Pair<const std::string, std::pair<Sequence, std::string>>>,
                     4, phmap::NullMutex> map_of_bad_second_reads_;
 
-            BamTools::BamAlignment alignment;
             size_t alignment_count = 0;
             size_t alignments_stored = 0;
             size_t bad_read_pairs_stored = 0;
@@ -308,8 +330,8 @@ public:
         std::vector<BamTools::BamReader> readers(OptionBase::threads);
         std::vector<BamTools::BamReader> mate_readers(OptionBase::threads);
         for (auto &r : readers) {
-            r.Open(OptionBase::bam.c_str());
-            if (r.OpenIndex((OptionBase::bam + ".bai").c_str())) {
+            r.Open(new_bam_name.c_str());
+            if (r.OpenIndex((new_bam_name + ".bai").c_str())) {
                 INFO("Index located at " << OptionBase::bam << ".bai");
             } else {
                 FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
