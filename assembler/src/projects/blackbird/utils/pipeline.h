@@ -219,10 +219,10 @@ public:
         BamTools::BamAlignment alignment;
         long long total = 0;
         while(preliminary_reader.GetNextAlignmentCore(alignment)) {
-            int tag;
+            std::string tag;
             alignment.GetTag("AM", tag);
-            INFO(tag <<  " " << tag - '0');
-            if (tag - '0' == 0) {
+            INFO(tag );
+            if (tag == "0") {
                 total++;
                 continue;
             }
