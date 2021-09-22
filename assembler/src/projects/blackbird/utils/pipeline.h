@@ -219,11 +219,11 @@ public:
         BamTools::BamAlignment alignment;
         long long total = 0;
         while(preliminary_reader.GetNextAlignment(alignment)) {
-            char tag = 'x';
+            int tag = 5;
 
             bool res = alignment.GetTag("AM", tag);
             INFO(tag);
-            if (tag == '0') {
+            if (tag == 0) {
                 total++;
                 continue;
             }
