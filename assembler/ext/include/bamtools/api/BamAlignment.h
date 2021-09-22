@@ -409,7 +409,7 @@ inline bool BamAlignment::EditTag(const std::string& tag, const std::vector<T>& 
 /*! \fn template<typename T> bool GetTag(const std::string& tag, T& destination) const
     \brief Retrieves the value associated with a BAM tag.
 
-    \param tag[in]          2-character tag name
+    \param tag[in]          2-charactper tag name
     \param destination[out] retrieved value
     \return \c true if found
 */
