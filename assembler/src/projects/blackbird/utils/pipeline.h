@@ -218,7 +218,7 @@ public:
         writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
         BamTools::BamAlignment alignment;
         long long total = 0;
-        while(preliminary_reader.GetNextAlignmentCore(alignment)) {
+        while(preliminary_reader.GetNextAlignment(alignment)) {
             int8_t tag = 120;
             INFO("Has type - " << alignment.HasTag("AM"));
             char type = 'z';
