@@ -219,7 +219,7 @@ public:
         BamTools::BamAlignment alignment;
         long long total = 0;
         while(preliminary_reader.GetNextAlignmentCore(alignment)) {
-            int32_t tag = 120;
+            int8_t tag = 120;
             bool res = alignment.GetTag("AM", tag);
             if (!res) {
                 INFO("incorrect");
