@@ -222,8 +222,7 @@ public:
             int tag = 5;
 
             bool res = alignment.GetTag("AM", tag);
-            INFO(tag);
-            if (tag == 0) {
+            if (tag - '0' == 0) {
                 total++;
                 continue;
             }
