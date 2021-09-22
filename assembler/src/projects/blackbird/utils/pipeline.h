@@ -220,6 +220,12 @@ public:
         long long total = 0;
         while(preliminary_reader.GetNextAlignmentCore(alignment)) {
             int8_t tag = 120;
+            INFO("Has type - " << alignment.HasTag("AM"));
+            char type = 'z';
+            alignment.GetTagType("AM", type);
+            INFO("Get tag type - " << type);
+            INFO("Get tag names - " << alignment.GetTagNames());
+
             bool res = alignment.GetTag("AM", tag);
             if (!res) {
                 INFO("incorrect");
