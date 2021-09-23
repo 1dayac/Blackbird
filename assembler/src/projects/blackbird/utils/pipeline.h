@@ -333,16 +333,16 @@ public:
         for (auto &r : readers) {
             r.Open(new_bam_name.c_str());
             if (r.OpenIndex((new_bam_name + ".bai").c_str())) {
-                INFO("Index located at " << OptionBase::bam << ".bai");
+                INFO("Index located at " << new_bam_name << ".bai");
             } else {
-                FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
+                FATAL_ERROR("Index at " << new_bam_name << ".bai" << " can't be located")
             }
 
         }
 
         for (auto &r : mate_readers) {
-            r.Open(OptionBase::bam.c_str());
-            r.OpenIndex((OptionBase::bam + ".bai").c_str());
+            r.Open(new_bam_name.c_str());
+            r.OpenIndex((new_bam_name + ".bai").c_str());
         }
 
         #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
