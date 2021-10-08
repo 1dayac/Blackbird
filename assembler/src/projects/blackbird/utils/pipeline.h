@@ -724,7 +724,8 @@ private:
             reference_reader >> contig;
             std::string query = contig.GetSequenceString();
             size_t qsize = query.size();
-
+            if (qsize <= 5000)
+                continue;
             int number_of_hits;
             mm_tbuf_t *tbuf = mm_tbuf_init();
             mm_idxopt_t iopt;
@@ -732,12 +733,9 @@ private:
 
             mm_set_opt(0, &iopt, &mopt);
             mopt.flag |= MM_F_CIGAR;
-            INFO("Here2");
             mm_mapopt_update(&mopt, index);
-            INFO("Here2");
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             max_hits = std::max(max_hits, number_of_hits);
-            INFO("Here3");
             for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[k];
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
