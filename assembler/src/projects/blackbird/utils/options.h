@@ -17,6 +17,7 @@ public:
     static bool verbose;
     static bool keep_assembly_folders;
     static std::string path_to_spades;
+    static std::string cmd_line;
 };
 
 #endif //BLACKBIRD_OPTIONS_H

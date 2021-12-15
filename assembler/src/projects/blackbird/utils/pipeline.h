@@ -70,6 +70,19 @@ public:
        file_ = std::ofstream(filename, std::ofstream::out);
     }
 
+    void WriteHeader(const std::unordered_map<std::string, std::string> &reference_map) {
+        file_ << "##fileformat=VCFv4.2" << std::endl;
+        file_ << "##source=Blackbird-v0.1" << std::endl;
+        file_ << "##command=" << OptionBase::cmd_line << std::endl;
+        file_ << "##reference=" << OptionBase::reference << std::endl;
+        for (const auto &p : reference_map) {
+            file_ << "##contig=<ID=" << p.first << ",length=" << p.second.size() << ">" << std::endl;
+        }
+        file_ << "##INFO=<ID=SVTYPE,Number=1,Type=String,Description=\"Type of variant, either DEL, INV, or INS\">" << std::endl;
+        file_ << "##INFO=<ID=SVLEN,Number=1,Type=Integer,Description=\"Difference in length between REF and ALT alleles\">" << std::endl;
+        file_ << "#CHROM" << "\t" << "POS" << "\t" << "ID" << "\t" << "REF" << "\t" << "ALT" << "\t" << "QUAL" << "\t" << "FILTER" << "\t" << "INFO" << std::endl;
+    }
+
     void Write(const Deletion &sv) {
         file_ << sv.ToString() << std::endl;
     }
@@ -358,7 +371,8 @@ public:
         std::sort(vector_of_small_del_.begin(), vector_of_small_del_.end());
 
         std::sort(vector_of_inv_.begin(), vector_of_inv_.end());
-
+        writer_.WriteHeader(reference_map_);
+        writer_small_.WriteHeader(reference_map_);
         Print(vector_of_ins_, vector_of_del_, writer_);
         Print(vector_of_small_ins_, vector_of_small_del_, writer_small_);
         PrintInversions(vector_of_inv_, writer_inversion_);

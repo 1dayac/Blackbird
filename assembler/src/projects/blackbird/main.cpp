@@ -86,12 +86,15 @@ int main(int argc, char **argv) {
         std::cerr << BLACKBIRD_USAGE_MESSAGE << std::endl;
         return 1;
     } else {
+        std::string cmdLine = "";
         std::cout << "Command line: ";
         for (int i = 0; i < argc; ++i) {
             std::cout << argv[i] << " ";
+            cmdLine += argv[i];
+            cmdLine += " ";
         }
         std::cout << std::endl;
-
+        OptionBase::cmd_line = cmdLine;
         runBlackbird();
     }
     return 0;
