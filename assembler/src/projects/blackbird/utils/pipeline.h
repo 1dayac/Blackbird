@@ -16,7 +16,6 @@
 #include "common/io/reads/osequencestream.hpp"
 #include "parallel_hashmap/phmap.h"
 #include "parallel_hashmap/phmap_fwd_decl.h"
-#include <boost/circular_buffer.hpp>
 
 #include <minimap2/minimap.h>
 #include <bamtools/api/BamWriter.h>
@@ -548,7 +547,7 @@ private:
         fs::make_dir(temp_dir);
         io::OPairedReadStream<std::ofstream, io::FastqWriter> out_stream(temp_dir + "/R1.fastq", temp_dir + "/R2.fastq");
         io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
-        boost::circular_buffer<BamTools::BamAlignment> last_entries(100);
+
 
         std::unordered_map<std::string, std::vector<BamTools::BamAlignment>> filtered_reads;
 
