@@ -7,7 +7,7 @@
 #include "mmpriv.h"
 #include "ketopt.h"
 
-#define MM_VERSION "2.20-r1061"
+#define MM_VERSION "2.23-r1111"
 
 #ifdef __linux__
 #include <sys/resource.h>
@@ -72,6 +72,10 @@ static ko_longopt_t long_options[] = {
 	{ "alt-drop",       ko_required_argument, 345 },
 	{ "mask-len",       ko_required_argument, 346 },
 	{ "rmq",            ko_optional_argument, 347 },
+	{ "qstrand",        ko_no_argument,       348 },
+	{ "cap-kalloc",     ko_required_argument, 349 },
+	{ "q-occ-frac",     ko_required_argument, 350 },
+	{ "chain-skip-scale",ko_required_argument,351 },
 	{ "help",           ko_no_argument,       'h' },
 	{ "max-intron-len", ko_required_argument, 'G' },
 	{ "version",        ko_no_argument,       'V' },
@@ -100,7 +104,7 @@ static inline int64_t mm_parse_num(const char *str)
 	return mm_parse_num2(str, 0);
 }
 
-static inline void yes_or_no(mm_mapopt_t *opt, int flag, int long_idx, const char *arg, int yes_to_set)
+static inline void yes_or_no(mm_mapopt_t *opt, int64_t flag, int long_idx, const char *arg, int yes_to_set)
 {
 	if (yes_to_set) {
 		if (strcmp(arg, "yes") == 0 || strcmp(arg, "y") == 0) opt->flag |= flag;
@@ -222,9 +226,13 @@ int main(int argc, char *argv[])
 		else if (c == 341) opt.junc_bonus = atoi(o.arg); // --junc-bonus
 		else if (c == 342) opt.flag |= MM_F_SAM_HIT_ONLY; // --sam-hit-only
 		else if (c == 343) opt.chain_gap_scale = atof(o.arg); // --chain-gap-scale
+		else if (c == 351) opt.chain_skip_scale = atof(o.arg); // --chain-skip-scale
 		else if (c == 344) alt_list = o.arg; // --alt
 		else if (c == 345) opt.alt_drop = atof(o.arg); // --alt-drop
 		else if (c == 346) opt.mask_len = mm_parse_num(o.arg); // --mask-len
+		else if (c == 348) opt.flag |= MM_F_QSTRAND | MM_F_NO_INV; // --qstrand
+		else if (c == 349) opt.cap_kalloc = mm_parse_num(o.arg); // --cap-kalloc
+		else if (c == 350) opt.q_occ_frac = atof(o.arg); // --q-occ-frac
 		else if (c == 330) {
 			fprintf(stderr, "[WARNING] \033[1;31m --lj-min-ratio has been deprecated.\033[0m\n");
 		} else if (c == 314) { // --frag
@@ -326,7 +334,7 @@ int main(int argc, char *argv[])
 		fprintf(fp_help, "    -N INT       retain at most INT secondary alignments [%d]\n", opt.best_n);
 		fprintf(fp_help, "  Alignment:\n");
 		fprintf(fp_help, "    -A INT       matching score [%d]\n", opt.a);
-		fprintf(fp_help, "    -B INT       mismatch penalty [%d]\n", opt.b);
+		fprintf(fp_help, "    -B INT       mismatch penalty (larger value for lower divergence) [%d]\n", opt.b);
 		fprintf(fp_help, "    -O INT[,INT] gap open penalty [%d,%d]\n", opt.q, opt.q2);
 		fprintf(fp_help, "    -E INT[,INT] gap extension penalty; a k-long gap costs min{O1+k*E1,O2+k*E2} [%d,%d]\n", opt.e, opt.e2);
 		fprintf(fp_help, "    -z INT[,INT] Z-drop score and inversion Z-drop score [%d,%d]\n", opt.zdrop, opt.zdrop_inv);
@@ -406,7 +414,10 @@ int main(int argc, char *argv[])
 		if (mm_verbose >= 3) mm_idx_stat(mi);
 		if (junc_bed) mm_idx_bed_read(mi, junc_bed, 1);
 		if (alt_list) mm_idx_alt_read(mi, alt_list);
-		if (argc - (o.ind + 1) == 0) continue; // no query files
+		if (argc - (o.ind + 1) == 0) {
+			mm_idx_destroy(mi);
+			continue; // no query files
+		}
 		ret = 0;
 		if (!(opt.flag & MM_F_FRAG_MODE)) {
 			for (i = o.ind + 1; i < argc; ++i) {
