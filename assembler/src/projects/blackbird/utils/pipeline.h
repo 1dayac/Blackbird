@@ -141,35 +141,13 @@ class BlackBirdLauncher {
     }
 
 
-/*    void test_minimap() {
-
-        BamTools::BamReader reader;
-        reader.Open(OptionBase::bam.c_str());
-        BamTools::BamRegion region(reader.GetReferenceID("chr1"), 80000, reader.GetReferenceID("chr1"), 84930000);
-
-        INFO(reference_map_[refid_to_ref_name_[region.RightRefID]].substr(region.LeftPosition, region.RightPosition - region.LeftPosition));
-        RunAndProcessMinimap("contigs.fasta", reference_map_[refid_to_ref_name_[region.RightRefID]].substr(region.LeftPosition, region.RightPosition - region.LeftPosition), "chr13", region.LeftPosition);
-
-
-        std::string reference = "ACAGAGTTTTCCGATATAGCGTTCTTCTGGCCTCCCCTAATGTTAACATCTTATATAACTACGGTACACTGATCAAAACTAAGAACTTAATATTGAGATGAAGCTATTAACTACTTTACTCAGATTTCACCGGTTTTCCAATGATGTCCTTTTTCTGTTTCAGAATGCAATCCAAGATACCACACTGCATTTAGCTGTACTGTATATGAACACTTTTTAATACATCACTGGCTACAGAATAATAAATTAGTATCGAATCCTATTCTTAAGGATGAGGAACCTGAGTACTGGAGAAGCTAAAGGACTCATCCAGAAGCTCAGTATAAATGAACAATCAGAGTCAGGCCTGTGGTCCTAAAT";
-        const char *reference_cstyle = reference.c_str();
-        const char **reference_array = &reference_cstyle;
-        mm_idx_t *index = mm_idx_str(10, 15, 0, 14, 1, reference_array, NULL);
-        mm_idx_stat(index);
-        std::string query = "ACAGAGTTTTCCGATATAGCGTTCTTCTGGCCTCCCCTAATGTTAACATCTTATATAACTACGGTACACTGATCAAAACTAAGAACTTGATGTCCTTTTTCTGTTTCAGAATGCAATCCAAGATACCACACTGCATTTAGCTGTACTGTATATGAACACTTTTTAATACATCACTGGCTACAGAATAATAAATTAGTATCGAATCCTATTCTTAAGGATGAGGAACCTGAGTACTGGAGAAGCTAAAGGACTCATCCAGAAGCTCAGTATAAATGAACAATCAGAGTCAGGCCTGTGGTCCTAAAT";
-        mm_tbuf_t *tbuf = mm_tbuf_init();
-        mm_idxopt_t iopt;
-        mm_mapopt_t mopt;
-        int number_of_hits;
-        mm_set_opt(0, &iopt, &mopt);
-
-        mm_mapopt_update(&mopt, index);
-        mopt.flag |= MM_F_CIGAR;
-        std::string name = "123";
-        mm_reg1_t *hit_array = mm_map_seq(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, name.c_str());
-        INFO(hit_array->score);
+    void test_minimap(std::string reference, std::string contig) {
+        io::FastaFastqGzParser reference_reader(reference);
+        io::SingleRead reference_contig;
+        reference_reader >> reference_contig;
+        RunAndProcessMinimap(contig, reference_contig.GetSequenceString(), "1", 0);
     }
-*/
+
 
 public:
     BlackBirdLauncher ()
@@ -191,8 +169,8 @@ public:
 
 
 
-//        test_minimap("/scratchLocal/dmm2017/temp.fasta", "/scratchLocal/dmm2017/chr1.fasta");
-//        return 0;
+        test_minimap("/Users/dima/PycharmProjects/blackbird_supplementary/genome_new.fa", "/Users/dima/PycharmProjects/blackbird_supplementary/genome_inversions.fa");
+        return 0;
 
 
 
@@ -745,11 +723,15 @@ private:
             mm_mapopt_t mopt;
 
             mm_set_opt(0, &iopt, &mopt);
+            mm_set_opt("asm10", &iopt, &mopt);
+
+            mopt.zdrop = 500;
+            mopt.zdrop_inv = 10;
             mopt.flag |= MM_F_CIGAR;
             mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             max_hits = std::max(max_hits, number_of_hits);
-            for (int k = 0; k < std::min(1, number_of_hits); ++k) { // traverse hits and print them out
+            for (int k = 0; k < number_of_hits; ++k) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[k];
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 if (r->inv) {
@@ -761,7 +743,9 @@ private:
                     for (int i = 0; i < r->p->n_cigar; ++i) {
                         printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
-                            found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i])>>4)), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
+                            int temp = (int)(reference_start + int(r->p->cigar[i]>>4));
+                            int some_stuff = (r->p->cigar[i])>>4;
+                            found_intervals.insert({std::min(reference_start, (int)(reference_start + ((r->p->cigar[i])>>4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
                             query_start += (r->p->cigar[i]>>4);
                             reference_start += (r->p->cigar[i]>>4);
                         }
