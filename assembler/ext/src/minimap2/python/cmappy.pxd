@@ -23,6 +23,7 @@ cdef extern from "minimap.h":
 		int min_cnt
 		int min_chain_score
 		float chain_gap_scale
+		float chain_skip_scale
 		int rmq_size_cap, rmq_inner_dist
 		int rmq_rescue_size
 		float rmq_rescue_ratio
@@ -45,14 +46,19 @@ cdef extern from "minimap.h":
 		int anchor_ext_len, anchor_ext_shift
 		float max_clip_ratio
 
+		int rank_min_len
+		float rank_frac
+
 		int pe_ori, pe_bonus
 
 		float mid_occ_frac
+		float q_occ_frac
 		int32_t min_mid_occ
 		int32_t mid_occ
 		int32_t max_occ
 		int64_t mini_batch_size
 		int64_t max_sw_mat
+		int64_t cap_kalloc
 
 		const char *split_prefix
 

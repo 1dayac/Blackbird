@@ -6,16 +6,6 @@
 #include "kalloc.h"
 #include "krmq.h"
 
-static inline float mg_log2(float x) // NB: this doesn't work when x<2
-{
-	union { float f; uint32_t i; } z = { x };
-	float log_2 = ((z.i >> 23) & 255) - 128;
-	z.i &= ~(255 << 23);
-	z.i += 127 << 23;
-	log_2 += (-0.34484843f * z.f + 2.02466578f) * z.f - 0.67487759f;
-	return log_2;
-}
-
 uint64_t *mg_chain_backtrack(void *km, int64_t n, const int32_t *f, const int64_t *p, int32_t *v, int32_t *t, int32_t min_cnt, int32_t min_sc, int32_t *n_u_, int32_t *n_v_)
 {
 	mm128_t *z;
@@ -114,8 +104,9 @@ static inline int32_t comput_sc(const mm128_t *ai, const mm128_t *aj, int32_t ma
 		float lin_pen, log_pen;
 		lin_pen = chn_pen_gap * (float)dd + chn_pen_skip * (float)dg;
 		log_pen = dd >= 1? mg_log2(dd + 1) : 0.0f; // mg_log2() only works for dd>=2
-		if (is_cdna) {
-			if (dr > dq) sc -= (int)(lin_pen < log_pen? lin_pen : log_pen); // deletion or jump between paired ends
+		if (is_cdna || sidi != sidj) {
+			if (sidi != sidj && dr == 0) ++sc; // possibly due to overlapping paired ends; give a minor bonus
+			else if (dr > dq || sidi != sidj) sc -= (int)(lin_pen < log_pen? lin_pen : log_pen); // deletion or jump between paired ends
 			else sc -= (int)(lin_pen + .5f * log_pen);
 		} else sc -= (int)(lin_pen + .5f * log_pen);
 	}

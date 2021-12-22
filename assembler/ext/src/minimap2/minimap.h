@@ -36,7 +36,9 @@
 #define MM_F_NO_END_FLT    0x10000000
 #define MM_F_HARD_MLEVEL   0x20000000
 #define MM_F_SAM_HIT_ONLY  0x40000000
-#define MM_F_RMQ           0x80000000LL
+#define MM_F_RMQ           (0x80000000LL)
+#define MM_F_QSTRAND       (0x100000000LL)
+#define MM_F_NO_INV        (0x200000000LL)
 
 #define MM_I_HPC          0x1
 #define MM_I_NO_SEQ       0x2
@@ -45,6 +47,18 @@
 #define MM_IDX_MAGIC   "MMI\2"
 
 #define MM_MAX_SEG       255
+
+#define MM_CIGAR_MATCH      0
+#define MM_CIGAR_INS        1
+#define MM_CIGAR_DEL        2
+#define MM_CIGAR_N_SKIP     3
+#define MM_CIGAR_SOFTCLIP   4
+#define MM_CIGAR_HARDCLIP   5
+#define MM_CIGAR_PADDING    6
+#define MM_CIGAR_EQ_MATCH   7
+#define MM_CIGAR_X_MISMATCH 8
+
+#define MM_CIGAR_STR  "MIDNSHP=XB"
 
 #ifdef __cplusplus
 extern "C" {
@@ -94,7 +108,7 @@ typedef struct {
 	int32_t mlen, blen;     // seeded exact match length; seeded alignment block length
 	int32_t n_sub;          // number of suboptimal mappings
 	int32_t score0;         // initial chaining score (before chain merging/spliting)
-	uint32_t mapq:8, split:2, rev:1, inv:1, sam_pri:1, proper_frag:1, pe_thru:1, seg_split:1, seg_id:8, split_inv:1, is_alt:1, dummy:6;
+	uint32_t mapq:8, split:2, rev:1, inv:1, sam_pri:1, proper_frag:1, pe_thru:1, seg_split:1, seg_id:8, split_inv:1, is_alt:1, strand_retained:1, dummy:5;
 	uint32_t hash;
 	float div;
 	mm_extra_t *p;
@@ -121,6 +135,7 @@ typedef struct {
 	int min_cnt;         // min number of minimizers on each chain
 	int min_chain_score; // min chaining score
 	float chain_gap_scale;
+	float chain_skip_scale;
 	int rmq_size_cap, rmq_inner_dist;
 	int rmq_rescue_size;
 	float rmq_rescue_ratio;
@@ -143,14 +158,19 @@ typedef struct {
 	int anchor_ext_len, anchor_ext_shift;
 	float max_clip_ratio; // drop an alignment if BOTH ends are clipped above this ratio
 
+	int rank_min_len;
+	float rank_frac;
+
 	int pe_ori, pe_bonus;
 
 	float mid_occ_frac;  // only used by mm_mapopt_update(); see below
+	float q_occ_frac;
 	int32_t min_mid_occ, max_mid_occ;
 	int32_t mid_occ;     // ignore seeds with occurrences above this threshold
 	int32_t max_occ, max_max_occ, occ_dist;
 	int64_t mini_batch_size; // size of a batch of query bases to process in parallel
 	int64_t max_sw_mat;
+	int64_t cap_kalloc;
 
 	const char *split_prefix;
 } mm_mapopt_t;

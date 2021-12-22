@@ -2,6 +2,31 @@
 #include "kalloc.h"
 #include "ksort.h"
 
+void mm_seed_mz_flt(void *km, mm128_v *mv, int32_t q_occ_max, float q_occ_frac)
+{
+	mm128_t *a;
+	size_t i, j, st;
+	if (mv->n <= q_occ_max || q_occ_frac <= 0.0f || q_occ_max <= 0) return;
+	KMALLOC(km, a, mv->n);
+	for (i = 0; i < mv->n; ++i)
+		a[i].x = mv->a[i].x, a[i].y = i;
+	radix_sort_128x(a, a + mv->n);
+	for (st = 0, i = 1; i <= mv->n; ++i) {
+		if (i == mv->n || a[i].x != a[st].x) {
+			int32_t cnt = i - st;
+			if (cnt > q_occ_max && cnt > mv->n * q_occ_frac)
+				for (j = st; j < i; ++j)
+					mv->a[a[j].y].x = 0;
+			st = i;
+		}
+	}
+	kfree(km, a);
+	for (i = j = 0; i < mv->n; ++i)
+		if (mv->a[i].x != 0)
+			mv->a[j++] = mv->a[i];
+	mv->n = j;
+}
+
 mm_seed_t *mm_seed_collect_all(void *km, const mm_idx_t *mi, const mm128_v *mv, int32_t *n_m_)
 {
 	mm_seed_t *m;
@@ -46,19 +71,20 @@ void mm_seed_select(int32_t n, mm_seed_t *a, int len, int max_occ, int max_max_o
 				int32_t pe = i == n? len : (uint32_t)a[i].q_pos>>1;
 				int32_t j, k, st = last0 + 1, en = i;
 				int32_t max_high_occ = (int32_t)((double)(pe - ps) / dist + .499);
-				//fprintf(stderr, "Y\t%d\t%d\n", ps, pe);
-				if (max_high_occ > MAX_MAX_HIGH_OCC)
-					max_high_occ = MAX_MAX_HIGH_OCC;
-				for (j = st, k = 0; j < en && k < max_high_occ; ++j, ++k)
-					b[k] = (uint64_t)a[j].n<<32 | j;
-				ks_heapmake_uint64_t(k, b); // initialize the binomial heap
-				for (; j < en; ++j) { // if there are more, choose top max_high_occ
-					if (a[j].n < (int32_t)(b[0]>>32)) { // then update the heap
-						b[0] = (uint64_t)a[j].n<<32 | j;
-						ks_heapdown_uint64_t(0, k, b);
+				if (max_high_occ > 0) {
+					if (max_high_occ > MAX_MAX_HIGH_OCC)
+						max_high_occ = MAX_MAX_HIGH_OCC;
+					for (j = st, k = 0; j < en && k < max_high_occ; ++j, ++k)
+						b[k] = (uint64_t)a[j].n<<32 | j;
+					ks_heapmake_uint64_t(k, b); // initialize the binomial heap
+					for (; j < en; ++j) { // if there are more, choose top max_high_occ
+						if (a[j].n < (int32_t)(b[0]>>32)) { // then update the heap
+							b[0] = (uint64_t)a[j].n<<32 | j;
+							ks_heapdown_uint64_t(0, k, b);
+						}
 					}
+					for (j = 0; j < k; ++j) a[(uint32_t)b[j]].flt = 1;
 				}
-				for (j = 0; j < k; ++j) a[(uint32_t)b[j]].flt = 1;
 				for (j = st; j < en; ++j) a[j].flt ^= 1;
 				for (j = st; j < en; ++j)
 					if (a[j].n > max_max_occ)

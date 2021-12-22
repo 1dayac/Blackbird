@@ -74,8 +74,8 @@ Detailed evaluations are available from the [minimap2 paper][doi] or the
 Minimap2 is optimized for x86-64 CPUs. You can acquire precompiled binaries from
 the [release page][release] with:
 ```sh
-curl -L https://github.com/lh3/minimap2/releases/download/v2.20/minimap2-2.20_x64-linux.tar.bz2 | tar -jxvf -
-./minimap2-2.20_x64-linux/minimap2
+curl -L https://github.com/lh3/minimap2/releases/download/v2.23/minimap2-2.23_x64-linux.tar.bz2 | tar -jxvf -
+./minimap2-2.23_x64-linux/minimap2
 ```
 If you want to compile from the source, you need to have a C compiler, GNU make
 and zlib development files installed. Then type `make` in the source code
@@ -96,7 +96,7 @@ with the ARM related command lines given above.
 
 Without any options, minimap2 takes a reference database and a query sequence
 file as input and produce approximate mapping, without base-level alignment
-(i.e. no CIGAR), in the [PAF format][paf]:
+(i.e. coordinates are only approximate and no CIGAR in output), in the [PAF format][paf]:
 ```sh
 minimap2 ref.fa query.fq > approx-mapping.paf
 ```
