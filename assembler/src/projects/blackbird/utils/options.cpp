@@ -12,3 +12,4 @@ bool OptionBase::verbose = false;
 bool OptionBase::keep_assembly_folders = false;
 bool OptionBase::dont_collect_reads = false;
 std::string OptionBase::path_to_spades = "spades.py";
+std::string OptionBase::cmd_line = "";
