@@ -100,7 +100,6 @@ class BlackBirdLauncher {
     template<typename T>
     void ProcessInversion(T *r, const std::string &query, const std::string &ref_name, int start_pos) {
         std::string inversion_seq = "";
-        INFO("Inversion");
         int query_start = r->qs;
         int reference_start = r->rs;
         if (!r->rev) {
@@ -169,8 +168,8 @@ public:
 
 
 
-        test_minimap("/Users/dima/PycharmProjects/blackbird_supplementary/genome_new.fa", "/Users/dima/PycharmProjects/blackbird_supplementary/genome_inversions.fa");
-        return 0;
+        //test_minimap("/Users/dima/PycharmProjects/blackbird_supplementary/genome_new.fa", "/Users/dima/PycharmProjects/blackbird_supplementary/genome_inversions.fa");
+        //return 0;
 
 
 
@@ -571,7 +570,6 @@ private:
             barcode_output << barcode << "\n";
         }
 
-        INFO("Count_add - " << count_add);
         bool have_singles = false;
         for (auto p : filtered_reads) {
             if (p.second.size() == 1) {
