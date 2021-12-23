@@ -48,7 +48,7 @@ struct RefWindow {
 
     //! constructor
     RefWindow(const BamTools::RefData& reference,
-            const int32_t& windowStart, const int32_t& windowEnd)
+              const int32_t& windowStart, const int32_t& windowEnd)
             : RefName(reference), WindowStart(windowStart)
             , WindowEnd(windowEnd)
     { }
@@ -66,7 +66,7 @@ public:
 
     VCFWriter(const std::string &filename)
     {
-       file_ = std::ofstream(filename, std::ofstream::out);
+        file_ = std::ofstream(filename, std::ofstream::out);
     }
 
     void WriteHeader(const std::unordered_map<std::string, std::string> &reference_map) {
@@ -202,28 +202,33 @@ public:
 
         BamTools::BamReader preliminary_reader;
         preliminary_reader.Open(OptionBase::bam.c_str());
-
-        BamTools::BamWriter writer;
-        writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
         BamTools::BamAlignment alignment;
-        long long total = 0;
-        while(preliminary_reader.GetNextAlignment(alignment)) {
-            int tag = 5;
 
-            bool res = alignment.GetTag("AM", tag);
-            if (tag - '0' == 0) {
-                total++;
-                continue;
+        if (OptionBase::dont_collect_reads) {
+            BamTools::BamWriter writer;
+            writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
+            long long total = 0;
+            while (preliminary_reader.GetNextAlignment(alignment)) {
+                int tag = 5;
+
+                bool res = alignment.GetTag("AM", tag);
+                if (tag - '0' == 0) {
+                    total++;
+                    continue;
+                }
+                writer.SaveAlignment(alignment);
             }
-            writer.SaveAlignment(alignment);
+            writer.Close();
+            INFO(total << " reads filtered.");
         }
-        writer.Close();
-        INFO(total << " reads filtered.");
         BamTools::BamReader reader;
         BamTools::BamReader mate_reader;
 
+        if (!OptionBase::dont_collect_reads)
+            reader.Open(new_bam_name.c_str());
+        else
+            reader.Open(bam_filename.c_str());
 
-        reader.Open(new_bam_name.c_str());
         INFO("Creating index file...");
         reader.CreateIndex(BamTools::BamIndex::STANDARD);
         mate_reader.Open(new_bam_name.c_str());
@@ -334,7 +339,7 @@ public:
             r.OpenIndex((new_bam_name + ".bai").c_str());
         }
 
-        #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
+#pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
         for (int i = 0; i < reference_windows.size(); ++i) {
             ProcessWindow(reference_windows[i], readers[omp_get_thread_num()], mate_readers[omp_get_thread_num()]);
             INFO(i << " " << omp_get_thread_num());
@@ -370,7 +375,7 @@ private:
             phmap::container_internal::hash_default_hash<std::string>,
             phmap::container_internal::hash_default_eq<std::string>,
             phmap::container_internal::Allocator<
-            phmap::container_internal::Pair<const std::string, std::vector<Sequence>>>,
+                    phmap::container_internal::Pair<const std::string, std::vector<Sequence>>>,
             4, phmap::NullMutex> map_of_bad_reads_;
 
     phmap::parallel_flat_hash_map<std::string, std::vector<std::pair<Sequence, Sequence>>,
@@ -520,7 +525,7 @@ private:
         }
         reader.SetRegion(region);
         std::string temp_dir = OptionBase::output_folder + "/" +
-                const_cast<std::unordered_map<int, std::string>&>(refid_to_ref_name_).at(region.RightRefID) + "_" + std::to_string(region.LeftPosition) + "_" + std::to_string(region.RightPosition);
+                               const_cast<std::unordered_map<int, std::string>&>(refid_to_ref_name_).at(region.RightRefID) + "_" + std::to_string(region.LeftPosition) + "_" + std::to_string(region.RightPosition);
         fs::make_dir(temp_dir);
         io::OPairedReadStream<std::ofstream, io::FastqWriter> out_stream(temp_dir + "/R1.fastq", temp_dir + "/R2.fastq");
         io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
@@ -574,17 +579,17 @@ private:
         for (auto p : filtered_reads) {
             if (p.second.size() == 1) {
                 //if (alignment.MateRefID == -1) {
-                    have_singles = true;
-                    OutputSingleRead(p.second[0], single_out_stream);
+                have_singles = true;
+                OutputSingleRead(p.second[0], single_out_stream);
                 //}
                 //else {
                 //   if (p.second[0].RefID == p.second[0].MateRefID && abs((int)p.second[0].Position - (int)p.second[0].MatePosition) < 500) {
-                 //       OutputSingleRead(p.second[0], single_out_stream);
-                 //       continue;
-                 //   }
-                  //  if (!OutputPairedRead(p.second[0], out_stream, mate_reader))
-                  //      OutputSingleRead(p.second[0], single_out_stream);
-               // }
+                //       OutputSingleRead(p.second[0], single_out_stream);
+                //       continue;
+                //   }
+                //  if (!OutputPairedRead(p.second[0], out_stream, mate_reader))
+                //      OutputSingleRead(p.second[0], single_out_stream);
+                // }
             }
             if (p.second.size() == 2) {
                 io::SingleRead first = CreateRead(p.second[0]);
@@ -632,7 +637,7 @@ private:
     template<class T>
     void WriteCritical(std::vector<T> &v, const T& t) {
         INFO(t.ToString());
-        #pragma omp critical
+#pragma omp critical
         {
             v.push_back(t);
         }
@@ -646,7 +651,7 @@ private:
     io::PairedRead CreatePairedReadFromSeq(const Sequence &seq, const Sequence &seq2) {
         uniq_number++;
         return io::PairedRead(io::SingleRead(std::to_string(uniq_number), seq.str(), std::string(seq.size(), 'J')),
-                io::SingleRead(std::to_string(uniq_number), seq2.str(), std::string(seq2.size(), 'J')), 0);
+                              io::SingleRead(std::to_string(uniq_number), seq2.str(), std::string(seq2.size(), 'J')), 0);
     }
 
 
