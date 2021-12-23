@@ -140,7 +140,7 @@ class BlackBirdLauncher {
     }
 
 
-    void test_minimap(std::string reference, std::string contig) {
+    void test_minimap(const std::string &reference, const std::string &contig) {
         io::FastaFastqGzParser reference_reader(reference);
         io::SingleRead reference_contig;
         reference_reader >> reference_contig;
@@ -167,10 +167,8 @@ public:
         INFO("Starting Blackbird");
 
 
-
         //test_minimap("/Users/dima/PycharmProjects/blackbird_supplementary/genome_new.fa", "/Users/dima/PycharmProjects/blackbird_supplementary/genome_inversions.fa");
         //return 0;
-
 
 
         int max_treads = omp_get_max_threads();
@@ -205,6 +203,7 @@ public:
         BamTools::BamAlignment alignment;
 
         if (OptionBase::dont_collect_reads) {
+            INFO("Start filtering reads with bad AM tag...");
             BamTools::BamWriter writer;
             writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
             long long total = 0;
@@ -224,14 +223,17 @@ public:
         BamTools::BamReader reader;
         BamTools::BamReader mate_reader;
 
-        if (!OptionBase::dont_collect_reads)
+        if (!OptionBase::dont_collect_reads) {
             reader.Open(new_bam_name.c_str());
-        else
+            mate_reader.Open(new_bam_name.c_str());
+            INFO("Creating index file...");
+            reader.CreateIndex(BamTools::BamIndex::STANDARD);
+        }
+        else {
             reader.Open(bam_filename.c_str());
+            mate_reader.Open(bam_filename.c_str());
+        }
 
-        INFO("Creating index file...");
-        reader.CreateIndex(BamTools::BamIndex::STANDARD);
-        mate_reader.Open(new_bam_name.c_str());
 
         auto ref_data = reader.GetReferenceData();
 
