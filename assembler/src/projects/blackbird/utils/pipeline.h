@@ -202,7 +202,7 @@ public:
         preliminary_reader.Open(OptionBase::bam.c_str());
         BamTools::BamAlignment alignment;
 
-        if (OptionBase::dont_collect_reads) {
+        if (!OptionBase::dont_collect_reads) {
             INFO("Start filtering reads with bad AM tag...");
             BamTools::BamWriter writer;
             writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
