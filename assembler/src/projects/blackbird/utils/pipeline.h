@@ -155,7 +155,7 @@ public:
     int Launch() {
         srand(113018);
         utils::perf_counter pc;
-        std::string log_filename = OptionBase::output_folder + "/blackdird.log";
+        std::string log_filename = "blackdird.log";
 
         fs::make_dir(OptionBase::output_folder);
 
@@ -232,6 +232,7 @@ public:
         else {
             reader.Open(bam_filename.c_str());
             mate_reader.Open(bam_filename.c_str());
+            new_bam_name = bam_filename;
         }
 
 
