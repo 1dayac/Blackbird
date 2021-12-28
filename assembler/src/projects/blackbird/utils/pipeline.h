@@ -24,15 +24,11 @@
 #include "common/utils/parallel/openmp_wrapper.h"
 #include "common/utils/memory_limit.hpp"
 #include "svs.h"
-void create_console_logger(const std::string& dir, std::string log_prop_fn) {
+void create_console_logger() {
     using namespace logging;
 
-    if (!fs::FileExists(log_prop_fn))
-        log_prop_fn = fs::append_path(dir, log_prop_fn);
-
-    logger *lg = create_logger(fs::FileExists(log_prop_fn) ? log_prop_fn : "");
+    logger *lg = create_logger("");
     lg->add_writer(std::make_shared<console_writer>());
-    //lg->add_writer(std::make_shared<mutex_writer>(std::make_shared<console_writer>()));
     attach_logger(lg);
 }
 
@@ -135,7 +131,7 @@ class BlackBirdLauncher {
                 }
             }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
         }
-        Inversion inv(ref_name, start_pos + r->rs, start_pos + query_start, inversion_seq);
+        Inversion inv(ref_name, start_pos + r->rs, start_pos + query_start, inversion_seq, inversion_seq.back());
         WriteCritical(vector_of_inv_, inv);
     }
 
@@ -163,7 +159,7 @@ public:
         writer_small_ = VCFWriter(OptionBase::output_folder + "/out.vcf");
         writer_inversion_ = VCFWriter(OptionBase::output_folder + "/out_inversions.vcf");
 
-        create_console_logger(OptionBase::output_folder, log_filename);
+        create_console_logger();
         INFO("Starting Blackbird");
 
 
@@ -760,7 +756,7 @@ private:
                             reference_start += (r->p->cigar[i]>>4);
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
-                            Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4));
+                            Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4), reference[reference_start]);
                             std::string ins_seq = query.substr(query_start, r->p->cigar[i]>>4);
                             if (ins_seq.find("N") == std::string::npos && qsize > 5000 && NoID(r, i)) {
                                 if (ins.Size() >= 50) {
@@ -772,7 +768,7 @@ private:
                             query_start += (r->p->cigar[i]>>4);
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
-                            Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
+                            Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4), reference[reference_start]);
                             if (qsize > 5000 && NoID(r, i)) {
                                 if (del.Size() >= 50) {
                                     WriteCritical(vector_of_del_, del);
@@ -796,7 +792,7 @@ private:
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
 
-                            Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4));
+                            Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4), reference[reference_start]);
                             std::string ins_seq = ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4);
                             if (ins_seq.find("N") == std::string::npos && qsize > 5000 && NoID(r, i)) {
                                 if (ins.Size() >= 50) {
@@ -808,7 +804,7 @@ private:
                             query_start += (r->p->cigar[i]>>4);
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
-                            Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4));
+                            Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4), reference[reference_start]);
                             if (qsize > 5000 && NoID(r, i)) {
                                 if (del.Size() >= 50) {
                                     WriteCritical(vector_of_del_, del);
@@ -989,7 +985,6 @@ private:
 
 };
 
-int BlackBirdLauncher::uniq_number = 1;
 int BlackBirdLauncher::jumps = 0;
 
 #endif //BLACKBIRD_PIPELINE_H

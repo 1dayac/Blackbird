@@ -2,7 +2,7 @@
 // Created by Dima on 7/24/19.
 //
 
-//#include "pipeline.h"
+#include "pipeline.h"
 
 
-//int BlackBirdLauncher::uniq_number = 1;
+int BlackBirdLauncher::uniq_number = 1;
