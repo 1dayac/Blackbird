@@ -7,13 +7,15 @@
 
 
 class Inversion {
+    static int call_id;
 public:
-    Inversion(const std::string &chrom, int ref_position, int second_ref_position, const std::string &inversion_seq)
-            : chrom_(chrom), ref_position_(ref_position), inversion_seq_(inversion_seq), second_ref_position_(second_ref_position) {    }
+    Inversion(const std::string &chrom, int ref_position, int second_ref_position, const std::string &inversion_seq, char alt)
+            : chrom_(chrom), ref_position_(ref_position), inversion_seq_(inversion_seq), second_ref_position_(second_ref_position), alt_(alt) {    }
     std::string chrom_;
     int ref_position_;
     int second_ref_position_;
     std::string inversion_seq_;
+    char alt_;
 
     int Size() const {
         return second_ref_position_ - ref_position_;
@@ -41,18 +43,19 @@ public:
     }
 
     std::string ToString() const {
-        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<INV>\tPASS\t"  + "SEQ=" + inversion_seq_ + ";SVLEN=" + std::to_string(inversion_seq_.length()) + ";SVTYPE=INV;ENDPOS=" + std::to_string(second_ref_position_);
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\tcall_inv_" + std::to_string(call_id) + "\t<INV>\tPASS\t"  + "SEQ=" + inversion_seq_ + ";SVLEN=" + std::to_string(inversion_seq_.length()) + ";SVTYPE=INV;ENDPOS=" + std::to_string(second_ref_position_);
     }
 
 };
 
 class Deletion {
+    static int call_id;
 public:
-    Deletion(const std::string &chrom, int ref_position, int second_ref_position, const std::string &deletion_seq)
-            : chrom_(chrom), ref_position_(ref_position), deletion_seq_(deletion_seq), second_ref_position_(second_ref_position) {    }
+    Deletion(const std::string &chrom, int ref_position, int second_ref_position, const std::string &deletion_seq, char alt)
+            : chrom_(chrom), ref_position_(ref_position), deletion_seq_(deletion_seq), second_ref_position_(second_ref_position), alt_(alt) {    }
 
     std::string ToString() const {
-        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<DEL>\tPASS\t"  + "SEQ=" + deletion_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_) + ";SVTYPE=DEL";
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\tcall_del_" + std::to_string(call_id) + "\t" + alt_ + "\t<DEL>\tPASS\t"  + "SEQ=" + deletion_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_) + ";SVTYPE=DEL";
     }
 
     bool HasN() const {
@@ -88,15 +91,18 @@ public:
     int ref_position_;
     int second_ref_position_;
     std::string deletion_seq_;
+    char alt_;
 };
 
 class Insertion {
+    static int call_id;
 public:
-    Insertion(const std::string &chrom, int ref_position, const std::string &insertion_seq)
-            : chrom_(chrom), ref_position_(ref_position), insertion_seq_(insertion_seq) {}
+    Insertion(const std::string &chrom, int ref_position, const std::string &insertion_seq, char alt)
+            : chrom_(chrom), ref_position_(ref_position), insertion_seq_(insertion_seq), alt_(alt) {}
 
     std::string ToString() const {
-        return chrom_ + "\t" +  std::to_string(ref_position_) + "\t<INS>\tPASS\t"  + "SEQ=" + insertion_seq_ + ";SVLEN=" + std::to_string(insertion_seq_.size())  + ";SVTYPE=INS";
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\tcall_ins_" + std::to_string(call_id) + "\t" + alt_ + "\t<INS>\tPASS\t"  + "SEQ=" + insertion_seq_ + ";SVLEN=" + std::to_string(insertion_seq_.size())  + ";SVTYPE=INS";
+        call_id++;
     }
 
     int Size() const {
@@ -127,6 +133,10 @@ public:
     std::string chrom_;
     int ref_position_;
     std::string insertion_seq_;
+    char alt_;
 };
 
+int Insertion::call_id = 1;
+int Deletion::call_id = 1;
+int Inversion::call_id = 1;
 #endif //BLACKBIRD_SVS_H
