@@ -4,7 +4,7 @@
 
 #ifndef BLACKBIRD_SVS_H
 #define BLACKBIRD_SVS_H
-
+#include <string>
 
 class Inversion {
     static int call_id;
