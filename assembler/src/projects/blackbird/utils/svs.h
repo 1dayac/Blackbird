@@ -136,7 +136,5 @@ public:
     char alt_;
 };
 
-int Insertion::call_id = 1;
-int Deletion::call_id = 1;
-int Inversion::call_id = 1;
+
 #endif //BLACKBIRD_SVS_H
