@@ -7,7 +7,6 @@
 #include <fstream>
 #include <sstream>
 #include "utils/pipeline.h"
-#include "utils/options.h"
 #define AUTHOR "Dmitry Meleshko <dmm2017@med.cornell.edu>"
 
 #define VERSION "0.0.1"
