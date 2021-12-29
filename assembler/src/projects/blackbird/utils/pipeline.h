@@ -200,10 +200,12 @@ public:
 
         if (!OptionBase::dont_collect_reads) {
             INFO("Start filtering reads with bad AM tag...");
+
             BamTools::BamWriter writer;
             writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
             long long total = 0;
             while (preliminary_reader.GetNextAlignment(alignment)) {
+                break;
                 int tag = 5;
 
                 bool res = alignment.GetTag("AM", tag);
@@ -221,6 +223,7 @@ public:
 
         if (!OptionBase::dont_collect_reads) {
             reader.Open(new_bam_name.c_str());
+            INFO(new_bam_name);
             mate_reader.Open(new_bam_name.c_str());
             INFO("Creating index file...");
             reader.CreateIndex(BamTools::BamIndex::STANDARD);
