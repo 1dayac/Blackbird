@@ -1,9 +1,8 @@
 //
 // Created by Dima on 7/23/19.
 //
+#pragma once
 
-#ifndef BLACKBIRD_PIPELINE_H
-#define BLACKBIRD_PIPELINE_H
 #include<algorithm>
 #include <list>
 #include <cassert>
@@ -24,6 +23,13 @@
 #include "common/utils/parallel/openmp_wrapper.h"
 #include "common/utils/memory_limit.hpp"
 #include "svs.h"
+void create_console_logger() {
+    using namespace logging;
+
+    logger *lg = create_logger("");
+    lg->add_writer(std::make_shared<console_writer>());
+    attach_logger(lg);
+}
 
 
 
@@ -978,7 +984,7 @@ private:
 
 };
 
-int BlackBirdLauncher::jumps = 0;
+
 
 #endif //BLACKBIRD_PIPELINE_H
 
