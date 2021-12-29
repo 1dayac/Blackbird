@@ -24,13 +24,6 @@
 #include "common/utils/parallel/openmp_wrapper.h"
 #include "common/utils/memory_limit.hpp"
 #include "svs.h"
-void create_console_logger() {
-    using namespace logging;
-
-    logger *lg = create_logger("");
-    lg->add_writer(std::make_shared<console_writer>());
-    attach_logger(lg);
-}
 
 
 
