@@ -6,3 +6,4 @@
 
 
 int BlackBirdLauncher::uniq_number = 1;
+int BlackBirdLauncher::jumps = 0;
