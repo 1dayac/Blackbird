@@ -23,12 +23,16 @@
 #include "common/utils/parallel/openmp_wrapper.h"
 #include "common/utils/memory_limit.hpp"
 #include "svs.h"
+
+namespace blackbird {
+
 void create_console_logger() {
     using namespace logging;
 
     logger *lg = create_logger("");
     lg->add_writer(std::make_shared<console_writer>());
     attach_logger(lg);
+}
 }
 
 
@@ -158,7 +162,7 @@ public:
         writer_small_ = VCFWriter(OptionBase::output_folder + "/out.vcf");
         writer_inversion_ = VCFWriter(OptionBase::output_folder + "/out_inversions.vcf");
 
-        create_console_logger();
+        blackbird::create_console_logger();
         INFO("Starting Blackbird");
 
 
@@ -986,5 +990,4 @@ private:
 
 
 
-#endif //BLACKBIRD_PIPELINE_H
 
