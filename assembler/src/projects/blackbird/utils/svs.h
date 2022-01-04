@@ -44,7 +44,7 @@ public:
 
     std::string ToString() const {
         call_id++;
-        return chrom_ + "\t" +  std::to_string(ref_position_ + 1) + "\tcall_inv_" + std::to_string(call_id) + "\t<INV>\t100\tPASS\t"  + "SEQ=" + inversion_seq_ + ";SVLEN=" + std::to_string(inversion_seq_.length()) + ";SVTYPE=INV;ENDPOS=" + std::to_string(second_ref_position_ + 1) +"\tGT\t./.";
+        return chrom_ + "\t" +  std::to_string(ref_position_ + 1) + "\tcall_inv_" + std::to_string(call_id) + "\t<INV>\t100\tPASS\t"  + "SEQ=" + inversion_seq_ + ";SVLEN=" + std::to_string(inversion_seq_.length()) + ";SVTYPE=INV;END=" + std::to_string(second_ref_position_ + 1) +"\tGT\t./.";
     }
 
 };
@@ -57,7 +57,7 @@ public:
 
     std::string ToString() const {
         call_id++;
-        return chrom_ + "\t" +  std::to_string(ref_position_ + 1) + "\tcall_del_" + std::to_string(call_id) + "\t" + alt_ + "\t<DEL>\t100\tPASS\t"  + "SEQ=" + deletion_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_) + ";SVTYPE=DEL" + "\tGT\t./.";
+        return chrom_ + "\t" +  std::to_string(ref_position_ + 1) + "\tcall_del_" + std::to_string(call_id) + "\t" + alt_ + "\t<DEL>\t100\tPASS\t"  + "SEQ=" + deletion_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_) + ";SVTYPE=DEL;END=" + std::to_string(second_ref_position_ + 1) + "\tGT\t./.";
     }
 
     bool HasN() const {
@@ -104,7 +104,7 @@ public:
 
     std::string ToString() const {
         call_id++;
-        return chrom_ + "\t" +  std::to_string(ref_position_ + 1) + "\tcall_ins_" + std::to_string(call_id) + "\t" + alt_ + "\t<INS>\t100\tPASS\t"  + "SEQ=" + insertion_seq_ + ";SVLEN=" + std::to_string(insertion_seq_.size())  + ";SVTYPE=INS" +"\tGT\t./.";
+        return chrom_ + "\t" +  std::to_string(ref_position_ + 1) + "\tcall_ins_" + std::to_string(call_id) + "\t" + alt_ + "\t<INS>\t100\tPASS\t"  + "SEQ=" + insertion_seq_ + ";SVLEN=" + std::to_string(insertion_seq_.size())  + ";SVTYPE=INS;END=" + std::to_string(ref_position_+ 1) +"\tGT\t./.";
     }
 
     int Size() const {
