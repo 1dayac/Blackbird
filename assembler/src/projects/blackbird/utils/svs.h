@@ -43,7 +43,7 @@ public:
     }
 
     std::string ToString() const {
-        return chrom_ + "\t" +  std::to_string(ref_position_) + "\tcall_inv_" + std::to_string(call_id) + "\t<INV>\t100\tPASS\t"  + "SEQ=" + inversion_seq_ + ";SVLEN=" + std::to_string(inversion_seq_.length()) + ";SVTYPE=INV;ENDPOS=" + std::to_string(second_ref_position_);
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\tcall_inv_" + std::to_string(call_id) + "\t<INV>\t100\tPASS\t"  + "SEQ=" + inversion_seq_ + ";SVLEN=" + std::to_string(inversion_seq_.length()) + ";SVTYPE=INV;ENDPOS=" + std::to_string(second_ref_position_) +"\tGT\t./.";
     }
 
 };
@@ -55,7 +55,7 @@ public:
             : chrom_(chrom), ref_position_(ref_position), deletion_seq_(deletion_seq), second_ref_position_(second_ref_position), alt_(alt) {    }
 
     std::string ToString() const {
-        return chrom_ + "\t" +  std::to_string(ref_position_) + "\tcall_del_" + std::to_string(call_id) + "\t" + alt_ + "\t<DEL>\t100\tPASS\t"  + "SEQ=" + deletion_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_) + ";SVTYPE=DEL";
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\tcall_del_" + std::to_string(call_id) + "\t" + alt_ + "\t<DEL>\t100\tPASS\t"  + "SEQ=" + deletion_seq_ + ";SVLEN=" + std::to_string(second_ref_position_ - ref_position_) + ";SVTYPE=DEL" + "\tGT\t./.";
     }
 
     bool HasN() const {
@@ -101,7 +101,7 @@ public:
             : chrom_(chrom), ref_position_(ref_position), insertion_seq_(insertion_seq), alt_(alt) {}
 
     std::string ToString() const {
-        return chrom_ + "\t" +  std::to_string(ref_position_) + "\tcall_ins_" + std::to_string(call_id) + "\t" + alt_ + "\t<INS>\t100\tPASS\t"  + "SEQ=" + insertion_seq_ + ";SVLEN=" + std::to_string(insertion_seq_.size())  + ";SVTYPE=INS";
+        return chrom_ + "\t" +  std::to_string(ref_position_) + "\tcall_ins_" + std::to_string(call_id) + "\t" + alt_ + "\t<INS>\t100\tPASS\t"  + "SEQ=" + insertion_seq_ + ";SVLEN=" + std::to_string(insertion_seq_.size())  + ";SVTYPE=INS" +"\tGT\t./.";
         call_id++;
     }
 
