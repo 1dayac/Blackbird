@@ -77,6 +77,7 @@ public:
         file_ << "##INFO=<ID=SVTYPE,Number=1,Type=String,Description=\"Type of variant, either DEL, INV, or INS\">" << std::endl;
         file_ << "##INFO=<ID=SVLEN,Number=1,Type=Integer,Description=\"Difference in length between REF and ALT alleles\">" << std::endl;
         file_ << "##INFO=<ID=END,Number=1,Type=Integer,Description=\"End position of the variant described in this record\">" << std::endl;
+        file_ << "##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\"" << std::endl;
         file_ << "#CHROM" << "\t" << "POS" << "\t" << "ID" << "\t" << "REF" << "\t" << "ALT" << "\t" << "QUAL" << "\t" << "FILTER" << "\t" << "INFO" << "\t" << "FORMAT" << "\t" << "SAMPLE1"<< std::endl;
 
     }
