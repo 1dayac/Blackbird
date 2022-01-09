@@ -15,6 +15,7 @@
 #include "common/io/reads/osequencestream.hpp"
 #include "parallel_hashmap/phmap.h"
 #include "parallel_hashmap/phmap_fwd_decl.h"
+#include "common/assembly_graph/paths/mapping_path.hpp"
 
 #include <minimap2/minimap.h>
 #include <bamtools/api/BamWriter.h>
@@ -167,8 +168,8 @@ public:
         INFO("Starting Blackbird");
 
 
-        //test_minimap("/Users/dima/Desktop/debug_blackbird/subref.fasta", "/Users/dima/Desktop/debug_blackbird/scaffolds.fasta");
-        //return 0;
+        test_minimap("/Users/dima/Desktop/debug_blackbird/subref.fasta", "/Users/dima/Desktop/debug_blackbird/scaffolds.fasta");
+        return 0;
 
 
         int max_treads = omp_get_max_threads();
@@ -726,7 +727,7 @@ private:
         io::FastaFastqGzParser contig_reader(path_to_scaffolds);
         io::SingleRead contig;
         std::set<std::pair<int, int>> found_reference_intervals;
-        std::set<std::pair<int, int>> found_query_intervals;
+        std::set<omnigraph::MappingRange> found_query_intervals;
 
         int max_hits = 0;
         int contig_num = 0;
@@ -773,7 +774,7 @@ private:
                             int temp = (int)(reference_start + int(r->p->cigar[i]>>4));
                             int some_stuff = (r->p->cigar[i])>>4;
                             found_reference_intervals.insert({std::min(reference_start, (int)(reference_start + ((r->p->cigar[i]) >> 4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i] >> 4)))});
-                            found_query_intervals.insert({std::min(query_start, (int)(query_start + ((r->p->cigar[i]) >> 4))), std::max(query_start, (int)(query_start + (r->p->cigar[i] >> 4)))});
+                            found_query_intervals.insert(omnigraph::MappingRange(reference_start, (int)(reference_start + ((r->p->cigar[i]) >> 4)), query_start, query_start + (r->p->cigar[i]>>4)));
                             query_start += (r->p->cigar[i]>>4);
                             reference_start += (r->p->cigar[i]>>4);
                         }
@@ -787,7 +788,7 @@ private:
                                     WriteCritical(vector_of_small_ins_, ins);
                                 }
                             }
-                            found_query_intervals.insert({std::min(query_start, (int)(query_start + ((r->p->cigar[i]) >> 4))), std::max(query_start, (int)(query_start + (r->p->cigar[i] >> 4)))});
+                            found_query_intervals.insert(omnigraph::MappingRange(reference_start, (int)(reference_start + ((r->p->cigar[i]) >> 4)), query_start, query_start + (r->p->cigar[i]>>4)));
 
                             query_start += (r->p->cigar[i]>>4);
                         }
@@ -811,7 +812,7 @@ private:
                         printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
                             found_reference_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i] >> 4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i] >> 4)))});
-                            found_query_intervals.insert({std::min(query_start, (int)(query_start + ((r->p->cigar[i]) >> 4))), std::max(query_start, (int)(query_start + (r->p->cigar[i] >> 4)))});
+                            found_query_intervals.insert(omnigraph::MappingRange(reference_start, (int)(reference_start + ((r->p->cigar[i]) >> 4)), query_start, query_start + (r->p->cigar[i]>>4)));
                             query_start += (r->p->cigar[i]>>4);
                             reference_start += (r->p->cigar[i]>>4);
                         }
@@ -826,7 +827,7 @@ private:
                                     WriteCritical(vector_of_small_ins_, ins);
                                 }
                             }
-                            found_query_intervals.insert({std::min(query_start, (int)(query_start + ((r->p->cigar[i]) >> 4))), std::max(query_start, (int)(query_start + (r->p->cigar[i] >> 4)))});
+                            found_query_intervals.insert(omnigraph::MappingRange(reference_start, (int)(reference_start + ((r->p->cigar[i]) >> 4)), query_start, query_start + (r->p->cigar[i]>>4)));
                             query_start += (r->p->cigar[i]>>4);
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
@@ -874,25 +875,25 @@ private:
                 merged_intervals.push_back(p);
             }
             merged_intervals.clear();
-
+            std::vector<omnigraph::MappingRange> merged_ranges;
             for (auto p : found_query_intervals) {
-                if (!merged_intervals.size()) {
-                    merged_intervals.push_back(p);
+                if (!merged_ranges.size()) {
+                    merged_ranges.push_back(p);
                     continue;
                 }
 
-                auto last_interval = merged_intervals.back();
+                auto last_interval = merged_ranges.back();
 
-                //if (p.first > last_interval.second + 50) {
-                //    if (!is_hit_revcomp[0]) {
-                //        Insertion ins(ref_name, start_pos + last_interval.second, start_pos + p.first, reference.substr(last_interval.second, p.first - last_interval.second), reference[last_interval.second]);
-                //        WriteCritical(vector_of_ins_, ins);
-                //    } else {
-                //        Insertion ins(ref_name, start_pos + last_interval.second, start_pos + p.first, reference.substr(last_interval.second, p.first - last_interval.second), reference[last_interval.second]);
-                //        WriteCritical(vector_of_ins_, ins);
-                //    }
-                //}
-                merged_intervals.push_back(p);
+                if (p.mapped_range.start_pos > last_interval.mapped_range.end_pos + 50) {
+                    if (!is_hit_revcomp[0]) {
+                        Insertion ins(ref_name, start_pos + last_interval.initial_range.end_pos, reference.substr(last_interval.mapped_range.end_pos, p.mapped_range.start_pos - last_interval.mapped_range.end_pos), reference[last_interval.initial_range.end_pos]);
+                        WriteCritical(vector_of_ins_, ins);
+                    } else {
+                        Insertion ins(ref_name, start_pos + last_interval.initial_range.end_pos, ReverseComplement(reference).substr(last_interval.mapped_range.end_pos, p.mapped_range.start_pos - last_interval.mapped_range.end_pos), reference[last_interval.initial_range.end_pos]);
+                        WriteCritical(vector_of_ins_, ins);
+                    }
+                }
+                merged_ranges.push_back(p);
             }
 
 
