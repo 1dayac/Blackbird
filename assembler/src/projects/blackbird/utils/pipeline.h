@@ -167,7 +167,7 @@ public:
         INFO("Starting Blackbird");
 
 
-        //test_minimap("/Users/dima/PycharmProjects/blackbird_supplementary/genome_new.fa", "/Users/dima/PycharmProjects/blackbird_supplementary/genome_inversions.fa");
+        //test_minimap("/Users/dima/Desktop/debug_blackbird/subref.fasta", "/Users/dima/Desktop/debug_blackbird/scaffolds.fasta");
         //return 0;
 
 
@@ -712,20 +712,29 @@ private:
         return true;
     }
 
+    bool CheckAllSame(const std::vector<bool> &v)
+    {
+        if (v.size() == 0)
+            return false;
+        return std::all_of(v.begin(), v.end(), [v](int x){ return x==v[0]; });
+    }
+
     int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
         mm_idx_t *index = mm_idx_str(25, 25, 0, 14, 1, reference_array, NULL);
-        io::FastaFastqGzParser reference_reader(path_to_scaffolds);
+        io::FastaFastqGzParser contig_reader(path_to_scaffolds);
         io::SingleRead contig;
-        std::set<std::pair<int, int>> found_intervals;
+        std::set<std::pair<int, int>> found_reference_intervals;
+        std::set<std::pair<int, int>> found_query_intervals;
+
         int max_hits = 0;
         int contig_num = 0;
-        while (!reference_reader.eof()) {
+        while (!contig_reader.eof()) {
             contig_num++;
             if (contig_num == 5)
                 break;
-            reference_reader >> contig;
+            contig_reader >> contig;
             std::string query = contig.GetSequenceString();
             size_t qsize = query.size();
             if (qsize <= 5000)
@@ -741,12 +750,17 @@ private:
             mopt.zdrop = 500;
             mopt.zdrop_inv = 10;
             mopt.flag |= MM_F_CIGAR;
+            mopt.flag |=  MM_F_NO_LJOIN;
+            mopt.bw = 85;
+            mopt.bw_long = 85;
             mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             max_hits = std::max(max_hits, number_of_hits);
+            std::vector<bool> is_hit_revcomp;
             for (int k = 0; k < number_of_hits; ++k) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[k];
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
+                is_hit_revcomp.push_back(r->rev);
                 if (r->inv) {
                     ProcessInversion(r, query, ref_name, start_pos);
                 }
@@ -758,7 +772,8 @@ private:
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
                             int temp = (int)(reference_start + int(r->p->cigar[i]>>4));
                             int some_stuff = (r->p->cigar[i])>>4;
-                            found_intervals.insert({std::min(reference_start, (int)(reference_start + ((r->p->cigar[i])>>4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
+                            found_reference_intervals.insert({std::min(reference_start, (int)(reference_start + ((r->p->cigar[i]) >> 4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i] >> 4)))});
+                            found_query_intervals.insert({std::min(query_start, (int)(query_start + ((r->p->cigar[i]) >> 4))), std::max(query_start, (int)(query_start + (r->p->cigar[i] >> 4)))});
                             query_start += (r->p->cigar[i]>>4);
                             reference_start += (r->p->cigar[i]>>4);
                         }
@@ -772,6 +787,8 @@ private:
                                     WriteCritical(vector_of_small_ins_, ins);
                                 }
                             }
+                            found_query_intervals.insert({std::min(query_start, (int)(query_start + ((r->p->cigar[i]) >> 4))), std::max(query_start, (int)(query_start + (r->p->cigar[i] >> 4)))});
+
                             query_start += (r->p->cigar[i]>>4);
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
@@ -783,7 +800,7 @@ private:
                                     WriteCritical(vector_of_small_del_, del);
                                 }
                             }
-                            found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i]>>4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
+                            found_reference_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i] >> 4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i] >> 4)))});
                             reference_start += (r->p->cigar[i]>>4);
                         }
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
@@ -793,8 +810,9 @@ private:
                     for (int i = 0; i < r->p->n_cigar; ++i) {
                         printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
+                            found_reference_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i] >> 4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i] >> 4)))});
+                            found_query_intervals.insert({std::min(query_start, (int)(query_start + ((r->p->cigar[i]) >> 4))), std::max(query_start, (int)(query_start + (r->p->cigar[i] >> 4)))});
                             query_start += (r->p->cigar[i]>>4);
-                            found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i]>>4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
                             reference_start += (r->p->cigar[i]>>4);
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
@@ -808,6 +826,7 @@ private:
                                     WriteCritical(vector_of_small_ins_, ins);
                                 }
                             }
+                            found_query_intervals.insert({std::min(query_start, (int)(query_start + ((r->p->cigar[i]) >> 4))), std::max(query_start, (int)(query_start + (r->p->cigar[i] >> 4)))});
                             query_start += (r->p->cigar[i]>>4);
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
@@ -819,7 +838,7 @@ private:
                                     WriteCritical(vector_of_small_del_, del);
                                 }
                             }
-                            found_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i]>>4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i]>>4)))});
+                            found_reference_intervals.insert({std::min(reference_start, (int)(reference_start + (r->p->cigar[i] >> 4))), std::max(reference_start, (int)(reference_start + (r->p->cigar[i] >> 4)))});
                             reference_start += (r->p->cigar[i]>>4);
                         }
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
@@ -830,21 +849,56 @@ private:
 
             free(hit_array);
             mm_tbuf_destroy(tbuf);
-        }
-        std::vector<std::pair<int, int>> merged_intervals;
-        for (auto p : found_intervals) {
-            if (!merged_intervals.size()) {
-                merged_intervals.push_back(p);
+
+            if (!CheckAllSame(is_hit_revcomp)) {
                 continue;
             }
-            auto last_interval = merged_intervals.back();
-            if (p.first > last_interval.second) {
+            std::vector<std::pair<int, int>> merged_intervals;
+            for (auto p : found_reference_intervals) {
+                if (!merged_intervals.size()) {
+                    merged_intervals.push_back(p);
+                    continue;
+                }
+
+                auto last_interval = merged_intervals.back();
+
+                if (p.first > last_interval.second + 50) {
+                    if (!is_hit_revcomp[0]) {
+                        Deletion del(ref_name, start_pos + last_interval.second, start_pos + p.first, reference.substr(last_interval.second, p.first - last_interval.second), reference[last_interval.second]);
+                        WriteCritical(vector_of_del_, del);
+                    } else {
+                        Deletion del(ref_name, start_pos + last_interval.second, start_pos + p.first, reference.substr(last_interval.second, p.first - last_interval.second), reference[last_interval.second]);
+                        WriteCritical(vector_of_del_, del);
+                    }
+                }
                 merged_intervals.push_back(p);
-                continue;
             }
-            if (p.second > last_interval.second) {
-                merged_intervals[merged_intervals.size() - 1] = {last_interval.first, p.second};
+            merged_intervals.clear();
+
+            for (auto p : found_query_intervals) {
+                if (!merged_intervals.size()) {
+                    merged_intervals.push_back(p);
+                    continue;
+                }
+
+                auto last_interval = merged_intervals.back();
+
+                //if (p.first > last_interval.second + 50) {
+                //    if (!is_hit_revcomp[0]) {
+                //        Insertion ins(ref_name, start_pos + last_interval.second, start_pos + p.first, reference.substr(last_interval.second, p.first - last_interval.second), reference[last_interval.second]);
+                //        WriteCritical(vector_of_ins_, ins);
+                //    } else {
+                //        Insertion ins(ref_name, start_pos + last_interval.second, start_pos + p.first, reference.substr(last_interval.second, p.first - last_interval.second), reference[last_interval.second]);
+                //        WriteCritical(vector_of_ins_, ins);
+                //    }
+                //}
+                merged_intervals.push_back(p);
             }
+
+
+            found_query_intervals.clear();
+            found_reference_intervals.clear();
+
         }
         mm_idx_destroy(index);
         return max_hits;
