@@ -752,8 +752,8 @@ private:
             mopt.zdrop_inv = 10;
             mopt.flag |= MM_F_CIGAR;
             mopt.flag |=  MM_F_NO_LJOIN;
-            mopt.bw = 85;
-            mopt.bw_long = 85;
+//            mopt.bw = 85;
+//            mopt.bw_long = 85;
             mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             max_hits = std::max(max_hits, number_of_hits);
