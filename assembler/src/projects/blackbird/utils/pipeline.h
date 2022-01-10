@@ -168,8 +168,8 @@ public:
         INFO("Starting Blackbird");
 
 
-        test_minimap("/Users/dima/Desktop/debug_blackbird/subref.fasta", "/Users/dima/Desktop/debug_blackbird/scaffolds.fasta");
-        return 0;
+        //test_minimap("/Users/dima/Desktop/debug_blackbird/subref.fasta", "/Users/dima/Desktop/debug_blackbird/scaffolds.fasta");
+        //return 0;
 
 
         int max_treads = omp_get_max_threads();
