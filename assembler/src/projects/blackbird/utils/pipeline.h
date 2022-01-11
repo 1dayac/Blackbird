@@ -750,15 +750,16 @@ private:
 
             mopt.zdrop = 500;
             mopt.zdrop_inv = 10;
-            mopt.b = 5;
-            mopt.q = 4;
-            mopt.q2 = 16;
-            mopt.best_n = 1;
+            //mopt.b = 5;
+            //mopt.q = 4;
+            //mopt.q2 = 16;
+            //mopt.best_n = 1;
             mopt.flag |= MM_F_CIGAR;
             mopt.flag |=  MM_F_NO_LJOIN;
-            mopt.bw = 85;
+            mopt.flag |= MM_F_SPLICE;
+            //mopt.bw = 85;
             mopt.max_gap = 15000;
-//            mopt.bw_long = 85;
+//          mopt.bw_long = 85;
             mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             max_hits = std::max(max_hits, number_of_hits);
