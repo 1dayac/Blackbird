@@ -750,9 +750,14 @@ private:
 
             mopt.zdrop = 500;
             mopt.zdrop_inv = 10;
+            mopt.b = 5;
+            mopt.q = 4;
+            mopt.q2 = 16;
+            mopt.best_n = 1;
             mopt.flag |= MM_F_CIGAR;
             mopt.flag |=  MM_F_NO_LJOIN;
-//            mopt.bw = 85;
+            mopt.bw = 85;
+            mopt.max_gap = 15000;
 //            mopt.bw_long = 85;
             mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
@@ -851,7 +856,10 @@ private:
             free(hit_array);
             mm_tbuf_destroy(tbuf);
 
+            is_hit_revcomp.clear();
             if (!CheckAllSame(is_hit_revcomp)) {
+                found_query_intervals.clear();
+                found_reference_intervals.clear();
                 continue;
             }
             std::vector<std::pair<int, int>> merged_intervals;
