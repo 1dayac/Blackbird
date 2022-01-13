@@ -884,6 +884,7 @@ private:
                 merged_intervals.push_back(p);
             }
             merged_intervals.clear();
+            /*
             std::vector<omnigraph::MappingRange> merged_ranges;
             for (auto p : found_query_intervals) {
                 if (!merged_ranges.size()) {
@@ -904,7 +905,7 @@ private:
                 }
                 merged_ranges.push_back(p);
             }
-
+            */
 
             found_query_intervals.clear();
             found_reference_intervals.clear();
