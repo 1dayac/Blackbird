@@ -168,8 +168,8 @@ public:
         INFO("Starting Blackbird");
 
 
-        //test_minimap("/Users/dima/Desktop/debug_blackbird/subref.fasta", "/Users/dima/Desktop/debug_blackbird/scaffolds.fasta");
-        //return 0;
+        test_minimap("/home/dmm2017/Desktop/debug_blackbird/subref.fasta", "/home/dmm2017/Desktop/debug_blackbird/scaffolds.fasta");
+        return 0;
 
 
         int max_treads = omp_get_max_threads();
@@ -766,6 +766,8 @@ private:
             std::vector<bool> is_hit_revcomp;
             for (int k = 0; k < number_of_hits; ++k) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[k];
+                if (r->score < 5000)
+                    continue;
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 is_hit_revcomp.push_back(r->rev);
                 if (r->inv) {
