@@ -215,6 +215,7 @@ public:
                         phmap::container_internal::Pair<const std::string, std::pair<Sequence, std::string>>>,
                 4, phmap::NullMutex> map_of_bad_second_reads_;
 
+
         if (!OptionBase::dont_collect_reads) {
             INFO("Start filtering reads with bad AM tag...");
 
@@ -268,6 +269,7 @@ public:
         }
 
         if (!OptionBase::dont_collect_reads) {
+
 
             size_t alignment_count = 0;
             size_t alignments_stored = 0;
