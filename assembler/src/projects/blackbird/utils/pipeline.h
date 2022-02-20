@@ -202,6 +202,18 @@ public:
         BamTools::BamReader preliminary_reader;
         preliminary_reader.Open(OptionBase::bam.c_str());
         BamTools::BamAlignment alignment;
+        phmap::parallel_flat_hash_map<std::string, std::pair<Sequence, std::string>,
+                phmap::container_internal::hash_default_hash<std::string>,
+                phmap::container_internal::hash_default_eq<std::string>,
+                phmap::container_internal::Allocator<
+                        phmap::container_internal::Pair<const std::string, std::pair<Sequence, std::string>>>,
+                4, phmap::NullMutex> map_of_bad_first_reads_;
+        phmap::parallel_flat_hash_map<std::string, std::pair<Sequence, std::string>,
+                phmap::container_internal::hash_default_hash<std::string>,
+                phmap::container_internal::hash_default_eq<std::string>,
+                phmap::container_internal::Allocator<
+                        phmap::container_internal::Pair<const std::string, std::pair<Sequence, std::string>>>,
+                4, phmap::NullMutex> map_of_bad_second_reads_;
 
         if (!OptionBase::dont_collect_reads) {
             INFO("Start filtering reads with bad AM tag...");
@@ -216,6 +228,15 @@ public:
                 bool res = alignment.GetTag("AM", tag);
                 if (tag - '0' == 0) {
                     total++;
+                    std::string bx;
+                    alignment.GetTag("BX", bx);
+                    if (bx == "") {
+                        continue;
+                    }
+                    if (alignment.IsFirstMate())
+                        map_of_bad_first_reads_[alignment.Name] = {Sequence(alignment.QueryBases), bx};
+                    else
+                        map_of_bad_second_reads_[alignment.Name] = {Sequence(alignment.QueryBases), bx};
                     continue;
                 }
                 writer.SaveAlignment(alignment);
@@ -247,18 +268,6 @@ public:
         }
 
         if (!OptionBase::dont_collect_reads) {
-            phmap::parallel_flat_hash_map<std::string, std::pair<Sequence, std::string>,
-                    phmap::container_internal::hash_default_hash<std::string>,
-                    phmap::container_internal::hash_default_eq<std::string>,
-                    phmap::container_internal::Allocator<
-                            phmap::container_internal::Pair<const std::string, std::pair<Sequence, std::string>>>,
-                    4, phmap::NullMutex> map_of_bad_first_reads_;
-            phmap::parallel_flat_hash_map<std::string, std::pair<Sequence, std::string>,
-                    phmap::container_internal::hash_default_hash<std::string>,
-                    phmap::container_internal::hash_default_eq<std::string>,
-                    phmap::container_internal::Allocator<
-                            phmap::container_internal::Pair<const std::string, std::pair<Sequence, std::string>>>,
-                    4, phmap::NullMutex> map_of_bad_second_reads_;
 
             size_t alignment_count = 0;
             size_t alignments_stored = 0;
