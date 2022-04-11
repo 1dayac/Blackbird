@@ -160,6 +160,8 @@ public:
 
         fs::make_dir(OptionBase::output_folder);
 
+
+
         writer_ = VCFWriter(OptionBase::output_folder + "/out_50.vcf");
         writer_small_ = VCFWriter(OptionBase::output_folder + "/out.vcf");
         writer_inversion_ = VCFWriter(OptionBase::output_folder + "/out_inversions.vcf");
@@ -180,10 +182,15 @@ public:
             OptionBase::threads = max_treads;
         }
 
+
+
         INFO("Number of threads being used - " << OptionBase::threads);
 
         INFO("Memory limit  " << (1.0 * (double) utils::get_memory_limit() / 1024 / 1024 / 1024) << " Gb");
         INFO("Free memory - " << utils::get_free_memory());
+        if (OptionBase::use_long_reads)
+            INFO("Running in hybrid (linked read + long read) mode");
+        
         INFO("Uploading reference genome");
         utils::limit_memory(utils::get_memory_limit() * 2);
         INFO("Memory limit  " << (1.0 * (double) utils::get_memory_limit() / 1024 / 1024 / 1024) << " Gb");
