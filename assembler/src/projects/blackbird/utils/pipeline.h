@@ -1,5 +1,5 @@
 //
-// Created by Dima on 7/23/19.
+// Created by Dmitry Meleshko on 7/23/19.
 //
 #pragma once
 
@@ -36,6 +36,12 @@ static void create_console_logger() {
 
 
 
+typedef phmap::parallel_flat_hash_map<std::string, std::pair<Sequence, std::string>,
+        phmap::container_internal::hash_default_hash<std::string>,
+        phmap::container_internal::hash_default_eq<std::string>,
+        phmap::container_internal::Allocator<
+                phmap::container_internal::Pair<const std::string, std::pair<Sequence, std::string>>>,
+        4, phmap::NullMutex> ReadMap;
 
 struct RefWindow {
 
@@ -50,7 +56,7 @@ struct RefWindow {
             , WindowEnd(windowEnd)
     { }
 
-    std::string ToString() {
+    std::string ToString() const {
         std::string out = RefName.RefName + " " + std::to_string(WindowStart) + " " + std::to_string(WindowEnd);
         return out;
     }
@@ -59,7 +65,7 @@ struct RefWindow {
 class VCFWriter {
     std::ofstream file_;
 public:
-    VCFWriter() { }
+    VCFWriter() = default;
 
     VCFWriter(const std::string &filename)
     {
@@ -150,13 +156,12 @@ class BlackBirdLauncher {
 
 
 public:
-    BlackBirdLauncher ()
-    {}
+    BlackBirdLauncher () = default;
 
     int Launch() {
         srand(113018);
         utils::perf_counter pc;
-        std::string log_filename = "blackdird.log";
+        std::string log_filename = "blackbird.log";
 
         fs::make_dir(OptionBase::output_folder);
 
@@ -190,7 +195,7 @@ public:
         INFO("Free memory - " << utils::get_free_memory());
         if (OptionBase::use_long_reads)
             INFO("Running in hybrid (linked read + long read) mode");
-        
+
         INFO("Uploading reference genome");
         utils::limit_memory(utils::get_memory_limit() * 2);
         INFO("Memory limit  " << (1.0 * (double) utils::get_memory_limit() / 1024 / 1024 / 1024) << " Gb");
@@ -198,29 +203,22 @@ public:
         io::SingleRead chrom;
         while (!reference_reader.eof()) {
             reference_reader >> chrom;
-            std::string name = chrom.name().find(" ") == std::string::npos ? chrom.name() : chrom.name().substr(0, chrom.name().find(" "));
+            std::string name = chrom.name().find(' ') == std::string::npos ? chrom.name() : chrom.name().substr(0, chrom.name().find(' '));
             INFO("Adding " << name << " to the map");
             reference_map_[name] = chrom.GetSequenceString();
         }
 
-        std::string bam_filename = OptionBase::bam.find_last_of("/") == std::string::npos ? OptionBase::bam : OptionBase::bam.substr(OptionBase::bam.find_last_of("/") + 1);
+        std::string bam_filename = OptionBase::bam.find_last_of('/') == std::string::npos ? OptionBase::bam : OptionBase::bam.substr(OptionBase::bam.find_last_of('/') + 1);
         std::string new_bam_name = OptionBase::output_folder + "/" + bam_filename.substr(0, bam_filename.length() - 4).c_str() + "filtered.bam";
 
         BamTools::BamReader preliminary_reader;
         preliminary_reader.Open(OptionBase::bam.c_str());
+
+
         BamTools::BamAlignment alignment;
-        phmap::parallel_flat_hash_map<std::string, std::pair<Sequence, std::string>,
-                phmap::container_internal::hash_default_hash<std::string>,
-                phmap::container_internal::hash_default_eq<std::string>,
-                phmap::container_internal::Allocator<
-                        phmap::container_internal::Pair<const std::string, std::pair<Sequence, std::string>>>,
-                4, phmap::NullMutex> map_of_bad_first_reads_;
-        phmap::parallel_flat_hash_map<std::string, std::pair<Sequence, std::string>,
-                phmap::container_internal::hash_default_hash<std::string>,
-                phmap::container_internal::hash_default_eq<std::string>,
-                phmap::container_internal::Allocator<
-                        phmap::container_internal::Pair<const std::string, std::pair<Sequence, std::string>>>,
-                4, phmap::NullMutex> map_of_bad_second_reads_;
+        ReadMap map_of_bad_first_reads_;
+        ReadMap map_of_bad_second_reads_;
+
 
 
         if (!OptionBase::dont_collect_reads) {
@@ -252,6 +250,17 @@ public:
             writer.Close();
             INFO(total << " reads filtered.");
         }
+
+        if (OptionBase::use_long_reads) {
+            io::FastaFastqGzParser long_read_parser(OptionBase::long_read_fastq);
+            io::SingleRead long_read;
+            while (long_read_parser.eof()) {
+                long_read_parser >> long_read;
+                map_of_long_reads_[long_read.name()] = {long_read.sequence(), ""};
+            }
+        }
+
+
         BamTools::BamReader reader;
         BamTools::BamReader mate_reader;
 
@@ -271,7 +280,7 @@ public:
 
         auto ref_data = reader.GetReferenceData();
 
-        for (auto reference : ref_data) {
+        for (auto& reference : ref_data) {
             refid_to_ref_name_[reader.GetReferenceID(reference.RefName)] = reference.RefName;
         }
 
@@ -349,6 +358,8 @@ public:
 
         std::vector<BamTools::BamReader> readers(OptionBase::threads);
         std::vector<BamTools::BamReader> mate_readers(OptionBase::threads);
+        std::vector<BamTools::BamReader> long_read_readers(OptionBase::threads);
+
         for (auto &r : readers) {
             r.Open(new_bam_name.c_str());
             if (r.OpenIndex((new_bam_name + ".bai").c_str())) {
@@ -364,9 +375,17 @@ public:
             r.OpenIndex((new_bam_name + ".bai").c_str());
         }
 
+        if (OptionBase::use_long_reads) {
+            for (auto &r : long_read_readers) {
+                r.Open(OptionBase::long_read_bam.c_str());
+                r.OpenIndex((OptionBase::long_read_bam + ".bai").c_str());
+            }
+        }
+
+
 #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
         for (int i = 0; i < reference_windows.size(); ++i) {
-            ProcessWindow(reference_windows[i], readers[omp_get_thread_num()], mate_readers[omp_get_thread_num()]);
+            ProcessWindow(reference_windows[i], readers[omp_get_thread_num()], mate_readers[omp_get_thread_num()], long_read_readers[omp_get_thread_num()]);
             INFO(i << " " << omp_get_thread_num());
         }
 
@@ -409,6 +428,8 @@ private:
             phmap::container_internal::Allocator<
                     phmap::container_internal::Pair<const std::string, std::vector<std::pair<Sequence, Sequence>>>>,
             4, phmap::NullMutex> map_of_bad_read_pairs_;
+
+    ReadMap map_of_long_reads_;
 
     VCFWriter writer_;
     VCFWriter writer_small_;
@@ -511,7 +532,7 @@ private:
         INFO(number_of_windows << " totally created.");
     }
 
-    void ProcessWindow(const RefWindow &window,  BamTools::BamReader &reader, BamTools::BamReader &mate_reader) {
+    void ProcessWindow(const RefWindow &window,  BamTools::BamReader &reader, BamTools::BamReader &mate_reader, BamTools::BamReader &long_read_reader) {
         INFO("Processing " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ")");
         BamTools::BamRegion region(reader.GetReferenceID(window.RefName.RefName), window.WindowStart, reader.GetReferenceID(window.RefName.RefName), window.WindowEnd);
         BamTools::BamRegion extended_region(reader.GetReferenceID(window.RefName.RefName), std::max(0, (int)window.WindowStart - 1000), reader.GetReferenceID(window.RefName.RefName), window.WindowEnd + 1000);
@@ -526,6 +547,13 @@ private:
 
         auto const& const_refid_to_ref_name = refid_to_ref_name_;
 
+        std::unordered_set<std::string> long_read_names;
+        if (OptionBase::use_long_reads) {
+            long_read_reader.SetRegion(region);
+            while(long_read_reader.GetNextAlignment(alignment)) {
+                long_read_names.insert(alignment.Name);
+            }
+        }
 
         const int threshold = 4;
         const int number_of_barcodes_to_assemble = 3500;
@@ -555,6 +583,13 @@ private:
         io::OPairedReadStream<std::ofstream, io::FastqWriter> out_stream(temp_dir + "/R1.fastq", temp_dir + "/R2.fastq");
         io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
 
+        if (OptionBase::use_long_reads) {
+            io::OReadStream<std::ofstream, io::FastqWriter> long_read_stream(temp_dir + "/long_reads.fastq");
+            for (auto name : long_read_names) {
+                io::SingleRead l(name, map_of_long_reads_[name].first.str());
+                long_read_stream <<  l;
+            }
+        }
 
         std::unordered_map<std::string, std::vector<BamTools::BamAlignment>> filtered_reads;
 
@@ -648,9 +683,15 @@ private:
             }
         }
 
+
+
+
         std::string spades_command = OptionBase::path_to_spades + " --only-assembler --sc -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
         if (!have_singles)
             spades_command = OptionBase::path_to_spades + " --only-assembler --sc -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq -o  " + temp_dir + "/assembly >/dev/null";
+        if (OptionBase::use_long_reads) {
+            spades_command += " --pacbio " + temp_dir + "/long_reads.fastq";
+        }
         std::system(spades_command.c_str());
         auto const& const_reference_map = reference_map_;
         std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);

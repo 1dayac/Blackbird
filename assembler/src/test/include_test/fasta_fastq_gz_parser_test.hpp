@@ -5,7 +5,7 @@
 //* See file LICENSE for details.
 //***************************************************************************
 
-#ifndef TEST_FASTAFASTQGZPARSERTEST_HPP_
+#ifndef TEST_FASTAPARSERTEST_HPP_
 #define TEST_FASTAFASTQGZPARSERTEST_HPP_
 
 #include "cute/cute.h"
