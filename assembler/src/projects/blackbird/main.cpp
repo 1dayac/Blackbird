@@ -13,7 +13,7 @@
 
 static const char *BLACKBIRD_USAGE_MESSAGE =
         "------------------------------------------------------------\n"
-                "-------- Blackbird - 10X indel detection by assembly -------\n"
+                "-------- Blackbird - linked read and long read insertion/deletion detection using local assembly -------\n"
                 "------------------------------------------------------------\n"
                 "Program: Blackbird \n"
                 "Version: " VERSION "\n"
@@ -21,6 +21,8 @@ static const char *BLACKBIRD_USAGE_MESSAGE =
                 "Usage: blackbird [options]\n\n"
                 "Options:\n"
                 "           bam          b      Position-sorted and indexed bam-file with BX tags\n"
+                "           long-bam     l      Position-sorted and indexed long read file (optional, should be paired with long-read option)\n"
+                "           long-read    m      FASTQ-file with long reads (optional, should be paired with long-bam option)\n"
                 "           rerefence    r      BWA-indexed reference genome.\n"
                 "           output       o      Folder where results will be stored.\n"
                 "           spades       s      Path to spades.py (not needed if spades.py is in path).\n"
@@ -33,9 +35,11 @@ static const char *BLACKBIRD_USAGE_MESSAGE =
 
 
 
-static const char* shortopts = "b:s:r:o:g:t:hvnd";
+static const char* shortopts = "b:s:r:o:g:t:l:m:hvnd";
 static const struct option longopts[] = {
         {"bam",        required_argument, 0, 'b' },
+        {"long-bam",   optional_argument, 0, 'l' },
+        {"long-read",  optional_argument,0, 'm' },
         {"reference",  required_argument, 0, 'r' },
         {"regions",    optional_argument, 0, 'g' },
         {"output",     required_argument, 0, 'o' },
@@ -59,6 +63,8 @@ bool getOptions(int argc, char **argv) {
             case 'd' : OptionBase::keep_assembly_folders = true; break;
             case 'r' : arg >> OptionBase::reference; break;
             case 'g' : arg >> OptionBase::region_file; break;
+            case 'l' : arg >> OptionBase::long_read_bam; OptionBase::use_long_reads = true; break;
+            case 'm' : arg >> OptionBase::long_read_fastq; break;
             case 't' : arg >> OptionBase::threads; break;
             case 'o' : arg >> OptionBase::output_folder; break;
             case 's' : arg >> OptionBase::path_to_spades; break;
@@ -71,6 +77,16 @@ bool getOptions(int argc, char **argv) {
     if (OptionBase::bam == "" || OptionBase::reference == "" || OptionBase::output_folder == "") {
         return 0;
     }
+
+    if (OptionBase::long_read_fastq != "" && OptionBase::long_read_bam == "") {
+        return 0;
+    }
+
+    if (OptionBase::long_read_fastq == "" && OptionBase::long_read_bam != "") {
+        return 0;
+    }
+
+
     return !help;
 }
 
