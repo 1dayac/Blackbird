@@ -210,6 +210,9 @@ public:
 
         std::string bam_filename = OptionBase::bam.find_last_of('/') == std::string::npos ? OptionBase::bam : OptionBase::bam.substr(OptionBase::bam.find_last_of('/') + 1);
         std::string new_bam_name = OptionBase::output_folder + "/" + bam_filename.substr(0, bam_filename.length() - 4).c_str() + "filtered.bam";
+        if (OptionBase::dont_collect_reads) {
+            new_bam_name = OptionBase::bam;
+        }
 
         BamTools::BamReader preliminary_reader;
         preliminary_reader.Open(OptionBase::bam.c_str());
@@ -254,7 +257,7 @@ public:
         if (OptionBase::use_long_reads) {
             io::FastaFastqGzParser long_read_parser(OptionBase::long_read_fastq);
             io::SingleRead long_read;
-            while (long_read_parser.eof()) {
+            while (!long_read_parser.eof()) {
                 long_read_parser >> long_read;
                 INFO(long_read.sequence());
                 map_of_long_reads_[long_read.name()] = {long_read.sequence(), ""};
