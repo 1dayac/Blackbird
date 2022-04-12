@@ -226,6 +226,33 @@ public:
 
         if (!OptionBase::dont_collect_reads) {
             INFO("Start filtering reads with bad AM tag...");
+            BamTools::BamReader temp_reader;
+            temp_reader.Open(OptionBase::bam);
+            auto ref_data = temp_reader.GetReferenceData();
+            std::vector<RefWindow> reference_windows;
+            CreateReferenceWindows(reference_windows, ref_data);
+            temp_reader.Close();
+
+
+            std::vector<BamTools::BamReader> filtering_readers(OptionBase::threads);
+            std::vector<ReadMap> readmaps(OptionBase::threads);
+
+            for (auto &r : filtering_readers) {
+                r.Open(OptionBase::bam.c_str());
+                if (r.OpenIndex((OptionBase::bam + ".bai").c_str())) {
+                    INFO("Index located at " << OptionBase::bam << ".bai");
+                } else {
+                    FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
+                }
+            }
+
+
+            #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
+            for (int i = 0; i < reference_windows.size(); ++i) {
+                FilterInWindow(reference_windows[i], filtering_readers[omp_get_thread_num()], readmaps[omp_get_thread_num()]);
+                INFO(i << " " << omp_get_thread_num());
+            }
+
 
             BamTools::BamWriter writer;
             writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
@@ -534,6 +561,10 @@ private:
             }
         }
         INFO(number_of_windows << " totally created.");
+    }
+
+    void FilterInWindow(const RefWindow &window, BamTools::BamReader &reader, ReadMap &readmap) {
+
     }
 
     void ProcessWindow(const RefWindow &window,  BamTools::BamReader &reader, BamTools::BamReader &mate_reader, BamTools::BamReader &long_read_reader) {
