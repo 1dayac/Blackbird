@@ -305,7 +305,7 @@ public:
         else {
             reader.Open(OptionBase::bam.c_str());
             mate_reader.Open(OptionBase::bam.c_str());
-            new_bam_name = bam_filename;
+            new_bam_name = OptionBase::bam;
         }
 
 
