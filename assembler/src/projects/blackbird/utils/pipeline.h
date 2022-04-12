@@ -256,6 +256,7 @@ public:
             io::SingleRead long_read;
             while (long_read_parser.eof()) {
                 long_read_parser >> long_read;
+                INFO(long_read.sequence());
                 map_of_long_reads_[long_read.name()] = {long_read.sequence(), ""};
             }
         }
