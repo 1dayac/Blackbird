@@ -231,12 +231,10 @@ public:
             temp_reader.Open(OptionBase::bam);
             auto ref_data = temp_reader.GetReferenceData();
             std::vector<RefWindow> reference_windows;
-            CreateReferenceWindows(reference_windows, ref_data);
+            CreateReferenceWindows(reference_windows, ref_data, 0);
             temp_reader.Close();
 
-
             std::vector<BamTools::BamReader> filtering_readers(OptionBase::threads);
-            std::vector<ReadMap> readmaps(OptionBase::threads);
 
             for (auto &r : filtering_readers) {
                 r.Open(OptionBase::bam.c_str());
@@ -250,11 +248,11 @@ public:
 
             #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
             for (int i = 0; i < reference_windows.size(); ++i) {
-                FilterInWindow(reference_windows[i], filtering_readers[omp_get_thread_num()], readmaps[omp_get_thread_num()]);
+                FilterInWindow(reference_windows[i], filtering_readers[omp_get_thread_num()]);
                 INFO(i << " " << omp_get_thread_num());
             }
-*/
 
+*/
 
             BamTools::BamWriter writer;
             writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
@@ -288,7 +286,7 @@ public:
             io::SingleRead long_read;
             while (!long_read_parser.eof()) {
                 long_read_parser >> long_read;
-                map_of_long_reads_[long_read.name()] = {long_read.sequence(), ""};
+                map_of_long_reads_[long_read.name()] = {long_read.sequence(), long_read.quality().str()};
             }
             INFO(map_of_long_reads_.size() << " long reads added to the memory");
         }
@@ -305,8 +303,8 @@ public:
             reader.CreateIndex(BamTools::BamIndex::STANDARD);
         }
         else {
-            reader.Open(bam_filename.c_str());
-            mate_reader.Open(bam_filename.c_str());
+            reader.Open(OptionBase::bam.c_str());
+            mate_reader.Open(OptionBase::bam.c_str());
             new_bam_name = bam_filename;
         }
 
@@ -387,7 +385,7 @@ public:
 
 
         std::vector<RefWindow> reference_windows;
-        CreateReferenceWindows(reference_windows, ref_data);
+        CreateReferenceWindows(reference_windows, ref_data, 10000);
 
         std::vector<BamTools::BamReader> readers(OptionBase::threads);
         std::vector<BamTools::BamReader> mate_readers(OptionBase::threads);
@@ -522,10 +520,9 @@ private:
     }
 
 
-    void CreateReferenceWindows(std::vector<RefWindow> &reference_windows, BamTools::RefVector& ref_data) {
+    void CreateReferenceWindows(std::vector<RefWindow> &reference_windows, BamTools::RefVector& ref_data, int overlap = 10000) {
         int number_of_windows = 0;
         int window_width = 50000;
-        int overlap = 10000;
         if (OptionBase::region_file == "") {
             for (auto reference : ref_data) {
                 //if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
@@ -565,7 +562,8 @@ private:
         INFO(number_of_windows << " totally created.");
     }
 
-    void FilterInWindow(const RefWindow &window, BamTools::BamReader &reader, ReadMap &readmap) {
+    void FilterInWindow(const RefWindow &window, BamTools::BamReader &reader) {
+
 
     }
 
@@ -623,7 +621,7 @@ private:
         if (OptionBase::use_long_reads) {
             io::OReadStream<std::ofstream, io::FastqWriter> long_read_stream(temp_dir + "/long_reads.fastq");
             for (auto name : long_read_names) {
-                io::SingleRead l(name, map_of_long_reads_[name].first.str());
+                io::SingleRead l(name, map_of_long_reads_[name].first.str(), map_of_long_reads_[name].second);
                 long_read_stream <<  l;
             }
         }
