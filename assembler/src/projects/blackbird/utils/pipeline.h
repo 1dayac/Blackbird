@@ -226,6 +226,7 @@ public:
 
         if (!OptionBase::dont_collect_reads) {
             INFO("Start filtering reads with bad AM tag...");
+/*
             BamTools::BamReader temp_reader;
             temp_reader.Open(OptionBase::bam);
             auto ref_data = temp_reader.GetReferenceData();
@@ -252,6 +253,7 @@ public:
                 FilterInWindow(reference_windows[i], filtering_readers[omp_get_thread_num()], readmaps[omp_get_thread_num()]);
                 INFO(i << " " << omp_get_thread_num());
             }
+*/
 
 
             BamTools::BamWriter writer;
@@ -584,7 +586,7 @@ private:
 
         std::unordered_set<std::string> long_read_names;
         if (OptionBase::use_long_reads) {
-            long_read_reader.SetRegion(region);
+            long_read_reader.SetRegion(extended_region);
             while(long_read_reader.GetNextAlignment(alignment)) {
                 long_read_names.insert(alignment.Name);
             }
