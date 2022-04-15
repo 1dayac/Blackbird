@@ -971,10 +971,10 @@ private:
                 if (p.first > last_interval.second + 50) {
                     if (!is_hit_revcomp[0]) {
                         Deletion del(ref_name, start_pos + last_interval.second, start_pos + p.first, reference.substr(last_interval.second, p.first - last_interval.second), reference[last_interval.second]);
-                        WriteCritical(vector_of_del_, del);
+//                        WriteCritical(vector_of_del_, del);
                     } else {
                         Deletion del(ref_name, start_pos + last_interval.second, start_pos + p.first, reference.substr(last_interval.second, p.first - last_interval.second), reference[last_interval.second]);
-                        WriteCritical(vector_of_del_, del);
+//                        WriteCritical(vector_of_del_, del);
                     }
                 }
                 merged_intervals.push_back(p);
