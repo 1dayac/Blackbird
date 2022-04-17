@@ -269,10 +269,16 @@ public:
                     if (bx == "") {
                         continue;
                     }
-                    if (alignment.IsFirstMate())
+                    if (alignment.IsFirstMate()) {
+                        INFO(alignment.Name);
+                        INFO(alignment.QueryBases);
                         map_of_bad_first_reads_[alignment.Name] = {Sequence(alignment.QueryBases), bx};
-                    else
+                    }
+                    else {
+                        INFO(alignment.Name);
+                        INFO(alignment.QueryBases);
                         map_of_bad_second_reads_[alignment.Name] = {Sequence(alignment.QueryBases), bx};
+                    }
                     continue;
                 }
                 writer.SaveAlignment(alignment);
