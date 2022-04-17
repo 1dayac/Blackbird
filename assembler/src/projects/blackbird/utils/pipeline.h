@@ -270,14 +270,18 @@ public:
                         continue;
                     }
                     if (alignment.IsFirstMate()) {
-                        INFO(alignment.Name);
-                        INFO(alignment.QueryBases);
-                        map_of_bad_first_reads_[alignment.Name] = {Sequence(alignment.QueryBases), bx};
+//                        INFO(alignment.Name);
+//                        INFO(alignment.QueryBases);
+                        std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
+                        if (!query.empty())
+                            map_of_bad_first_reads_[alignment.Name] = {Sequence(query), bx};
                     }
                     else {
-                        INFO(alignment.Name);
-                        INFO(alignment.QueryBases);
-                        map_of_bad_second_reads_[alignment.Name] = {Sequence(alignment.QueryBases), bx};
+ //                       INFO(alignment.Name);
+ //                       INFO(alignment.QueryBases);
+                        std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
+                        if (!query.empty())
+                            map_of_bad_second_reads_[alignment.Name] = {Sequence(query), bx};
                     }
                     continue;
                 }
@@ -346,10 +350,13 @@ public:
                         if (bx == "") {
                             continue;
                         }
+                        std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
+                        if (query.empty())
+                            continue;
                         if (alignment.IsFirstMate())
-                            map_of_bad_first_reads_[alignment.Name] = {Sequence(alignment.QueryBases), bx};
+                            map_of_bad_first_reads_[alignment.Name] = {Sequence(query), bx};
                         else
-                            map_of_bad_second_reads_[alignment.Name] = {Sequence(alignment.QueryBases), bx};
+                            map_of_bad_second_reads_[alignment.Name] = {Sequence(query), bx};
                         VERBOSE_POWER(++alignments_stored, " alignments stored");
                     }
                 }
