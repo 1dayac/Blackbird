@@ -43,6 +43,13 @@ typedef phmap::parallel_flat_hash_map<std::string, std::pair<Sequence, std::stri
                 phmap::container_internal::Pair<const std::string, std::pair<Sequence, std::string>>>,
         4, phmap::NullMutex> ReadMap;
 
+typedef phmap::parallel_flat_hash_map<std::string, Sequence,
+        phmap::container_internal::hash_default_hash<std::string>,
+        phmap::container_internal::hash_default_eq<std::string>,
+        phmap::container_internal::Allocator<
+                phmap::container_internal::Pair<const std::string, std::pair<Sequence, std::string>>>,
+        4, phmap::NullMutex> LongReadMap;
+
 struct RefWindow {
 
     BamTools::RefData RefName;    //!< name of reference sequence
@@ -296,7 +303,7 @@ public:
             io::SingleRead long_read;
             while (!long_read_parser.eof()) {
                 long_read_parser >> long_read;
-                map_of_long_reads_[long_read.name()] = {long_read.sequence(), long_read.quality().str()};
+                map_of_long_reads_[long_read.name()] = {long_read.sequence()};
             }
             INFO(map_of_long_reads_.size() << " long reads added to the memory");
         }
@@ -473,7 +480,7 @@ private:
                     phmap::container_internal::Pair<const std::string, std::vector<std::pair<Sequence, Sequence>>>>,
             4, phmap::NullMutex> map_of_bad_read_pairs_;
 
-    ReadMap map_of_long_reads_;
+    LongReadMap map_of_long_reads_;
 
     VCFWriter writer_;
     VCFWriter writer_small_;
@@ -634,7 +641,7 @@ private:
         if (OptionBase::use_long_reads) {
             io::OReadStream<std::ofstream, io::FastqWriter> long_read_stream(temp_dir + "/long_reads.fastq");
             for (auto name : long_read_names) {
-                io::SingleRead l(name, map_of_long_reads_[name].first.str(), map_of_long_reads_[name].second);
+                io::SingleRead l(name, map_of_long_reads_[name].str(), std::string(map_of_long_reads_[name].str().length(), 'K'));
                 long_read_stream <<  l;
             }
         }
