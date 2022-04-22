@@ -270,7 +270,6 @@ public:
 
                 bool res = alignment.GetTag("AM", tag);
                 if (tag - '0' == 0) {
-                    total++;
                     std::string bx;
                     alignment.GetTag("BX", bx);
                     if (bx == "") {
@@ -280,22 +279,26 @@ public:
 //                        INFO(alignment.Name);
 //                        INFO(alignment.QueryBases);
                         std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
-                        if (!query.empty())
+                        if (!query.empty()) {
                             map_of_bad_first_reads_[alignment.Name] = {Sequence(query), bx};
+                            VERBOSE_POWER(++total, " reads filtered");
+                        }
                     }
                     else {
  //                       INFO(alignment.Name);
  //                       INFO(alignment.QueryBases);
                         std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
-                        if (!query.empty())
+                        if (!query.empty()) {
                             map_of_bad_second_reads_[alignment.Name] = {Sequence(query), bx};
+                            VERBOSE_POWER(++total, " reads filtered");
+                        }
                     }
                     continue;
                 }
                 writer.SaveAlignment(alignment);
             }
             writer.Close();
-            INFO(total << " reads filtered.");
+            INFO(total << " reads filtered total.");
         }
 
         if (OptionBase::use_long_reads) {
