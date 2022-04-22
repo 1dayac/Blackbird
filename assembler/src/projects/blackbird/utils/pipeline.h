@@ -371,13 +371,6 @@ public:
             for (auto read : map_of_bad_first_reads_) {
                 if (map_of_bad_second_reads_.count(read.first)) {
                     map_of_bad_read_pairs_[read.second.second].push_back({read.second.first, map_of_bad_second_reads_[read.first].first});
-                } else {
-                    map_of_bad_reads_[read.second.second].push_back(read.second.first);
-                }
-            }
-            for (auto read : map_of_bad_first_reads_) {
-                if (map_of_bad_second_reads_.count(read.first)) {
-                    map_of_bad_read_pairs_[read.second.second].push_back({read.second.first, map_of_bad_second_reads_[read.first].first});
                     bad_read_pairs_stored++;
                 } else {
                     map_of_bad_reads_[read.second.second].push_back(read.second.first);
