@@ -182,8 +182,8 @@ public:
         INFO("Starting Blackbird");
 
 
-        //test_minimap("/home/dmm2017/Desktop/debug_blackbird/subref.fasta", "/home/dmm2017/Desktop/debug_blackbird/scaffolds.fasta");
-        //return 0;
+        test_minimap("/home/dmm2017/Desktop/debug_blackbird/subref.fasta", "/home/dmm2017/Desktop/debug_blackbird/contigs.fasta");
+        return 0;
 
 
         int max_treads = omp_get_max_threads();
@@ -867,8 +867,8 @@ private:
             mopt.flag |= MM_F_CIGAR;
 //            mopt.flag |=  MM_F_NO_LJOIN;
 //            mopt.flag |= MM_F_SPLICE;
-            //mopt.bw = 85;
-            mopt.max_gap = 15000;
+            mopt.bw = 85;
+//            mopt.max_gap = 15000;
 //          mopt.bw_long = 85;
             mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
