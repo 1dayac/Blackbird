@@ -865,7 +865,7 @@ private:
             mopt.q2 = 16;
             mopt.best_n = 1;
             mopt.flag |= MM_F_CIGAR;
-//            mopt.flag |=  MM_F_NO_LJOIN;
+            mopt.flag |=  MM_F_NO_LJOIN;
 //            mopt.flag |= MM_F_SPLICE;
             mopt.bw = 85;
 //            mopt.max_gap = 15000;
