@@ -24,6 +24,7 @@
 #include "common/utils/parallel/openmp_wrapper.h"
 #include "common/utils/memory_limit.hpp"
 #include "svs.h"
+#include "minimap_analyzer.h"
 
 static void create_console_logger() {
     using namespace logging;
@@ -856,7 +857,7 @@ private:
             mm_mapopt_t mopt;
 
             mm_set_opt(0, &iopt, &mopt);
-            mm_set_opt("asm5", &iopt, &mopt);
+            mm_set_opt("asm20", &iopt, &mopt);
 
             mopt.zdrop = 500;
             mopt.zdrop_inv = 10;
@@ -865,15 +866,16 @@ private:
             mopt.q2 = 16;
             mopt.best_n = 1;
             mopt.flag |= MM_F_CIGAR;
-            mopt.flag |=  MM_F_NO_LJOIN;
+//            mopt.flag |=  MM_F_NO_LJOIN;
 //            mopt.flag |= MM_F_SPLICE;
             mopt.bw = 85;
-//            mopt.max_gap = 15000;
+            mopt.max_gap = 15000;
 //          mopt.bw_long = 85;
             mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             max_hits = std::max(max_hits, number_of_hits);
             std::vector<bool> is_hit_revcomp;
+            std::vector<AlignBlock> all_blocks;
             for (int k = 0; k < number_of_hits; ++k) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[k];
                 if (r->score < 5000)
@@ -886,6 +888,29 @@ private:
                 else if (!r->rev) {
                     int query_start = r->qs;
                     int reference_start = r->rs;
+
+                    std::vector<std::pair<int, char>> cigar_vector;
+                    int query_end = query_start;
+                    int reference_end = reference_start;
+                    for (int i = 0; i < r->p->n_cigar; ++i) {
+                        char ch = "MIDNSH"[r->p->cigar[i]&0xf];
+                        int len = (r->p->cigar[i]>>4);
+
+                        if (ch == 'M' || ch == '=' || ch == 'X') {
+                            query_end += len;
+                            reference_end += len;
+                        }
+                        if (ch == 'D') {
+                            reference_end += len;
+                        }
+                        if (ch == 'I') {
+                            query_end += len;
+                        }
+
+                        cigar_vector.push_back({ch, len});
+                    }
+                    all_blocks.push_back(AlignBlock(reference_start, reference_end, query_start, query_end, cigar_vector));
+
                     for (int i = 0; i < r->p->n_cigar; ++i) {
                         printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
@@ -926,6 +951,31 @@ private:
                 } else {
                     int query_start = r->qs;
                     int reference_start = r->rs;
+
+
+                    std::vector<std::pair<int, char>> cigar_vector;
+                    int query_end = query_start;
+                    int reference_end = reference_start;
+                    for (int i = 0; i < r->p->n_cigar; ++i) {
+                        char ch = "MIDNSH"[r->p->cigar[i]&0xf];
+                        int len = (r->p->cigar[i]>>4);
+
+                        if (ch == 'M' || ch == '=' || ch == 'X') {
+                            query_end += len;
+                            reference_end += len;
+                        }
+                        if (ch == 'D') {
+                            reference_end += len;
+                        }
+                        if (ch == 'I') {
+                            query_end += len;
+                        }
+
+                        cigar_vector.push_back({ch, len});
+                    }
+                    all_blocks.push_back(AlignBlock(reference_start, reference_end, query_start, query_end, cigar_vector));
+
+
                     for (int i = 0; i < r->p->n_cigar; ++i) {
                         printf("%d%c", r->p->cigar[i]>>4, "MIDNSH"[r->p->cigar[i]&0xf]);
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'M') {
