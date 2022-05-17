@@ -183,8 +183,8 @@ public:
         INFO("Starting Blackbird");
 
 
-        test_minimap("/home/dmm2017/Desktop/debug_blackbird/chr1_152280000_152330000/subref.fasta", "/home/dmm2017/Desktop/debug_blackbird/chr1_152280000_152330000/contigs.fasta");
-        return 0;
+//        test_minimap("/home/dmm2017/Desktop/debug_blackbird/chr1_152280000_152330000/subref.fasta", "/home/dmm2017/Desktop/debug_blackbird/chr1_152280000_152330000/contigs.fasta");
+//        return 0;
 
 
         int max_treads = omp_get_max_threads();
@@ -861,9 +861,9 @@ private:
 
             mopt.zdrop = 500;
             mopt.zdrop_inv = 10;
-            mopt.b = 5;
-            mopt.q = 4;
-            mopt.q2 = 16;
+//            mopt.b = 5;
+//            mopt.q = 4;
+//            mopt.q2 = 16;
             mopt.best_n = 1;
             mopt.flag |= MM_F_CIGAR;
 //            mopt.flag |=  MM_F_NO_LJOIN;
