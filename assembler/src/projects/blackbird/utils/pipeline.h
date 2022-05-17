@@ -183,8 +183,8 @@ public:
         INFO("Starting Blackbird");
 
 
-//        test_minimap("/home/dmm2017/Desktop/debug_blackbird/subref.fasta", "/home/dmm2017/Desktop/debug_blackbird/contigs.fasta");
-//        return 0;
+        test_minimap("/home/dmm2017/Desktop/debug_blackbird/chr1_152280000_152330000/subref.fasta", "/home/dmm2017/Desktop/debug_blackbird/chr1_152280000_152330000/contigs.fasta");
+        return 0;
 
 
         int max_treads = omp_get_max_threads();
@@ -878,8 +878,6 @@ private:
             std::vector<AlignBlock> all_blocks;
             for (int k = 0; k < number_of_hits; ++k) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[k];
-                if (r->score < 5000)
-                    continue;
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 is_hit_revcomp.push_back(r->rev);
                 if (r->inv) {
@@ -888,7 +886,6 @@ private:
                 else if (!r->rev) {
                     int query_start = r->qs;
                     int reference_start = r->rs;
-
                     std::vector<std::pair<int, char>> cigar_vector;
                     int query_end = query_start;
                     int reference_end = reference_start;
