@@ -183,8 +183,8 @@ public:
         INFO("Starting Blackbird");
 
 
-        //test_minimap("/home/dmm2017/Desktop/debug_blackbird/chr1_247880000_247930000/subref.fasta", "/home/dmm2017/Desktop/debug_blackbird/chr1_247880000_247930000/contigs.fasta");
-        //return 0;
+//        test_minimap("/home/dmm2017/Desktop/debug_blackbird/chr1_145280000_145330000/subref.fasta", "/home/dmm2017/Desktop/debug_blackbird/chr1_145280000_145330000/contigs.fasta");
+//        return 0;
 
 
         int max_treads = omp_get_max_threads();
@@ -880,7 +880,7 @@ private:
             max_hits = std::max(max_hits, number_of_hits);
             std::vector<bool> is_hit_revcomp;
             std::vector<AlignBlock> all_blocks;
-            for (int k = 0; k < number_of_hits; ++k) { // traverse hits and print them out
+            for (int k = 0; k < std::min(1,number_of_hits); ++k) { // traverse hits and print them out
                 mm_reg1_t *r = &hit_array[k];
                 printf("%s\t%d\t%d\t%d\t%c\t", contig.name().c_str(), query.size(), r->qs, r->qe, "+-"[r->rev]);
                 is_hit_revcomp.push_back(r->rev);
