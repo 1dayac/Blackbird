@@ -183,8 +183,8 @@ public:
         INFO("Starting Blackbird");
 
 
-//        test_minimap("/home/dmm2017/Desktop/debug_blackbird/chr1_152280000_152330000/subref.fasta", "/home/dmm2017/Desktop/debug_blackbird/chr1_152280000_152330000/contigs.fasta");
-//        return 0;
+        //test_minimap("/home/dmm2017/Desktop/debug_blackbird/chr1_247880000_247930000/subref.fasta", "/home/dmm2017/Desktop/debug_blackbird/chr1_247880000_247930000/contigs.fasta");
+        //return 0;
 
 
         int max_treads = omp_get_max_threads();
@@ -831,6 +831,10 @@ private:
         return std::all_of(v.begin(), v.end(), [v](int x){ return x==v[0]; });
     }
 
+    void ImproveCigarString(std::vector<std::pair<int, char>> cigar_vector, mm_reg1_t *r) {
+
+    }
+
     int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
@@ -859,17 +863,17 @@ private:
             mm_set_opt(0, &iopt, &mopt);
             mm_set_opt("asm20", &iopt, &mopt);
 
-            mopt.zdrop = 500;
-            mopt.zdrop_inv = 10;
+//            mopt.zdrop = 500;
+//            mopt.zdrop_inv = 10;
 //            mopt.b = 5;
 //            mopt.q = 4;
 //            mopt.q2 = 16;
-            mopt.best_n = 1;
+//            mopt.best_n = 1;
             mopt.flag |= MM_F_CIGAR;
 //            mopt.flag |=  MM_F_NO_LJOIN;
 //            mopt.flag |= MM_F_SPLICE;
             mopt.bw = 85;
-            mopt.max_gap = 15000;
+//            mopt.max_gap = 15000;
 //          mopt.bw_long = 85;
             mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
@@ -887,6 +891,8 @@ private:
                     int query_start = r->qs;
                     int reference_start = r->rs;
                     std::vector<std::pair<int, char>> cigar_vector;
+
+
                     int query_end = query_start;
                     int reference_end = reference_start;
                     for (int i = 0; i < r->p->n_cigar; ++i) {
