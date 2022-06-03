@@ -767,9 +767,9 @@ private:
     }
 
     io::PairedRead CreatePairedReadFromSeq(const Sequence &seq, const Sequence &seq2) {
-        uniq_number++;
-        return io::PairedRead(io::SingleRead(std::to_string(uniq_number), seq.str(), std::string(seq.size(), 'J')),
-                              io::SingleRead(std::to_string(uniq_number), seq2.str(), std::string(seq2.size(), 'J')), 0);
+        int current_id = uniq_number++;
+        return io::PairedRead(io::SingleRead(std::to_string(current_id), seq.str(), std::string(seq.size(), 'J')),
+                              io::SingleRead(std::to_string(current_id), seq2.str(), std::string(seq2.size(), 'J')), 0);
     }
 
 
