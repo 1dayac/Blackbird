@@ -183,7 +183,7 @@ public:
         INFO("Starting Blackbird");
 
 
-//        test_minimap("/home/dmm2017/Desktop/debug_blackbird/chr1_145280000_145330000/subref.fasta", "/home/dmm2017/Desktop/debug_blackbird/chr1_145280000_145330000/contigs.fasta");
+//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_400000_450000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_400000_450000/contigs.fasta");
 //        return 0;
 
 
@@ -838,7 +838,7 @@ private:
     int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
-        mm_idx_t *index = mm_idx_str(25, 25, 0, 14, 1, reference_array, NULL);
+        mm_idx_t *index = mm_idx_str(10, 19, 0, 14, 1, reference_array, NULL);
         io::FastaFastqGzParser contig_reader(path_to_scaffolds);
         io::SingleRead contig;
         std::set<std::pair<int, int>> found_reference_intervals;
