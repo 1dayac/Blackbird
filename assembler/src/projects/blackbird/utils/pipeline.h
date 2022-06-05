@@ -266,7 +266,8 @@ public:
             writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
             long long total = 0;
             while (preliminary_reader.GetNextAlignment(alignment)) {
-
+                if (!alignment.IsPrimaryAlignment())
+                    continue;
                 int tag = 5;
 
                 bool res = alignment.GetTag("AM", tag);
