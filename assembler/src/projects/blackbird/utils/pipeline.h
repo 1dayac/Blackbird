@@ -738,9 +738,9 @@ private:
 
 
 
-        std::string spades_command = OptionBase::path_to_spades + " --only-assembler -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
+        std::string spades_command = OptionBase::path_to_spades + " --only-assembler -k 55 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
         if (!have_singles)
-            spades_command = OptionBase::path_to_spades + " --only-assembler -k 77 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq -o  " + temp_dir + "/assembly >/dev/null";
+            spades_command = OptionBase::path_to_spades + " --only-assembler -k 55 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq -o  " + temp_dir + "/assembly >/dev/null";
         if (OptionBase::use_long_reads) {
             spades_command += " --pacbio " + temp_dir + "/long_reads.fastq";
         }
