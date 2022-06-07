@@ -147,8 +147,8 @@ pacbio_processor
     internal_length_cutoff 200
 ;align and traverse.
     compression_cutoff 0.6
-    path_limit_stretching 1.3
-    path_limit_pressing 0.7
+    path_limit_stretching 1.1
+    path_limit_pressing 0.9
     max_path_in_dijkstra 15000
     max_vertex_in_dijkstra 2000
 ;gap_closer
