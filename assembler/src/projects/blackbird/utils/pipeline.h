@@ -78,6 +78,7 @@ public:
     VCFWriter(const std::string &filename)
     {
         file_ = std::ofstream(filename, std::ofstream::out);
+
     }
 
     void WriteHeader(const std::unordered_map<std::string, std::string> &reference_map) {
@@ -183,8 +184,8 @@ public:
         INFO("Starting Blackbird");
 
 
-//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_400000_450000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_400000_450000/contigs.fasta");
-//        return 0;
+        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_103720000_103770000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_103720000_103770000/    contigs.fasta");
+        return 0;
 
 
         int max_treads = omp_get_max_threads();
@@ -500,6 +501,11 @@ private:
         }
     }
 
+    template<typename T>
+    bool AlmostEqual(const T &sv1, const T &sv2) {
+        return sv1.Size() == sv2.Size() && sv1.chrom_ == sv2.chrom_ && abs(sv1.ref_position_ - sv2.ref_position_) < 10;
+    }
+
     void Print(const std::vector<Insertion> &vector_of_ins, const std::vector<Deletion> &vector_of_del, VCFWriter &writer) {
         int i = 0;
         int j = 0;
@@ -507,7 +513,7 @@ private:
             if (i == vector_of_ins.size()) {
                 writer.Write(vector_of_del[j]);
                 j++;
-                while(j != vector_of_del.size() && vector_of_del[j] == vector_of_del[j - 1]) {
+                while(j != vector_of_del.size() && AlmostEqual(vector_of_del[j], vector_of_del[j - 1])) {
                     ++j;
                 }
                 continue;
@@ -515,7 +521,7 @@ private:
             if (j == vector_of_del.size()) {
                 writer.Write(vector_of_ins[i]);
                 ++i;
-                while(i != vector_of_ins.size() && vector_of_ins[i] == vector_of_ins[i - 1]) {
+                while(i != vector_of_ins.size() && AlmostEqual(vector_of_ins[i], vector_of_ins[i - 1])) {
                     ++i;
                 }
                 continue;
@@ -524,18 +530,19 @@ private:
             if (vector_of_del[j] < vector_of_ins[i]) {
                 writer.Write(vector_of_del[j]);
                 j++;
-                while(j != vector_of_del.size() && vector_of_del[j] == vector_of_del[j - 1]) {
+                while(j != vector_of_del.size() && AlmostEqual(vector_of_del[j], vector_of_del[j - 1])) {
                     ++j;
                 }
             } else {
                 writer.Write(vector_of_ins[i]);
                 i++;
-                while(i != vector_of_ins.size() && vector_of_ins[i] == vector_of_ins[i - 1]) {
+                while(i != vector_of_ins.size() && AlmostEqual(vector_of_ins[i], vector_of_ins[i - 1])) {
                     ++i;
                 }
             }
         }
     }
+
 
 
     void CreateReferenceWindows(std::vector<RefWindow> &reference_windows, BamTools::RefVector& ref_data, int overlap = 10000) {
