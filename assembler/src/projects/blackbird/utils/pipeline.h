@@ -266,11 +266,11 @@ public:
             BamTools::BamWriter writer;
             writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
             long long total = 0;
-            while (preliminary_reader.GetNextAlignment(alignment)) {
+            while (preliminary_reader.GetNextAlignmentCore(alignment)) {
                 if (!alignment.IsPrimaryAlignment())
                     continue;
                 int tag = 5;
-
+                alignment.BuildCharData();
                 bool res = alignment.GetTag("AM", tag);
                 if (tag - '0' == 0) {
                     std::string bx;
@@ -617,8 +617,11 @@ private:
 
         const int threshold = 4;
         const int number_of_barcodes_to_assemble = 3500;
-        while(reader.GetNextAlignment(alignment)) {
-            if (alignment.IsPrimaryAlignment() && IsGoodAlignment(alignment)) {
+        while(reader.GetNextAlignmentCore(alignment)) {
+            if(!alignment.IsPrimaryAlignment())
+                continue;
+            alignment.BuildCharData();
+            if (IsGoodAlignment(alignment)) {
                 std::string bx = "";
                 alignment.GetTag("BX", bx);
                 if (bx == "") {
