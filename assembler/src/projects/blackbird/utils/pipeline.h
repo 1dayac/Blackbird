@@ -675,7 +675,7 @@ private:
             if (alignment.Position < region.RightPosition && alignment.Position > region.LeftPosition) {
                 if (!did_a_jump) {
                     did_a_jump = true;
-                    reader.Jump(reader.GetReferenceID(window.RefName.RefName), region.LeftPosition);
+                    reader.Jump(reader.GetReferenceID(window.RefName.RefName), region.RightPosition);
                 }
                 continue;
             }
