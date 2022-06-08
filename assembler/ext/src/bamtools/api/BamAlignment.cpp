@@ -189,7 +189,7 @@ bool BamAlignment::BuildCharData(void) {
 
     // if QueryBases has data, build AlignedBases using CIGAR data
     // otherwise, AlignedBases will remain empty (this case IS allowed)
-    if ( !QueryBases.empty() && QueryBases != "*" ) {
+    if (false && !QueryBases.empty() && QueryBases != "*" ) {
 
         // resize AlignedBases
         AlignedBases.reserve(SupportData.QuerySequenceLength);
