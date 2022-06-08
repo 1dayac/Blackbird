@@ -617,6 +617,7 @@ private:
 
         const int threshold = 4;
         const int number_of_barcodes_to_assemble = 3500;
+        std::map<std::string, std::vector<BamTools::BamAlignment>> barcode_to_alignment_map;
         while(reader.GetNextAlignmentCore(alignment)) {
             if(!alignment.IsPrimaryAlignment())
                 continue;
@@ -627,6 +628,7 @@ private:
                 if (bx == "") {
                     continue;
                 }
+                barcode_to_alignment_map[bx].push_back(alignment);
                 if (++barcodes_count[bx] > threshold) {
                     barcodes_count_over_threshold_prelim.insert(bx);
                 }
@@ -656,6 +658,16 @@ private:
 
         std::unordered_map<std::string, std::vector<BamTools::BamAlignment>> filtered_reads;
 
+        for (auto p : barcode_to_alignment_map) {
+            if (!barcodes_count_over_threshold.count(p.first))
+                continue;
+            for (const auto &alignment : p.second) {
+                filtered_reads[alignment.Name].push_back(alignment);
+            }
+        }
+        barcode_to_alignment_map.clear();
+/*
+
         while (reader.GetNextAlignment(alignment)) {
             if (alignment.Position > region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
                 break;
@@ -667,6 +679,7 @@ private:
             }
             filtered_reads[alignment.Name].push_back(alignment);
         }
+*/
 
         int count_add = 0;
         reader.SetRegion(extended_region);
