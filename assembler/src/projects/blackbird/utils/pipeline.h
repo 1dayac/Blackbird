@@ -667,12 +667,18 @@ private:
 
         int count_add = 0;
         reader.SetRegion(extended_region);
+        bool did_a_jump = false;
         while (reader.GetNextAlignmentCore(alignment)) {
             if (alignment.Position > extended_region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
                 break;
             }
-            if (alignment.Position < region.RightPosition && alignment.Position > region.LeftPosition)
+            if (alignment.Position < region.RightPosition && alignment.Position > region.LeftPosition) {
+                if (!did_a_jump) {
+                    did_a_jump = true;
+                    reader.Jump(reader.GetReferenceID(window.RefName.RefName), region.LeftPosition);
+                }
                 continue;
+            }
             alignment.BuildCharData();
             std::string bx = "";
             alignment.GetTag("BX", bx);
