@@ -269,15 +269,18 @@ public:
             while (preliminary_reader.GetNextAlignmentCore(alignment)) {
                 if (!alignment.IsPrimaryAlignment())
                     continue;
-                int tag = 5;
-                alignment.BuildCharData();
-                bool res = alignment.GetTag("AM", tag);
-                if (tag - '0' == 0) {
+
+                std::string am_tag;
+                alignment.GetTagCore("AM", am_tag);
+
+                if (am_tag == "0") {
                     std::string bx;
-                    alignment.GetTag("BX", bx);
+
+                    alignment.GetTagCore("BX", bx);
                     if (bx == "") {
                         continue;
                     }
+                    alignment.BuildCharData();
                     if (alignment.IsFirstMate()) {
 //                        INFO(alignment.Name);
 //                        INFO(alignment.QueryBases);
