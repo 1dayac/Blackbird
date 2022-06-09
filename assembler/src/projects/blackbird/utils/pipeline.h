@@ -698,12 +698,13 @@ private:
                 }
                 continue;
             }
-            alignment.BuildCharData();
             std::string bx = "";
-            alignment.GetTag("BX", bx);
+            alignment.GetTagCore("BX", bx);
+
             if (!barcodes_count_over_threshold.count(bx) || !alignment.IsPrimaryAlignment()) {
                 continue;
             }
+            alignment.BuildCharData();
             if (filtered_reads[alignment.Name].size() != 1)
                 continue;
 
