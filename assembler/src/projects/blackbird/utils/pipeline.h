@@ -624,17 +624,14 @@ private:
         while(reader.GetNextAlignmentCore(alignment)) {
             if(!alignment.IsPrimaryAlignment())
                 continue;
-            alignment.BuildCharData();
-            if (IsGoodAlignment(alignment)) {
-                std::string bx = "";
-                alignment.GetTag("BX", bx);
-                if (bx == "") {
-                    continue;
-                }
-                barcode_to_alignment_map[bx].push_back(alignment);
-                if (++barcodes_count[bx] > threshold) {
-                    barcodes_count_over_threshold_prelim.insert(bx);
-                }
+            std::string bx = "";
+            alignment.GetTagCore("BX", bx);
+            if (bx == "") {
+                continue;
+            }
+            barcode_to_alignment_map[bx].push_back(alignment);
+            if (++barcodes_count[bx] > threshold) {
+                barcodes_count_over_threshold_prelim.insert(bx);
             }
         }
         std::vector<std::string> barcodes_count_over_threshold_v(barcodes_count_over_threshold_prelim.begin(),
@@ -664,7 +661,8 @@ private:
         for (auto p : barcode_to_alignment_map) {
             if (!barcodes_count_over_threshold.count(p.first))
                 continue;
-            for (const auto &alignment : p.second) {
+            for (auto &alignment : p.second) {
+                alignment.BuildCharData();
                 filtered_reads[alignment.Name].push_back(alignment);
             }
         }
