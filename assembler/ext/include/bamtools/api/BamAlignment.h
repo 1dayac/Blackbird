@@ -78,6 +78,7 @@ struct API_EXPORT BamAlignment {
 
         // retrieves tag data
         template<typename T> bool GetTag(const std::string& tag, T& destination) const;
+        template<typename T> bool GetTagCore(const std::string& tag, T& destination) const;
         template<typename T> bool GetTag(const std::string& tag, std::vector<T>& destination) const;
 
         // retrieves all current tag names
@@ -413,6 +414,49 @@ inline bool BamAlignment::EditTag(const std::string& tag, const std::vector<T>& 
     \param destination[out] retrieved value
     \return \c true if found
 */
+
+template<typename T>
+inline bool BamAlignment::GetTagCore(const std::string& tag, T& destination) const {
+        // skip if alignment is core-only
+    if (!SupportData.HasCoreOnly ) {
+        // TODO: set error string?
+        return GetTag(tag, destination);
+    }
+    // check system endianness
+    bool IsBigEndian = BamTools::SystemIsBigEndian();
+
+    // calculate character lengths/offsets
+    const unsigned int dataLength     = SupportData.BlockLength - Constants::BAM_CORE_SIZE;
+    const unsigned int seqDataOffset  = SupportData.QueryNameLength + (SupportData.NumCigarOperations*4);
+    const unsigned int qualDataOffset = seqDataOffset + (SupportData.QuerySequenceLength+1)/2;
+    const unsigned int tagDataOffset  = qualDataOffset + SupportData.QuerySequenceLength;
+    const unsigned int tagDataLength  = dataLength - tagDataOffset;
+
+    if (tag == "AM") {
+        int pos = SupportData.AllCharData.find("AM", tagDataOffset);
+        if (pos == std::string::npos)
+            return false;
+        destination = SupportData.AllCharData.substr(pos + 3, 1);
+        return true;
+    }
+
+    if (tag == "BX") {
+        int pos = SupportData.AllCharData.find("BX", tagDataOffset);
+        if (pos == std::string::npos)
+            return false;
+        int start = pos + 3;
+        int end = start;
+        while(SupportData.AllCharData[end] != '\0') {
+            end++;
+        }
+        destination = SupportData.AllCharData.substr(start, end - start + 1);
+        return true;
+    }
+    std::cout << SupportData.AllCharData << std::endl;
+
+    return false;
+}
+
 template<typename T>
 inline bool BamAlignment::GetTag(const std::string& tag, T& destination) const {
 
