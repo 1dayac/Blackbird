@@ -184,7 +184,7 @@ public:
         INFO("Starting Blackbird");
 
 
-//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_103720000_103770000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_103720000_103770000/    contigs.fasta");
+//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_198760000_198810000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_198760000_198810000/contigs.fasta");
 //        return 0;
 
 
@@ -599,6 +599,7 @@ private:
         INFO("Processing " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ")");
         BamTools::BamRegion region(reader.GetReferenceID(window.RefName.RefName), window.WindowStart, reader.GetReferenceID(window.RefName.RefName), window.WindowEnd);
         BamTools::BamRegion extended_region(reader.GetReferenceID(window.RefName.RefName), std::max(0, (int)window.WindowStart - 1000), reader.GetReferenceID(window.RefName.RefName), window.WindowEnd + 1000);
+        BamTools::BamRegion short_extended_region(reader.GetReferenceID(window.RefName.RefName), std::max(0, (int)window.WindowStart - 200), reader.GetReferenceID(window.RefName.RefName), window.WindowEnd + 200);
 
         BamTools::BamAlignment alignment;
         if (!reader.SetRegion(region)) {
@@ -683,10 +684,10 @@ private:
 */
 
         int count_add = 0;
-        reader.SetRegion(extended_region);
+        reader.SetRegion(short_extended_region);
         bool did_a_jump = false;
         while (reader.GetNextAlignmentCore(alignment)) {
-            if (alignment.Position > extended_region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
+            if (alignment.Position > short_extended_region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
                 break;
             }
             if (alignment.Position < region.RightPosition && alignment.Position > region.LeftPosition) {
