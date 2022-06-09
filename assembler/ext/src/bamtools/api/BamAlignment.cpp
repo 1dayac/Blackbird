@@ -247,7 +247,7 @@ bool BamAlignment::BuildCharData(void) {
 
     // save tag data
     TagData.clear();
-    if ( hasTagData ) {
+    if (false && hasTagData ) {
 
         char* tagData = (((char*)SupportData.AllCharData.data()) + tagDataOffset);
 

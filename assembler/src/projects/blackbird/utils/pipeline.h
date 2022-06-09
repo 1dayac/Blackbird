@@ -362,7 +362,7 @@ public:
                 if (IsBadAlignment(alignment, refid_to_ref_name_)) {
                     if (alignment.QueryBases.find("N") == std::string::npos) {
                         std::string bx;
-                        alignment.GetTag("BX", bx);
+                        alignment.GetTagCore("BX", bx);
                         if (bx == "") {
                             continue;
                         }
@@ -1151,9 +1151,9 @@ private:
             return true;
         }
 
-        int tag;
-        alignment.GetTag("AM", tag);
-        if (tag - '0' == 0) {
+        std::string tag;
+        alignment.GetTagCore("AM", tag);
+        if (tag == "0") {
             return true;
         }
         return false;

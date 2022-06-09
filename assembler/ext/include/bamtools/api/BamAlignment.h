@@ -418,10 +418,6 @@ inline bool BamAlignment::EditTag(const std::string& tag, const std::vector<T>& 
 template<typename T>
 inline bool BamAlignment::GetTagCore(const std::string& tag, T& destination) const {
         // skip if alignment is core-only
-    if (!SupportData.HasCoreOnly ) {
-        // TODO: set error string?
-        return GetTag(tag, destination);
-    }
     // check system endianness
     bool IsBigEndian = BamTools::SystemIsBigEndian();
 
