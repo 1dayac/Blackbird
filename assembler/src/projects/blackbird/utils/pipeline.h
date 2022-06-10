@@ -184,8 +184,8 @@ public:
         INFO("Starting Blackbird");
 
 
-//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_198760000_198810000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_198760000_198810000/contigs.fasta");
-//        return 0;
+        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_21840000_21890000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_21840000_21890000/contigs.fasta");
+        return 0;
 
 
         int max_treads = omp_get_max_threads();
@@ -651,7 +651,10 @@ private:
 
         if (OptionBase::use_long_reads) {
             io::OReadStream<std::ofstream, io::FastqWriter> long_read_stream(temp_dir + "/long_reads.fastq");
-            for (auto name : long_read_names) {
+            std::vector<std::string> long_read_names_vec(long_read_names.begin(), long_read_names.end());
+            std::random_shuffle(long_read_names_vec.begin(), long_read_names_vec.end());
+            for (int i = 0; i < std::min(200, (int)long_read_names_vec.size()); ++i) {
+                auto name = long_read_names_vec[i];
                 io::SingleRead l(name, map_of_long_reads_[name].str(), std::string(map_of_long_reads_[name].str().length(), 'K'));
                 long_read_stream <<  l;
             }
