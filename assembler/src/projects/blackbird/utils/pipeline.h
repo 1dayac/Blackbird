@@ -184,8 +184,8 @@ public:
         INFO("Starting Blackbird");
 
 
-        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_21840000_21890000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_21840000_21890000/contigs.fasta");
-        return 0;
+//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_21840000_21890000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_21840000_21890000/contigs.fasta");
+//        return 0;
 
 
         int max_treads = omp_get_max_threads();
