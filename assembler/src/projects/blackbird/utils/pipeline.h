@@ -184,7 +184,7 @@ public:
         INFO("Starting Blackbird");
 
 
-//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_21840000_21890000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_21840000_21890000/contigs.fasta");
+//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_67280000_67330000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_67280000_67330000/test_assembly/contigs.fasta");
 //        return 0;
 
 
@@ -620,7 +620,7 @@ private:
         }
 
         const int threshold = 4;
-        const int number_of_barcodes_to_assemble = 3500;
+        const int number_of_barcodes_to_assemble = 2500;
         std::map<std::string, std::vector<BamTools::BamAlignment>> barcode_to_alignment_map;
         while(reader.GetNextAlignmentCore(alignment)) {
             if(!alignment.IsPrimaryAlignment())
