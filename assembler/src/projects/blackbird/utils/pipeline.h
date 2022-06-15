@@ -184,7 +184,7 @@ public:
         INFO("Starting Blackbird");
 
 
-//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_67280000_67330000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_67280000_67330000/test_assembly/contigs.fasta");
+//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_157280000_157330000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_157280000_157330000/assembly/contigs.fasta");
 //        return 0;
 
 
@@ -651,12 +651,15 @@ private:
 
         if (OptionBase::use_long_reads) {
             io::OReadStream<std::ofstream, io::FastqWriter> long_read_stream(temp_dir + "/long_reads.fastq");
+            io::OReadStream<std::ofstream, io::FastqWriter> long_read_stream2(temp_dir + "/long_reads2.fastq");
+
             std::vector<std::string> long_read_names_vec(long_read_names.begin(), long_read_names.end());
             std::random_shuffle(long_read_names_vec.begin(), long_read_names_vec.end());
             for (int i = 0; i < std::min(200, (int)long_read_names_vec.size()); ++i) {
                 auto name = long_read_names_vec[i];
                 io::SingleRead l(name, map_of_long_reads_[name].str(), std::string(map_of_long_reads_[name].str().length(), 'K'));
                 long_read_stream <<  l;
+                long_read_stream2 <<  l;
             }
         }
 
@@ -774,11 +777,11 @@ private:
 
 
 
-        std::string spades_command = OptionBase::path_to_spades + " -k 55 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
+        std::string spades_command = OptionBase::path_to_spades + " --only-assembler  -k 55 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
         if (!have_singles)
-            spades_command = OptionBase::path_to_spades + " -k 55 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq -o  " + temp_dir + "/assembly >/dev/null";
+            spades_command = OptionBase::path_to_spades + " --only-assembler -k 55 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq -o  " + temp_dir + "/assembly >/dev/null";
         if (OptionBase::use_long_reads) {
-            spades_command += " --pacbio " + temp_dir + "/long_reads.fastq";
+            spades_command += " --pacbio " + temp_dir + "/long_reads.fastq -s " + temp_dir + "/long_reads2.fastq";
         }
         std::system(spades_command.c_str());
         auto const& const_reference_map = reference_map_;
