@@ -668,7 +668,7 @@ private:
                     cut_end = start_pos + read_length - region.RightPosition;
                 }
 
-                if (cut_start < read_length - cut_end) {
+                if (cut_start + cut_end < read_length ) {
                     auto read = map_of_long_reads_[name].Subseq(cut_start, map_of_long_reads_[name].size() - cut_end).str();
                     io::SingleRead l(name, read, std::string(read.length(), 'K'));
                     long_read_stream <<  l;
