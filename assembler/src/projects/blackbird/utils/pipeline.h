@@ -667,8 +667,6 @@ private:
                 if (start_pos + read_length > region.RightPosition) {
                     cut_end = start_pos + read_length - region.RightPosition;
                 }
-                INFO(cut_start);
-                INFO(cut_end);
 
                 if (cut_start < read_length - cut_end) {
                     auto read = map_of_long_reads_[name].Subseq(cut_start, map_of_long_reads_[name].size() - cut_end).str();
