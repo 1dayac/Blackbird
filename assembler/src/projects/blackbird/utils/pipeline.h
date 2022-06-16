@@ -611,11 +611,11 @@ private:
 
         auto const& const_refid_to_ref_name = refid_to_ref_name_;
 
-        std::map<std::string, int> long_read_names;
+        std::map<std::string, std::pair<int, bool>> long_read_names;
         if (OptionBase::use_long_reads) {
             long_read_reader.SetRegion(extended_region);
             while(long_read_reader.GetNextAlignment(alignment)) {
-                long_read_names[alignment.Name] = alignment.Position;
+                long_read_names[alignment.Name] = {alignment.Position, alignment.IsReverseStrand()};
             }
         }
 
@@ -657,7 +657,7 @@ private:
             std::random_shuffle(long_read_names_vec.begin(), long_read_names_vec.end());
             for (int i = 0; i < std::min(200, (int)long_read_names_vec.size()); ++i) {
                 auto name = long_read_names_vec[i];
-                size_t start_pos = long_read_names[name];
+                size_t start_pos = long_read_names[name].first;
                 size_t read_length = map_of_long_reads_[name].size();
                 int cut_start = 0;
                 int cut_end = 0;
@@ -669,9 +669,16 @@ private:
                 }
 
                 if (cut_start + cut_end < read_length ) {
-                    auto read = map_of_long_reads_[name].Subseq(cut_start, map_of_long_reads_[name].size() - cut_end).str();
-                    io::SingleRead l(name, read, std::string(read.length(), 'K'));
-                    long_read_stream <<  l;
+                    if (long_read_names[name].second) {
+                        auto read_seq = Sequence(map_of_long_reads_[name], true);
+                        auto read = read_seq.Subseq(cut_start, map_of_long_reads_[name].size() - cut_end).str();
+                        io::SingleRead l(name, read, std::string(read.length(), 'K'));
+                        long_read_stream <<  l;
+                    } else {
+                        auto read = map_of_long_reads_[name].Subseq(cut_start, map_of_long_reads_[name].size() - cut_end).str();
+                        io::SingleRead l(name, read, std::string(read.length(), 'K'));
+                        long_read_stream <<  l;
+                    }
                 }
             }
         }
