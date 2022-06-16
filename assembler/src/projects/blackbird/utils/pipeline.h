@@ -611,11 +611,11 @@ private:
 
         auto const& const_refid_to_ref_name = refid_to_ref_name_;
 
-        std::unordered_set<std::string> long_read_names;
+        std::map<std::string, int> long_read_names;
         if (OptionBase::use_long_reads) {
             long_read_reader.SetRegion(extended_region);
             while(long_read_reader.GetNextAlignment(alignment)) {
-                long_read_names.insert(alignment.Name);
+                long_read_names[alignment.Name] = alignment.Position;
             }
         }
 
@@ -651,11 +651,25 @@ private:
 
         if (OptionBase::use_long_reads) {
             io::OReadStream<std::ofstream, io::FastqWriter> long_read_stream(temp_dir + "/long_reads.fastq");
-            std::vector<std::string> long_read_names_vec(long_read_names.begin(), long_read_names.end());
+            std::vector<std::string> long_read_names_vec;
+            for (auto p : long_read_names)
+                long_read_names_vec.push_back(p.first);
             std::random_shuffle(long_read_names_vec.begin(), long_read_names_vec.end());
             for (int i = 0; i < std::min(200, (int)long_read_names_vec.size()); ++i) {
                 auto name = long_read_names_vec[i];
-                io::SingleRead l(name, map_of_long_reads_[name].str(), std::string(map_of_long_reads_[name].str().length(), 'K'));
+                size_t start_pos = long_read_names[name];
+                size_t read_length = map_of_long_reads_[name].size();
+                int cut_start = 0;
+                int cut_end = 0;
+                if (start_pos < region.LeftPosition) {
+                    cut_start = region.LeftPosition - start_pos;
+                }
+                if (start_pos + read_length > region.RightPosition) {
+                    cut_end = start_pos + read_length - region.RightPosition;
+                }
+
+                auto read = map_of_long_reads_[name].Subseq(cut_start, map_of_long_reads_[name].size() - cut_end).str();
+                io::SingleRead l(name, read, std::string(read.length(), 'K'));
                 long_read_stream <<  l;
             }
         }
