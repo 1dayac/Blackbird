@@ -52,7 +52,7 @@ public:
 class Deletion {
     static int call_id;
 public:
-    Deletion(const std::string &chrom, int ref_position, int second_ref_position, const std::string &deletion_seq, char alt)
+    Deletion(const std::string &chrom, int ref_position, int second_ref_position, const std::string &deletion_seq, const std::string alt)
             : chrom_(chrom), ref_position_(ref_position), deletion_seq_(deletion_seq), second_ref_position_(second_ref_position), alt_(alt) {    }
 
     std::string ToString() const {
@@ -93,7 +93,7 @@ public:
     int ref_position_;
     int second_ref_position_;
     std::string deletion_seq_;
-    char alt_;
+    std::string alt_;
 };
 
 class Insertion {
