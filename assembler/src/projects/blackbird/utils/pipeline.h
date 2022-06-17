@@ -371,7 +371,7 @@ public:
                         if (bx == "") {
                             continue;
                         }
-                        std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
+                        std::string query = alignment.QueryBases;
                         if (query.empty())
                             continue;
                         if (alignment.IsFirstMate())
@@ -1235,11 +1235,11 @@ private:
             return true;
         }
 
-        std::string tag;
-        alignment.GetTagCore("AM", tag);
-        if (tag == "0") {
-            return true;
-        }
+//        std::string tag;
+//        alignment.GetTagCore("AM", tag);
+//        if (tag == "0") {
+//            return true;
+//        }
         return false;
     }
 
