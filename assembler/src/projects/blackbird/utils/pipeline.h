@@ -615,7 +615,8 @@ private:
         if (OptionBase::use_long_reads) {
             long_read_reader.SetRegion(extended_region);
             while(long_read_reader.GetNextAlignment(alignment)) {
-                long_read_names[alignment.Name] = {alignment.Position, alignment.IsReverseStrand()};
+                if (alignment.IsPrimaryAlignment())
+                    long_read_names[alignment.Name] = {alignment.Position, alignment.IsReverseStrand()};
             }
         }
 
