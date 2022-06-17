@@ -82,10 +82,14 @@ public:
         if (ref_position_ < op2.ref_position_) {
             return true;
         }
+        if (Size() < op2.Size()) {
+            return true;
+        }
         return false;
     }
 
     bool operator ==(const Deletion& op2) const {
+
         return chrom_ == op2.chrom_ && ref_position_ == op2.ref_position_;
     }
 
@@ -125,6 +129,10 @@ public:
         if (ref_position_ < op2.ref_position_) {
             return true;
         }
+        if (Size() < op2.Size()) {
+            return true;
+        }
+
         return false;
     }
 
