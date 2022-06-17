@@ -161,6 +161,9 @@ class BlackBirdLauncher {
         io::SingleRead reference_contig;
         reference_reader >> reference_contig;
         RunAndProcessMinimap(contig, reference_contig.GetSequenceString(), "1", 0);
+        std::sort(vector_of_ins_.begin(), vector_of_ins_.end());
+        std::sort(vector_of_del_.begin(), vector_of_del_.end());
+        Print(vector_of_ins_, vector_of_del_, writer_);
     }
 
 
@@ -184,7 +187,7 @@ public:
         INFO("Starting Blackbird");
 
 
-//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_108720000_108770000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_108720000_108770000/assembly/contigs.fasta");
+//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_45680000_45730000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_45680000_45730000/assembly/contigs.fasta");
 //        return 0;
 
 
@@ -1028,8 +1031,7 @@ private:
                             if (ins_seq.find("N") == std::string::npos && qsize > 5000 && NoID(r, i)) {
                                 if (ins.Size() >= 50) {
                                     insertions.push_back(ins);
-                                    WriteCritical(vector_of_ins_, ins);
-
+//                                    WriteCritical(vector_of_ins_, ins);
                                 } else {
                                     WriteCritical(vector_of_small_ins_, ins);
                                 }
@@ -1095,7 +1097,7 @@ private:
                             if (ins_seq.find("N") == std::string::npos && qsize > 5000 && NoID(r, i)) {
                                 if (ins.Size() >= 50) {
                                     insertions.push_back(ins);
-                                    WriteCritical(vector_of_ins_, ins);
+//                                    WriteCritical(vector_of_ins_, ins);
                                 } else {
                                     WriteCritical(vector_of_small_ins_, ins);
                                 }
