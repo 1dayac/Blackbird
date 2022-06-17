@@ -99,7 +99,7 @@ public:
 class Insertion {
     static int call_id;
 public:
-    Insertion(const std::string &chrom, int ref_position, const std::string &insertion_seq, char alt)
+    Insertion(const std::string &chrom, int ref_position, const std::string &insertion_seq, std::string alt)
             : chrom_(chrom), ref_position_(ref_position), insertion_seq_(insertion_seq), alt_(alt) {}
 
     std::string ToString() const {
@@ -135,7 +135,7 @@ public:
     std::string chrom_;
     int ref_position_;
     std::string insertion_seq_;
-    char alt_;
+    std::string alt_;
 };
 
 
