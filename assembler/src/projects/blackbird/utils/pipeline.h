@@ -184,7 +184,7 @@ public:
         INFO("Starting Blackbird");
 
 
-//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_67280000_67330000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_67280000_67330000/test_assembly/contigs.fasta");
+//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_108720000_108770000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_108720000_108770000/assembly/contigs.fasta");
 //        return 0;
 
 
@@ -911,6 +911,24 @@ private:
         return answer;
     }
 
+    std::vector<Insertion> MergeInsertions(std::vector<Insertion> &ins, const std::string &reference) {
+        if (ins.size() <= 1)
+            return ins;
+        std::vector<Insertion> answer;
+        answer.push_back(ins[0]);
+        for (int i = 1; i < ins.size(); ++i) {
+            if (ins[i].ref_position_ - answer.back().ref_position_ < 50) {
+                Insertion new_ins(answer.back().chrom_, answer.back().ref_position_, answer.back().insertion_seq_ + reference.substr(answer.back().ref_position_, ins[i].ref_position_ - answer.back().ref_position_) + ins[i].insertion_seq_, reference.substr(answer.back().ref_position_, ins[i].ref_position_ - answer.back().ref_position_));
+                answer.pop_back();
+                answer.push_back(new_ins);
+            } else {
+                answer.push_back(ins[i]);
+            }
+        }
+        return answer;
+    }
+
+
     int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
@@ -922,7 +940,16 @@ private:
 
         int max_hits = 0;
         int contig_num = 0;
+        mm_idxopt_t iopt;
+        mm_mapopt_t mopt;
+        mm_set_opt(0, &iopt, &mopt);
+        mm_set_opt("asm20", &iopt, &mopt);
+        mopt.flag |= MM_F_CIGAR;
+        mopt.bw = 85;
+        mm_mapopt_update(&mopt, index);
+
         while (!contig_reader.eof()) {
+            mm_tbuf_t *tbuf = mm_tbuf_init();
             contig_num++;
             if (contig_num == 5)
                 break;
@@ -932,12 +959,7 @@ private:
             if (qsize <= 5000)
                 continue;
             int number_of_hits;
-            mm_tbuf_t *tbuf = mm_tbuf_init();
-            mm_idxopt_t iopt;
-            mm_mapopt_t mopt;
 
-            mm_set_opt(0, &iopt, &mopt);
-            mm_set_opt("asm20", &iopt, &mopt);
 
 //            mopt.zdrop = 500;
 //            mopt.zdrop_inv = 10;
@@ -945,13 +967,10 @@ private:
 //            mopt.q = 4;
 //            mopt.q2 = 16;
 //            mopt.best_n = 1;
-            mopt.flag |= MM_F_CIGAR;
 //            mopt.flag |=  MM_F_NO_LJOIN;
 //            mopt.flag |= MM_F_SPLICE;
-            mopt.bw = 85;
 //            mopt.max_gap = 15000;
 //          mopt.bw_long = 85;
-            mm_mapopt_update(&mopt, index);
             mm_reg1_t *hit_array = mm_map(index, query.size(), query.c_str(), &number_of_hits, tbuf, &mopt, contig.name().c_str());
             max_hits = std::max(max_hits, number_of_hits);
             std::vector<bool> is_hit_revcomp;
@@ -1003,7 +1022,7 @@ private:
                             reference_start += (r->p->cigar[i]>>4);
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
-                            Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4), reference[reference_start]);
+                            Insertion ins(ref_name, start_pos + reference_start, query.substr(query_start, r->p->cigar[i]>>4), reference.substr(reference_start,1));
                             std::string ins_seq = query.substr(query_start, r->p->cigar[i]>>4);
                             if (ins_seq.find("N") == std::string::npos && qsize > 5000 && NoID(r, i)) {
                                 if (ins.Size() >= 50) {
@@ -1070,7 +1089,7 @@ private:
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'I') {
 
-                            Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4), reference[reference_start]);
+                            Insertion ins(ref_name, start_pos + reference_start, ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4), reference.substr(reference_start,1));
                             std::string ins_seq = ReverseComplement(query).substr(query_start, r->p->cigar[i]>>4);
                             if (ins_seq.find("N") == std::string::npos && qsize > 5000 && NoID(r, i)) {
                                 if (ins.Size() >= 50) {
@@ -1104,6 +1123,11 @@ private:
 
                     WriteCritical(vector_of_del_, del);
                 }
+                auto merged_ins = MergeInsertions(insertions, query);
+                for (auto ins : merged_ins) {
+                    WriteCritical(vector_of_ins_, ins);
+                }
+
             }
 
             free(hit_array);
