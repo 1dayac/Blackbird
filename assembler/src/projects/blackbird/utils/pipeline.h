@@ -918,7 +918,7 @@ private:
         answer.push_back(ins[0]);
         for (int i = 1; i < ins.size(); ++i) {
             if (ins[i].ref_position_ - answer.back().ref_position_ < 50) {
-                Insertion new_ins(answer.back().chrom_, answer.back().ref_position_, answer.back().insertion_seq_ + reference.substr(answer.back().ref_position_, ins[i].ref_position_ - answer.back().ref_position_) + ins[i].insertion_seq_, reference.substr(answer.back().ref_position_ - win_start, ins[i].ref_position_ - answer.back().ref_position_));
+                Insertion new_ins(answer.back().chrom_, answer.back().ref_position_, answer.back().insertion_seq_ + reference.substr(answer.back().ref_position_ - win_start, ins[i].ref_position_ - answer.back().ref_position_) + ins[i].insertion_seq_, reference.substr(answer.back().ref_position_ - win_start, ins[i].ref_position_ - answer.back().ref_position_));
                 answer.pop_back();
                 answer.push_back(new_ins);
             } else {
