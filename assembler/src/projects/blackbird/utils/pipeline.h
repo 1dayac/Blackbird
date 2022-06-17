@@ -272,6 +272,8 @@ public:
             while (preliminary_reader.GetNextAlignmentCore(alignment)) {
                 if (!alignment.IsPrimaryAlignment())
                     continue;
+                if (alignment.IsDuplicate() && alignment.IsSecondMate())
+                    continue;
 
                 std::string am_tag;
                 alignment.GetTagCore("AM", am_tag);
