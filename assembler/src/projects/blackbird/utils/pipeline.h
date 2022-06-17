@@ -894,14 +894,14 @@ private:
 
     }
 
-    std::vector<Deletion> MergeDeletions(std::vector<Deletion> &dels, const std::string &reference) {
+    std::vector<Deletion> MergeDeletions(std::vector<Deletion> &dels, const std::string &reference, int win_start) {
         if (dels.size() <= 1)
             return dels;
         std::vector<Deletion> answer;
         answer.push_back(dels[0]);
         for (int i = 1; i < dels.size(); ++i) {
             if (dels[i].ref_position_ - answer.back().second_ref_position_ < 50) {
-                Deletion new_del(answer.back().chrom_, answer.back().ref_position_, dels[i].second_ref_position_, answer.back().deletion_seq_ + dels[i].deletion_seq_, reference.substr(answer.back().second_ref_position_, dels[i].ref_position_ - answer.back().second_ref_position_));
+                Deletion new_del(answer.back().chrom_, answer.back().ref_position_, dels[i].second_ref_position_, answer.back().deletion_seq_ + dels[i].deletion_seq_, reference.substr(answer.back().second_ref_position_  - win_start, dels[i].ref_position_ - answer.back().second_ref_position_));
                 answer.pop_back();
                 answer.push_back(new_del);
             } else {
@@ -911,14 +911,14 @@ private:
         return answer;
     }
 
-    std::vector<Insertion> MergeInsertions(std::vector<Insertion> &ins, const std::string &reference) {
+    std::vector<Insertion> MergeInsertions(std::vector<Insertion> &ins, const std::string &reference, int win_start) {
         if (ins.size() <= 1)
             return ins;
         std::vector<Insertion> answer;
         answer.push_back(ins[0]);
         for (int i = 1; i < ins.size(); ++i) {
             if (ins[i].ref_position_ - answer.back().ref_position_ < 50) {
-                Insertion new_ins(answer.back().chrom_, answer.back().ref_position_, answer.back().insertion_seq_ + reference.substr(answer.back().ref_position_, ins[i].ref_position_ - answer.back().ref_position_) + ins[i].insertion_seq_, reference.substr(answer.back().ref_position_, ins[i].ref_position_ - answer.back().ref_position_));
+                Insertion new_ins(answer.back().chrom_, answer.back().ref_position_, answer.back().insertion_seq_ + reference.substr(answer.back().ref_position_, ins[i].ref_position_ - answer.back().ref_position_) + ins[i].insertion_seq_, reference.substr(answer.back().ref_position_ - win_start, ins[i].ref_position_ - answer.back().ref_position_));
                 answer.pop_back();
                 answer.push_back(new_ins);
             } else {
@@ -1118,12 +1118,12 @@ private:
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
                 }
                 free(r->p);
-                auto merged_dels = MergeDeletions(deletions, query);
+                auto merged_dels = MergeDeletions(deletions, query, start_pos);
                 for (auto del : merged_dels) {
 
                     WriteCritical(vector_of_del_, del);
                 }
-                auto merged_ins = MergeInsertions(insertions, query);
+                auto merged_ins = MergeInsertions(insertions, query, start_pos);
                 for (auto ins : merged_ins) {
                     WriteCritical(vector_of_ins_, ins);
                 }
