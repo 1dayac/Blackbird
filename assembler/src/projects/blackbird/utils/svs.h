@@ -82,6 +82,10 @@ public:
         if (ref_position_ < op2.ref_position_) {
             return true;
         }
+        if (ref_position_ > op2.ref_position_) {
+            return false;
+        }
+
         if (Size() < op2.Size()) {
             return true;
         }
@@ -129,6 +133,10 @@ public:
         if (ref_position_ < op2.ref_position_) {
             return true;
         }
+        if (ref_position_ > op2.ref_position_) {
+            return false;
+        }
+
         if (Size() < op2.Size()) {
             return true;
         }
