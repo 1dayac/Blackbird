@@ -234,6 +234,7 @@ public:
         ReadMap map_of_bad_first_reads_;
         ReadMap map_of_bad_second_reads_;
 
+        // START OPT
 
 
         if (!OptionBase::dont_collect_reads) {
@@ -305,6 +306,8 @@ public:
                         }
                     }
                     continue;
+
+                    // END OPT
                 }
                 writer.SaveAlignment(alignment);
             }
@@ -338,7 +341,7 @@ public:
             mate_reader.Open(OptionBase::bam.c_str());
             new_bam_name = OptionBase::bam;
         }
-
+        // START OPT 2
 
         auto ref_data = reader.GetReferenceData();
 
@@ -396,6 +399,8 @@ public:
                     map_of_bad_reads_[read.second.second].push_back(read.second.first);
                 }
             }
+
+            // END OPT 2
 
             map_of_bad_first_reads_.clear();
             map_of_bad_second_reads_.clear();
