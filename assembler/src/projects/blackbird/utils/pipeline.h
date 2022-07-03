@@ -906,7 +906,7 @@ private:
         std::vector<Deletion> answer;
         answer.push_back(dels[0]);
         for (int i = 1; i < dels.size(); ++i) {
-            if (dels[i].ref_position_ - answer.back().second_ref_position_ < 30) {
+            if (dels[i].ref_position_ - answer.back().second_ref_position_ < 100) {
                 Deletion new_del(answer.back().chrom_, answer.back().ref_position_, dels[i].second_ref_position_, answer.back().deletion_seq_ + dels[i].deletion_seq_, reference.substr(answer.back().second_ref_position_  - win_start, dels[i].ref_position_ - answer.back().second_ref_position_));
                 answer.pop_back();
                 answer.push_back(new_del);
@@ -923,7 +923,7 @@ private:
         std::vector<Insertion> answer;
         answer.push_back(ins[0]);
         for (int i = 1; i < ins.size(); ++i) {
-            if (ins[i].ref_position_ - answer.back().ref_position_ < 30) {
+            if (ins[i].ref_position_ - answer.back().ref_position_ < 100) {
                 Insertion new_ins(answer.back().chrom_, answer.back().ref_position_, answer.back().insertion_seq_ + reference.substr(answer.back().ref_position_ - win_start, ins[i].ref_position_ - answer.back().ref_position_) + ins[i].insertion_seq_, reference.substr(answer.back().ref_position_ - win_start, ins[i].ref_position_ - answer.back().ref_position_));
                 answer.pop_back();
                 answer.push_back(new_ins);
