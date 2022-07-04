@@ -187,7 +187,7 @@ public:
         INFO("Starting Blackbird");
 
 
-//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr1_45680000_45730000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr1_45680000_45730000/assembly/contigs.fasta");
+//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr5_360000_410000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr5_360000_410000/assembly/contigs.fasta");
 //        return 0;
 
 
@@ -934,8 +934,39 @@ private:
         return answer;
     }
 
+    void NormalizeDeletion(Deletion &del, const std::string &reference, int reference_start) {
+        int temp = reference_start;
+        int mistakes = 0;
+        bool last_mistake = false;
+        while (temp > 0 && temp + del.Size() - 1 < reference.size()) {
+            if (reference[temp-1] == reference[temp + del.Size() - 1]) {
+                temp--;
+                last_mistake = false;
+            }
+            else {
+                mistakes++;
+                if (mistakes > 1)
+                    break;
+                last_mistake = true;
+                temp--;
+            }
+        }
+        if (reference_start - temp < 10) {
+            return;
+        }
+        if (last_mistake) {
+            temp++;
+        }
+        del.ref_position_ -= (reference_start - temp);
+        del.second_ref_position_ -= (reference_start - temp);
+        del.deletion_seq_ = reference.substr(temp, del.Size());
+        del.alt_ = reference.substr(temp, 1);
+    }
+
 
     int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
+        //std::string reference_reverse = reference;
+        //std::reverse(reference_reverse.begin(), reference_reverse.end());
         const char *reference_cstyle = reference.c_str();
         const char **reference_array = &reference_cstyle;
         mm_idx_t *index = mm_idx_str(10, 19, 0, 14, 1, reference_array, NULL);
@@ -959,11 +990,13 @@ private:
             contig_num++;
             if (contig_num == 5)
                 break;
-            contig_reader >> contig;
+                contig_reader >> contig;
             std::string query = contig.GetSequenceString();
             size_t qsize = query.size();
             if (qsize <= 5000)
                 continue;
+//            std::reverse(query.begin(), query.end());
+
             int number_of_hits;
 
 
@@ -995,7 +1028,7 @@ private:
                 else if (!r->rev) {
                     int query_start = r->qs;
                     int reference_start = r->rs;
-                    std::vector<std::pair<int, char>> cigar_vector;
+                    std::vector<std::pair<char, int>> cigar_vector;
                     int query_end = query_start;
                     int reference_end = reference_start;
                     for (int i = 0; i < r->p->n_cigar; ++i) {
@@ -1043,9 +1076,12 @@ private:
                             query_start += (r->p->cigar[i]>>4);
                         }
                         if ("MIDNSH"[r->p->cigar[i]&0xf] == 'D') {
+
+
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4), reference.substr(reference_start, 1));
                             if (qsize > 5000 && NoID(r, i)) {
                                 if (del.Size() >= 50) {
+                                    NormalizeDeletion(del, reference, reference_start);
                                     deletions.push_back(del);
 //                                    WriteCritical(vector_of_del_, del);
                                 } else {
@@ -1061,7 +1097,7 @@ private:
                     int reference_start = r->rs;
 
 
-                    std::vector<std::pair<int, char>> cigar_vector;
+                    std::vector<std::pair<char, int>> cigar_vector;
                     int query_end = query_start;
                     int reference_end = reference_start;
                     for (int i = 0; i < r->p->n_cigar; ++i) {
