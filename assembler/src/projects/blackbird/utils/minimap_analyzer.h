@@ -11,8 +11,8 @@
 using omnigraph::MappingRange;
 struct AlignBlock {
     MappingRange range_;
-    std::vector<std::pair<int, char>> cigar_string_;
-    AlignBlock(int ref_start, int ref_end, int query_start, int query_end, const std::vector<std::pair<int, char>> &cigar_string)
+    std::vector<std::pair<char, int>> cigar_string_;
+    AlignBlock(int ref_start, int ref_end, int query_start, int query_end, const std::vector<std::pair<char, int>> &cigar_string)
     : range_(ref_start, ref_end, query_start, query_end), cigar_string_(cigar_string) {
 
     }
