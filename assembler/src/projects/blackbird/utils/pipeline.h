@@ -187,7 +187,7 @@ public:
         INFO("Starting Blackbird");
 
 
-//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr5_360000_410000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr5_360000_410000/assembly/contigs.fasta");
+//        test_minimap("/home/dmm2017/Desktop/blackbird_debug/chr5_360000_410000/subref.fasta", "/home/dmm2017/Desktop/blackbird_debug/chr5_360000_410000/assembly/contigs_rc.fasta");
 //        return 0;
 
 
@@ -1147,6 +1147,7 @@ private:
                             Deletion del(ref_name, start_pos + reference_start, start_pos + reference_start + reference.substr(reference_start, r->p->cigar[i]>>4).size(), reference.substr(reference_start, r->p->cigar[i]>>4), reference.substr(reference_start, 1));
                             if (qsize > 5000 && NoID(r, i)) {
                                 if (del.Size() >= 50) {
+                                    NormalizeDeletion(del, reference, reference_start);
                                     deletions.push_back(del);
                                     //WriteCritical(vector_of_del_, del);
                                 } else {
