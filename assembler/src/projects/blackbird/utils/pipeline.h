@@ -239,7 +239,7 @@ public:
 
         if (!OptionBase::dont_collect_reads) {
             INFO("Start filtering reads with bad AM tag...");
-/*
+/* 
             BamTools::BamReader temp_reader;
             temp_reader.Open(OptionBase::bam);
             auto ref_data = temp_reader.GetReferenceData();
@@ -266,6 +266,30 @@ public:
             }
 
 */
+
+/*
+            1) Split bam file into windows
+            CreateReferenceWindows() -> 0 overlap and window size bigger is better?
+
+            (bamtools library is in assembler/ext -> functions to work with bam files -> check if there are functions for merging)
+            (relevant functions: GetNextAlignmentCore, GetNextAlignment)
+            
+            2) Then use 
+            #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
+            to do parallely 
+
+            3) Then merge files/data structures
+
+            Benchmarks:
+            First segment: 17 minutes
+            Second segment: 4 minutes
+
+*/
+            BamTools::BamReader temp_reader;
+            temp_reader.Open(OptionBase::bam.c_str());
+            
+            std::vector<RefWindow> reference_windows;
+            CreateReferenceWindows(reference_windows, ref_data, 0);
 
             BamTools::BamWriter writer;
             writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
