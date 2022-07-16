@@ -285,11 +285,18 @@ public:
             Second segment: 4 minutes
 
 */
+
+//          Changes
+
             BamTools::BamReader temp_reader;
             temp_reader.Open(OptionBase::bam.c_str());
+
+            auto ref_data = temp_reader.GetReferenceData();
             
             std::vector<RefWindow> reference_windows;
             CreateReferenceWindows(reference_windows, ref_data, 0);
+
+//          Changes end
 
             BamTools::BamWriter writer;
             writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
