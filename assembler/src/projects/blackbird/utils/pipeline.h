@@ -292,8 +292,8 @@ public:
             temp_reader.Open(OptionBase::bam.c_str());
 
             auto ref_data = temp_reader.GetReferenceData();
-            std::cout<<ref_data<<endl;
-            INFO(ref_data);
+            for (BamTools::RefVector::const_iterator a = ref_data.begin(); a != ref_data.end(); ++a)
+                    std::cout << a->RefName << " " << a->RefLength << std::endl;
 
             std::vector<RefWindow> reference_windows;
             CreateReferenceWindows(reference_windows, ref_data, 0);
