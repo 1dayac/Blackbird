@@ -232,6 +232,11 @@ public:
 
         if (!OptionBase::dont_collect_reads) {
             INFO("Start filtering reads with bad AM tag...");
+            std::vector<RefWindow> alignment_windows;
+            CreateAlignmentWindows(alignment_windows, preliminary_reader, 0);
+
+
+            /* DIMA's code
  
             BamTools::BamReader temp_reader;
             temp_reader.Open(OptionBase::bam);
@@ -242,23 +247,27 @@ public:
 
             std::vector<BamTools::BamReader> filtering_readers(OptionBase::threads);
 
-            // for (auto &r : filtering_readers) {
-            //     r.Open(OptionBase::bam.c_str());
-            //     if (r.OpenIndex((OptionBase::bam + ".bai").c_str())) {
-            //         INFO("Index located at " << OptionBase::bam << ".bai");
-            //     } else {
-            //         FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
-            //     }
-            // }
+            for (auto &r : filtering_readers) {
+                r.Open(OptionBase::bam.c_str());
+                if (r.OpenIndex((OptionBase::bam + ".bai").c_str())) {
+                    INFO("Index located at " << OptionBase::bam << ".bai");
+                } else {
+                    FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
+                }
+            }
 
             #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
             for (int i = 0; i < reference_windows.size(); ++i) {
                 FilterInWindow(reference_windows[i], filtering_readers[omp_get_thread_num()], new_bam_name, alignment, map_of_bad_first_reads_, map_of_bad_second_reads_);
                 INFO(i << " " << omp_get_thread_num());
             }
-        }
+
+            */
+        
 
 /*
+            Template: 
+
             1) Split bam file into windows
             CreateReferenceWindows() -> 0 overlap and window size bigger is better?
 
@@ -277,7 +286,27 @@ public:
 
 */
 
+//          Changes
+
+
+            // BamTools::BamReader temp_reader;
+            // temp_reader.Open(OptionBase::bam.c_str());
+
+            // auto ref_data = temp_reader.GetReferenceData();
+            // for (BamTools::RefVector::const_iterator a = ref_data.begin(); a != ref_data.end(); ++a)
+            //         std::cout << a->RefName << " " << a->RefLength << std::endl;
+
+            // std::vector<RefWindow> reference_windows;
+            // CreateReferenceWindows(reference_windows, ref_data, 0);
+
+//          Changes end
+
+
+
+
 /*
+            Current code:
+
             BamTools::BamWriter writer;
 
             writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
@@ -326,7 +355,9 @@ public:
             }
             writer.Close();
             INFO(total << " reads filtered total.");
+        
 */
+        }
 
         if (OptionBase::use_long_reads) {
             io::FastaFastqGzParser long_read_parser(OptionBase::long_read_fastq);
@@ -611,6 +642,75 @@ private:
         INFO(number_of_windows << " totally created.");
     }
 
+
+    // CHANGES
+    void CreateAlignmentWindows(std::vector<RefWindow> &alignment_windows, BamTools::BamReader &reader, int overlap = 0) {
+        int number_of_windows = 0;
+        int window_width = 50000;
+
+        BamTools::BamAlignment alignment;
+
+        while (reader.GetNextAlignmentCore(alignment)) {
+            len = alignment.length;
+            pos = alignment.position;
+            std::string am_tag;
+            alignment.GetTagCore("AM", am_tag);
+
+            INFO("LEN: "<<len);
+            INFO("POS: "<<pos);
+            INFO("AM: "<<am_tag);
+
+            // for (int start_pos = 0; start_pos < len; start_pos += window_width - overlap) {
+            //     //if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr1") {
+            //     //    continue;
+            //     //}
+            //     RefWindow r(reference.RefName, start_pos, start_pos + window_width);
+            //     reference_windows.push_back(r);
+            //     ++number_of_windows;
+            // }
+        
+        
+        }
+
+        // if (OptionBase::region_file == "") {
+        //     for (auto reference : ref_data) {
+        //         //if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
+        //         //    continue;
+        //         //}
+        //         if (!IsGoodRef(reference.RefName) || !reference_map_.count(reference.RefName)) {
+        //             continue;
+        //         }
+        //         for (int start_pos = 0; start_pos < reference.RefLength; start_pos += window_width - overlap) {
+        //             //if (start_pos < target_region.LeftPosition || start_pos > target_region.RightPosition || reference.RefName != "chr1") {
+        //             //    continue;
+        //             //}
+        //             RefWindow r(reference.RefName, start_pos, start_pos + window_width);
+        //             reference_windows.push_back(r);
+        //             ++number_of_windows;
+        //         }
+        //     }
+        // } else {
+        //     std::ifstream region_file(OptionBase::region_file);
+        //     while(!region_file.eof()) {
+        //         std::string chrom = "";
+        //         int start = 0;
+        //         int end = 0;
+        //         region_file >> chrom >> start >> end;
+        //         end = std::min<unsigned long>(end, reference_map_[chrom].size());
+        //         INFO("Chromosome " << chrom << ":" << start << "-" << end);
+        //         if (!IsGoodRef(chrom) || !reference_map_.count(chrom)) {
+        //             continue;
+        //         }
+        //         for (int start_pos = start; start_pos < end; start_pos += window_width - overlap) {
+        //             RefWindow r(chrom, start_pos, start_pos + window_width);
+        //             reference_windows.push_back(r);
+        //             ++number_of_windows;
+        //         }
+        //     }
+        // }
+        // INFO(number_of_windows << " totally created.");
+    }
+
     void FilterInWindow(const RefWindow &window, BamTools::BamReader &reader,
                         std::string new_bam_name, BamTools::BamAlignment &alignment, ReadMap &map_of_bad_first_reads_, ReadMap &map_of_bad_second_reads_) {
 
@@ -663,6 +763,8 @@ private:
         writer.Close();
         INFO(total << " reads filtered total.");
     }
+
+    // END CHANGES
 
     void ProcessWindow(const RefWindow &window,  BamTools::BamReader &reader, BamTools::BamReader &mate_reader, BamTools::BamReader &long_read_reader) {
         INFO("Processing " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ")");
