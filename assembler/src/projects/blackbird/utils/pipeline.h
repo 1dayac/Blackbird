@@ -242,14 +242,14 @@ public:
 
             std::vector<BamTools::BamReader> filtering_readers(OptionBase::threads);
 
-            for (auto &r : filtering_readers) {
-                r.Open(OptionBase::bam.c_str());
-                if (r.OpenIndex((OptionBase::bam + ".bai").c_str())) {
-                    INFO("Index located at " << OptionBase::bam << ".bai");
-                } else {
-                    FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
-                }
-            }
+            // for (auto &r : filtering_readers) {
+            //     r.Open(OptionBase::bam.c_str());
+            //     if (r.OpenIndex((OptionBase::bam + ".bai").c_str())) {
+            //         INFO("Index located at " << OptionBase::bam << ".bai");
+            //     } else {
+            //         FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
+            //     }
+            // }
 
             #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
             for (int i = 0; i < reference_windows.size(); ++i) {
