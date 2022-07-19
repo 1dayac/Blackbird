@@ -253,7 +253,7 @@ public:
 
             #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
             for (int i = 0; i < reference_windows.size(); ++i) {
-                FilterInWindow(reference_windows[i], filtering_readers[omp_get_thread_num()]);
+                FilterInWindow(reference_windows[i], filtering_readers[omp_get_thread_num()], new_bam_name, alignment, map_of_bad_first_reads_, map_of_bad_second_reads_);
                 INFO(i << " " << omp_get_thread_num());
             }
         }
@@ -611,7 +611,8 @@ private:
         INFO(number_of_windows << " totally created.");
     }
 
-    void FilterInWindow(const RefWindow &window, BamTools::BamReader &reader) {
+    void FilterInWindow(const RefWindow &window, BamTools::BamReader &reader,
+                        std::string new_bam_name, BamTools::BamAlignment &alignment, ReadMap &map_of_bad_first_reads_, ReadMap &map_of_bad_second_reads_) {
 
         BamTools::BamWriter writer;
 
