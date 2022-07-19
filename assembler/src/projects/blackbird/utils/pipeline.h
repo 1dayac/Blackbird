@@ -651,8 +651,8 @@ private:
         BamTools::BamAlignment alignment;
 
         while (reader.GetNextAlignmentCore(alignment)) {
-            len = alignment.length;
-            pos = alignment.position;
+            auto len = alignment.Length;
+            auto pos = alignment.Position;
             std::string am_tag;
             alignment.GetTagCore("AM", am_tag);
 
