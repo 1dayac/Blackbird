@@ -243,7 +243,7 @@ public:
             std::vector<RefWindow> reference_windows;
             CreateReferenceWindows(reference_windows, ref_data, 0);
             for(RefWindow ref_test:reference_windows){
-                INFO("REF WINDOW: " << ref_test);
+                INFO("REF WINDOW: " << ref_test.ToString());
             }
 
             // END TEST
