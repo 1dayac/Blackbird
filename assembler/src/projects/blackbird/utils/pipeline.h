@@ -232,9 +232,21 @@ public:
 
         if (!OptionBase::dont_collect_reads) {
             INFO("Start filtering reads with bad AM tag...");
+
+            // TEST
+            /*
+
             std::vector<RefWindow> alignment_windows;
             CreateAlignmentWindows(alignment_windows, preliminary_reader, 0);
+            */
+            auto ref_data = preliminary_reader.GetReferenceData();
+            std::vector<RefWindow> reference_windows;
+            CreateReferenceWindows(reference_windows, ref_data, 0);
+            for(RefWindow ref_test:reference_windows){
+                INFO("REF WINDOW: " << ref_test);
+            }
 
+            // END TEST
 
             /* DIMA's code
  
@@ -303,8 +315,8 @@ public:
 
 
 
-
 /*
+
             Current code:
 
             BamTools::BamWriter writer;
