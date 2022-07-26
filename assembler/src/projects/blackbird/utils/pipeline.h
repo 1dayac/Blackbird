@@ -233,18 +233,18 @@ public:
         if (!OptionBase::dont_collect_reads) {
             INFO("Start filtering reads with bad AM tag...");
 
-            // TEST
+            // Reference window TEST
             /*
 
             std::vector<RefWindow> alignment_windows;
             CreateAlignmentWindows(alignment_windows, preliminary_reader, 0);
             */
-            auto ref_data = preliminary_reader.GetReferenceData();
-            std::vector<RefWindow> reference_windows;
-            CreateReferenceWindows(reference_windows, ref_data, 0);
-            for(RefWindow ref_test:reference_windows){
-                INFO("REF WINDOW: " << ref_test.ToString());
-            }
+            // auto ref_data = preliminary_reader.GetReferenceData();
+            // std::vector<RefWindow> reference_windows;
+            // CreateReferenceWindows(reference_windows, ref_data, 0);
+            // for(RefWindow ref_test:reference_windows){
+            //     INFO("REF WINDOW: " << ref_test.ToString());
+            // }
 
             // END TEST
 
@@ -297,6 +297,110 @@ public:
             Second segment: 4 minutes
 
 */
+
+// -------------------------------------NEW CODE TEST---------------------------------------------
+                        
+
+            std::vector<RefWindow> reference_windows;
+            CreateReferenceWindows(reference_windows, ref_data, 0);
+            auto ref_data = temp_reader.GetReferenceData();            
+            std::vector<BamTools::BamReader> temp_readers(OptionBase::threads);
+
+            for(auto &r : temp_readers){
+                r.Open(new_bam_name.c_str());
+                if (r.OpenIndex((new_bam_name + ".bai").c_str())) {
+                    INFO("Index located at " << new_bam_name << ".bai");
+                } else {
+                    FATAL_ERROR("Index at " << new_bam_name << ".bai" << " can't be located")
+                }
+
+                temp_reader.Open(OptionBase::bam);
+            }
+
+            #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
+            for (int i = 0; i < reference_windows.size(); ++i) {
+                FilterInWindow(reference_windows[i], readers[omp_get_thread_num()]);
+                INFO(i << " " << omp_get_thread_num());
+            }
+
+
+
+
+
+
+            for (auto &r : readers) {
+                r.Close();
+            }
+
+
+
+
+// ----------------------------------------------END----------------------------------------------
+
+
+// CREATEREFERENCE WINDOW CODE EXAMPLE:
+
+
+
+  INFO("Create reference  Filtering");
+
+
+        std::vector<RefWindow> reference_windows;
+        CreateReferenceWindows(reference_windows, ref_data, 10000);
+
+        std::vector<BamTools::BamReader> readers(OptionBase::threads);
+        std::vector<BamTools::BamReader> mate_readers(OptionBase::threads);
+        std::vector<BamTools::BamReader> long_read_readers(OptionBase::threads);
+
+        for (auto &r : readers) {
+            r.Open(new_bam_name.c_str());
+            if (r.OpenIndex((new_bam_name + ".bai").c_str())) {
+                INFO("Index located at " << new_bam_name << ".bai");
+            } else {
+                FATAL_ERROR("Index at " << new_bam_name << ".bai" << " can't be located")
+            }
+
+        }
+
+        for (auto &r : mate_readers) {
+            r.Open(new_bam_name.c_str());
+            r.OpenIndex((new_bam_name + ".bai").c_str());
+        }
+
+        if (OptionBase::use_long_reads) {
+            for (auto &r : long_read_readers) {
+                r.Open(OptionBase::long_read_bam.c_str());
+                r.OpenIndex((OptionBase::long_read_bam + ".bai").c_str());
+            }
+        }
+
+#pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
+        for (int i = 0; i < reference_windows.size(); ++i) {
+            ProcessWindow(reference_windows[i], readers[omp_get_thread_num()], mate_readers[omp_get_thread_num()], long_read_readers[omp_get_thread_num()]);
+            INFO(i << " " << omp_get_thread_num());
+        }
+
+        std::sort(vector_of_ins_.begin(), vector_of_ins_.end());
+        std::sort(vector_of_del_.begin(), vector_of_del_.end());
+
+        std::sort(vector_of_small_ins_.begin(), vector_of_small_ins_.end());
+        std::sort(vector_of_small_del_.begin(), vector_of_small_del_.end());
+
+        std::sort(vector_of_inv_.begin(), vector_of_inv_.end());
+        writer_.WriteHeader(reference_map_);
+        writer_small_.WriteHeader(reference_map_);
+        Print(vector_of_ins_, vector_of_del_, writer_);
+        Print(vector_of_small_ins_, vector_of_small_del_, writer_small_);
+        PrintInversions(vector_of_inv_, writer_inversion_);
+        //test_minimap();
+        for (auto &r : readers) {
+            r.Close();
+        }
+        for (auto &r : mate_readers) {
+            r.Close();
+        }
+
+// END
 
 //          Changes
 
@@ -723,8 +827,10 @@ private:
         // INFO(number_of_windows << " totally created.");
     }
 
-    void FilterInWindow(const RefWindow &window, BamTools::BamReader &reader,
-                        std::string new_bam_name, BamTools::BamAlignment &alignment, ReadMap &map_of_bad_first_reads_, ReadMap &map_of_bad_second_reads_) {
+    void FilterInWindow(const RefWindow &window, BamTools::BamReader &reader){
+                        //std::string new_bam_name, BamTools::BamAlignment &alignment, ReadMap &map_of_bad_first_reads_, ReadMap &map_of_bad_second_reads_) {
+
+        // Original code
 
         BamTools::BamWriter writer;
 
@@ -774,6 +880,225 @@ private:
 
         writer.Close();
         INFO(total << " reads filtered total.");
+
+        // Process window code
+         INFO("Processing " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ")");
+        BamTools::BamRegion region(reader.GetReferenceID(window.RefName.RefName), window.WindowStart, reader.GetReferenceID(window.RefName.RefName), window.WindowEnd);
+        BamTools::BamRegion extended_region(reader.GetReferenceID(window.RefName.RefName), std::max(0, (int)window.WindowStart - 1000), reader.GetReferenceID(window.RefName.RefName), window.WindowEnd + 1000);
+        BamTools::BamRegion short_extended_region(reader.GetReferenceID(window.RefName.RefName), std::max(0, (int)window.WindowStart - 200), reader.GetReferenceID(window.RefName.RefName), window.WindowEnd + 200);
+
+        BamTools::BamAlignment alignment;
+        if (!reader.SetRegion(region)) {
+            return;
+        }
+        std::unordered_map<std::string, int> barcodes_count;
+        std::set<std::string> barcodes_count_over_threshold_prelim;
+        std::unordered_set<std::string> barcodes_count_over_threshold;
+
+        auto const& const_refid_to_ref_name = refid_to_ref_name_;
+
+        std::map<std::string, std::pair<int, bool>> long_read_names;
+        if (OptionBase::use_long_reads) {
+            long_read_reader.SetRegion(extended_region);
+            while(long_read_reader.GetNextAlignment(alignment)) {
+                if (alignment.IsPrimaryAlignment())
+                    long_read_names[alignment.Name] = {alignment.Position, alignment.IsReverseStrand()};
+            }
+        }
+
+        const int threshold = 4;
+        const int number_of_barcodes_to_assemble = 2500;
+        std::map<std::string, std::vector<BamTools::BamAlignment>> barcode_to_alignment_map;
+        while(reader.GetNextAlignmentCore(alignment)) {
+            if(!alignment.IsPrimaryAlignment())
+                continue;
+            std::string bx = "";
+            alignment.GetTagCore("BX", bx);
+            if (bx == "") {
+                continue;
+            }
+            barcode_to_alignment_map[bx].push_back(alignment);
+            if (++barcodes_count[bx] > threshold) {
+                barcodes_count_over_threshold_prelim.insert(bx);
+            }
+        }
+        std::vector<std::string> barcodes_count_over_threshold_v(barcodes_count_over_threshold_prelim.begin(),
+                                                                 barcodes_count_over_threshold_prelim.end());
+        std::random_shuffle(barcodes_count_over_threshold_v.begin(), barcodes_count_over_threshold_v.end());
+        DEBUG("Taking first " << number_of_barcodes_to_assemble << " barcodes");
+        for (int i = 0; i < number_of_barcodes_to_assemble && i < barcodes_count_over_threshold_v.size(); ++i) {
+            barcodes_count_over_threshold.insert(barcodes_count_over_threshold_v[i]);
+        }
+        reader.SetRegion(region);
+        std::string temp_dir = OptionBase::output_folder + "/" +
+                               const_cast<std::unordered_map<int, std::string>&>(refid_to_ref_name_).at(region.RightRefID) + "_" + std::to_string(region.LeftPosition) + "_" + std::to_string(region.RightPosition);
+        fs::make_dir(temp_dir);
+        io::OPairedReadStream<std::ofstream, io::FastqWriter> out_stream(temp_dir + "/R1.fastq", temp_dir + "/R2.fastq");
+        io::OReadStream<std::ofstream, io::FastqWriter> single_out_stream(temp_dir + "/single.fastq");
+
+        if (OptionBase::use_long_reads) {
+            io::OReadStream<std::ofstream, io::FastqWriter> long_read_stream(temp_dir + "/long_reads.fastq");
+            std::vector<std::string> long_read_names_vec;
+            for (auto p : long_read_names)
+                long_read_names_vec.push_back(p.first);
+            std::random_shuffle(long_read_names_vec.begin(), long_read_names_vec.end());
+            for (int i = 0; i < std::min(200, (int)long_read_names_vec.size()); ++i) {
+                auto name = long_read_names_vec[i];
+                size_t start_pos = long_read_names[name].first;
+                size_t read_length = map_of_long_reads_[name].size();
+                int cut_start = 0;
+                int cut_end = 0;
+                if (start_pos < region.LeftPosition) {
+                    cut_start = region.LeftPosition - start_pos;
+                }
+                if (start_pos + read_length > region.RightPosition) {
+                    cut_end = start_pos + read_length - region.RightPosition;
+                }
+
+                if (cut_start + cut_end < read_length ) {
+                    if (long_read_names[name].second) {
+                        auto read_seq = Sequence(map_of_long_reads_[name], true);
+                        auto read = read_seq.Subseq(cut_start, map_of_long_reads_[name].size() - cut_end).str();
+                        io::SingleRead l(name, read, std::string(read.length(), 'K'));
+                        long_read_stream <<  l;
+                    } else {
+                        auto read = map_of_long_reads_[name].Subseq(cut_start, map_of_long_reads_[name].size() - cut_end).str();
+                        io::SingleRead l(name, read, std::string(read.length(), 'K'));
+                        long_read_stream <<  l;
+                    }
+                }
+            }
+        }
+
+        std::unordered_map<std::string, std::vector<BamTools::BamAlignment>> filtered_reads;
+
+        for (auto p : barcode_to_alignment_map) {
+            if (!barcodes_count_over_threshold.count(p.first))
+                continue;
+            for (auto &alignment : p.second) {
+                alignment.BuildCharData();
+                filtered_reads[alignment.Name].push_back(alignment);
+            }
+        }
+        barcode_to_alignment_map.clear();
+/*
+
+        while (reader.GetNextAlignment(alignment)) {
+            if (alignment.Position > region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
+                break;
+            }
+            std::string bx = "";
+            alignment.GetTag("BX", bx);
+            if (!barcodes_count_over_threshold.count(bx) || !alignment.IsPrimaryAlignment()) {
+                continue;
+            }
+            filtered_reads[alignment.Name].push_back(alignment);
+        }
+*/
+
+        int count_add = 0;
+        reader.SetRegion(short_extended_region);
+        bool did_a_jump = false;
+        while (reader.GetNextAlignmentCore(alignment)) {
+            if (alignment.Position > short_extended_region.RightPosition || alignment.RefID != reader.GetReferenceID(window.RefName.RefName)) {
+                break;
+            }
+            if (alignment.Position < region.RightPosition && alignment.Position > region.LeftPosition) {
+                if (!did_a_jump) {
+                    did_a_jump = true;
+                    reader.Jump(reader.GetReferenceID(window.RefName.RefName), region.RightPosition);
+                }
+                continue;
+            }
+            std::string bx = "";
+            alignment.GetTagCore("BX", bx);
+
+            if (!barcodes_count_over_threshold.count(bx) || !alignment.IsPrimaryAlignment()) {
+                continue;
+            }
+            alignment.BuildCharData();
+            if (filtered_reads[alignment.Name].size() != 1)
+                continue;
+
+            if (filtered_reads[alignment.Name].front().IsFirstMate() !=  alignment.IsFirstMate())
+            {
+                filtered_reads[alignment.Name].push_back(alignment);
+                count_add++;
+            }
+        }
+
+        std::string barcode_file = temp_dir + "/barcodes.txt";
+        std::ofstream barcode_output(barcode_file.c_str(), std::ofstream::out);
+        for (auto const& barcode : barcodes_count_over_threshold) {
+            barcode_output << barcode << "\n";
+        }
+
+        bool have_singles = false;
+        for (auto p : filtered_reads) {
+            if (p.second.size() == 1) {
+                //if (alignment.MateRefID == -1) {
+                have_singles = true;
+                OutputSingleRead(p.second[0], single_out_stream);
+                //}
+                //else {
+                //   if (p.second[0].RefID == p.second[0].MateRefID && abs((int)p.second[0].Position - (int)p.second[0].MatePosition) < 500) {
+                //       OutputSingleRead(p.second[0], single_out_stream);
+                //       continue;
+                //   }
+                //  if (!OutputPairedRead(p.second[0], out_stream, mate_reader))
+                //      OutputSingleRead(p.second[0], single_out_stream);
+                // }
+            }
+            if (p.second.size() == 2) {
+                io::SingleRead first = CreateRead(p.second[0]);
+                io::SingleRead second = CreateRead(p.second[1]);
+                if (p.second[0].IsSecondMate()) {
+                    std::swap(first, second);
+                }
+                io::PairedRead pair(first, second, 0);
+                out_stream << pair;
+            }
+        }
+
+
+        auto const &const_map_of_bad_read_pairs = map_of_bad_read_pairs_;
+        for (auto barcode : barcodes_count_over_threshold) {
+            if (const_map_of_bad_read_pairs.count(barcode)) {
+                for (auto const &read : const_cast<std::vector<std::pair<Sequence, Sequence>>&>(const_map_of_bad_read_pairs.at(barcode))) {
+                    out_stream << CreatePairedReadFromSeq(read.first, read.second);
+                }
+            }
+        }
+
+
+        auto const &const_map_of_bad_reads = map_of_bad_reads_;
+        for (auto barcode : barcodes_count_over_threshold) {
+            if (const_map_of_bad_reads.count(barcode)) {
+                for (auto const &read : const_cast<std::vector<Sequence>&>(const_map_of_bad_reads.at(barcode))) {
+                    have_singles = true;
+                    single_out_stream << CreateReadFromSeq(read);
+                }
+            }
+        }
+
+
+
+
+        std::string spades_command = OptionBase::path_to_spades + " --only-assembler -k 55 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq --pe1-s " + temp_dir + "/single.fastq -o  " + temp_dir + "/assembly >/dev/null";
+        if (!have_singles)
+            spades_command = OptionBase::path_to_spades + " --only-assembler  -k 55 -t 1 --pe1-1 " + temp_dir + "/R1.fastq --pe1-2 " + temp_dir + "/R2.fastq -o  " + temp_dir + "/assembly >/dev/null";
+        if (OptionBase::use_long_reads) {
+            spades_command += " --pacbio " + temp_dir + "/long_reads.fastq";
+        }
+        std::system(spades_command.c_str());
+        auto const& const_reference_map = reference_map_;
+        std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
+        int hits = RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
+        if (!OptionBase::keep_assembly_folders)
+            fs::remove_dir(temp_dir.c_str());
+
+
+
     }
 
     // END CHANGES
