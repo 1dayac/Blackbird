@@ -324,7 +324,7 @@ public:
             }
 
 
-
+            // more things here?
 
 
 
@@ -829,6 +829,28 @@ private:
 
     void FilterInWindow(const RefWindow &window, BamTools::BamReader &reader){
                         //std::string new_bam_name, BamTools::BamAlignment &alignment, ReadMap &map_of_bad_first_reads_, ReadMap &map_of_bad_second_reads_) {
+
+        // CHANGES
+
+        // Process window code
+        INFO("NEW Processing " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ")");
+
+        BamTools::BamRegion region(reader.GetReferenceID(window.RefName.RefName), window.WindowStart, reader.GetReferenceID(window.RefName.RefName), window.WindowEnd);
+        
+        BamTools::BamAlignment alignment;
+        
+        if (!reader.SetRegion(region)) {
+            return;
+        }
+
+        reader.SetRegion(region);
+
+            while(long_read_reader.GetNextAlignment(alignment)) {
+                if (alignment.IsPrimaryAlignment())
+                    long_read_names[alignment.Name] = {alignment.Position, alignment.IsReverseStrand()};
+            }
+
+        // END CHANGES
 
         // Original code
 
