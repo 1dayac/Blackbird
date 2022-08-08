@@ -290,7 +290,7 @@ public:
 //                        INFO(alignment.Name);
 //                        INFO(alignment.QueryBases);
                         std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
-                        if (!query.empty()) {
+                        if (!query.empty() && !IsDegenerate(query)) {
                             map_of_bad_first_reads_[alignment.Name] = {Sequence(query), bx};
                             VERBOSE_POWER(++total, " reads filtered");
                         }
@@ -299,7 +299,7 @@ public:
  //                       INFO(alignment.Name);
  //                       INFO(alignment.QueryBases);
                         std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
-                        if (!query.empty()) {
+                        if (!query.empty() && !IsDegenerate(query)) {
                             map_of_bad_second_reads_[alignment.Name] = {Sequence(query), bx};
                             VERBOSE_POWER(++total, " reads filtered");
                         }
@@ -365,7 +365,7 @@ public:
                     continue;
                 alignment.BuildCharData();
                 if (IsBadAlignment(alignment, refid_to_ref_name_)) {
-                    if (alignment.QueryBases.find("N") == std::string::npos) {
+                    if (alignment.QueryBases.find("N") == std::string::npos && !IsDegenerate(alignment.QueryBases)) {
                         std::string bx;
                         alignment.GetTagCore("BX", bx);
                         if (bx == "") {
@@ -1243,6 +1243,18 @@ private:
             return false;
         }
         return true;
+    }
+
+    bool IsDegenerate(const std::string &query) {
+        std::map<char, int> char_map;
+        for (auto ch : query) {
+            char_map[ch]++;
+        }
+        double max_ratio = 0.0;
+        for (auto p : char_map) {
+            max_ratio = std::max(max_ratio, p.second/double(query.length()));
+        }
+        return max_ratio > 0.95;
     }
 
     bool IsBadAlignment(BamTools::BamAlignment &alignment, std::unordered_map<int, std::string> &refid_to_ref_name) {
