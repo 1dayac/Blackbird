@@ -291,7 +291,6 @@ public:
 //                        INFO(alignment.QueryBases);
                         std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
                         if (!query.empty() && !IsDegenerate(query)) {
-                            INFO(query);
                             map_of_bad_first_reads_[alignment.Name] = {Sequence(query), bx};
                             VERBOSE_POWER(++total, " reads filtered");
                         }
@@ -301,7 +300,6 @@ public:
  //                       INFO(alignment.QueryBases);
                         std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
                         if (!query.empty() && !IsDegenerate(query)) {
-                            INFO(query);
                             map_of_bad_second_reads_[alignment.Name] = {Sequence(query), bx};
                             VERBOSE_POWER(++total, " reads filtered");
                         }
