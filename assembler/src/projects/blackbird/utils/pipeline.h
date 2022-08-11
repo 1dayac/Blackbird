@@ -275,6 +275,11 @@ public:
                 if (alignment.IsDuplicate())
                     continue;
 
+                if (alignment.MapQuality == 60) {
+                    writer.SaveAlignment(alignment);
+                    continue;
+                }
+                
                 std::string am_tag;
                 alignment.GetTagCore("AM", am_tag);
 
@@ -750,7 +755,7 @@ private:
         std::string barcode_file = temp_dir + "/barcodes.txt";
         std::ofstream barcode_output(barcode_file.c_str(), std::ofstream::out);
         for (auto const& barcode : barcodes_count_over_threshold) {
-            barcode_output << barcode << "\n";
+            barcode_output << barcode << std::endl;
         }
 
         bool have_singles = false;
