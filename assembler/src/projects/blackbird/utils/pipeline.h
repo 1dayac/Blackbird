@@ -279,7 +279,7 @@ public:
                     writer.SaveAlignment(alignment);
                     continue;
                 }
-                
+
                 std::string am_tag;
                 alignment.GetTagCore("AM", am_tag);
 
@@ -980,7 +980,7 @@ private:
         io::SingleRead contig;
         std::set<std::pair<int, int>> found_reference_intervals;
         std::set<omnigraph::MappingRange> found_query_intervals;
-
+        size_t min_contig_size = OptionBase::use_long_reads ? 5000 : 3000;
         int max_hits = 0;
         int contig_num = 0;
         mm_idxopt_t iopt;
@@ -994,12 +994,12 @@ private:
         while (!contig_reader.eof()) {
             mm_tbuf_t *tbuf = mm_tbuf_init();
             contig_num++;
-            if (contig_num == 5)
+            if (contig_num == 20)
                 break;
-                contig_reader >> contig;
+            contig_reader >> contig;
             std::string query = contig.GetSequenceString();
             size_t qsize = query.size();
-            if (qsize <= 5000)
+            if (qsize <= min_contig_size)
                 continue;
 //            std::reverse(query.begin(), query.end());
 
