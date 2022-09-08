@@ -1,15 +1,23 @@
-Blackbird: Tool for SV detection with 10X reads
+Blackbird: Tool for SV detection with Linked-Reads reads and hybrid (Linked+Long reads datasets)
 ======
+<font size=20>__Blackbird 0.1 Manual__</font>
 
 Blackbird assembles the genome into segments and calls insertions and deletions in these segments.
 
 # Table of contents
-1. [Installation](#installation)
-2. [Commands Options](#commands-options)
-3. [Output Formats](#output-formats)
-4. [Example Commands](#example-commands)
-5. [Publications](#publications)
-6. [Contact & Support](#contact)
+1. [About Blackbird](about-blackbird)
+2. [Installation](#installation)
+3. [Commands Options](#commands-options)
+4. [Output Formats](#output-formats)
+5. [Example Commands](#example-commands)
+6. [Publications](#publications)
+7. [Contact & Support](#contact)
+
+
+<a name="about-blackbird"></a>
+## About Blackbird
+
+
 
 ## Installation
 
