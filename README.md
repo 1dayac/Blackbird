@@ -27,21 +27,41 @@ and long-read datasets. We evaluated our method on both simulated and real whole
 human datasets. In a Linked-read mode Blackbird outperforms existing short-read and
 Linked-read methods, especially for insertions. In a hybrid-mode Blackbird demonstrated
 results similar to state-of-the-art long read tools, but requires less long reads to achieve same
-results. Therefore, our method might decrease the cost of SV calling procedure in clinical
+results. Therefore, our method might decrease the cost of SV calling in clinical
 setting, without losing in the result quality.
 
 
 ## Installation
 
-Run 
+Initially Blackbird was forked from the SPAdes reposotory and have a common codebase.
+To compile Blackbird in assembler foder execute:
 
 ```
-./spades_compile.sh -DSPADES_USE_JEMALLOC=OFF
+./spades_compile.sh
 ```
 
-Use blackbird binary from the bin folder.
+Blackbird binary can be found inside bin folder.
 
 ## Options
+
+`--bam` or `-b` [required] - position-sorted and indexed Linked-Read bam-file with BX tags
+
+`--rerefence` or `-r` [required] - BWA-indexed reference genome
+
+`--output` or `-o` [required] - Folder where results will be stored
+
+`--spades` or `-s` - Path to spades.py from spades_for_blackbird repository (not needed if spades.py is in path)
+
+`--long-bam` or `-l` - Position-sorted and indexed long read file (optional, should be paired with long-read option)
+
+`--long-read` or `-m` - FASTQ-file with the same long reads (optional, should be paired with long-bam option)
+
+`--threads` or `-t` - Number of threads (default is 1, but more threads is beneficial)
+
+`--regions` or `-r` [optional] - File with regions where SV should be called. Each row in the file is space-separated and has "chr start end" format
+
+`--help` or `-h` - Print this message
+
 
 ## Output Formats
 
