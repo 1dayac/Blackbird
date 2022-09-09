@@ -40,7 +40,7 @@ To compile Blackbird in assembler foder execute:
 ./spades_compile.sh
 ```
 
-Blackbird binary can be found inside bin folder.
+Blackbird binary can be found inside bin folder. Additionally, you should install and compile [SPAdes for blackbird](https://github.com/1dayac/spades_for_blackbird).
 
 ## Options
 
@@ -62,16 +62,31 @@ Blackbird binary can be found inside bin folder.
 
 `--help` or `-h` - Print this message
 
+## Hidden options
+
+`-d` - Don't delete assembly folders. It allows to inspect contigs that were used for SV calling
+
+`-n` - Don't collect poorly aligned reads
 
 ## Output Formats
 
+All files are stored in the output folder which is set by the user.
+
+`out_50.vcf` is a position sorted VCF file, that contains insertion and deletion calls longer than 50 bp.
+
+`out.vcf` contains all other calls, though they are not reliable. 
+
 ## Example Commands
 
-## Demo command
+`/home/dmm2017/Blackbird/assembler/bin/blackbird -b /local/storage/data/10X/HG002/NA24385.GRCh37.phased_possorted_bam.bam -r /local/workdir/dmm2017/hg37/refdata-hg19-2.1.0/fast
+a/genome.fa -o blackbird_10X_chr1 -g genome.txt -t 32 -s /home/dmm2017/spades_for_blackbird/assembler/spades.py`
 
 ## Publications
 
+Blackbird is not published yet, but it is selected for presentation at [Genome Informatics 2022](https://coursesandconferences.wellcomeconnectingscience.org/event/genome-informatics-20220921/).
+
+Full preprint will be available in October 2022.
 
 ## Contact & Support
 
-Feel free to drop any inquiry to [meleshko.dmitrii@gmail.com]() 
+Feel free to drop any inquiry to [meleshko.dmitrii@gmail.com](mailto:meleshko.dmitrii@gmail.com) 
