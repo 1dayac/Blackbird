@@ -274,6 +274,8 @@ public:
                     continue;
                 if (alignment.IsDuplicate())
                     continue;
+                if (abs(alignment.InsertSize) < 500 && alignment.IsMapped() && alignment.IsMateMapped() && FROrientation(alignment))
+                    continue;
 
                 if (alignment.MapQuality == 60) {
                     writer.SaveAlignment(alignment);
@@ -843,6 +845,14 @@ private:
                               io::SingleRead(std::to_string(current_id), seq2.str(), std::string(seq2.size(), 'J')), 0);
     }
 
+    bool FROrientation(const BamTools::BamAlignment &alignment) {
+        if (alignment.IsFirstMate()) {
+            return alignment.IsReverseStrand() == false && alignment.IsMateReverseStrand() == true;
+        } else {
+            return alignment.IsReverseStrand() == true && alignment.IsMateReverseStrand() == false;
+        }
+        return true;
+    }
 
     bool NoID(mm_reg1_t *r, int index) {
         if (index + 1 == r->p->n_cigar)
