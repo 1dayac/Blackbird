@@ -274,7 +274,7 @@ public:
                     continue;
                 if (alignment.IsDuplicate())
                     continue;
-                if (abs(alignment.InsertSize) < 500 && alignment.IsMapped() && alignment.IsMateMapped() && FROrientation(alignment))
+                if (abs(alignment.InsertSize) < 500 && alignment.IsMapped() && alignment.IsMateMapped() && !FROrientation(alignment))
                     continue;
 
                 if (alignment.MapQuality == 60) {
