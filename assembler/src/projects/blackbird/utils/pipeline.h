@@ -848,9 +848,11 @@ private:
 
     bool FROrientation(const BamTools::BamAlignment &alignment) {
         if (alignment.IsFirstMate()) {
-            return alignment.IsReverseStrand() == false && alignment.IsMateReverseStrand() == true;
+            if (!(alignment.IsReverseStrand() == false && alignment.IsMateReverseStrand()))
+                return false;
         } else {
-            return alignment.IsReverseStrand() == true && alignment.IsMateReverseStrand() == false;
+            if (!(alignment.IsReverseStrand() && alignment.IsMateReverseStrand() == false))
+                return  false;
         }
         if (alignment.IsFirstMate()) {
             return alignment.Position < alignment.MatePosition;
