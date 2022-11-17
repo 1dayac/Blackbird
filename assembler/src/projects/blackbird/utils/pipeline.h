@@ -274,6 +274,7 @@ public:
                     continue;
                 if (alignment.IsDuplicate())
                     continue;
+
                 if (abs(alignment.InsertSize) < 500 && alignment.IsMapped() && alignment.IsMateMapped() && !FROrientation(alignment))
                     continue;
 
@@ -850,6 +851,11 @@ private:
             return alignment.IsReverseStrand() == false && alignment.IsMateReverseStrand() == true;
         } else {
             return alignment.IsReverseStrand() == true && alignment.IsMateReverseStrand() == false;
+        }
+        if (alignment.IsFirstMate()) {
+            return alignment.Position < alignment.MatePosition;
+        } else {
+            return alignment.Position > alignment.MatePosition;
         }
         return true;
     }
