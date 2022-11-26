@@ -670,7 +670,7 @@ private:
             for (auto p : long_read_names)
                 long_read_names_vec.push_back(p.first);
             std::random_shuffle(long_read_names_vec.begin(), long_read_names_vec.end());
-            for (int i = 0; i < std::min(50, (int)long_read_names_vec.size()); ++i) {
+            for (int i = 0; i < std::min(20, (int)long_read_names_vec.size()); ++i) {
                 auto name = long_read_names_vec[i];
                 size_t start_pos = long_read_names[name].first;
                 size_t read_length = map_of_long_reads_[name].size();
