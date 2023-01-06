@@ -431,8 +431,13 @@ public:
             while (preliminary_reader.GetNextAlignmentCore(alignment)) {
                 if (!alignment.IsPrimaryAlignment())
                     continue;
-                if (alignment.IsDuplicate() && alignment.IsSecondMate())
+                if (alignment.IsDuplicate())
                     continue;
+
+                if (alignment.MapQuality == 60) {
+                    writer.SaveAlignment(alignment);
+                    continue;
+                }
 
                 std::string am_tag;
                 alignment.GetTagCore("AM", am_tag);
@@ -449,7 +454,7 @@ public:
 //                        INFO(alignment.Name);
 //                        INFO(alignment.QueryBases);
                         std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
-                        if (!query.empty()) {
+                        if (!query.empty() && !IsDegenerate(query)) {
                             map_of_bad_first_reads_[alignment.Name] = {Sequence(query), bx};
                             VERBOSE_POWER(++total, " reads filtered");
                         }
@@ -458,7 +463,7 @@ public:
  //                       INFO(alignment.Name);
  //                       INFO(alignment.QueryBases);
                         std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
-                        if (!query.empty()) {
+                        if (!query.empty() && !IsDegenerate(query)) {
                             map_of_bad_second_reads_[alignment.Name] = {Sequence(query), bx};
                             VERBOSE_POWER(++total, " reads filtered");
                         }
@@ -527,7 +532,8 @@ public:
                     continue;
                 alignment.BuildCharData();
                 if (IsBadAlignment(alignment, refid_to_ref_name_)) {
-                    if (alignment.QueryBases.find("N") == std::string::npos) {
+                    if (alignment.QueryBases.find("N") == std::string::npos && !IsDegenerate(alignment.QueryBases)) {
+
                         std::string bx;
                         alignment.GetTagCore("BX", bx);
                         if (bx == "") {
@@ -1274,7 +1280,7 @@ private:
         std::string barcode_file = temp_dir + "/barcodes.txt";
         std::ofstream barcode_output(barcode_file.c_str(), std::ofstream::out);
         for (auto const& barcode : barcodes_count_over_threshold) {
-            barcode_output << barcode << "\n";
+            barcode_output << barcode << std::endl;
         }
 
         bool have_singles = false;
@@ -1499,7 +1505,7 @@ private:
         io::SingleRead contig;
         std::set<std::pair<int, int>> found_reference_intervals;
         std::set<omnigraph::MappingRange> found_query_intervals;
-
+        size_t min_contig_size = OptionBase::use_long_reads ? 5000 : 3000;
         int max_hits = 0;
         int contig_num = 0;
         mm_idxopt_t iopt;
@@ -1513,12 +1519,12 @@ private:
         while (!contig_reader.eof()) {
             mm_tbuf_t *tbuf = mm_tbuf_init();
             contig_num++;
-            if (contig_num == 5)
+            if (contig_num == 20)
                 break;
-                contig_reader >> contig;
+            contig_reader >> contig;
             std::string query = contig.GetSequenceString();
             size_t qsize = query.size();
-            if (qsize <= 5000)
+            if (qsize <= min_contig_size)
                 continue;
 //            std::reverse(query.begin(), query.end());
 
@@ -1768,6 +1774,18 @@ private:
             return false;
         }
         return true;
+    }
+
+    bool IsDegenerate(const std::string &query) {
+        std::map<char, int> char_map;
+        for (auto ch : query) {
+            char_map[ch]++;
+        }
+        double max_ratio = 0.0;
+        for (auto p : char_map) {
+            max_ratio = std::max(max_ratio, p.second/double(query.length()));
+        }
+        return max_ratio > 0.85;
     }
 
     bool IsBadAlignment(BamTools::BamAlignment &alignment, std::unordered_map<int, std::string> &refid_to_ref_name) {
