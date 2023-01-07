@@ -1,83 +1,32 @@
-SPADES: SAINT-PETERSBURG GENOME ASSEMBLER
-Copyright (c) 2015-2020 Saint Petersburg State University
-Copyright (c) 2011-2014 Saint Petersburg Academic University
+                  GNU GENERAL PUBLIC LICENSE
+                       Version 2, June 1991
 
-SPAdes is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License, Version 2,
-dated June 1991, as published by the Free Software Foundation.
+ Copyright (C) 1989, 1991 Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
 
-SPAdes is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-General Public License for more details.
+                            Preamble
 
-You should have received a copy of the GNU General Public License along
-with this program; if not, write to the Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  The licenses for most software are designed to take away your
+freedom to share and change it.  By contrast, the GNU General Public
+License is intended to guarantee your freedom to share and change free
+software--to make sure the software is free for all its users.  This
+General Public License applies to most of the Free Software
+Foundation's software and to any other program whose authors commit to
+using it.  (Some other Free Software Foundation software is covered by
+the GNU Lesser General Public License instead.)  You can apply it to
+your programs, too.
 
--------------------------------------------------------------------------------
 
-SPAdes
-Genome assembler for single-cell and isolates data sets
-Version: see VERSION
+Blackbird
 
-Developed in Center for Algorithmic Biotechnology, Institute of Translational Biomedicine, St. Petersburg State University.
-Developed in Algorithmic Biology Lab of St. Petersburg Academic University of the Russian Academy of Sciences.
+SV calling tool for Linked reads and Linked and Long read hybrid datasets
 
-Current SPAdes contributors:
+Blackbird is designed as a SPAdes module, and use a lot of SPAdes code. SPAdes' licence is included in LICENCE_SPADES.
 
-    Dmitry Antipov,
-    Elena Bushmanova,
-    Alexey Gurevich,
-    Anton Korobeynikov,
-    Olga Kunyavskaya,
-    Dmitriy Meleshko,
-    Sergey Nurk,
-    Andrey Prjibelski,
-    Alexander Shlemov,
-    Ivan Tolstoganov,
-    Alla Lapidus and
-    Pavel Pevzner
+Authors:
 
-Also contributed:
-
-    Max Alekseyev,
-    Anton Bankevich,
-    Mikhail Dvorkin,
-    Vasisliy Ershov,
-    Yuriy Gorshkov,
-    Alexander Kulikov,
-    Valery Lesin,
-    Sergey Nikolenko,
-    Son Pham,
-    Alexey Pyshkin,
-    Yana Safonova,
-    Vladislav Saveliev,
-    Alexander Sirotkin,
-    Yakov Sirotkin,
-    Artem Tarasov,
-    Glenn Tesler,
-    Irina Vasilinetc,
-    Nikolay Vyahhi
-
-Installation instructions and manual can be found on the website:
-http://cab.spbu.ru/software/spades/
-
-Address for communication: spades.support@cab.spbu.ru
-
-References:
-
-Anton Bankevich, Sergey Nurk, Dmitry Antipov, Alexey A. Gurevich, Mikhail
-Dvorkin, Alexander S. Kulikov, Valery M. Lesin, Sergey I. Nikolenko, Son Pham,
-Andrey D. Prjibelski, Alexey V. Pyshkin, Alexander V. Sirotkin, Nikolay Vyahhi,
-Glenn Tesler, Max A. Alekseyev, and Pavel A. Pevzner. SPAdes: A New Genome
-Assembly Algorithm and Its Applications to Single-Cell Sequencing.  Journal of
-Computational Biology 19(5) (2012), 455-477. doi:10.1089/cmb.2012.0021
-
-Sergey Nurk, Anton Bankevich, Dmitry Antipov, Alexey Gurevich, Anton Korobeynikov, 
-Alla Lapidus, Andrey Prjibelsky, Alexey Pyshkin, Alexander Sirotkin, 
-Yakov Sirotkin, Ramunas Stepanauskas, Jeffrey McLean, Roger Lasken, 
-Scott Clingenpeel, Tanja Woyke, Glenn Tesler, Max Alekseyev, and Pavel Pevzner.
-Assembling Genomes and Mini-metagenomes from Highly Chimeric Reads. Lecture Notes 
-in Computer Science 7821 (2013), pp. 158-170. doi:10.1007/978-3-642-37195-0_13
-
+Dmitry Meleshko
+David Danko
+Iman Hajirasouliha
