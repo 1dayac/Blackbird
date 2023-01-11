@@ -1,4 +1,4 @@
-Blackbird: Tool for SV detection with Linked-Reads reads and hybrid (Linked+Long reads datasets)
+Blackbird: Tool for SV detection with Synthetic Long Reads (SLR) and hybrid (SLR+Long reads datasets)
 ======
 <font size=20>__Blackbird 0.1 Manual__</font>
 
@@ -15,17 +15,17 @@ Blackbird: Tool for SV detection with Linked-Reads reads and hybrid (Linked+Long
 
 ## About Blackbird
 
-Blackbird is a novel integrated alignment- and local-assembly-based algorithm hat employs the barcode information encoded in Linked-reads to improve
+Blackbird is a novel integrated alignment- and local-assembly-based algorithm hat employs the barcode information encoded in SLR reads to improve
 detection and placement of challenging medium-size events (50-10,000bp).
 Blackbird assembles the genome into segments and calls insertions and deletions in these segments. Without the need
 for a computationally expensive whole genome assembly, Blackbird uses a barcode-aware
 sliding window approach to assemble small segments of the target genome and sensitively call
 SVs in these segments.
 
-Blackbird is able to work with Linked-read datasets and a combination of Linked-read
+Blackbird is able to work with SLR read datasets and a combination of SLR read
 and long-read datasets. We evaluated our method on both simulated and real whole genome
-human datasets. In a Linked-read mode Blackbird outperforms existing short-read and
-Linked-read methods, especially for insertions. In a hybrid-mode Blackbird demonstrated
+human datasets. In a SLR read mode Blackbird outperforms existing short-read and
+SLR read methods, especially for insertions. In a hybrid-mode Blackbird demonstrated
 results similar to state-of-the-art long read tools, but requires less long reads to achieve same
 results. Therefore, our method might decrease the cost of SV calling in clinical
 setting, without losing in the result quality.
@@ -44,7 +44,7 @@ Blackbird binary can be found inside bin folder. Additionally, you should instal
 
 ## Options
 
-`--bam` or `-b` [required] - position-sorted and indexed Linked-Read bam-file with BX tags
+`--bam` or `-b` [required] - position-sorted and indexed SLR Read bam-file with BX tags
 
 `--rerefence` or `-r` [required] - BWA-indexed reference genome
 
@@ -84,8 +84,6 @@ a/genome.fa -o blackbird_10X_chr1 -g genome.txt -t 32 -s /home/dmm2017/spades_fo
 ## Publications
 
 Blackbird is not published yet, but it is selected for presentation at [Genome Informatics 2022](https://coursesandconferences.wellcomeconnectingscience.org/event/genome-informatics-20220921/).
-
-Full preprint will be available in October 2022.
 
 ## Contact & Support
 
