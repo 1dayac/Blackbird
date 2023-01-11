@@ -21,7 +21,7 @@ your programs, too.
 
 Blackbird
 
-SV calling tool for Linked reads and Linked and Long read hybrid datasets
+SV calling tool for SLR reads and SLR + Long read hybrid datasets
 
 Blackbird is designed as a SPAdes module, and use a lot of SPAdes code. SPAdes' licence is included in LICENCE_SPADES.
 
