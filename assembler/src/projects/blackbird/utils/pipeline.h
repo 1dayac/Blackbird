@@ -275,6 +275,7 @@ public:
             #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads) ordered
             for (int i = 0; i < reference_windows.size(); ++i) {
                 std::vector<BamTools::BamAlignment> curr_output;
+
                 curr_output = FilterInWindow(reference_windows[i], readers[omp_get_thread_num()], cnt++, map_of_bad_first_reads_, map_of_bad_second_reads_, total);
 
                 // INFO("# Reads: "<< curr_output.size());
@@ -679,7 +680,7 @@ private:
       // CHANGES
 
       // Process window code
-      // INFO("FilterInWindow: " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ") cnt: " << cnt);
+      INFO("FilterInWindow: " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ")");
 
       BamTools::BamRegion region(reader.GetReferenceID(window.RefName.RefName), window.WindowStart, reader.GetReferenceID(window.RefName.RefName), window.WindowEnd);
 
