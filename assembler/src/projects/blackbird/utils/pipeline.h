@@ -283,7 +283,7 @@ public:
                 // Filtered test
                 #pragma omp ordered
                 {
-                  for(int j =0;j<curr_output.size();j++)
+                  for(int j = 0; j < curr_output.size(); ++j)
                   {
                     writer.SaveAlignment(curr_output[j]);
                   }
