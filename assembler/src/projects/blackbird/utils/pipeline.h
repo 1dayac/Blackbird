@@ -9,6 +9,7 @@
 #include <utility>
 #include <type_traits>
 #include <unordered_set>
+#include <chrono>
 #include "utils/logger/log_writers.hpp"
 #include "options.h"
 #include "io/sam/bam_reader.hpp"
@@ -239,7 +240,7 @@ public:
         if (!OptionBase::dont_collect_reads) {
             INFO("Start filtering reads with bad AM tag...");
 
-            // New code:
+            // New code w parallelized windows start
             // Thread/window counter
             int cnt = 0;
 
@@ -248,12 +249,13 @@ public:
             auto ref_data = temp_reader.GetReferenceData();
             std::vector<RefWindow> reference_windows;
             CreateReferenceWindows(reference_windows, ref_data, 0);
-            INFO("Reference windows #: " << reference_windows.size());
+            // INFO("Reference windows #: " << reference_windows.size());
             temp_reader.Close();
 
             // Multiple readers
             std::vector<BamTools::BamReader> readers(OptionBase::threads);
             INFO("Readers #: " << readers.size());
+
 
             for (auto &r : readers) {
                 r.Open(OptionBase::bam.c_str());
@@ -264,42 +266,145 @@ public:
                 }
             }
 
-            std::vector<BamTools::BamAlignment> total_output;
+            // // single reader test: does not work
+            // BamTools::BamReader reader;
+            // reader.Open(OptionBase::bam.c_str());
+            // if (reader.OpenIndex((OptionBase::bam + ".bai").c_str())) {
+            //     INFO("Index located at " << OptionBase::bam << ".bai");
+            // } else {
+            //     FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
+            // }
+            // // end
 
-            BamTools::BamWriter writer;
-            writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
+            // std::vector<BamTools::BamAlignment> total_output;
+
+            // Single writer
+            // BamTools::BamWriter writer;
+            // writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
 
             // Total reads counter
             long long total = 0;
 
-            #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads) ordered
+            // // Code timers
+            // std::chrono::milliseconds total_elapsed_time_1(0);
+            // std::chrono::milliseconds total_elapsed_time_2(0);
+
+
+            // #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
+            #pragma omp parallel for ordered schedule(dynamic, 1) num_threads(OptionBase::threads)
             for (int i = 0; i < reference_windows.size(); ++i) {
                 std::vector<BamTools::BamAlignment> curr_output;
+                BamTools::BamWriter writer;
 
-                curr_output = FilterInWindow(reference_windows[i], readers[omp_get_thread_num()], cnt++, map_of_bad_first_reads_, map_of_bad_second_reads_, total);
+                // Multiple writer test
+                std::string new_bam_name = OptionBase::output_folder + "/" + bam_filename.substr(0, bam_filename.length() - 4).c_str() + "filtered" + std::to_string(i) + ".bam";
+                // if (OptionBase::dont_collect_reads) {
+                //     new_bam_name = OptionBase::bam;
+                // }
+
+                writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
+
+                // // Code timers
+                // auto start = std::chrono::high_resolution_clock::now();
+
+                // Multiple readers
+                // curr_output = FilterInWindow(reference_windows[i], readers[omp_get_thread_num()], cnt++, map_of_bad_first_reads_, map_of_bad_second_reads_, total);
+
+
+                FilterInWindow(reference_windows[i], readers[omp_get_thread_num()], cnt++, map_of_bad_first_reads_, map_of_bad_second_reads_, total, writer);
+                INFO("OUT OF FilterInWindow"<<i);
+
+
+                // single reader test
+                // curr_output = FilterInWindow(reference_windows[i], reader, cnt++, map_of_bad_first_reads_, map_of_bad_second_reads_, total);
+
+                // // Code timers
+                // auto end = std::chrono::high_resolution_clock::now();
+                // // Calculate the elapsed time for this iteration and add it
+                // auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+                // total_elapsed_time_1 += elapsed;
 
                 // INFO("# Reads: "<< curr_output.size());
 
                 // Filtered test
-                #pragma omp ordered
-                {
-                  for(int j = 0; j < curr_output.size(); ++j)
-                  {
-                    writer.SaveAlignment(curr_output[j]);
-                  }
-                }
+                // #pragma omp ordered
+                // {
+                //   // for(int j =0;j<curr_output.size();j++)
+                //   for(auto alignment:curr_output)
+                //   {
+                //     // // Code timers
+                //     // auto start = std::chrono::high_resolution_clock::now();
+                //
+                //     writer.SaveAlignment(alignment);
+                //     //writer.SaveAlignment(curr_output[j]);
+                //
+                //     // // Code timers
+                //     // auto end = std::chrono::high_resolution_clock::now();
+                //     // // Calculate the elapsed time for this iteration and add it
+                //     // auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+                //     // total_elapsed_time_2 += elapsed;
+                //   }
+                // }
                 // total_output.insert(total_output.end(), curr_output.begin(), curr_output.end());
 
-
+                writer.Close();
+                // INFO("OUT OF close");
                 //INFO(i << " " << omp_get_thread_num());
             }
             // INFO("Total Reads: "<< total_output.size());
-            writer.Close();
+
+            // INFO("OUT OF FOR");
+
+            // // Multiple writer test
+            // #pragma omp barrier
+            // {
+            // writer.Close();
+            // }
+
+
+            // INFO(total_elapsed_time_1.count() << " FilterInWindow Time");
+            // INFO(total_elapsed_time_2.count() << " SaveAlignment Time");
+
+            // Timer outputs
             INFO(total << " reads filtered in total.");
 
 
 
-            // exit(0);
+            // Merge BAM files:
+            std::string output_bam = "output/output.bam";
+            std::string samtools_command = "samtools merge " + output_bam + " output/*.bam";
+
+            // std::vector<std::string> bam_files;
+            // for (const auto &entry : fs::directory_iterator("./output")) {
+            //     if (entry.path().extension() == ".bam") {
+            //         bam_files.push_back(entry.path());
+            //     }
+            // }
+            //
+            // if (bam_files.size() == 0) {
+            //     std::cout << "No BAM files found in the current directory." << std::endl;
+            //     return 1;
+            // }
+            //
+            // INFO("Merging " << bam_files.size() << " BAM files into " << output_bam);
+            //
+            // std::string bam_file_list;
+            // for (const auto &bam_file : bam_files) {
+            //     bam_file_list += bam_file.string() + " ";
+            // }
+            // samtools_command = "samtools merge " + output_bam + " " + bam_file_list;
+
+            int return_code = std::system(samtools_command.c_str());
+
+            if (return_code != 0) {
+                INFO("samtools merge command failed with error code " << return_code);
+                exit(1);
+            }
+            INFO("Merging completed successfully.");
+
+
+
+            exit(0);
 
             // New code end
 
@@ -332,6 +437,8 @@ public:
             }
 
 */
+            // old code
+//
 //             //BamTools::BamWriter writer;
 //             writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
 //             long long total = 0;
@@ -383,7 +490,7 @@ public:
 //             INFO(total << " reads filtered total.");
         }
 
-        
+
         // ReadMap sizes
         INFO("# First ReadMap: "<< map_of_bad_first_reads_.size());
         INFO("# Second ReadMap: "<< map_of_bad_second_reads_.size());
@@ -415,6 +522,8 @@ public:
             new_bam_name = OptionBase::bam;
         }
 
+
+        // START OPT 2
 
         auto ref_data = reader.GetReferenceData();
 
@@ -473,6 +582,8 @@ public:
                     map_of_bad_reads_[read.second.second].push_back(read.second.first);
                 }
             }
+
+            // END OPT 2
 
             map_of_bad_first_reads_.clear();
             map_of_bad_second_reads_.clear();
@@ -632,7 +743,10 @@ private:
 
     void CreateReferenceWindows(std::vector<RefWindow> &reference_windows, BamTools::RefVector& ref_data, int overlap = 10000) {
         int number_of_windows = 0;
-        int window_width = 50000;
+        // TEST
+        int window_width = 15560000; //15mil
+        // TEST END
+        // int window_width = 10000;
         if (OptionBase::region_file == "") {
             for (auto reference : ref_data) {
                 //if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
@@ -672,15 +786,121 @@ private:
         INFO(number_of_windows << " totally created.");
     }
 
+    // std::vector<BamTools::BamAlignment>
+    void FilterInWindow(const RefWindow &window, BamTools::BamReader &reader, int cnt,
+      ReadMap &map_of_bad_first_reads_, ReadMap &map_of_bad_second_reads_, long long &total,
+    BamTools::BamWriter &writer)
+    {
 
-    std::vector<BamTools::BamAlignment> FilterInWindow(const RefWindow &window, BamTools::BamReader &reader, int cnt,
+      // CHANGES
+
+      // Process window code
+      // INFO("FilterInWindow: " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ") cnt: " << cnt);
+
+      BamTools::BamRegion region(reader.GetReferenceID(window.RefName.RefName), window.WindowStart, reader.GetReferenceID(window.RefName.RefName), window.WindowEnd);
+
+      //INFO(reader.GetReferenceID(window.RefName.RefName) << " " << reader.SetRegion(region));
+      BamTools::BamAlignment alignment;
+      // std::vector<BamTools::BamAlignment> output;
+
+      if (!reader.SetRegion(region)) {
+        INFO("SetRegion!");
+          // return output;
+      }
+
+      reader.SetRegion(region);
+
+      // ReadMap map_of_bad_first_reads_;
+      // ReadMap map_of_bad_second_reads_;
+      // long long total = 0;
+
+      while (reader.GetNextAlignmentCore(alignment)) {
+
+        std::string am_tag;
+        alignment.GetTagCore("AM", am_tag);
+
+        // debug
+        // auto len = alignment.Length;
+        // auto pos = alignment.Position;
+
+        // INFO("LEN: " << len);
+        // INFO("POS: " << pos);
+        // INFO("AM_TAG: " << am_tag);
+
+        // INFO("Alignment: "<<alignment.GetEndPosition());
+        if (!alignment.IsPrimaryAlignment())
+            continue;
+        if (alignment.IsDuplicate())
+            continue;
+
+        if (alignment.MapQuality == 60) {
+          // #pragma omp critical
+          // {
+            writer.SaveAlignment(alignment);
+          // }
+            // output.push_back(alignment);
+            continue;
+        }
+
+
+        if (am_tag == "0") {
+            std::string bx;
+
+            alignment.GetTagCore("BX", bx);
+            if (bx == "") {
+                continue;
+            }
+            alignment.BuildCharData();
+            if (alignment.IsFirstMate()) {
+//                        INFO(alignment.Name);
+//                        INFO(alignment.QueryBases);
+                std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
+                if (!query.empty() && !IsDegenerate(query)) {
+                    #pragma omp critical
+                    {
+                    map_of_bad_first_reads_[alignment.Name] = {Sequence(query), bx};
+                    VERBOSE_POWER(++total, " reads filtered!");
+                    }
+
+                }
+            }
+            else {
+//                       INFO(alignment.Name);
+//                       INFO(alignment.QueryBases);
+                std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
+                if (!query.empty() && !IsDegenerate(query)) {
+                    #pragma omp critical
+                    {
+                    map_of_bad_second_reads_[alignment.Name] = {Sequence(query), bx};
+                    VERBOSE_POWER(++total, " reads filtered!");
+                    }
+
+                }
+            }
+            continue;
+        }
+        // #pragma omp critical
+        // {
+        writer.SaveAlignment(alignment);
+        // }
+        // output.push_back(alignment);
+
+      }
+
+      INFO(total << " reads filtered total!");
+      // return output;
+
+    }
+
+    // Another filter in window function for second filtering segment
+    std::vector<BamTools::BamAlignment> FilterInWindow2(const RefWindow &window, BamTools::BamReader &reader, int cnt,
       ReadMap &map_of_bad_first_reads_, ReadMap &map_of_bad_second_reads_, long long &total)
     {
 
       // CHANGES
 
       // Process window code
-      INFO("FilterInWindow: " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ")");
+      // INFO("FilterInWindow: " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ") cnt: " << cnt);
 
       BamTools::BamRegion region(reader.GetReferenceID(window.RefName.RefName), window.WindowStart, reader.GetReferenceID(window.RefName.RefName), window.WindowEnd);
 
@@ -737,11 +957,8 @@ private:
 //                        INFO(alignment.QueryBases);
                 std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
                 if (!query.empty() && !IsDegenerate(query)) {
-                    #pragma omp critical
-                    {
-                        map_of_bad_first_reads_[alignment.Name] = {Sequence(query), bx};
-                        VERBOSE_POWER(++total, " reads filtered!");
-                    }
+                    map_of_bad_first_reads_[alignment.Name] = {Sequence(query), bx};
+                    VERBOSE_POWER(++total, " reads filtered!");
                 }
             }
             else {
@@ -749,12 +966,8 @@ private:
 //                       INFO(alignment.QueryBases);
                 std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
                 if (!query.empty() && !IsDegenerate(query)) {
-                    #pragma omp critical
-                    {
-
-                        map_of_bad_second_reads_[alignment.Name] = {Sequence(query), bx};
-                        VERBOSE_POWER(++total, " reads filtered!");
-                    }
+                    map_of_bad_second_reads_[alignment.Name] = {Sequence(query), bx};
+                    VERBOSE_POWER(++total, " reads filtered!");
                 }
             }
             continue;
@@ -1006,21 +1219,6 @@ private:
                               io::SingleRead(std::to_string(current_id), seq2.str(), std::string(seq2.size(), 'J')), 0);
     }
 
-    bool FROrientation(const BamTools::BamAlignment &alignment) {
-        if (alignment.IsFirstMate()) {
-            if (!(alignment.IsReverseStrand() == false && alignment.IsMateReverseStrand()))
-                return false;
-        } else {
-            if (!(alignment.IsReverseStrand() && alignment.IsMateReverseStrand() == false))
-                return  false;
-        }
-        if (alignment.IsFirstMate()) {
-            return alignment.Position < alignment.MatePosition;
-        } else {
-            return alignment.Position > alignment.MatePosition;
-        }
-        return true;
-    }
 
     bool NoID(mm_reg1_t *r, int index) {
         if (index + 1 == r->p->n_cigar)
