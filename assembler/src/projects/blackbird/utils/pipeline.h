@@ -609,6 +609,67 @@ private:
 
     }
 
+
+    std::vector<std::tuple<int, int, int>> FindLowCoveredRanges(const BamTools::BamRegion &region, BamTools::BamReader &reader) {
+        std::map<int, int> coverageMap;
+        BamTools::BamAlignment alignment;
+        while (reader.GetNextAlignment(alignment)) {
+            if (alignment.IsMapped()) {
+                int start = alignment.Position;
+                int end = alignment.GetEndPosition();
+                for (int pos = start; pos <= end; pos++) {
+                    coverageMap[pos]++;
+                }
+            }
+        }
+        int MIN_COVERAGE = 3;
+        std::vector<std::tuple<int, int, int>> intervals;
+        int start = -1;
+        for (const auto& entry : coverageMap) {
+            int pos = entry.first;
+            int coverage = entry.second;
+            if (coverage < MIN_COVERAGE) {
+                if (start == -1) {
+                    start = pos;
+                }
+            } else {
+                if (start != -1) {
+                    intervals.push_back(std::make_tuple(region.RightRefID, start, pos - 1));
+                    start = -1;
+                }
+            }
+        }
+        if (start != -1) {
+            intervals.push_back(std::make_tuple(region.RightRefID, start, coverageMap.rbegin()->first));
+        }
+
+        std::vector<std::tuple<int, int, int>> filteredIntervals;
+
+        for (const auto& interval : intervals) {
+            bool hasDeletion = false;
+            BamTools::BamAlignment alignment;
+            int refId = std::get<0>(interval);
+            int start = std::get<1>(interval);
+            int end = std::get<2>(interval);
+            reader.SetRegion(refId, start - 100, refId, end);
+            while (reader.GetNextAlignment(alignment)) {
+                if (alignment.IsMapped() && alignment.IsPaired()) {
+                    if (alignment.IsProperPair() &&
+                        (alignment.Position < start || alignment.GetEndPosition() > end)) {
+                        hasDeletion = true;
+                        break;
+                    }
+                }
+            }
+            if (!hasDeletion) {
+                filteredIntervals.push_back(interval);
+            }
+        }
+
+
+        return filteredIntervals;
+    }
+
     void ProcessWindow(const RefWindow &window,  BamTools::BamReader &reader, BamTools::BamReader &mate_reader, BamTools::BamReader &long_read_reader) {
         INFO("Processing " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ")");
         BamTools::BamRegion region(reader.GetReferenceID(window.RefName.RefName), window.WindowStart, reader.GetReferenceID(window.RefName.RefName), window.WindowEnd);
@@ -619,6 +680,13 @@ private:
         if (!reader.SetRegion(region)) {
             return;
         }
+
+        std::vector<std::tuple<int, int, int>> intervals;
+        if (!OptionBase::use_long_reads) {
+            intervals = FindLowCoveredRanges(region, reader);
+            reader.SetRegion(region);
+        }
+
         std::unordered_map<std::string, int> barcodes_count;
         std::set<std::string> barcodes_count_over_threshold_prelim;
         std::unordered_set<std::string> barcodes_count_over_threshold;
