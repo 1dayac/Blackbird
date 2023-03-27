@@ -238,33 +238,7 @@ public:
 
         if (!OptionBase::dont_collect_reads) {
             INFO("Start filtering reads with bad AM tag...");
-/*
-            BamTools::BamReader temp_reader;
-            temp_reader.Open(OptionBase::bam);
-            auto ref_data = temp_reader.GetReferenceData();
-            std::vector<RefWindow> reference_windows;
-            CreateReferenceWindows(reference_windows, ref_data, 0);
-            temp_reader.Close();
 
-            std::vector<BamTools::BamReader> filtering_readers(OptionBase::threads);
-
-            for (auto &r : filtering_readers) {
-                r.Open(OptionBase::bam.c_str());
-                if (r.OpenIndex((OptionBase::bam + ".bai").c_str())) {
-                    INFO("Index located at " << OptionBase::bam << ".bai");
-                } else {
-                    FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
-                }
-            }
-
-
-            #pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
-            for (int i = 0; i < reference_windows.size(); ++i) {
-                FilterInWindow(reference_windows[i], filtering_readers[omp_get_thread_num()]);
-                INFO(i << " " << omp_get_thread_num());
-            }
-
-*/
 
             BamTools::BamWriter writer;
             writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
@@ -604,10 +578,6 @@ private:
         INFO(number_of_windows << " totally created.");
     }
 
-    void FilterInWindow(const RefWindow &window, BamTools::BamReader &reader) {
-
-
-    }
 
 
     std::vector<std::tuple<int, int, int>> FindLowCoveredRanges(const BamTools::BamRegion &region, BamTools::BamReader &reader) {
@@ -1072,10 +1042,13 @@ private:
                 const auto intervalStart = std::get<1>(interval);
                 const auto intervalEnd = std::get<2>(interval);
 
-                if (deletionPos >= intervalStart && deletionPos <= intervalEnd) {
+                if (!(deletionPos >= intervalStart && deletionPos <= intervalEnd)) {
                     // the deletion falls within the interval, so we add it to the filtered deletions vector
                     filteredDeletions.push_back(deletion);
                 }
+
+            } else {
+                filteredDeletions.push_back(deletion);
             }
         }
         return filteredDeletions;
@@ -1410,84 +1383,6 @@ private:
         return false;
     }
 
-    bool IsGoodAlignment(BamTools::BamAlignment &alignment) {
-        auto cigar = alignment.CigarData;
-        for (auto ch : alignment.Qualities) {
-            if (ch < '5') {
-                return false;
-            }
-        }
-        if (cigar.size() == 1 && cigar[0].Type == 'M' && alignment.RefID == alignment.MateRefID) {
-            return true;
-        }
-        return false;
-    }
-
-    bool OutputPairedRead(BamTools::BamAlignment &alignment, io::OPairedReadStream<std::ofstream, io::FastqWriter> &out_stream, BamTools::BamReader &reader) {
-
-        io::SingleRead first;
-        io::SingleRead second;
-        //INFO("Jump to " << alignment.MateRefID << " " << alignment.MatePosition);
-        if (alignment.IsFirstMate()) {
-            std::string read_name = alignment.Name;
-            first = CreateRead(alignment);
-            VERBOSE_POWER(++jumps, " jumps");
-            reader.Jump(alignment.MateRefID, alignment.MatePosition);
-            BamTools::BamAlignment mate_alignment;
-            int jump_num = 0;
-            while(mate_alignment.Position < alignment.MatePosition) {
-                ++jump_num;
-                if (jump_num > 500) {
-                    return false;
-                }
-                if(!reader.GetNextAlignmentCore(mate_alignment) || mate_alignment.RefID != alignment.MateRefID) {
-                    return false;
-                }
-            }
-            mate_alignment.BuildCharData();
-            while(mate_alignment.Name != alignment.Name || mate_alignment.IsFirstMate() || !mate_alignment.IsPrimaryAlignment()) {
-                if(!reader.GetNextAlignment(mate_alignment)) {
-                    return false;
-                }
-                if (mate_alignment.Position > alignment.MatePosition || mate_alignment.RefID != alignment.MateRefID) {
-                    return false;
-                }
-            }
-            second = CreateRead(mate_alignment);
-        } else {
-            second = CreateRead(alignment);
-            std::string read_name = alignment.Name;
-            VERBOSE_POWER(++jumps, " jumps");
-            //INFO("Jump to " << alignment.MateRefID << " " << alignment.MatePosition);
-            reader.Jump(alignment.MateRefID, alignment.MatePosition);
-            BamTools::BamAlignment mate_alignment;
-            int jump_num = 0;
-            while(mate_alignment.Position < alignment.MatePosition) {
-                ++jump_num;
-                if (jump_num > 500) {
-                    return false;
-                }
-                if(!reader.GetNextAlignmentCore(mate_alignment) || mate_alignment.RefID != alignment.MateRefID) {
-                    return false;
-                }
-            }
-
-            mate_alignment.BuildCharData();
-            while(mate_alignment.Name != alignment.Name || mate_alignment.IsSecondMate() || !mate_alignment.IsPrimaryAlignment()) {
-                if(!reader.GetNextAlignment(mate_alignment)) {
-                    return false;
-                }
-
-                if (mate_alignment.Position > alignment.MatePosition || mate_alignment.RefID != alignment.MateRefID) {
-                    return false;
-                }
-            }
-            first = CreateRead(mate_alignment);
-        }
-        io::PairedRead pair(first, second, 0);
-        out_stream << pair;
-        return true;
-    }
 
     io::SingleRead CreateRead(BamTools::BamAlignment &alignment) {
         std::string bases = alignment.IsReverseStrand() ?  ReverseComplement(alignment.QueryBases) : alignment.QueryBases;
