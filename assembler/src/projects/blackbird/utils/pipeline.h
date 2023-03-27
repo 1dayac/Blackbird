@@ -160,7 +160,7 @@ class BlackBirdLauncher {
         io::FastaFastqGzParser reference_reader(reference);
         io::SingleRead reference_contig;
         reference_reader >> reference_contig;
-        RunAndProcessMinimap(contig, reference_contig.GetSequenceString(), "1", 0);
+        RunAndProcessMinimap(contig, reference_contig.GetSequenceString(), "1", 0, std::vector<std::tuple<int, int, int>>{});
         std::sort(vector_of_ins_.begin(), vector_of_ins_.end());
         std::sort(vector_of_del_.begin(), vector_of_del_.end());
         Print(vector_of_ins_, vector_of_del_, writer_);
@@ -889,7 +889,7 @@ private:
         std::system(spades_command.c_str());
         auto const& const_reference_map = reference_map_;
         std::string subreference = const_reference_map.at(const_refid_to_ref_name.at(region.RightRefID)).substr(region.LeftPosition, region.RightPosition - region.LeftPosition);
-        int hits = RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition);
+        int hits = RunAndProcessMinimap(temp_dir + "/assembly/contigs.fasta", subreference, window.RefName.RefName, region.LeftPosition, intervals);
         if (!OptionBase::keep_assembly_folders)
             fs::remove_dir(temp_dir.c_str());
     }
@@ -1056,7 +1056,32 @@ private:
     }
 
 
-    int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos) {
+    std::vector<Deletion> FilterDeletions(const std::vector<std::tuple<int, int, int>> &filteredIntervals, const std::vector<Deletion> &deletions) {
+        std::vector<Deletion> filteredDeletions;
+        // iterate through all the deletions
+        for (const auto& deletion : deletions) {
+            const auto deletionPos = deletion.ref_position_;
+
+            // perform a binary search to check if the deletion falls within any of the intervals
+            const auto intervalIter = std::lower_bound(filteredIntervals.begin(), filteredIntervals.end(), deletionPos, [](const std::tuple<int, int, int>& interval, const int position) {
+                return std::get<2>(interval) < position;
+            });
+
+            if (intervalIter != filteredIntervals.end()) {
+                const auto& interval = *intervalIter;
+                const auto intervalStart = std::get<1>(interval);
+                const auto intervalEnd = std::get<2>(interval);
+
+                if (deletionPos >= intervalStart && deletionPos <= intervalEnd) {
+                    // the deletion falls within the interval, so we add it to the filtered deletions vector
+                    filteredDeletions.push_back(deletion);
+                }
+            }
+        }
+        return filteredDeletions;
+    }
+
+    int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos, const std::vector<std::tuple<int, int, int>> &intervals) {
         //std::string reference_reverse = reference;
         //std::reverse(reference_reverse.begin(), reference_reverse.end());
         const char *reference_cstyle = reference.c_str();
@@ -1252,7 +1277,8 @@ private:
                     }// IMPORTANT: this gives the CIGAR in the aligned regions. NO soft/hard clippings!
                 }
                 free(r->p);
-                auto merged_dels = MergeDeletions(deletions, reference, start_pos);
+                auto filtered_deletions = FilterDeletions(intervals, deletions);
+                auto merged_dels = MergeDeletions(filtered_deletions, reference, start_pos);
                 for (auto del : merged_dels) {
 
                     WriteCritical(vector_of_del_, del);
