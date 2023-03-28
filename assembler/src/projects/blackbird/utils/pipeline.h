@@ -613,6 +613,8 @@ private:
             intervals.push_back(std::make_tuple(region.RightRefID, start, coverageMap.rbegin()->first));
         }
 
+        INFO("Found " << intervals.size() << " intervals");
+
         std::vector<std::tuple<int, int, int>> filteredIntervals;
 
         for (const auto& interval : intervals) {
@@ -634,11 +636,13 @@ private:
             if (!hasDeletion) {
                 filteredIntervals.push_back(interval);
             }
+            INFO("Interval " << std::get<0>(interval) << ":" << std::get<1>(interval) << "-" << std::get<2>(interval) << " has deletion = " << (hasDeletion ? "true" : "false"));
         }
 
-
+        INFO("Returning " << filteredIntervals.size() << " filtered intervals");
         return filteredIntervals;
     }
+
 
     void ProcessWindow(const RefWindow &window,  BamTools::BamReader &reader, BamTools::BamReader &mate_reader, BamTools::BamReader &long_read_reader) {
         INFO("Processing " << window.RefName.RefName << " " << window.WindowStart << "-" << window.WindowEnd << " (thread " << omp_get_thread_num() << ")");
@@ -1028,10 +1032,11 @@ private:
 
     std::vector<Deletion> FilterDeletions(const std::vector<std::tuple<int, int, int>> &filteredIntervals, const std::vector<Deletion> &deletions) {
         std::vector<Deletion> filteredDeletions;
+        INFO("Filtering deletions...");
         // iterate through all the deletions
         for (const auto& deletion : deletions) {
             const auto deletionPos = deletion.ref_position_;
-
+            INFO("Checking deletion at position " << deletionPos);
             // perform a binary search to check if the deletion falls within any of the intervals
             const auto intervalIter = std::lower_bound(filteredIntervals.begin(), filteredIntervals.end(), deletionPos, [](const std::tuple<int, int, int>& interval, const int position) {
                 return std::get<2>(interval) < position;
@@ -1045,15 +1050,21 @@ private:
                 if (!(deletionPos >= intervalStart && deletionPos <= intervalEnd)) {
                     // the deletion falls within the interval, so we add it to the filtered deletions vector
                     filteredDeletions.push_back(deletion);
+                    INFO("Deletion at position " << deletionPos << " added to filtered deletions");
+                } else {
+                    INFO("Deletion at position " << deletionPos << " is within interval [" << intervalStart << ", " << intervalEnd << "]");
                 }
 
             } else {
                 filteredDeletions.push_back(deletion);
+                INFO("Deletion at position " << deletionPos << " added to filtered deletions as there are no filtered intervals for the region");
             }
         }
         return filteredDeletions;
     }
 
+
+    
     int RunAndProcessMinimap(const std::string &path_to_scaffolds, const std::string &reference, const std::string &ref_name, int start_pos, const std::vector<std::tuple<int, int, int>> &intervals) {
         //std::string reference_reverse = reference;
         //std::reverse(reference_reverse.begin(), reference_reverse.end());
