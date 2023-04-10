@@ -891,19 +891,20 @@ private:
     }
 
     bool FROrientation(const BamTools::BamAlignment &alignment) {
-        if (alignment.IsFirstMate()) {
-            if (!(alignment.IsReverseStrand() == false && alignment.IsMateReverseStrand()))
-                return false;
-        } else {
-            if (!(alignment.IsReverseStrand() && alignment.IsMateReverseStrand() == false))
-                return  false;
+
+        // Check if the read pair has FR orientation
+        if (alignment.IsProperPair() && alignment.IsFirstMate()) {
+            if (alignment.IsReverseStrand() && !alignment.IsMateReverseStrand()) {
+                return true;
+            }
+        } else if (alignment.IsProperPair() && alignment.IsSecondMate()) {
+            if (!alignment.IsReverseStrand() && alignment.IsMateReverseStrand()) {
+                return true;
+            }
         }
-        if (alignment.IsFirstMate()) {
-            return alignment.Position < alignment.MatePosition;
-        } else {
-            return alignment.Position > alignment.MatePosition;
-        }
-        return true;
+
+        // If the read pair doesn't have FR orientation, return false
+        return false;
     }
 
     bool NoID(mm_reg1_t *r, int index) {
