@@ -249,8 +249,6 @@ public:
                 if (alignment.IsDuplicate())
                     continue;
 
-                if (abs(alignment.InsertSize) < 500 && alignment.IsMapped() && alignment.IsMateMapped() && !FROrientation(alignment))
-                    continue;
 
                 if (alignment.MapQuality == 60) {
                     writer.SaveAlignment(alignment);
@@ -260,7 +258,7 @@ public:
                 std::string am_tag;
                 alignment.GetTagCore("AM", am_tag);
 
-                if (am_tag == "0") {
+                if (am_tag == "0" || (abs(alignment.InsertSize) < 500 && alignment.IsMapped() && alignment.IsMateMapped() && !FROrientation(alignment))) {
                     std::string bx;
 
                     alignment.GetTagCore("BX", bx);
