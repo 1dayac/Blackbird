@@ -893,12 +893,13 @@ private:
     bool FROrientation(const BamTools::BamAlignment &alignment) {
 
         // Check if the read pair has FR orientation
+        return alignment.IsProperPair() &&  (alignment.IsReverseStrand() != alignment.IsMateReverseStrand());
         if (alignment.IsProperPair() && alignment.IsFirstMate()) {
-            if (alignment.IsReverseStrand() && !alignment.IsMateReverseStrand()) {
+            if (!alignment.IsReverseStrand() && alignment.IsMateReverseStrand()) {
                 return true;
             }
         } else if (alignment.IsProperPair() && alignment.IsSecondMate()) {
-            if (!alignment.IsReverseStrand() && alignment.IsMateReverseStrand()) {
+            if (alignment.IsReverseStrand() && !alignment.IsMateReverseStrand()) {
                 return true;
             }
         }
