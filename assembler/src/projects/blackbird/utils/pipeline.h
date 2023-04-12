@@ -1384,7 +1384,7 @@ private:
             return true;
         }
 
-        if (alignment.RefID != alignment.MateRefID) {
+        if (alignment.RefID != alignment.MateRefID || abs(alignment.InsertSize) > 1000) {
             return true;
         }
 
