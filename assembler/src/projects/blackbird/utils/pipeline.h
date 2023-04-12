@@ -1388,6 +1388,9 @@ private:
             return true;
         }
 
+        if(!FROrientation(alignment)) {
+            return true;
+        }
 //        std::string tag;
 //        alignment.GetTagCore("AM", tag);
 //        if (tag == "0") {
