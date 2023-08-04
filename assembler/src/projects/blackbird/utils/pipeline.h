@@ -42,7 +42,7 @@ typedef phmap::parallel_flat_hash_map<std::string, std::pair<Sequence, std::stri
         phmap::container_internal::hash_default_eq<std::string>,
         phmap::container_internal::Allocator<
                 phmap::container_internal::Pair<const std::string, std::pair<Sequence, std::string>>>,
-        4, phmap::NullMutex> ReadMap;
+        4, std::mutex> ReadMap;
 
 typedef phmap::parallel_flat_hash_map<std::string, Sequence,
         phmap::container_internal::hash_default_hash<std::string>,
