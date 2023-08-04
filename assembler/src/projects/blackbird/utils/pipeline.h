@@ -166,6 +166,85 @@ class BlackBirdLauncher {
         Print(vector_of_ins_, vector_of_del_, writer_);
     }
 
+    void FilterBadAlignments(BamTools::BamReader &reader, ReadMap &map_of_bad_first_reads_, ReadMap &map_of_bad_second_reads_) {
+
+        BamTools::BamAlignment alignment;
+
+        INFO("Filter poorly aligned reads");
+        while(reader.GetNextAlignmentCore(alignment)) {
+            if (!alignment.IsPrimaryAlignment())
+                continue;
+            alignment.BuildCharData();
+            if (IsBadAlignment(alignment, refid_to_ref_name_)) {
+                if (alignment.QueryBases.find("N") == std::string::npos && !IsDegenerate(alignment.QueryBases)) {
+
+                    std::string bx;
+                    alignment.GetTagCore("BX", bx);
+                    if (bx == "") {
+                        continue;
+                    }
+                    std::string query = alignment.QueryBases;
+                    if (query.empty())
+                        continue;
+                    if (alignment.IsFirstMate())
+                        map_of_bad_first_reads_[alignment.Name] = {Sequence(query), bx};
+                    else
+                        map_of_bad_second_reads_[alignment.Name] = {Sequence(query), bx};
+                }
+            }
+        }
+
+    }
+
+    void ParallelFilterAMTag(const RefWindow& window, BamTools::BamReader &reader, BamTools::BamWriter &writer, ReadMap &map_of_bad_first_reads_, ReadMap &map_of_bad_second_reads_) {
+        BamTools::BamRegion region(reader.GetReferenceID(window.RefName.RefName), window.WindowStart, reader.GetReferenceID(window.RefName.RefName), window.WindowEnd);
+
+        BamTools::BamAlignment alignment;
+        if (!reader.SetRegion(region)) {
+            return;
+        }
+
+        while (reader.GetNextAlignmentCore(alignment)) {
+            if (!alignment.IsPrimaryAlignment())
+                continue;
+            if (alignment.IsDuplicate())
+                continue;
+
+
+            if (alignment.MapQuality == 60) {
+                writer.SaveAlignment(alignment);
+                continue;
+            }
+
+            std::string am_tag;
+            alignment.GetTagCore("AM", am_tag);
+
+            if (am_tag == "0" || (abs(alignment.InsertSize) < 500 && alignment.IsMapped() && alignment.IsMateMapped() && !FROrientation(alignment))) {
+                std::string bx;
+
+                alignment.GetTagCore("BX", bx);
+                if (bx == "") {
+                    continue;
+                }
+                alignment.BuildCharData();
+                if (alignment.IsFirstMate()) {
+                    std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
+                    if (!query.empty() && !IsDegenerate(query)) {
+                        map_of_bad_first_reads_[alignment.Name] = {Sequence(query), bx};
+                    }
+                }
+                else {
+                    std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
+                    if (!query.empty() && !IsDegenerate(query)) {
+                        map_of_bad_second_reads_[alignment.Name] = {Sequence(query), bx};
+                    }
+                }
+                continue;
+            }
+            writer.SaveAlignment(alignment);
+        }
+    }
+
 
 public:
     BlackBirdLauncher () = default;
@@ -236,60 +315,42 @@ public:
 
 
 
-        if (!OptionBase::dont_collect_reads) {
-            INFO("Start filtering reads with bad AM tag...");
+        std::vector<RefWindow> initial_reference_windows;
+        auto ref_data = preliminary_reader.GetReferenceData();
+        CreateReferenceWindows(initial_reference_windows, ref_data, 50000, 0);
 
+        std::vector<BamTools::BamReader> filtering_readers(OptionBase::threads);
 
-            BamTools::BamWriter writer;
-            writer.Open(new_bam_name, preliminary_reader.GetConstSamHeader(), preliminary_reader.GetReferenceData());
-            long long total = 0;
-            while (preliminary_reader.GetNextAlignmentCore(alignment)) {
-                if (!alignment.IsPrimaryAlignment())
-                    continue;
-                if (alignment.IsDuplicate())
-                    continue;
-
-
-                if (alignment.MapQuality == 60) {
-                    writer.SaveAlignment(alignment);
-                    continue;
-                }
-
-                std::string am_tag;
-                alignment.GetTagCore("AM", am_tag);
-
-                if (am_tag == "0" || (abs(alignment.InsertSize) < 500 && alignment.IsMapped() && alignment.IsMateMapped() && !FROrientation(alignment))) {
-                    std::string bx;
-
-                    alignment.GetTagCore("BX", bx);
-                    if (bx == "") {
-                        continue;
-                    }
-                    alignment.BuildCharData();
-                    if (alignment.IsFirstMate()) {
-//                        INFO(alignment.Name);
-//                        INFO(alignment.QueryBases);
-                        std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
-                        if (!query.empty() && !IsDegenerate(query)) {
-                            map_of_bad_first_reads_[alignment.Name] = {Sequence(query), bx};
-                            VERBOSE_POWER(++total, " reads filtered");
-                        }
-                    }
-                    else {
- //                       INFO(alignment.Name);
- //                       INFO(alignment.QueryBases);
-                        std::string query = alignment.QueryBases.find_last_of("N") == std::string::npos ? alignment.QueryBases : alignment.QueryBases.substr(alignment.QueryBases.find_last_of("N") + 1);
-                        if (!query.empty() && !IsDegenerate(query)) {
-                            map_of_bad_second_reads_[alignment.Name] = {Sequence(query), bx};
-                            VERBOSE_POWER(++total, " reads filtered");
-                        }
-                    }
-                    continue;
-                }
-                writer.SaveAlignment(alignment);
+        for (auto &r : filtering_readers) {
+            r.Open(OptionBase::bam.c_str());
+            if (r.OpenIndex((OptionBase::bam + ".bai").c_str())) {
+                INFO("Index located at " << OptionBase::bam << ".bai");
+            } else {
+                FATAL_ERROR("Index at " << OptionBase::bam << ".bai" << " can't be located")
             }
-            writer.Close();
-            INFO(total << " reads filtered total.");
+        }
+
+        std::vector<BamTools::BamWriter> filtering_writers(OptionBase::threads);
+        if (!OptionBase::dont_collect_reads) {
+
+            int current_index = 0;
+            for (auto &w: filtering_writers) {
+                w.Open(std::to_string(current_index) + ".bam", preliminary_reader.GetConstSamHeader(),
+                       preliminary_reader.GetReferenceData());
+                current_index++;
+            }
+
+#pragma omp parallel for schedule(dynamic, 1) num_threads(OptionBase::threads)
+            for (int i = 0; i < initial_reference_windows.size(); ++i) {
+                ParallelFilterAMTag(initial_reference_windows[i], filtering_readers[omp_get_thread_num()],
+                                    filtering_writers[omp_get_thread_num()], map_of_bad_first_reads_,
+                                    map_of_bad_second_reads_);
+                INFO(i << " " << omp_get_thread_num());
+            }
+
+            for (auto &w: filtering_writers) {
+                w.Close();
+            }
         }
 
         if (OptionBase::use_long_reads) {
@@ -305,13 +366,21 @@ public:
 
         BamTools::BamReader reader;
         BamTools::BamReader mate_reader;
+        std::vector<BamTools::BamReader> final_readers(OptionBase::threads);
+        std::vector<BamTools::BamReader> final_mate_readers(OptionBase::threads);
 
         if (!OptionBase::dont_collect_reads) {
-            reader.Open(new_bam_name.c_str());
-            INFO(new_bam_name);
-            mate_reader.Open(new_bam_name.c_str());
-            INFO("Creating index file...");
-            reader.CreateIndex(BamTools::BamIndex::STANDARD);
+
+#pragma omp parallel for schedule(static, 1) num_threads(OptionBase::threads)
+            for (auto &f : final_readers) {
+                f.Open(omp_get_thread_num() + ".bam");
+                f.CreateIndex(BamTools::BamIndex::STANDARD);
+            }
+#pragma omp parallel for schedule(static, 1) num_threads(OptionBase::threads)
+            for (auto &f : final_mate_readers) {
+                f.Open(new_bam_name.c_str());
+            }
+
         }
         else {
             reader.Open(OptionBase::bam.c_str());
@@ -320,7 +389,7 @@ public:
         }
 
 
-        auto ref_data = reader.GetReferenceData();
+        //auto ref_data = reader.GetReferenceData();
 
         for (auto& reference : ref_data) {
             refid_to_ref_name_[reader.GetReferenceID(reference.RefName)] = reference.RefName;
@@ -328,41 +397,13 @@ public:
 
         if (!OptionBase::dont_collect_reads) {
 
-
-            size_t alignment_count = 0;
-            size_t alignments_stored = 0;
+            #pragma omp parallel for schedule(static, 1) num_threads(OptionBase::threads)
+            for (int i = 0; i < OptionBase::threads; ++i) {
+                int current_thread_num = omp_get_thread_num();
+                FilterBadAlignments(final_readers[i], map_of_bad_first_reads_, map_of_bad_second_reads_);
+            }
             size_t bad_read_pairs_stored = 0;
 
-            int current_refid = -1;
-            INFO("Filter poorly aligned reads");
-            while(reader.GetNextAlignmentCore(alignment)) {
-                VERBOSE_POWER(++alignment_count, " alignments processed");
-                if (alignment.RefID != current_refid) {
-                    current_refid = alignment.RefID;
-                    DEBUG("Processing chromosome " << refid_to_ref_name_[current_refid]);
-                }
-                if (!alignment.IsPrimaryAlignment())
-                    continue;
-                alignment.BuildCharData();
-                if (IsBadAlignment(alignment, refid_to_ref_name_)) {
-                    if (alignment.QueryBases.find("N") == std::string::npos && !IsDegenerate(alignment.QueryBases)) {
-
-                        std::string bx;
-                        alignment.GetTagCore("BX", bx);
-                        if (bx == "") {
-                            continue;
-                        }
-                        std::string query = alignment.QueryBases;
-                        if (query.empty())
-                            continue;
-                        if (alignment.IsFirstMate())
-                            map_of_bad_first_reads_[alignment.Name] = {Sequence(query), bx};
-                        else
-                            map_of_bad_second_reads_[alignment.Name] = {Sequence(query), bx};
-                        VERBOSE_POWER(++alignments_stored, " alignments stored");
-                    }
-                }
-            }
             for (auto read : map_of_bad_first_reads_) {
                 if (map_of_bad_second_reads_.count(read.first)) {
                     map_of_bad_read_pairs_[read.second.second].push_back({read.second.first, map_of_bad_second_reads_[read.first].first});
@@ -380,9 +421,7 @@ public:
 
             map_of_bad_first_reads_.clear();
             map_of_bad_second_reads_.clear();
-            INFO("Total " << alignment_count << " alignments processed");
-            INFO("Total " << alignments_stored << " alignments stored");
-            INFO("Total " << bad_read_pairs_stored << " bad read pairs stored");
+            INFO("Total " << map_of_bad_read_pairs_.size() << " bad read pairs stored");
             reader.Close();
         } else {
             INFO("Read collection is disabled. Use for debug purposes only!");
@@ -393,7 +432,7 @@ public:
 
 
         std::vector<RefWindow> reference_windows;
-        CreateReferenceWindows(reference_windows, ref_data, 10000);
+        CreateReferenceWindows(reference_windows, ref_data, 50000, 10000);
 
         std::vector<BamTools::BamReader> readers(OptionBase::threads);
         std::vector<BamTools::BamReader> mate_readers(OptionBase::threads);
@@ -534,9 +573,8 @@ private:
 
 
 
-    void CreateReferenceWindows(std::vector<RefWindow> &reference_windows, BamTools::RefVector& ref_data, int overlap = 10000) {
+    void CreateReferenceWindows(std::vector<RefWindow> &reference_windows, BamTools::RefVector& ref_data, int window_width = 50000, int overlap = 10000) {
         int number_of_windows = 0;
-        int window_width = 50000;
         if (OptionBase::region_file == "") {
             for (auto reference : ref_data) {
                 //if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
