@@ -317,7 +317,7 @@ public:
 
         std::vector<RefWindow> initial_reference_windows;
         auto ref_data = preliminary_reader.GetReferenceData();
-        CreateReferenceWindows(initial_reference_windows, ref_data, 50000, 0);
+        CreateReferenceWindows(initial_reference_windows, ref_data, 500000, 0, false);
 
         std::vector<BamTools::BamReader> filtering_readers(OptionBase::threads);
 
@@ -573,9 +573,9 @@ private:
 
 
 
-    void CreateReferenceWindows(std::vector<RefWindow> &reference_windows, BamTools::RefVector& ref_data, int window_width = 50000, int overlap = 10000) {
+    void CreateReferenceWindows(std::vector<RefWindow> &reference_windows, BamTools::RefVector& ref_data, int window_width = 50000, int overlap = 10000, bool use_region_file = true) {
         int number_of_windows = 0;
-        if (OptionBase::region_file == "") {
+        if (OptionBase::region_file == "" || !use_region_file) {
             for (auto reference : ref_data) {
                 //if(target_region.LeftRefID != reader.GetReferenceID(reference.RefName)) {
                 //    continue;
