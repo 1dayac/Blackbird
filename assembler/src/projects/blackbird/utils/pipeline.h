@@ -335,7 +335,7 @@ public:
 
             int current_index = 0;
             for (auto &w: filtering_writers) {
-                w.Open(std::to_string(current_index) + ".bam", preliminary_reader.GetConstSamHeader(),
+                w.Open(OptionBase::output_folder + "/" + std::to_string(current_index) + ".bam", preliminary_reader.GetConstSamHeader(),
                        preliminary_reader.GetReferenceData());
                 current_index++;
             }
@@ -373,12 +373,12 @@ public:
 
 #pragma omp parallel for schedule(static, 1) num_threads(OptionBase::threads)
             for (auto &f : final_readers) {
-                f.Open(omp_get_thread_num() + ".bam");
+                f.Open(OptionBase::output_folder + "/" +  std::to_string(omp_get_thread_num()) + ".bam");
                 f.CreateIndex(BamTools::BamIndex::STANDARD);
             }
 #pragma omp parallel for schedule(static, 1) num_threads(OptionBase::threads)
             for (auto &f : final_mate_readers) {
-                f.Open(new_bam_name.c_str());
+                f.Open(OptionBase::output_folder + "/" + std::to_string(omp_get_thread_num()) + ".bam");
             }
 
         }
