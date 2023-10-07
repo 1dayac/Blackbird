@@ -297,7 +297,10 @@ public:
             io::SingleRead long_read;
             while (!long_read_parser.eof()) {
                 long_read_parser >> long_read;
-                long_read.ChangeName(long_read.name().substr(0, long_read.name().find(' ')));
+                if (long_read.name().find(' ') != std::string::npos) {
+                    long_read.ChangeName(long_read.name().substr(0, long_read.name().find(' ')));
+                }
+                INFO(long_read.name());
                 map_of_long_reads_[long_read.name()] = {long_read.sequence()};
             }
             INFO(map_of_long_reads_.size() << " long reads added to the memory");
