@@ -874,7 +874,6 @@ private:
 
     template<class T>
     void WriteCritical(std::vector<T> &v, const T& t) {
-        INFO(t.ToString());
 #pragma omp critical
         {
             v.push_back(t);
@@ -1173,7 +1172,8 @@ private:
                             if (ins_seq.find("N") == std::string::npos && qsize > 5000 && NoID(r, i)) {
                                 if (ins.Size() >= 50) {
                                     insertions.push_back(ins);
-//                                    WriteCritical(vector_of_ins_, ins);
+                                    INFO(ins.ToString());
+                                    WriteCritical(vector_of_ins_, ins);
                                 } else {
                                     WriteCritical(vector_of_small_ins_, ins);
                                 }
@@ -1270,7 +1270,7 @@ private:
                 auto filtered_deletions = FilterDeletions(intervals, deletions);
                 auto merged_dels = MergeDeletions(filtered_deletions, reference, start_pos);
                 for (auto del : merged_dels) {
-
+                    INFO(del.ToString());
                     WriteCritical(vector_of_del_, del);
                 }
                 auto merged_ins = MergeInsertions(insertions, reference, start_pos);
