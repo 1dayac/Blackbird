@@ -83,7 +83,7 @@ a/genome.fa -o blackbird_10X_chr1 -g genome.txt -t 32 -s /home/dmm2017/spades_fo
 
 ## Publications
 
-Blackbird is not published yet, but it is selected for presentation at [Genome Informatics 2022](https://coursesandconferences.wellcomeconnectingscience.org/event/genome-informatics-20220921/).
+Blackbird is published in [Bioinformatics Advances]([https://coursesandconferences.wellcomeconnectingscience.org/event/genome-informatics-20220921/](https://academic.oup.com/bioinformaticsadvances/article/5/1/vbaf151/8186036)).
 
 ## Contact & Support
 
